@@ -1,0 +1,61 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+ 
+    <bean id="index"
+        class="org.springframework.web.servlet.view.JstlView">
+        <property name="url" value="/WEB-INF/views/main/index.jsp" />
+    </bean>
+    
+<!--     <bean id="home" -->
+<!--         class="org.springframework.web.servlet.view.JstlView"> -->
+<!--         <property name="url" value="/WEB-INF/views/main/home.jsp" /> -->
+<!--     </bean> -->
+    
+<!--     <bean id="organizacion" -->
+<!--         class="org.springframework.web.servlet.view.JstlView"> -->
+<!--         <property name="url" value="/WEB-INF/views/main/organizacion/home_organizacion.jsp" /> -->
+<!--     </bean> -->
+    
+<!--     <bean id="voluntario" -->
+<!--         class="org.springframework.web.servlet.view.JstlView"> -->
+<!--         <property name="url" value="/WEB-INF/views/main/voluntario/home_voluntario.jsp" /> -->
+<!--     </bean> -->
+    
+<!--     <bean id="perfilvoluntario" -->
+<!--         class="org.springframework.web.servlet.view.JstlView"> -->
+<!--         <property name="url" value="/WEB-INF/views/main/voluntario/perfil_voluntario.jsp" /> -->
+<!--     </bean> -->
+ 	
+<!--  	<bean id="registro_organizacion" -->
+<!--         class="org.springframework.web.servlet.view.JstlView"> -->
+<!--         <property name="url" value="/WEB-INF/views/main/registro_organizacion.jsp" /> -->
+<!--     </bean> -->
+    
+<!--     <bean id="registro_voluntario" -->
+<!--         class="org.springframework.web.servlet.view.JstlView"> -->
+<!--         <property name="url" value="/WEB-INF/views/main/registro_voluntario.jsp" /> -->
+<!--     </bean> -->
+    
+<!--     <bean id="eventos" -->
+<!--         class="org.springframework.web.servlet.view.JstlView"> -->
+<!--         <property name="url" value="/WEB-INF/views/main/voluntario/eventos.jsp" /> -->
+<!--     </bean> -->
+    
+<!--     <bean id="evento" -->
+<!--         class="org.springframework.web.servlet.view.JstlView"> -->
+<!--         <property name="url" value="/WEB-INF/views/main/voluntario/evento_visualizacion.jsp" /> -->
+<!--     </bean> -->
+    
+<!--     <bean id="donaciones" -->
+<!--         class="org.springframework.web.servlet.view.JstlView"> -->
+<!--         <property name="url" value="/WEB-INF/views/main/voluntario/donaciones.jsp" /> -->
+<!--     </bean> -->
+    
+<!--     <bean id="campania-donacion" -->
+<!--         class="org.springframework.web.servlet.view.JstlView"> -->
+<!--         <property name="url" value="/WEB-INF/views/main/voluntario/donacion_visualizacion.jsp" /> -->
+<!--     </bean> -->
+    
+</beans>
