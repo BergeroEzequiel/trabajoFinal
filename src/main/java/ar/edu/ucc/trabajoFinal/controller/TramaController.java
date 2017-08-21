@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import ar.edu.ucc.trabajoFinal.dto.TramaDto;
 import ar.edu.ucc.trabajoFinal.service.TramaService;
+import net.sf.json.JSONObject;
 
 @Controller
 public class TramaController {
@@ -75,6 +76,27 @@ public class TramaController {
 		TramaDto tramaDtoRespuesta = tramaService.actualizarTrama(tramaDto);
 		
 		return new ResponseEntity(tramaDtoRespuesta,HttpStatus.OK);
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@RequestMapping(value = "/parsear_trama", 
+			method = RequestMethod.POST, produces = "application/json")
+	public ResponseEntity<?> parsearTrama(@RequestBody JSONObject tramaJson)
+			throws Exception {
+		
+		TramaDto tramaDtoRespuesta = tramaService.parsearTrama(tramaJson);
+		
+		return new ResponseEntity(tramaDtoRespuesta,HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/controlar_trama", 
+			method = RequestMethod.POST, produces = "application/json")
+	public void controlarTrama(@RequestBody TramaDto tramaDto)
+			throws Exception {
+		
+		tramaService.controlarTrama(tramaDto);
+		
+		
 	}
 
 }
