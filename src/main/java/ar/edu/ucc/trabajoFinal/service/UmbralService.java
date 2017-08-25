@@ -13,9 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ar.edu.ucc.trabajoFinal.dao.DaoGenerico;
 import ar.edu.ucc.trabajoFinal.dao.IUmbralDao;
 import ar.edu.ucc.trabajoFinal.dao.UmbralDao;
-import ar.edu.ucc.trabajoFinal.dto.TramaDto;
 import ar.edu.ucc.trabajoFinal.dto.UmbralDto;
-import ar.edu.ucc.trabajoFinal.model.Trama;
 import ar.edu.ucc.trabajoFinal.model.Umbral;
 
 public class UmbralService {

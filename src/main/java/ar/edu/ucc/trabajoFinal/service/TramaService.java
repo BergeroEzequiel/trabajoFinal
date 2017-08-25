@@ -23,7 +23,6 @@ import ar.edu.ucc.trabajoFinal.dto.TramaDto;
 import ar.edu.ucc.trabajoFinal.model.Trama;
 import ar.edu.ucc.trabajoFinal.trama.TramaControl;
 import net.sf.json.JSONObject;
-import net.sf.json.JSONSerializer;
 
 
 
