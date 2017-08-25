@@ -7,6 +7,7 @@ import javax.annotation.PostConstruct;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +17,7 @@ import ar.edu.ucc.trabajoFinal.dao.UmbralDao;
 import ar.edu.ucc.trabajoFinal.dto.UmbralDto;
 import ar.edu.ucc.trabajoFinal.model.Umbral;
 
+@Service
 public class UmbralService {
 	
 	private Logger log = Logger.getLogger(this.getClass());
