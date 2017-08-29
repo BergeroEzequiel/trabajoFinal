@@ -5,17 +5,17 @@ import java.sql.Date;
 public class UmbralDto {
 	
 	private Long id;
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
 	private float valorMax;
 	private float valorMin;
 	private String nombreVariable;
 	private Date fechaUltimaModificacion;
 	
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}	
 	public float getValorMax() {
 		return valorMax;
 	}
