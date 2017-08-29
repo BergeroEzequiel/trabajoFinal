@@ -2,8 +2,6 @@ package ar.edu.ucc.trabajoFinal.rabbitMQ;
 
 import java.io.IOException;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
@@ -12,17 +10,11 @@ import com.rabbitmq.client.Consumer;
 import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
 
-import ar.edu.ucc.trabajoFinal.dto.TramaDto;
-import ar.edu.ucc.trabajoFinal.service.TramaService;
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
 
 public class Recv {
-	private final static String QUEUE_NAME = "hello";
-	
-	@Autowired
-	static TramaService tramaService;
-	static TramaDto tramaDto;
+	private final static String QUEUE_NAME = "trama";
 
 	  public static void main(String[] argv) throws Exception {
 	    ConnectionFactory factory = new ConnectionFactory();
@@ -39,12 +31,12 @@ public class Recv {
 	          throws IOException {
 	        String message = new String(body, "UTF-8");
 	        JSONObject json = (JSONObject) JSONSerializer.toJSON(message);
-	        tramaDto = new TramaDto();
-	        tramaDto = tramaService.parsearTrama(json);
-	        tramaService.grabarTrama(tramaDto);
+	        double tension = json.getDouble("tension");
+	        double corriente = json.getDouble("corriente");
+	        double potencia = tension*corriente;
+	        System.out.println(" [x] Received '" + potencia + "'");
 	      }
 	    };
 	    channel.basicConsume(QUEUE_NAME, true, consumer);
 	}
-
 }
