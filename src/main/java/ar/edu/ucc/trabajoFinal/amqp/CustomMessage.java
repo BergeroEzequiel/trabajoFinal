@@ -9,46 +9,35 @@ import ar.edu.ucc.trabajoFinal.model.Trama;
 
 public class CustomMessage {
 
-    private Trama trama;
-    
-    SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MMM-yyyy");
+	private Trama trama;
+
+	SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MMM-yyyy");
 	DateFormat timeFormatter = new SimpleDateFormat("hh:mm:ss");
 
-    public CustomMessage() {
-        trama.setCorrienteContinua((float)Math.random()*100);
-        trama.setCorrienteInterna((float)Math.random()*100);
-        trama.setCorrienteRed((float)Math.random()*100);
-        trama.setDesfasaje((float)Math.random()*100);
-        trama.setEstado(true);
-        trama.setFecha(new Date(1,1,1));
-        trama.setFrecuenciaCorriente((float)Math.random()*100);
-        trama.setFrecuenciaTension((float)Math.random()*100);
-        trama.setHora(new Time(1,1,1));
-        trama.setHumedad((float)Math.random()*100);
-        trama.setIpNodo(666);
-        trama.setPotenciaContinua((float)Math.random()*100);
-        trama.setPotenciaInterna((float)Math.random()*100);
-        trama.setPotenciaRed((float)Math.random()*100);
-        trama.setPvm((float)Math.random()*100);
-        trama.setTemperatura1((float)Math.random()*100);
-        trama.setTemperatura2((float)Math.random()*100);
-        trama.setTemperatura3((float)Math.random()*100);
-        trama.setTemperatura4((float)Math.random()*100);
-        trama.setTemperatura5((float)Math.random()*100);
-        trama.setTensionContinua((float)Math.random()*100);
-        trama.setTensionInterna((float)Math.random()*100);
-        trama.setTensionRed((float)Math.random()*100);
-        trama.setTensionTierra((float)Math.random()*100);
-    }
+	public CustomMessage(Trama trama) {
+		this.trama = trama;
+	}
 
-    public Trama getTrama() {
-        return trama;
-    }
+	public Trama getTrama() {
+		return this.trama;
+	}
 
-    @Override
-    public String toString() {
-        return "CustomMessage{" +
-                "trama=" + trama +
-                '}';
-    }
+	@Override
+	public String toString() {
+		return "{" + "ip_nodo=" + trama.getIpNodo() + ", estado='" + trama.getEstado() + '\'' + ", tension_red='"
+				+ trama.getTensionRed() + '\'' + ", corriente_red='" + trama.getCorrienteRed() + '\''
+				+ ", frecuencia_tension='" + trama.getFrecuenciaTension() + '\'' + ", frecuencia_corriente='"
+				+ trama.getFrecuenciaCorriente() + '\'' + ", desfasaje='" + trama.getDesfasaje() + '\''
+				+ ", tension_tierra='" + trama.getTensionInterna() + '\'' + ", tension_interna='"
+				+ trama.getTensionInterna() + '\'' + ", corriente_interna='" + trama.getCorrienteInterna() + '\''
+				+ ", tension_continua='" + trama.getTensionContinua() + '\'' + ", corriente_continua='"
+				+ trama.getCorrienteContinua() + '\'' + ", temperatura1='" + trama.getTemperatura1() + '\''
+				+ ", temperatura2='" + trama.getTemperatura2() + '\'' + ", temperatura3='" + trama.getTemperatura3()
+				+ '\'' + ", temperatura4='" + trama.getTemperatura4() + '\'' + ", temperatura5='"
+				+ trama.getTemperatura5() + '\'' + ", humedad='" + trama.getHumedad() + '\'' + ", pvm='"
+				+ trama.getPvm() + '\'' + ", fecha='" + dateFormatter.format(trama.getFecha()) + '\'' + ", hora='"
+				+ timeFormatter.format(trama.getHora()) + '\'' + ", potencia_continua='" + trama.getPotenciaContinua()
+				+ '\'' + ", potencia_red='" + trama.getPotenciaRed() + '\'' + ", potencia_interna='"
+				+ trama.getPotenciaInterna() + '\'' + '}';
+	}
 }

@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 @Configuration
-@ComponentScan("com.memorynotfound.rabbitmq")
+@ComponentScan("ar.edu.ucc.trabajoFinal.amqp")
 public class RabbitMqConfig {
 
     private static final String SIMPLE_MESSAGE_QUEUE = "simple.queue.name";
