@@ -11,8 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import ar.edu.ucc.trabajoFinal.dao.DaoGenerico;
 import ar.edu.ucc.trabajoFinal.dao.ITramaDao;
 import ar.edu.ucc.trabajoFinal.dao.TramaDao;
+import ar.edu.ucc.trabajoFinal.dto.TramaDto;
 import ar.edu.ucc.trabajoFinal.model.Trama;
 import net.sf.json.JSONObject;
+import net.sf.json.JSONSerializer;
 
 public class TramaUtils {
 	private Logger log = Logger.getLogger(this.getClass());
@@ -23,10 +25,10 @@ public class TramaUtils {
 	DaoGenerico<Trama, Long> tramaDao;
 	ITramaDao tramaDaoParticular;
 
-	public Trama parsearTrama(JSONObject tramaJson) {
-		log.info("Parseando trama... " + tramaJson.toString() );
-		
-		Trama trama = new Trama();
+	public TramaDto parsearTrama(String message) {
+		//log.info("Parseando trama... " + tramaJson.toString() );
+		JSONObject tramaJson = (JSONObject) JSONSerializer.toJSON(message);
+		TramaDto trama = new TramaDto();
 		trama.setCorrienteContinua((float) tramaJson.getDouble("corrienteContinua"));
 		trama.setCorrienteInterna((float) tramaJson.getDouble("corrienteInterna"));
 		trama.setCorrienteRed((float) tramaJson.getDouble("corrienteRed"));

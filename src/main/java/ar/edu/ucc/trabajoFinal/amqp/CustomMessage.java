@@ -1,26 +1,25 @@
 package ar.edu.ucc.trabajoFinal.amqp;
 
-import java.sql.Date;
-import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
+import ar.edu.ucc.trabajoFinal.dto.TramaDto;
 import ar.edu.ucc.trabajoFinal.model.Trama;
 
 public class CustomMessage {
 
-	private Trama trama;
+	private TramaDto trama;
 
 	SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MMM-yyyy");
 	DateFormat timeFormatter = new SimpleDateFormat("hh:mm:ss");
 
-	public CustomMessage(Trama trama) {
+	public CustomMessage(TramaDto trama) {
 		this.trama = trama;
 	}
 
-	public Trama getTrama() {
-		return this.trama;
-	}
+//	public Trama getTrama() {
+//		return this.trama;
+//	}
 
 	@Override
 	public String toString() {

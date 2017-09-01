@@ -7,7 +7,7 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import ar.edu.ucc.trabajoFinal.model.Trama;
+import ar.edu.ucc.trabajoFinal.dto.TramaDto;
 
 
 public class Producer {
@@ -19,7 +19,7 @@ public class Producer {
 		RabbitTemplate rabbitTemplate = ctx.getBean(RabbitTemplate.class);
 
 		//String message = "{'nodo':'1','tension':250, 'corriente':130, 'temperatura':26}";
-		Trama tramaAuxiliar = new Trama();
+		TramaDto tramaAuxiliar = new TramaDto();
 		tramaAuxiliar.setCorrienteContinua((float)Math.random()*100);
 		tramaAuxiliar.setCorrienteInterna((float)Math.random()*100);
 		tramaAuxiliar.setCorrienteRed((float)Math.random()*100);

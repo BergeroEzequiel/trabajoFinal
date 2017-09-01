@@ -1,9 +1,14 @@
 package ar.edu.ucc.trabajoFinal.dto;
 
 import java.sql.Time;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class TramaDto {
+	
+	SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MMM-yyyy");
+	DateFormat timeFormatter = new SimpleDateFormat("hh:mm:ss");
 	
 	private Long id;
 
@@ -254,6 +259,25 @@ public class TramaDto {
 	private float potenciaRed;
 
 	private float potenciaInterna;
+	
+	@Override
+	public String toString() {
+		return "{" + "ip_nodo=" + getIpNodo() + ", estado='" + getEstado() + '\'' + ", tension_red='"
+				+ getTensionRed() + '\'' + ", corriente_red='" + getCorrienteRed() + '\''
+				+ ", frecuencia_tension='" + getFrecuenciaTension() + '\'' + ", frecuencia_corriente='"
+				+ getFrecuenciaCorriente() + '\'' + ", desfasaje='" + getDesfasaje() + '\''
+				+ ", tension_tierra='" + getTensionInterna() + '\'' + ", tension_interna='"
+				+ getTensionInterna() + '\'' + ", corriente_interna='" + getCorrienteInterna() + '\''
+				+ ", tension_continua='" + getTensionContinua() + '\'' + ", corriente_continua='"
+				+ getCorrienteContinua() + '\'' + ", temperatura1='" + getTemperatura1() + '\''
+				+ ", temperatura2='" + getTemperatura2() + '\'' + ", temperatura3='" + getTemperatura3()
+				+ '\'' + ", temperatura4='" + getTemperatura4() + '\'' + ", temperatura5='"
+				+ getTemperatura5() + '\'' + ", humedad='" + getHumedad() + '\'' + ", pvm='"
+				+ getPvm() + '\'' + ", fecha='" + dateFormatter.format(getFecha()) + '\'' + ", hora='"
+				+ timeFormatter.format(getHora()) + '\'' + ", potencia_continua='" + getPotenciaContinua()
+				+ '\'' + ", potencia_red='" + getPotenciaRed() + '\'' + ", potencia_interna='"
+				+ getPotenciaInterna() + '\'' + '}';
+	}
 	
 
 }

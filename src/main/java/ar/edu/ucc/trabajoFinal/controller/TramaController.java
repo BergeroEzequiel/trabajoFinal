@@ -78,16 +78,16 @@ public class TramaController {
 		return new ResponseEntity(tramaDtoRespuesta,HttpStatus.OK);
 	}
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@RequestMapping(value = "/parsear_trama", 
-			method = RequestMethod.POST, produces = "application/json")
-	public ResponseEntity<?> parsearTrama(@RequestBody JSONObject tramaJson)
-			throws Exception {
-		
-		TramaDto tramaDtoRespuesta = tramaService.parsearTrama(tramaJson);
-		
-		return new ResponseEntity(tramaDtoRespuesta,HttpStatus.OK);
-	}
+//	@SuppressWarnings({ "rawtypes", "unchecked" })
+//	@RequestMapping(value = "/parsear_trama", 
+//			method = RequestMethod.POST, produces = "application/json")
+//	public ResponseEntity<?> parsearTrama(@RequestBody JSONObject tramaJson)
+//			throws Exception {
+//		
+//		TramaDto tramaDtoRespuesta = tramaService.parsearTrama(tramaJson);
+//		
+//		return new ResponseEntity(tramaDtoRespuesta,HttpStatus.OK);
+//	}
 	
 	@RequestMapping(value = "/controlar_trama", 
 			method = RequestMethod.POST, produces = "application/json")

@@ -9,24 +9,31 @@ import java.net.URL;
 import org.apache.log4j.Logger;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageListener;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import ar.edu.ucc.trabajoFinal.service.TramaService;
-import net.sf.json.JSONObject;
-import net.sf.json.JSONSerializer;
+import com.google.gson.JsonElement;
+
+import ar.edu.ucc.trabajoFinal.dto.TramaDto;
+import ar.edu.ucc.trabajoFinal.rabbitMQ.TramaUtils;
+import ar.edu.ucc.trabajoFinal.utils.PostExample;
+import ar.edu.ucc.trabajoFinal.utils.TramaParser;
 
 public class Consumer implements MessageListener {
 	
 	private Logger log = Logger.getLogger(this.getClass());
-	
+	private TramaParser parser = new TramaParser();
+	private PostExample example = new PostExample();
+	private TramaUtils tramaUtils = new TramaUtils();
+	JsonElement json;
     @Override
     public void onMessage(Message message) {
         String data = new String(message.getBody());
+        TramaDto dto = tramaUtils.parsearTrama(data);
         try {
-			this.sendPostRequest("parsear_trama", data);
-			log.info("Mensaje consumido" + data);
+        	//json = this.parser.stringToJson(data);
+//			this.sendPostRequest("parsear_trama", data);
+        	this.example.post("http://localhost:8080/trabajoFinal/trama", dto.toString());
+			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     }

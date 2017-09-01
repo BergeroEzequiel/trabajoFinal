@@ -30,7 +30,7 @@ public class Cons extends MessageQueueEndPoint{
 	        String message = new String(body, "UTF-8");
 	        JSONObject json = (JSONObject) JSONSerializer.toJSON(message);
 	        tramaDto = new TramaDto();
-	        tramaDto = tramaService.parsearTrama(json);
+	        //tramaDto = tramaService.parsearTrama(json);
 	        tramaService.grabarTrama(tramaDto);
 	        
 	      }
