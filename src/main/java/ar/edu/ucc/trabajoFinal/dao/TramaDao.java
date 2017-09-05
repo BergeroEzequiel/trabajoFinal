@@ -11,7 +11,7 @@ import ar.edu.ucc.trabajoFinal.model.Trama;
 public class TramaDao extends DaoGenericoImp<Trama, Long> implements ITramaDao{
 
 	public List<Trama> getTramaByNodo(int ipNodo) {
-		return this.getByCriteria(Restrictions.like("ip_nodo", ipNodo));
+		return this.getByCriteria(Restrictions.eq("ipNodo", ipNodo));
 	}
 
 }

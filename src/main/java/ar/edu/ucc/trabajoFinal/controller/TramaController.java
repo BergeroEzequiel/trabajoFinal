@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import ar.edu.ucc.trabajoFinal.dto.TramaDto;
 import ar.edu.ucc.trabajoFinal.service.TramaService;
-import net.sf.json.JSONObject;
 
 @Controller
 public class TramaController {
@@ -45,7 +44,7 @@ public class TramaController {
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	@RequestMapping(value = "/trama/{ipNodo}", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/tramaByNodo/{ipNodo}", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<?> getTramaByNodo(@PathVariable("ipNodo") int ipNodo) throws Exception{
 		
 		List<TramaDto> tramaDto = tramaService.getTramasByNodo(ipNodo);
@@ -77,17 +76,6 @@ public class TramaController {
 		
 		return new ResponseEntity(tramaDtoRespuesta,HttpStatus.OK);
 	}
-	
-//	@SuppressWarnings({ "rawtypes", "unchecked" })
-//	@RequestMapping(value = "/parsear_trama", 
-//			method = RequestMethod.POST, produces = "application/json")
-//	public ResponseEntity<?> parsearTrama(@RequestBody JSONObject tramaJson)
-//			throws Exception {
-//		
-//		TramaDto tramaDtoRespuesta = tramaService.parsearTrama(tramaJson);
-//		
-//		return new ResponseEntity(tramaDtoRespuesta,HttpStatus.OK);
-//	}
 	
 	@RequestMapping(value = "/controlar_trama", 
 			method = RequestMethod.POST, produces = "application/json")

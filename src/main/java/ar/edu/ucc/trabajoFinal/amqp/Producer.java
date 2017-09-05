@@ -1,7 +1,8 @@
 package ar.edu.ucc.trabajoFinal.amqp;
 
-import java.sql.Date;
-import java.sql.Time;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.context.ApplicationContext;
@@ -18,19 +19,21 @@ public class Producer {
 		ApplicationContext ctx = new AnnotationConfigApplicationContext(RabbitMqConfig.class);
 		RabbitTemplate rabbitTemplate = ctx.getBean(RabbitTemplate.class);
 
-		//String message = "{'nodo':'1','tension':250, 'corriente':130, 'temperatura':26}";
+		SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+		DateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
+		
 		TramaDto tramaAuxiliar = new TramaDto();
 		tramaAuxiliar.setCorrienteContinua((float)Math.random()*100);
 		tramaAuxiliar.setCorrienteInterna((float)Math.random()*100);
 		tramaAuxiliar.setCorrienteRed((float)Math.random()*100);
 		tramaAuxiliar.setDesfasaje((float)Math.random()*100);
 		tramaAuxiliar.setEstado(true);;
-		tramaAuxiliar.setFecha(new Date(2017, 8, 26));//dateFormatter.parse(Calendar.getInstance().toString())
+		tramaAuxiliar.setFecha(dateFormatter.format(new Date()));
 		tramaAuxiliar.setFrecuenciaCorriente((float)Math.random()*100);
 		tramaAuxiliar.setFrecuenciaTension((float)Math.random()*100);
-		tramaAuxiliar.setHora(new Time(100));
+		tramaAuxiliar.setHora(timeFormatter.format((new Date())));
 		tramaAuxiliar.setHumedad((float)Math.random()*100);
-		tramaAuxiliar.setIpNodo((int)Math.random()*10);
+		tramaAuxiliar.setIpNodo((int)(Math.random()*10));
 		tramaAuxiliar.setPotenciaContinua((float)Math.random()*100);
 		tramaAuxiliar.setPotenciaInterna((float)Math.random()*100);
 		tramaAuxiliar.setPotenciaRed((float)Math.random()*100);
@@ -47,7 +50,7 @@ public class Producer {
 		
 		CustomMessage cm = new CustomMessage(tramaAuxiliar);
 		
-		System.out.println("sending new custom message..");
+		System.out.println("sending new custom message.. " + cm.toString());
 		rabbitTemplate.convertAndSend(cm.toString());
 
 	}

@@ -1,14 +1,47 @@
 package ar.edu.ucc.trabajoFinal.dto;
 
-import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+
+import net.sf.json.JSONObject;
+import net.sf.json.JSONSerializer;
 
 public class TramaDto {
 	
-	SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MMM-yyyy");
-	DateFormat timeFormatter = new SimpleDateFormat("hh:mm:ss");
+	SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+	DateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
+	
+	public TramaDto() {
+		super();
+	}
+	
+	public TramaDto(String jsonTramaDto) {
+		JSONObject tramaJson = (JSONObject) JSONSerializer.toJSON(jsonTramaDto);
+		this.corrienteContinua = ((float) tramaJson.getDouble("corriente_continua"));
+		this.corrienteInterna = ((float) tramaJson.getDouble("corriente_interna"));
+		this.corrienteRed = ((float) tramaJson.getDouble("corriente_red"));
+		this.desfasaje=((float) tramaJson.getDouble("desfasaje"));
+		this.estado=(tramaJson.getBoolean("estado"));
+		this.fecha=tramaJson.getString("fecha");
+		this.hora=tramaJson.getString("hora");
+		this.frecuenciaCorriente=((float) tramaJson.getDouble("frecuencia_corriente"));
+		this.frecuenciaTension=((float) tramaJson.getDouble("frecuencia_tension"));
+		this.humedad=((float) tramaJson.getDouble("humedad"));
+		this.ipNodo=(tramaJson.getInt("ip_nodo"));
+		this.potenciaContinua=((float) tramaJson.getDouble("potencia_continua"));
+		this.potenciaInterna=((float) tramaJson.getDouble("potencia_interna"));
+		this.potenciaRed=((float) tramaJson.getDouble("potencia_red"));
+		this.pvm=((float) tramaJson.getDouble("pvm"));
+		this.temperatura1=((float) tramaJson.getDouble("temperatura1"));
+		this.temperatura2=((float) tramaJson.getDouble("temperatura2"));
+		this.temperatura3=((float) tramaJson.getDouble("temperatura3"));
+		this.temperatura4=((float) tramaJson.getDouble("temperatura4"));
+		this.temperatura5=((float) tramaJson.getDouble("temperatura5"));
+		this.tensionContinua=((float) tramaJson.getDouble("tension_continua"));
+		this.tensionInterna=((float) tramaJson.getDouble("tension_interna"));
+		this.tensionRed=((float) tramaJson.getDouble("tension_red"));
+		this.tensionTierra=((float) tramaJson.getDouble("tension_tierra"));
+	}
 	
 	private Long id;
 
@@ -18,7 +51,47 @@ public class TramaDto {
 
 	private float tensionRed;
 
-	private float corrienteRed;
+	private float corrienteRed;	
+
+	private float frecuenciaTension;
+
+	private float frecuenciaCorriente;
+
+	private float desfasaje;
+
+	private float tensionTierra;
+
+	private float tensionInterna;
+
+	private float corrienteInterna;
+
+	private float tensionContinua;
+
+	private float corrienteContinua;
+
+	private float temperatura1;
+
+	private float temperatura2;
+
+	private float temperatura3;
+
+	private float temperatura4;
+
+	private float temperatura5;
+
+	private float humedad;
+
+	private float pvm;
+
+	private String fecha;
+
+	private String hora;
+
+	private float potenciaContinua;
+
+	private float potenciaRed;
+
+	private float potenciaInterna;
 
 	public int getIpNodo() {
 		return ipNodo;
@@ -172,19 +245,19 @@ public class TramaDto {
 		this.pvm = pvm;
 	}
 
-	public Date getFecha() {
+	public String getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(Date fecha) {
+	public void setFecha(String fecha) {
 		this.fecha = fecha;
 	}
 
-	public Time getHora() {
+	public String getHora() {
 		return hora;
 	}
 
-	public void setHora(Time hora) {
+	public void setHora(String hora) {
 		this.hora = hora;
 	}
 
@@ -220,45 +293,6 @@ public class TramaDto {
 		this.id = id;
 	}
 
-	private float frecuenciaTension;
-
-	private float frecuenciaCorriente;
-
-	private float desfasaje;
-
-	private float tensionTierra;
-
-	private float tensionInterna;
-
-	private float corrienteInterna;
-
-	private float tensionContinua;
-
-	private float corrienteContinua;
-
-	private float temperatura1;
-
-	private float temperatura2;
-
-	private float temperatura3;
-
-	private float temperatura4;
-
-	private float temperatura5;
-
-	private float humedad;
-
-	private float pvm;
-
-	private Date fecha;
-
-	private Time hora;
-
-	private float potenciaContinua;
-
-	private float potenciaRed;
-
-	private float potenciaInterna;
 	
 	@Override
 	public String toString() {
@@ -273,8 +307,8 @@ public class TramaDto {
 				+ ", temperatura2='" + getTemperatura2() + '\'' + ", temperatura3='" + getTemperatura3()
 				+ '\'' + ", temperatura4='" + getTemperatura4() + '\'' + ", temperatura5='"
 				+ getTemperatura5() + '\'' + ", humedad='" + getHumedad() + '\'' + ", pvm='"
-				+ getPvm() + '\'' + ", fecha='" + dateFormatter.format(getFecha()) + '\'' + ", hora='"
-				+ timeFormatter.format(getHora()) + '\'' + ", potencia_continua='" + getPotenciaContinua()
+				+ getPvm() + '\'' + ", fecha='" + getFecha() + '\'' + ", hora='"
+				+ getHora() + '\'' + ", potencia_continua='" + getPotenciaContinua()
 				+ '\'' + ", potencia_red='" + getPotenciaRed() + '\'' + ", potencia_interna='"
 				+ getPotenciaInterna() + '\'' + '}';
 	}

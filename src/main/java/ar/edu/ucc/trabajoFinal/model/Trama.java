@@ -68,10 +68,10 @@ public class Trama extends ObjetoGenerico {
 	@Column(name = "pvm", nullable = false)
 	private float pvm;
 
-	@Column(name = "fecha", nullable = false)
+	@Column(name = "fecha", nullable = true)
 	private Date fecha;
 
-	@Column(name = "hora", nullable = false)
+	@Column(name = "hora", nullable = true)
 	private Time hora;
 
 	@Column(name = "potencia_continua", nullable = false)

@@ -1,5 +1,6 @@
 package ar.edu.ucc.trabajoFinal.service;
 
+import java.util.Date;
 import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -22,7 +23,6 @@ import ar.edu.ucc.trabajoFinal.dao.TramaDao;
 import ar.edu.ucc.trabajoFinal.dto.TramaDto;
 import ar.edu.ucc.trabajoFinal.model.Trama;
 import ar.edu.ucc.trabajoFinal.trama.TramaControl;
-import net.sf.json.JSONObject;
 
 
 
@@ -44,8 +44,8 @@ public class TramaService {
 		tramaDaoParticular = (TramaDao) tramaDao;
 	}
 	
-	SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MMM-yyyy");
-	DateFormat timeFormatter = new SimpleDateFormat("hh:mm:ss");
+	SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+	DateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
 	// String -> Date
 	//SimpleDateFormat.parse(String);
 	
@@ -56,16 +56,19 @@ public class TramaService {
 
 		Trama trama = tramaDaoParticular.load(id);
 		
+		log.info("trama cargada:" + trama.toString());
+		
 		TramaDto tramaDto = new TramaDto();
+		tramaDto.setId(trama.getId());
 		tramaDto.setCorrienteContinua(trama.getCorrienteContinua());
 		tramaDto.setCorrienteInterna(trama.getCorrienteInterna());
 		tramaDto.setCorrienteRed(trama.getCorrienteRed());
 		tramaDto.setDesfasaje(trama.getDesfasaje());
 		tramaDto.setEstado(trama.getEstado());
-		tramaDto.setFecha(trama.getFecha()); 
+		tramaDto.setFecha(dateFormatter.format(trama.getFecha())); 
 		tramaDto.setFrecuenciaCorriente(trama.getFrecuenciaCorriente());
 		tramaDto.setFrecuenciaTension(trama.getFrecuenciaTension());
-		tramaDto.setHora(trama.getHora()); 
+		tramaDto.setHora(timeFormatter.format(trama.getHora())); 
 		tramaDto.setHumedad(trama.getHumedad());
 		tramaDto.setIpNodo(trama.getIpNodo());
 		tramaDto.setPotenciaContinua(trama.getPotenciaContinua());
@@ -82,7 +85,6 @@ public class TramaService {
 		tramaDto.setTensionRed(trama.getTensionRed());
 		tramaDto.setTensionTierra(trama.getTensionTierra());
 		
-		//--------COMPLETAR CAMPOS ------------------------------
 		return tramaDto;
 	}
 	
@@ -98,20 +100,31 @@ public class TramaService {
 		TramaDto tramaDto;
 		for (Trama trama : tramas) {
 			tramaDto = new TramaDto();
+			tramaDto.setId(trama.getId());
 			tramaDto.setCorrienteContinua(trama.getCorrienteContinua());
 			tramaDto.setCorrienteInterna(trama.getCorrienteInterna());
 			tramaDto.setCorrienteRed(trama.getCorrienteRed());
 			tramaDto.setDesfasaje(trama.getDesfasaje());
 			tramaDto.setEstado(trama.getEstado());
-			tramaDto.setFecha(trama.getFecha());
+			tramaDto.setFecha(dateFormatter.format((trama.getFecha()))); 
 			tramaDto.setFrecuenciaCorriente(trama.getFrecuenciaCorriente());
 			tramaDto.setFrecuenciaTension(trama.getFrecuenciaTension());
-			tramaDto.setHora(trama.getHora());
+			tramaDto.setHora((timeFormatter.format(trama.getHora()))); 
 			tramaDto.setHumedad(trama.getHumedad());
 			tramaDto.setIpNodo(trama.getIpNodo());
 			tramaDto.setPotenciaContinua(trama.getPotenciaContinua());
 			tramaDto.setPotenciaInterna(trama.getPotenciaInterna());
 			tramaDto.setPotenciaRed(trama.getPotenciaRed());
+			tramaDto.setPvm(trama.getPvm());
+			tramaDto.setTemperatura1(trama.getTemperatura1());
+			tramaDto.setTemperatura2(trama.getTemperatura2());
+			tramaDto.setTemperatura3(trama.getTemperatura3());
+			tramaDto.setTemperatura4(trama.getTemperatura4());
+			tramaDto.setTemperatura5(trama.getTemperatura5());
+			tramaDto.setTensionContinua(trama.getTensionContinua());
+			tramaDto.setTensionInterna(trama.getTensionInterna());
+			tramaDto.setTensionRed(trama.getTensionRed());
+			tramaDto.setTensionTierra(trama.getTensionTierra());
 			
 			tramasDto.add(tramaDto);
 		}
@@ -136,10 +149,10 @@ public class TramaService {
 			tramaDto.setCorrienteRed(trama.getCorrienteRed());
 			tramaDto.setDesfasaje(trama.getDesfasaje());
 			tramaDto.setEstado(trama.getEstado());
-			tramaDto.setFecha(trama.getFecha());
+			tramaDto.setFecha(dateFormatter.format(trama.getFecha())); 
 			tramaDto.setFrecuenciaCorriente(trama.getFrecuenciaCorriente());
 			tramaDto.setFrecuenciaTension(trama.getFrecuenciaTension());
-			tramaDto.setHora(trama.getHora());
+			tramaDto.setHora(timeFormatter.format(trama.getHora())); 
 			tramaDto.setHumedad(trama.getHumedad());
 			tramaDto.setIpNodo(trama.getIpNodo());
 			tramaDto.setPotenciaContinua(trama.getPotenciaContinua());
@@ -153,20 +166,20 @@ public class TramaService {
 	}
 	
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-	public TramaDto grabarTrama(TramaDto tramaDto) {
+	public TramaDto grabarTrama(TramaDto tramaDto) throws ParseException {
 
 		log.info("Guardando: " + tramaDto.toString());
-
+		
 		Trama trama = new Trama();
 		trama.setCorrienteContinua(tramaDto.getCorrienteContinua());
 		trama.setCorrienteInterna(tramaDto.getCorrienteInterna());
 		trama.setCorrienteRed(tramaDto.getCorrienteRed());
 		trama.setDesfasaje(tramaDto.getDesfasaje());
 		trama.setEstado(tramaDto.getEstado());;
-		trama.setFecha(tramaDto.getFecha());
+		trama.setFecha(dateFormatter.parse(tramaDto.getFecha()));
 		trama.setFrecuenciaCorriente(tramaDto.getFrecuenciaCorriente());
 		trama.setFrecuenciaTension(tramaDto.getFrecuenciaTension());
-		trama.setHora(tramaDto.getHora());
+		trama.setHora(Time.valueOf(tramaDto.getHora()));
 		trama.setHumedad(tramaDto.getHumedad());
 		trama.setIpNodo(tramaDto.getIpNodo());
 		trama.setPotenciaContinua(tramaDto.getPotenciaContinua());
@@ -190,7 +203,7 @@ public class TramaService {
 	}
 	
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-	public TramaDto actualizarTrama(TramaDto tramaDto) {
+	public TramaDto actualizarTrama(TramaDto tramaDto) throws ParseException {
 
 		log.info("Actualizando: " + tramaDto.toString());
 
@@ -201,10 +214,10 @@ public class TramaService {
 		trama.setCorrienteRed(tramaDto.getCorrienteRed());
 		trama.setDesfasaje(tramaDto.getDesfasaje());
 		trama.setEstado(tramaDto.getEstado());;
-		trama.setFecha(tramaDto.getFecha());
+		trama.setFecha(dateFormatter.parse(tramaDto.getFecha()));
 		trama.setFrecuenciaCorriente(tramaDto.getFrecuenciaCorriente());
 		trama.setFrecuenciaTension(tramaDto.getFrecuenciaTension());
-		trama.setHora(tramaDto.getHora());
+		trama.setHora(new Time(timeFormatter.parse(tramaDto.getHora()).getTime()));
 		trama.setHumedad(tramaDto.getHumedad());
 		trama.setIpNodo(tramaDto.getIpNodo());
 		trama.setPotenciaContinua(tramaDto.getPotenciaContinua());
