@@ -51,7 +51,7 @@ public class RabbitMqConfig {
         listenerContainer.setQueues(simpleQueue());
         listenerContainer.setMessageConverter(jsonMessageConverter());
         listenerContainer.setMessageListener(new Consumer());
-        listenerContainer.setAcknowledgeMode(AcknowledgeMode.NONE);
+        listenerContainer.setAcknowledgeMode(AcknowledgeMode.AUTO);
         return listenerContainer;
     }
 
