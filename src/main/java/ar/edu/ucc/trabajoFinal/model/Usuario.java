@@ -4,8 +4,9 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -27,19 +28,15 @@ public class Usuario extends ObjetoGenerico{
 	@Column(name="email", length=200, nullable=false)
 	private String email;
 	
-	//--------------------------- VER ------------------------------
-	@Enumerated(EnumType.STRING)
-	@Column(name="rol", length=200, nullable=false)
-	private Rol rol;
+	@Column(name = "activo", nullable = false)	
+	private boolean activo = false;
 	
-	//---------------------------- VER -----------------------------
-	//private EstadoCuenta estadoCuenta;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "rol_id", nullable = false)
+	private Roles rol;
 	
-	@Column(name="estado_sistema", nullable=false)
-	private boolean estadoSistema;
-	
-	@Column(name="ultima_coneccion", length=200, nullable=false)
-	private Date ultimaConeccion;
+//	@Column(name="ultima_coneccion", length=200, nullable=false)
+//	private Date ultimaConeccion;
 
 	public String getNombre() {
 		return nombre;
@@ -81,29 +78,30 @@ public class Usuario extends ObjetoGenerico{
 		this.email = email;
 	}
 
-	public Rol getRol() {
+	
+	public boolean isActivo() {
+		return activo;
+	}
+
+	public void setActivo(boolean activo) {
+		this.activo = activo;
+	}
+
+	public Roles getRol() {
 		return rol;
 	}
 
-	public void setRol(Rol rol) {
+	public void setRol(Roles rol) {
 		this.rol = rol;
 	}
 
-	public boolean getEstadoSistema() {
-		return estadoSistema;
-	}
-
-	public void setEstadoSistema(boolean estadoSistema) {
-		this.estadoSistema = estadoSistema;
-	}
-
-	public Date getUltimaConeccion() {
-		return ultimaConeccion;
-	}
-
-	public void setUltimaConeccion(Date ultimaConeccion) {
-		this.ultimaConeccion = ultimaConeccion;
-	}
+//	public Date getUltimaConeccion() {
+//		return ultimaConeccion;
+//	}
+//
+//	public void setUltimaConeccion(Date ultimaConeccion) {
+//		this.ultimaConeccion = ultimaConeccion;
+//	}
 	
 
 }
