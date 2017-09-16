@@ -22,7 +22,11 @@ import ar.edu.ucc.trabajoFinal.dao.ITramaDao;
 import ar.edu.ucc.trabajoFinal.dao.TramaDao;
 import ar.edu.ucc.trabajoFinal.dto.TramaDto;
 import ar.edu.ucc.trabajoFinal.model.Trama;
-import ar.edu.ucc.trabajoFinal.trama.TramaControl;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+import ar.edu.ucc.trabajoFinal.utils.TramaControl;
+import ar.edu.ucc.trabajoFinal.utils.TramaControlHandler;
 
 
 
@@ -38,6 +42,9 @@ public class TramaService {
 	ITramaDao tramaDaoParticular;
 	
 	TramaControl tramaControl;
+	
+	//Para hacer el control asincrono
+	ExecutorService pool = Executors.newCachedThreadPool();
 
 	@PostConstruct
 	public void init() {
@@ -109,7 +116,7 @@ public class TramaService {
 			tramaDto.setFecha(dateFormatter.format((trama.getFecha()))); 
 			tramaDto.setFrecuenciaCorriente(trama.getFrecuenciaCorriente());
 			tramaDto.setFrecuenciaTension(trama.getFrecuenciaTension());
-			tramaDto.setHora((timeFormatter.format(trama.getHora()))); 
+			tramaDto.setHora(timeFormatter.format((trama.getHora()))); 
 			tramaDto.setHumedad(trama.getHumedad());
 			tramaDto.setIpNodo(trama.getIpNodo());
 			tramaDto.setPotenciaContinua(trama.getPotenciaContinua());
@@ -198,7 +205,12 @@ public class TramaService {
 		
 		tramaDaoParticular.saveOrUpdate(trama);
 		tramaDto.setId(trama.getId());		
-
+		
+		// Controlar de forma asincrona
+		TramaControlHandler tch = new TramaControlHandler();
+		tch.encolarTrama(tramaDto);
+		pool.execute(tch);
+		
 		return tramaDto;
 	}
 	
@@ -241,14 +253,5 @@ public class TramaService {
 	
 
 	
-	@Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
-	public void controlarTrama(TramaDto tramaDto) {
-		log.info("Controlando trama: " + tramaDto.getId() +" del nodo: " + tramaDto.getIpNodo() );
-		
-		tramaControl = TramaControl.getInstance();
-		
-		tramaControl.cargarValoresActuales(tramaDto);
-		tramaControl.controlarTrama();
-	}
-
+	
 }

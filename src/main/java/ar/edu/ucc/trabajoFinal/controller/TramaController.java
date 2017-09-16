@@ -76,15 +76,5 @@ public class TramaController {
 		
 		return new ResponseEntity(tramaDtoRespuesta,HttpStatus.OK);
 	}
-	
-	@RequestMapping(value = "/controlar_trama", 
-			method = RequestMethod.POST, produces = "application/json")
-	public void controlarTrama(@RequestBody TramaDto tramaDto)
-			throws Exception {
-		
-		tramaService.controlarTrama(tramaDto);
-		
-		
-	}
 
 }

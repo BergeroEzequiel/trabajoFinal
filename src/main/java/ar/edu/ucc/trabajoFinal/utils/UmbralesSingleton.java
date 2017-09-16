@@ -1,21 +1,36 @@
-package ar.edu.ucc.trabajoFinal.trama;
+package ar.edu.ucc.trabajoFinal.utils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import ar.edu.ucc.trabajoFinal.dto.TramaDto;
 import ar.edu.ucc.trabajoFinal.dto.UmbralDto;
 import ar.edu.ucc.trabajoFinal.service.UmbralService;
+import ar.edu.ucc.trabajoFinal.trama.CorrienteContinua;
+import ar.edu.ucc.trabajoFinal.trama.CorrienteInterna;
+import ar.edu.ucc.trabajoFinal.trama.CorrienteRed;
+import ar.edu.ucc.trabajoFinal.trama.Desfasaje;
+import ar.edu.ucc.trabajoFinal.trama.FrecuenciaCorriente;
+import ar.edu.ucc.trabajoFinal.trama.FrecuenciaTension;
+import ar.edu.ucc.trabajoFinal.trama.Humedad;
+import ar.edu.ucc.trabajoFinal.trama.PotenciaContinua;
+import ar.edu.ucc.trabajoFinal.trama.PotenciaInterna;
+import ar.edu.ucc.trabajoFinal.trama.PotenciaRed;
+import ar.edu.ucc.trabajoFinal.trama.Pvm;
+import ar.edu.ucc.trabajoFinal.trama.Temperatura1;
+import ar.edu.ucc.trabajoFinal.trama.Temperatura2;
+import ar.edu.ucc.trabajoFinal.trama.Temperatura3;
+import ar.edu.ucc.trabajoFinal.trama.Temperatura4;
+import ar.edu.ucc.trabajoFinal.trama.Temperatura5;
+import ar.edu.ucc.trabajoFinal.trama.TensionContinua;
+import ar.edu.ucc.trabajoFinal.trama.TensionInterna;
+import ar.edu.ucc.trabajoFinal.trama.TensionRed;
+import ar.edu.ucc.trabajoFinal.trama.TensionTierra;
+import ar.edu.ucc.trabajoFinal.trama.Variable;
 
-public class TramaControl {
-
-	private static TramaControl instance = null;
-	
-	private Logger log = Logger.getLogger(this.getClass());
-	
+public class UmbralesSingleton {
+	private static UmbralesSingleton instance = null;
 	int nodo;
 	Variable tensionRed;
 	Variable corrienteRed;
@@ -40,11 +55,9 @@ public class TramaControl {
 	List<Variable> variablesAControlar;
 	@Autowired
 	private UmbralService umbralService;
-	@Autowired
-	//private AlertaService alertaService;
-	
-	private TramaControl() {
-		
+
+	private UmbralesSingleton() {
+
 		this.tensionRed = new TensionRed();
 		this.corrienteRed = new CorrienteRed();
 		this.frecuenciaTension = new FrecuenciaTension();
@@ -64,8 +77,8 @@ public class TramaControl {
 		this.pvm = new Pvm();
 		this.potenciaContinua = new PotenciaContinua();
 		this.potenciaInterna = new PotenciaInterna();
-		this.potenciaRed = new PotenciaRed();		
-		
+		this.potenciaRed = new PotenciaRed();
+
 		this.variablesAControlar = new ArrayList<Variable>();
 		variablesAControlar.add(corrienteContinua);
 		variablesAControlar.add(corrienteInterna);
@@ -87,58 +100,26 @@ public class TramaControl {
 		variablesAControlar.add(tensionInterna);
 		variablesAControlar.add(tensionRed);
 		variablesAControlar.add(pvm);
-		
-		//CARGAR EN LA BASE DE DATOS PARA PROBAR
-		//this.cargarUmbrales();
+
+		// CARGAR EN LA BASE DE DATOS PARA PROBAR
+		// this.cargarUmbrales();
 	}
-	
-	public static TramaControl getInstance() {
-		if(instance == null) {
-			instance = new TramaControl();
+
+	public static UmbralesSingleton getInstance() {
+		if (instance == null) {
+			instance = new UmbralesSingleton();
 		}
 		return instance;
 	}
-	
-	public void cargarUmbrales() {
+
+	public void getUmbrales() {
 		UmbralDto umbralDto;
-		for(Variable v : variablesAControlar) {
+		for (Variable v : variablesAControlar) {
 			umbralDto = new UmbralDto();
 			umbralDto = umbralService.getUmbralByVariable(v.getNombre());
 			v.getUmbral().setValorMax(umbralDto.getValorMax());
 			v.getUmbral().setValorMin(umbralDto.getValorMin());
 		}
 	}
-	
-	public void cargarValoresActuales(TramaDto tramaDto) {
-		this.nodo = tramaDto.getIpNodo();
-		this.tensionRed.setValorActual(tramaDto.getTensionRed());
-		this.corrienteRed.setValorActual(tramaDto.getCorrienteRed());
-		this.frecuenciaTension.setValorActual(tramaDto.getFrecuenciaTension());
-		this.frecuenciaCorriente.setValorActual(tramaDto.getFrecuenciaCorriente());
-		this.desfasaje.setValorActual(tramaDto.getDesfasaje());
-		this.tensionTierra.setValorActual(tramaDto.getTensionTierra());
-		this.tensionInterna.setValorActual(tramaDto.getTensionInterna());
-		this.corrienteInterna.setValorActual(tramaDto.getCorrienteInterna());
-		this.tensionContinua.setValorActual(tramaDto.getTensionContinua());
-		this.corrienteContinua.setValorActual(tramaDto.getCorrienteContinua());
-		this.temperatura1.setValorActual(tramaDto.getTemperatura1());
-		this.temperatura2.setValorActual(tramaDto.getTemperatura2());
-		this.temperatura3.setValorActual(tramaDto.getTemperatura3());
-		this.temperatura4.setValorActual(tramaDto.getTemperatura4());
-		this.temperatura5.setValorActual(tramaDto.getTemperatura5());
-		this.humedad.setValorActual(tramaDto.getHumedad());
-		this.pvm.setValorActual(tramaDto.getPvm());
-		this.potenciaContinua.setValorActual(tramaDto.getPotenciaContinua());
-		this.potenciaInterna.setValorActual(tramaDto.getPotenciaInterna());
-		this.potenciaRed.setValorActual(tramaDto.getPotenciaRed());
-	}
-	
-	public void controlarTrama() {
-		for(Variable v : variablesAControlar) {
-			if(!v.controlarVariable(v.getValorActual())) {
-				//alertaService.generarAlerta(v, this.nodo);
-				log.info("Alerta generada por variable " + v.getNombre());
-			};
-		}
-	}
+
 }
