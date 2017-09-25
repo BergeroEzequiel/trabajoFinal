@@ -107,7 +107,7 @@ public class TramaControl {
 		variablesAControlar.add(tensionRed);
 		variablesAControlar.add(pvm);
 
-		this.cargarUmbrales();
+		//this.cargarUmbrales();
 	}
 
 	public void cargarUmbrales() {
@@ -180,10 +180,10 @@ public class TramaControl {
 
 	public void controlarTrama() {
 		for (Variable v : variablesAControlar) {
-			if (!v.controlarVariable(v.getValorActual())) {
+			//if (!v.controlarVariable(v.getValorActual())) {
 				// alertaService.generarAlerta(v, this.nodo);
 				log.info("Alerta generada por variable " + v.getNombre());
-			}
+			//}
 			;
 		}
 	}

@@ -1,6 +1,5 @@
 package ar.edu.ucc.trabajoFinal.service;
 
-import java.util.Date;
 import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -16,16 +15,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-
 import ar.edu.ucc.trabajoFinal.dao.DaoGenerico;
 import ar.edu.ucc.trabajoFinal.dao.ITramaDao;
 import ar.edu.ucc.trabajoFinal.dao.TramaDao;
 import ar.edu.ucc.trabajoFinal.dto.TramaDto;
 import ar.edu.ucc.trabajoFinal.model.Trama;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
-import ar.edu.ucc.trabajoFinal.utils.TramaControl;
 import ar.edu.ucc.trabajoFinal.utils.TramaControlHandler;
 
 
@@ -40,11 +34,6 @@ public class TramaService {
 	DaoGenerico<Trama, Long> tramaDao;
 
 	ITramaDao tramaDaoParticular;
-	
-	TramaControl tramaControl;
-	
-	//Para hacer el control asincrono
-	ExecutorService pool = Executors.newCachedThreadPool();
 
 	@PostConstruct
 	public void init() {
@@ -206,11 +195,10 @@ public class TramaService {
 		tramaDaoParticular.saveOrUpdate(trama);
 		tramaDto.setId(trama.getId());		
 		
+		log.info("voy a mandar una trama a controlar asincronamente huevo!!");
 		// Controlar de forma asincrona
-		TramaControlHandler tch = new TramaControlHandler();
-		tch.encolarTrama(tramaDto);
-		pool.execute(tch);
-		
+		(new Thread(new TramaControlHandler(tramaDto))).start();
+		log.info("ya la mande, a ver que onda...");
 		return tramaDto;
 	}
 	
