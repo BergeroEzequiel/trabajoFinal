@@ -12,5 +12,7 @@
             <value>/WEB-INF/views.xml</value>
         </property>
     </bean>
+    
+    
    
 </beans>
