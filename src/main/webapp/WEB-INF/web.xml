@@ -9,7 +9,7 @@
 	<display-name>Trabajo Final</display-name>
 	
 	<welcome-file-list>
-		<welcome-file>home</welcome-file>
+		<welcome-file>views/index</welcome-file>
 	</welcome-file-list>
 	
 	
