@@ -1,0 +1,7 @@
+Para procesar:
+1) Promedio por variable.
+2) Máximo valor por variable.
+3) Mínimo valor por variable.
+
+Para la TramaProcesado:
+1)Crear el Modelo, DAO, servicios y controladores para get e insert 
