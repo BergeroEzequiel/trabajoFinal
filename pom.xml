@@ -12,6 +12,7 @@
 		<spring.version>4.2.0.RELEASE</spring.version>
 		<hibernate.version>4.3.11.Final</hibernate.version>
 		<slf4j.version>1.6.1</slf4j.version>
+		<quartz.version>2.2.1</quartz.version>
 	</properties>
 
 	<dependencies>
@@ -209,17 +210,16 @@
 		<!-- Transaction dependency is required with Quartz integration -->
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>spring-tx</artifactId>
-			<version>4.2.2.RELEASE</version>
+			<artifactId>spring-context-support</artifactId>
+			<version>4.2.0.RELEASE</version>
 		</dependency>
 
 		<!-- Quartz framework -->
 		<dependency>
-			<groupId>org.quartz-scheduler</groupId>
-			<artifactId>quartz</artifactId>
-			<version>2.2.1</version>
-		</dependency>
-
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz</artifactId>
+            <version>${quartz.version}</version>
+        </dependency>
 
 	</dependencies>
 	<build>
