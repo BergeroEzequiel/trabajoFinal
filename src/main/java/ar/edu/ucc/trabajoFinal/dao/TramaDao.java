@@ -18,8 +18,8 @@ public class TramaDao extends DaoGenericoImp<Trama, Long> implements ITramaDao{
 	}
 
 	@Override
-	public Query getTramaMaximos(Date fechaDesde, Date fechaHasta, int nodo) {
-		return (Query) this.currentSession().createQuery("select MAX(tensionRed),"
+	public TramaAuxiliar getTramaMaximos(Date fechaDesde, Date fechaHasta, int nodo) {
+		return (TramaAuxiliar) this.currentSession().createQuery("select MAX(tensionRed),"
 				+ "MAX(corrienteRed), MAX(frecuenciaTension), MAX(frecuenciaCorriente), MAX(desfasaje),"
 				+ "MAX(tensionTierra), MAX(tensionInterna), MAX(corrienteInterna), MAX(tensionContinua),"
 				+ "MAX(corrienteContinua), MAX(temperatura1), MAX(temperatura2), MAX(temperatura3),"
@@ -28,13 +28,13 @@ public class TramaDao extends DaoGenericoImp<Trama, Long> implements ITramaDao{
 				+ " from Trama where ipNodo = :nodo and fecha >= :fechaDesde and fecha <= :fechaHasta")
 				.setParameter("fechaDesde", fechaDesde)
 				.setParameter("fechaHasta", fechaHasta)
-				.setParameter("nodo", nodo).list();
+				.setParameter("nodo", nodo).uniqueResult();
 		
 	}
 
 	@Override
-	public Query getTramaMinimos(Date fechaDesde, Date fechaHasta, int nodo) {
-		return this.currentSession().createQuery("select MIN(tensionRed),"
+	public TramaAuxiliar getTramaMinimos(Date fechaDesde, Date fechaHasta, int nodo) {
+		return (TramaAuxiliar) this.currentSession().createQuery("select MIN(tensionRed),"
 				+ "MIN(corrienteRed), MIN(frecuenciaTension), MIN(frecuenciaCorriente), MIN(desfasaje),"
 				+ "MIN(tensionTierra), MIN(tensionInterna), MIN(corrienteInterna), MIN(tensionContinua),"
 				+ "MIN(corrienteContinua), MIN(temperatura1), MIN(temperatura2), MIN(temperatura3),"
@@ -43,11 +43,11 @@ public class TramaDao extends DaoGenericoImp<Trama, Long> implements ITramaDao{
 				+ " from Trama where ipNodo = :nodo and fecha >= :fechaDesde and fecha <= :fechaHasta")
 				.setParameter("fechaDesde", fechaDesde)
 				.setParameter("fechaHasta", fechaHasta)
-				.setParameter("nodo", nodo);
+				.setParameter("nodo", nodo).uniqueResult();
 	}
 
 	@Override
-	public Query getTramaPromedio(Date fechaDesde, Date fechaHasta, int nodo) {
+	public TramaAuxiliar getTramaPromedio(Date fechaDesde, Date fechaHasta, int nodo) {
 		return null;
 	}
 
