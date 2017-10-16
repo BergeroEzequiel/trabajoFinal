@@ -1,104 +1,27 @@
 package ar.edu.ucc.trabajoFinal.model;
 
-import java.sql.Time;
-import java.util.Date;
+public class TramaAuxiliar {
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
-
-@Entity
-@Table(name = "monitoreo_detalle")
-public class Trama extends ObjetoGenerico {
-
-	@Column(name = "ip_nodo", nullable = false)
-	private int ipNodo;
-
-	@Column(name = "estado", nullable = false)
-	private boolean estado;
-	
-	@Column(name = "tension_red", nullable = false)
 	private float tensionRed;
-
-	@Column(name = "corriente_red", nullable = false)
 	private float corrienteRed;
-
-	@Column(name = "frecuencia_tension", nullable = false)
 	private float frecuenciaTension;
-
-	@Column(name = "frecuencia_corriente", nullable = false)
 	private float frecuenciaCorriente;
-
-	@Column(name = "desfasaje", nullable = false)
 	private float desfasaje;
-
-	@Column(name = "tension_tierra", nullable = false)
 	private float tensionTierra;
-
-	@Column(name = "tension_interna", nullable = false)
 	private float tensionInterna;
-
-	@Column(name = "corriente_interna", nullable = false)
 	private float corrienteInterna;
-
-	@Column(name = "tension_continua", nullable = false)
 	private float tensionContinua;
-
-	@Column(name = "corriente_continua", nullable = false)
 	private float corrienteContinua;
-
-	@Column(name = "temperatura1", nullable = false)
 	private float temperatura1;
-
-	@Column(name = "temperatura2", nullable = false)
 	private float temperatura2;
-
-	@Column(name = "temperatura3", nullable = false)
 	private float temperatura3;
-
-	@Column(name = "temperatura4", nullable = false)
 	private float temperatura4;
-
-	@Column(name = "temperatura5", nullable = false)
 	private float temperatura5;
-
-	@Column(name = "humedad", nullable = false)
 	private float humedad;
-
-	@Column(name = "pvm", nullable = false)
 	private float pvm;
-
-	@Column(name = "fecha", nullable = true)
-	private Date fecha;
-
-	@Column(name = "hora", nullable = true)
-	private Time hora;
-
-	@Column(name = "potencia_continua", nullable = false)
 	private float potenciaContinua;
-
-	@Column(name = "potencia_red", nullable = false)
 	private float potenciaRed;
-
-	@Column(name = "potencia_interna", nullable = false)
 	private float potenciaInterna;
-
-	public int getIpNodo() {
-		return ipNodo;
-	}
-
-	public void setIpNodo(int ipNodo) {
-		this.ipNodo = ipNodo;
-	}
-
-	public boolean getEstado() {
-		return estado;
-	}
-
-	public void setEstado(boolean estado) {
-		this.estado = estado;
-	}
 
 	public float getTensionRed() {
 		return tensionRed;
@@ -236,22 +159,6 @@ public class Trama extends ObjetoGenerico {
 		this.pvm = pvm;
 	}
 
-	public Date getFecha() {
-		return fecha;
-	}
-
-	public void setFecha(Date fecha) {
-		this.fecha = fecha;
-	}
-
-	public Time getHora() {
-		return hora;
-	}
-
-	public void setHora(Time hora) {
-		this.hora = hora;
-	}
-
 	public float getPotenciaContinua() {
 		return potenciaContinua;
 	}
@@ -274,10 +181,6 @@ public class Trama extends ObjetoGenerico {
 
 	public void setPotenciaInterna(float potenciaInterna) {
 		this.potenciaInterna = potenciaInterna;
-	}
-
-	private float calcularPotencia(float tension, float corriente) {
-		return tension * corriente;
 	}
 
 }
