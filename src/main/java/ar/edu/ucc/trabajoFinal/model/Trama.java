@@ -11,11 +11,14 @@ import javax.persistence.Table;
 @Table(name = "monitoreo_detalle")
 public class Trama extends ObjetoGenerico {
 
-	@Column(name = "ip_nodo", nullable = false)
-	private int ipNodo;
+	@Column(name = "modulo", nullable = false)
+	private String modulo;
+	
+	@Column(name = "numero", nullable = false)
+	private int numero;
 
 	@Column(name = "estado", nullable = false)
-	private boolean estado;
+	private String estado;
 	
 	@Column(name = "tension_red", nullable = false)
 	private float tensionRed;
@@ -82,20 +85,47 @@ public class Trama extends ObjetoGenerico {
 
 	@Column(name = "potencia_interna", nullable = false)
 	private float potenciaInterna;
+	
+	@Column(name = "estado_control", nullable = false)
+	private boolean estadoControl = false;
 
-	public int getIpNodo() {
-		return ipNodo;
+	
+	public float calcularPotenciaContinua() {
+		return this.corrienteContinua * this.tensionContinua;
+	}
+	
+	public float calcularPotenciaInterna() {
+		return (float) (Math.cos((double) Math.toRadians(this.desfasaje)) * this.corrienteInterna * this.tensionInterna);
+	}
+	
+	public float calcularPotenciaRed() {
+		
+		return (float) (Math.cos((double) Math.toRadians(this.desfasaje)) * this.corrienteRed * this.tensionRed);
+		
+	}
+	
+	
+	public String getModulo() {
+		return modulo;
 	}
 
-	public void setIpNodo(int ipNodo) {
-		this.ipNodo = ipNodo;
+	public void setModulo(String modulo) {
+		this.modulo = modulo;
 	}
 
-	public boolean getEstado() {
+	public int getNumero() {
+		return numero;
+	}
+
+	public void setNumero(int numero) {
+		this.numero = numero;
+	}
+
+	public String getEstado() {
 		return estado;
 	}
 
-	public void setEstado(boolean estado) {
+	public void setEstado(String estado) {
 		this.estado = estado;
 	}
 
@@ -275,8 +305,12 @@ public class Trama extends ObjetoGenerico {
 		this.potenciaInterna = potenciaInterna;
 	}
 
-	private float calcularPotencia(float tension, float corriente) {
-		return tension * corriente;
+	public boolean isEstadoControl() {
+		return estadoControl;
+	}
+
+	public void setEstadoControl(boolean estadoControl) {
+		this.estadoControl = estadoControl;
 	}
 
 }

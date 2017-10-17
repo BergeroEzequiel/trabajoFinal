@@ -6,6 +6,6 @@ import ar.edu.ucc.trabajoFinal.model.Trama;
 
 public interface ITramaDao extends DaoGenerico<Trama, Long>{
 	
-	public List<Trama> getTramaByNodo(int nodo);
+	public List<Trama> getTramaByNumero(int numero);
 
 }

@@ -18,7 +18,7 @@ public class CustomMessage {
 
 	@Override
 	public String toString() {
-		return "{" + "'ip_nodo':" + tramaDto.getIpNodo() + ", 'estado':" + tramaDto.getEstado() + ", 'tension_red':"
+		return "{" +"'modulo': '" + tramaDto.getModulo() + "', 'numero':" + tramaDto.getNumero() + ", 'estado':'" + tramaDto.getEstado() + "', 'tension_red':"
 				+ tramaDto.getTensionRed() + ", 'corriente_red':" + tramaDto.getCorrienteRed() 
 				+ ", 'frecuencia_tension':" + tramaDto.getFrecuenciaTension() + ", 'frecuencia_corriente':"
 				+ tramaDto.getFrecuenciaCorriente() + ", 'desfasaje':" + tramaDto.getDesfasaje() 
@@ -32,6 +32,6 @@ public class CustomMessage {
 				+ tramaDto.getPvm() + ", 'fecha':" + tramaDto.getFecha() + ", 'hora':'"
 				+ tramaDto.getHora() + "', 'potencia_continua':" + tramaDto.getPotenciaContinua()
 				+ ", 'potencia_red':" + tramaDto.getPotenciaRed() + ", 'potencia_interna':"
-				+ tramaDto.getPotenciaInterna() + '}';
+				+ tramaDto.getPotenciaInterna() + ", 'estado_control':" + tramaDto.getEstadoControl() + '}';
 	}
 }

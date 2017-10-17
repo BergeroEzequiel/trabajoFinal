@@ -13,7 +13,7 @@ public class TramaControlHandler implements Runnable {
 	public void run() {
 		TramaControl tramaControl = new TramaControl();
 		tramaControl.cargarValoresActuales(this.tramaDto);
-		tramaControl.controlarTrama();
+		tramaControl.controlarTrama(this.tramaDto);
 
 	}
 }

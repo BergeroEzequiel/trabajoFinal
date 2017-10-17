@@ -18,6 +18,7 @@ import ar.edu.ucc.trabajoFinal.dto.UmbralDto;
 import ar.edu.ucc.trabajoFinal.model.Umbral;
 
 @Service
+@Transactional
 public class UmbralService {
 	
 	private Logger log = Logger.getLogger(this.getClass());
