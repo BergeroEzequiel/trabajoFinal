@@ -1,5 +1,4 @@
 package ar.edu.ucc.trabajoFinal.jobs;
-<<<<<<< HEAD
 
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -30,6 +29,4 @@ public class ScheduledJob extends QuartzJobBean {
 		this.tramaDao = tramaDao;
 	}
 
-=======
->>>>>>> 05e9f1ef8022c58a2a753bfe54a210ebb902a23f
 }

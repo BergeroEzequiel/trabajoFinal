@@ -5,7 +5,10 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.annotation.PostConstruct;
 
@@ -20,15 +23,8 @@ import ar.edu.ucc.trabajoFinal.dao.ITramaDao;
 import ar.edu.ucc.trabajoFinal.dao.TramaDao;
 import ar.edu.ucc.trabajoFinal.dto.TramaDto;
 import ar.edu.ucc.trabajoFinal.model.Trama;
-<<<<<<< HEAD
 import ar.edu.ucc.trabajoFinal.model.TramaAuxiliar;
-
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 import ar.edu.ucc.trabajoFinal.utils.TramaControl;
-=======
->>>>>>> 05e9f1ef8022c58a2a753bfe54a210ebb902a23f
 import ar.edu.ucc.trabajoFinal.utils.TramaControlHandler;
 
 @Service
@@ -41,14 +37,11 @@ public class TramaService {
 	DaoGenerico<Trama, Long> tramaDao;
 
 	ITramaDao tramaDaoParticular;
-<<<<<<< HEAD
 
 	TramaControl tramaControl;
 
 	// Para hacer el control asincrono
 	ExecutorService pool = Executors.newCachedThreadPool();
-=======
->>>>>>> 05e9f1ef8022c58a2a753bfe54a210ebb902a23f
 
 	@PostConstruct
 	public void init() {
@@ -209,16 +202,13 @@ public class TramaService {
 		trama.setTensionTierra(tramaDto.getTensionTierra());
 
 		tramaDaoParticular.saveOrUpdate(trama);
-<<<<<<< HEAD
 		tramaDto.setId(trama.getId());
 
 		// Controlar de forma asincrona
-		TramaControlHandler tch = new TramaControlHandler();
-		tch.encolarTrama(tramaDto);
+		TramaControlHandler tch = new TramaControlHandler(tramaDto);
+		//tch.encolarTrama(tramaDto);
 		pool.execute(tch);
 
-=======
->>>>>>> 05e9f1ef8022c58a2a753bfe54a210ebb902a23f
 		return tramaDto;
 	}
 

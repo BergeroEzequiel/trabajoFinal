@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
@@ -60,7 +59,4 @@
 		</property>
 	</bean>
 
-=======
-
->>>>>>> 05e9f1ef8022c58a2a753bfe54a210ebb902a23f
 </beans>

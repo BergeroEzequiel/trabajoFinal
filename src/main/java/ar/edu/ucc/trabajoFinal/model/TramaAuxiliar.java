@@ -1,7 +1,5 @@
 package ar.edu.ucc.trabajoFinal.model;
 
-<<<<<<< HEAD
-
 public class TramaAuxiliar {
 //				"select MAX(tensionRed) AS tensionRed,"
 //			+ "MAX(corrienteRed) AS corrienteRed, MAX(frecuenciaTension) AS frecuenciaTension, MAX(frecuenciaCorriente) AS frecuenciaCorriente, "
@@ -149,8 +147,4 @@ public class TramaAuxiliar {
 	public void setPotenciaInterna(Float potenciaInterna) {
 		this.potenciaInterna = potenciaInterna;
 	}
-
-	
-=======
->>>>>>> 05e9f1ef8022c58a2a753bfe54a210ebb902a23f
 }
