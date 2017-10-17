@@ -1,3 +1,4 @@
+
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
@@ -12,6 +13,7 @@
 		<spring.version>4.2.0.RELEASE</spring.version>
 		<hibernate.version>4.3.11.Final</hibernate.version>
 		<slf4j.version>1.6.1</slf4j.version>
+		<quartz.version>2.2.1</quartz.version>
 	</properties>
 
 	<dependencies>
@@ -206,6 +208,19 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- Transaction dependency is required with Quartz integration -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>4.2.0.RELEASE</version>
+		</dependency>
+
+		<!-- Quartz framework -->
+		<dependency>
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz</artifactId>
+            <version>${quartz.version}</version>
+        </dependency>
 
 	</dependencies>
 	<build>
