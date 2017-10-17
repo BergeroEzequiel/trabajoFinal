@@ -23,4 +23,7 @@ public class AnotherBean {
 		System.out.println(auxiliar);
 	}
 	
+<<<<<<< HEAD
 }
+=======
+>>>>>>> 05e9f1ef8022c58a2a753bfe54a210ebb902a23f

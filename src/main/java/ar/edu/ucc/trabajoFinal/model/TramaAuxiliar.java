@@ -1,5 +1,6 @@
 package ar.edu.ucc.trabajoFinal.model;
 
+<<<<<<< HEAD
 
 public class TramaAuxiliar {
 //				"select MAX(tensionRed) AS tensionRed,"
@@ -150,4 +151,6 @@ public class TramaAuxiliar {
 	}
 
 	
+=======
+>>>>>>> 05e9f1ef8022c58a2a753bfe54a210ebb902a23f
 }

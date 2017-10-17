@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+
 @Entity
 @Table(name = "monitoreo_detalle")
 public class Trama extends ObjetoGenerico {

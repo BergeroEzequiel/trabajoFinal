@@ -20,6 +20,7 @@ public class TramaDao extends DaoGenericoImp<Trama, Long> implements ITramaDao {
 
 	@Override
 	public TramaAuxiliar getTramaMaximos(Date fechaDesde, Date fechaHasta, int nodo) {
+<<<<<<< HEAD
 		List list =  ((Query) this.currentSession()
 				.createQuery("select MAX(tensionRed) AS tensionRed,"
 						+ "MAX(corrienteRed) AS corrienteRed, MAX(frecuenciaTension) AS frecuenciaTension, MAX(frecuenciaCorriente) AS frecuenciaCorriente, "
@@ -33,10 +34,14 @@ public class TramaDao extends DaoGenericoImp<Trama, Long> implements ITramaDao {
 				.setParameter("nodo", nodo).list();
 		return (TramaAuxiliar) list.get(0);
 
+=======
+		
+>>>>>>> 05e9f1ef8022c58a2a753bfe54a210ebb902a23f
 	}
 
 	@Override
 	public TramaAuxiliar getTramaMinimos(Date fechaDesde, Date fechaHasta, int nodo) {
+<<<<<<< HEAD
 		List list =  this.currentSession()
 				.createQuery("select MIN(tensionRed),"
 						+ "MIN(corrienteRed), MIN(frecuenciaTension), MIN(frecuenciaCorriente), MIN(desfasaje),"
@@ -48,11 +53,16 @@ public class TramaDao extends DaoGenericoImp<Trama, Long> implements ITramaDao {
 				.setParameter("fechaDesde", fechaDesde).setParameter("fechaHasta", fechaHasta)
 				.setParameter("nodo", nodo).list();
 		return (TramaAuxiliar) list.get(0);
+=======
+>>>>>>> 05e9f1ef8022c58a2a753bfe54a210ebb902a23f
 	}
 
 	@Override
 	public TramaAuxiliar getTramaPromedio(Date fechaDesde, Date fechaHasta, int nodo) {
+<<<<<<< HEAD
 		System.out.println("Estoy en TramaPromedio.");
+=======
+>>>>>>> 05e9f1ef8022c58a2a753bfe54a210ebb902a23f
 		return null;
 	}
 
