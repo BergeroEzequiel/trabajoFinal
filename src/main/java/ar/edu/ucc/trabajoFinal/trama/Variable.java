@@ -4,10 +4,9 @@ import ar.edu.ucc.trabajoFinal.model.Umbral;
 
 public abstract class Variable {
 	
-	private String nombre;
-	private float valorActual;
-	private Umbral umbral;
-	
+	protected String nombre;
+	protected float valorActual;
+	protected Umbral umbral = new Umbral();
 	
 	public boolean controlarVariable(float valorActual){
 		if(this.umbral.getValorMax() > valorActual && valorActual > this.umbral.getValorMin()) return true;

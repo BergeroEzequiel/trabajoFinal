@@ -21,7 +21,6 @@ import ar.edu.ucc.trabajoFinal.dao.TramaDao;
 import ar.edu.ucc.trabajoFinal.dto.TramaDto;
 import ar.edu.ucc.trabajoFinal.model.Trama;
 import ar.edu.ucc.trabajoFinal.utils.TramaControl;
-import ar.edu.ucc.trabajoFinal.utils.TramaControlHandler;
 
 
 
@@ -204,7 +203,7 @@ public class TramaService {
 		tramaDto.setPotenciaInterna(trama.getPotenciaInterna());
 		tramaDto.setPotenciaRed(trama.getPotenciaRed());
 		
-		//this.controlarTrama(tramaDto);
+		this.controlarTrama(tramaDto);
 
 		return tramaDto;
 	}
