@@ -27,16 +27,13 @@ public class Producer {
 		tramaAuxiliar.setCorrienteInterna((float)Math.random()*100);
 		tramaAuxiliar.setCorrienteRed((float)Math.random()*100);
 		tramaAuxiliar.setDesfasaje((float)Math.random()*100);
-		tramaAuxiliar.setEstado(true);;
+		tramaAuxiliar.setEstado("OK");
 		tramaAuxiliar.setFecha(dateFormatter.format(new Date()));
 		tramaAuxiliar.setFrecuenciaCorriente((float)Math.random()*100);
 		tramaAuxiliar.setFrecuenciaTension((float)Math.random()*100);
 		tramaAuxiliar.setHora(timeFormatter.format((new Date())));
 		tramaAuxiliar.setHumedad((float)Math.random()*100);
-		tramaAuxiliar.setIpNodo((int)(Math.random()*10));
-		tramaAuxiliar.setPotenciaContinua((float)Math.random()*100);
-		tramaAuxiliar.setPotenciaInterna((float)Math.random()*100);
-		tramaAuxiliar.setPotenciaRed((float)Math.random()*100);
+		tramaAuxiliar.setNumero((int)(Math.random()*10));
 		tramaAuxiliar.setPvm((float)Math.random()*100);
 		tramaAuxiliar.setTemperatura1((float)Math.random()*100);
 		tramaAuxiliar.setTemperatura2((float)Math.random()*100);
@@ -47,6 +44,7 @@ public class Producer {
 		tramaAuxiliar.setTensionInterna((float)Math.random()*100);
 		tramaAuxiliar.setTensionRed((float)Math.random()*100);
 		tramaAuxiliar.setTensionTierra((float)Math.random()*100);
+		tramaAuxiliar.setModulo("Solar");
 		
 		CustomMessage cm = new CustomMessage(tramaAuxiliar);
 		

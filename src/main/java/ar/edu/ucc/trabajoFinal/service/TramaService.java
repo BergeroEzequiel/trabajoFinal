@@ -20,6 +20,7 @@ import ar.edu.ucc.trabajoFinal.dao.ITramaDao;
 import ar.edu.ucc.trabajoFinal.dao.TramaDao;
 import ar.edu.ucc.trabajoFinal.dto.TramaDto;
 import ar.edu.ucc.trabajoFinal.model.Trama;
+import ar.edu.ucc.trabajoFinal.utils.TramaControl;
 import ar.edu.ucc.trabajoFinal.utils.TramaControlHandler;
 
 
@@ -66,7 +67,8 @@ public class TramaService {
 		tramaDto.setFrecuenciaTension(trama.getFrecuenciaTension());
 		tramaDto.setHora(timeFormatter.format(trama.getHora())); 
 		tramaDto.setHumedad(trama.getHumedad());
-		tramaDto.setIpNodo(trama.getIpNodo());
+		tramaDto.setModulo(trama.getModulo());
+		tramaDto.setNumero(trama.getNumero());
 		tramaDto.setPotenciaContinua(trama.getPotenciaContinua());
 		tramaDto.setPotenciaInterna(trama.getPotenciaInterna());
 		tramaDto.setPotenciaRed(trama.getPotenciaRed());
@@ -107,7 +109,8 @@ public class TramaService {
 			tramaDto.setFrecuenciaTension(trama.getFrecuenciaTension());
 			tramaDto.setHora(timeFormatter.format((trama.getHora()))); 
 			tramaDto.setHumedad(trama.getHumedad());
-			tramaDto.setIpNodo(trama.getIpNodo());
+			tramaDto.setModulo(trama.getModulo());
+			tramaDto.setNumero(trama.getNumero());
 			tramaDto.setPotenciaContinua(trama.getPotenciaContinua());
 			tramaDto.setPotenciaInterna(trama.getPotenciaInterna());
 			tramaDto.setPotenciaRed(trama.getPotenciaRed());
@@ -129,11 +132,11 @@ public class TramaService {
 	}
 	
 	@Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
-	public List<TramaDto> getTramasByNodo(int ipNodo){
+	public List<TramaDto> getTramasByNumero(int numero){
 		
-		log.info("Filtrando tramas con el ipNodo: " + ipNodo);
+		log.info("Filtrando tramas del modulo Solar con el numero: " + numero);
 		
-		List<Trama> tramas = tramaDaoParticular.getTramaByNodo(ipNodo);
+		List<Trama> tramas = tramaDaoParticular.getTramaByNumero(numero);
 		
 		List<TramaDto> tramasDto = new ArrayList<TramaDto>();
 		
@@ -150,7 +153,8 @@ public class TramaService {
 			tramaDto.setFrecuenciaTension(trama.getFrecuenciaTension());
 			tramaDto.setHora(timeFormatter.format(trama.getHora())); 
 			tramaDto.setHumedad(trama.getHumedad());
-			tramaDto.setIpNodo(trama.getIpNodo());
+			tramaDto.setModulo(trama.getModulo());
+			tramaDto.setNumero(trama.getNumero());
 			tramaDto.setPotenciaContinua(trama.getPotenciaContinua());
 			tramaDto.setPotenciaInterna(trama.getPotenciaInterna());
 			tramaDto.setPotenciaRed(trama.getPotenciaRed());
@@ -177,10 +181,8 @@ public class TramaService {
 		trama.setFrecuenciaTension(tramaDto.getFrecuenciaTension());
 		trama.setHora(Time.valueOf(tramaDto.getHora()));
 		trama.setHumedad(tramaDto.getHumedad());
-		trama.setIpNodo(tramaDto.getIpNodo());
-		trama.setPotenciaContinua(tramaDto.getPotenciaContinua());
-		trama.setPotenciaInterna(tramaDto.getPotenciaInterna());
-		trama.setPotenciaRed(tramaDto.getPotenciaRed());
+		trama.setModulo(tramaDto.getModulo());
+		trama.setNumero(tramaDto.getNumero());
 		trama.setPvm(tramaDto.getPvm());
 		trama.setTemperatura1(tramaDto.getTemperatura1());
 		trama.setTemperatura2(tramaDto.getTemperatura2());
@@ -191,55 +193,45 @@ public class TramaService {
 		trama.setTensionInterna(tramaDto.getTensionInterna());
 		trama.setTensionRed(tramaDto.getTensionRed());
 		trama.setTensionTierra(tramaDto.getTensionTierra());
+		trama.setEstadoControl(tramaDto.getEstadoControl());
+		trama.setPotenciaContinua(trama.calcularPotenciaContinua());
+		trama.setPotenciaInterna(trama.calcularPotenciaInterna());
+		trama.setPotenciaRed(trama.calcularPotenciaRed());
 		
 		tramaDaoParticular.saveOrUpdate(trama);
-		tramaDto.setId(trama.getId());		
+		tramaDto.setId(trama.getId());	
+		tramaDto.setPotenciaContinua(trama.getPotenciaContinua());
+		tramaDto.setPotenciaInterna(trama.getPotenciaInterna());
+		tramaDto.setPotenciaRed(trama.getPotenciaRed());
 		
-		log.info("voy a mandar una trama a controlar asincronamente huevo!!");
-		// Controlar de forma asincrona
-		(new Thread(new TramaControlHandler(tramaDto))).start();
-		log.info("ya la mande, a ver que onda...");
+		//this.controlarTrama(tramaDto);
+
 		return tramaDto;
 	}
 	
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-	public TramaDto actualizarTrama(TramaDto tramaDto) throws ParseException {
+	public TramaDto actualizarEstadoControlTrama(TramaDto tramaDto) throws ParseException {
 
 		log.info("Actualizando: " + tramaDto.toString());
 
 		Trama trama = tramaDaoParticular.load(tramaDto.getId());
-		
-		trama.setCorrienteContinua(tramaDto.getCorrienteContinua());
-		trama.setCorrienteInterna(tramaDto.getCorrienteInterna());
-		trama.setCorrienteRed(tramaDto.getCorrienteRed());
-		trama.setDesfasaje(tramaDto.getDesfasaje());
-		trama.setEstado(tramaDto.getEstado());;
-		trama.setFecha(dateFormatter.parse(tramaDto.getFecha()));
-		trama.setFrecuenciaCorriente(tramaDto.getFrecuenciaCorriente());
-		trama.setFrecuenciaTension(tramaDto.getFrecuenciaTension());
-		trama.setHora(new Time(timeFormatter.parse(tramaDto.getHora()).getTime()));
-		trama.setHumedad(tramaDto.getHumedad());
-		trama.setIpNodo(tramaDto.getIpNodo());
-		trama.setPotenciaContinua(tramaDto.getPotenciaContinua());
-		trama.setPotenciaInterna(tramaDto.getPotenciaInterna());
-		trama.setPotenciaRed(tramaDto.getPotenciaRed());
-		trama.setPvm(tramaDto.getPvm());
-		trama.setTemperatura1(tramaDto.getTemperatura1());
-		trama.setTemperatura2(tramaDto.getTemperatura2());
-		trama.setTemperatura3(tramaDto.getTemperatura3());
-		trama.setTemperatura4(tramaDto.getTemperatura4());
-		trama.setTemperatura5(tramaDto.getTemperatura5());
-		trama.setTensionContinua(tramaDto.getTensionContinua());
-		trama.setTensionInterna(tramaDto.getTensionInterna());
-		trama.setTensionRed(tramaDto.getTensionRed());
-		trama.setTensionTierra(tramaDto.getTensionTierra());
+
+		trama.setEstadoControl(tramaDto.getEstadoControl());
 		
 		tramaDaoParticular.saveOrUpdate(trama);
 		
 		return tramaDto;
 	}
 	
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
+	public void controlarTrama(TramaDto tramaDto) throws ParseException {
 
-	
+		TramaControl tramaControl = new TramaControl();
+		tramaControl.cargarValoresActuales(tramaDto);
+		tramaControl.controlarTrama(tramaDto);
+		
+		tramaDto.setEstadoControl(true);
+		this.actualizarEstadoControlTrama(tramaDto);
+	}
 	
 }

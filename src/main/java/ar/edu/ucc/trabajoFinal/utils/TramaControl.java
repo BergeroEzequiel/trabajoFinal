@@ -1,13 +1,16 @@
 package ar.edu.ucc.trabajoFinal.utils;
 
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import ar.edu.ucc.trabajoFinal.dto.AlertaDto;
 import ar.edu.ucc.trabajoFinal.dto.TramaDto;
-import ar.edu.ucc.trabajoFinal.dto.UmbralDto;
+import ar.edu.ucc.trabajoFinal.service.TramaService;
 import ar.edu.ucc.trabajoFinal.service.UmbralService;
 import ar.edu.ucc.trabajoFinal.trama.CorrienteContinua;
 import ar.edu.ucc.trabajoFinal.trama.CorrienteInterna;
@@ -30,11 +33,15 @@ import ar.edu.ucc.trabajoFinal.trama.TensionInterna;
 import ar.edu.ucc.trabajoFinal.trama.TensionRed;
 import ar.edu.ucc.trabajoFinal.trama.TensionTierra;
 import ar.edu.ucc.trabajoFinal.trama.Variable;
+import okhttp3.Response;
 
 public class TramaControl {
 	private Logger log = Logger.getLogger(this.getClass());
-
-	int nodo;
+	private PeticionPost peticionPost = new PeticionPost();
+	private Response response;
+	
+	String modulo;
+	int numero;
 	Variable tensionRed;
 	Variable corrienteRed;
 	Variable frecuenciaTension;
@@ -56,14 +63,9 @@ public class TramaControl {
 	Variable potenciaInterna;
 	Variable potenciaRed;
 	List<Variable> variablesAControlar;
-	@Autowired
-	private UmbralService umbralService;
-
-	@Autowired
-	// private AlertaService alertaService;
 
 	public TramaControl() {
-
+		
 		this.tensionRed = new TensionRed();
 		this.corrienteRed = new CorrienteRed();
 		this.frecuenciaTension = new FrecuenciaTension();
@@ -107,7 +109,7 @@ public class TramaControl {
 		variablesAControlar.add(tensionRed);
 		variablesAControlar.add(pvm);
 
-		//this.cargarUmbrales();
+		this.cargarUmbrales();
 	}
 
 	public void cargarUmbrales() {
@@ -155,7 +157,8 @@ public class TramaControl {
 	}
 
 	public void cargarValoresActuales(TramaDto tramaDto) {
-		this.nodo = tramaDto.getIpNodo();
+		this.modulo = tramaDto.getModulo();
+		this.numero = tramaDto.getNumero();
 		this.tensionRed.setValorActual(tramaDto.getTensionRed());
 		this.corrienteRed.setValorActual(tramaDto.getCorrienteRed());
 		this.frecuenciaTension.setValorActual(tramaDto.getFrecuenciaTension());
@@ -178,13 +181,19 @@ public class TramaControl {
 		this.potenciaRed.setValorActual(tramaDto.getPotenciaRed());
 	}
 
-	public void controlarTrama() {
+	public void controlarTrama(TramaDto tramaDto) {
 		for (Variable v : variablesAControlar) {
-			//if (!v.controlarVariable(v.getValorActual())) {
-				// alertaService.generarAlerta(v, this.nodo);
-				log.info("Alerta generada por variable " + v.getNombre());
-			//}
-			;
+			if (v.controlarVariable(v.getValorActual()) == false) {
+				
+				AlertaDto alertaDto = new AlertaDto(v, this.numero);
+				try {
+					this.response = this.peticionPost.post("http://localhost:8080/trabajoFinal/alerta", alertaDto.toString());
+					log.info(response.code());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 

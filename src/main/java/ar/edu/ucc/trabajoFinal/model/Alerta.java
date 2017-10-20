@@ -1,7 +1,8 @@
 package ar.edu.ucc.trabajoFinal.model;
 
-import java.sql.Date;
+
 import java.sql.Time;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,6 +21,17 @@ public class Alerta extends ObjetoGenerico{
 	@Column(name="variable_afectada", length=50, nullable=false)
 	private String variableAfectada;
 	
+	@Column(name="valor", length=50, nullable=false)
+	private Float valor;
+	
+	public Float getValor() {
+		return valor;
+	}
+
+	public void setValor(Float valor) {
+		this.valor = valor;
+	}
+
 	@Column(name="umbral_superado", length=50, nullable=false)
 	private float umbralSuperado;
 	

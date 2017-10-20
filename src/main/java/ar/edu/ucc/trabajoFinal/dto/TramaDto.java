@@ -21,13 +21,14 @@ public class TramaDto {
 		this.corrienteInterna = ((float) tramaJson.getDouble("corriente_interna"));
 		this.corrienteRed = ((float) tramaJson.getDouble("corriente_red"));
 		this.desfasaje=((float) tramaJson.getDouble("desfasaje"));
-		this.estado=(tramaJson.getBoolean("estado"));
+		this.estado=(tramaJson.getString("estado"));
 		this.fecha=tramaJson.getString("fecha");
 		this.hora=tramaJson.getString("hora");
 		this.frecuenciaCorriente=((float) tramaJson.getDouble("frecuencia_corriente"));
 		this.frecuenciaTension=((float) tramaJson.getDouble("frecuencia_tension"));
 		this.humedad=((float) tramaJson.getDouble("humedad"));
-		this.ipNodo=(tramaJson.getInt("ip_nodo"));
+		this.modulo=(tramaJson.getString("modulo"));
+		this.numero=(tramaJson.getInt("numero"));
 		this.potenciaContinua=((float) tramaJson.getDouble("potencia_continua"));
 		this.potenciaInterna=((float) tramaJson.getDouble("potencia_interna"));
 		this.potenciaRed=((float) tramaJson.getDouble("potencia_red"));
@@ -41,13 +42,16 @@ public class TramaDto {
 		this.tensionInterna=((float) tramaJson.getDouble("tension_interna"));
 		this.tensionRed=((float) tramaJson.getDouble("tension_red"));
 		this.tensionTierra=((float) tramaJson.getDouble("tension_tierra"));
+		this.estadoControl=(tramaJson.getBoolean("estado_control"));
 	}
 	
 	private Long id;
+	
+	private String modulo;
 
-	private int ipNodo;
+	private int numero;
 
-	private boolean estado;
+	private String estado;
 
 	private float tensionRed;
 
@@ -92,20 +96,39 @@ public class TramaDto {
 	private float potenciaRed;
 
 	private float potenciaInterna;
-
-	public int getIpNodo() {
-		return ipNodo;
+	
+	private boolean estadoControl = false;
+	
+	
+	public String getModulo() {
+		return modulo;
 	}
 
-	public void setIpNodo(int ipNodo) {
-		this.ipNodo = ipNodo;
+	public void setModulo(String modulo) {
+		this.modulo = modulo;
 	}
 
-	public boolean getEstado() {
+	public int getNumero() {
+		return numero;
+	}
+
+	public void setNumero(int numero) {
+		this.numero = numero;
+	}
+
+	public boolean getEstadoControl() {
+		return estadoControl;
+	}
+
+	public void setEstadoControl(boolean estadoControl) {
+		this.estadoControl = estadoControl;
+	}
+
+	public String getEstado() {
 		return estado;
 	}
 
-	public void setEstado(boolean estado) {
+	public void setEstado(String estado) {
 		this.estado = estado;
 	}
 
@@ -296,7 +319,7 @@ public class TramaDto {
 	
 	@Override
 	public String toString() {
-		return "{" + "ip_nodo=" + getIpNodo() + ", estado='" + getEstado() + '\'' + ", tension_red='"
+		return "{" + "modulo=" + getModulo() + ", numero='" + getNumero() + '\'' + ", estado='" + getEstado() + '\'' + ", tension_red='"
 				+ getTensionRed() + '\'' + ", corriente_red='" + getCorrienteRed() + '\''
 				+ ", frecuencia_tension='" + getFrecuenciaTension() + '\'' + ", frecuencia_corriente='"
 				+ getFrecuenciaCorriente() + '\'' + ", desfasaje='" + getDesfasaje() + '\''
@@ -310,7 +333,7 @@ public class TramaDto {
 				+ getPvm() + '\'' + ", fecha='" + getFecha() + '\'' + ", hora='"
 				+ getHora() + '\'' + ", potencia_continua='" + getPotenciaContinua()
 				+ '\'' + ", potencia_red='" + getPotenciaRed() + '\'' + ", potencia_interna='"
-				+ getPotenciaInterna() + '\'' + '}';
+				+ getPotenciaInterna() + '\'' + ", estado_control='" + getEstadoControl() + '}';
 	}
 	
 

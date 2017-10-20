@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import ar.edu.ucc.trabajoFinal.dto.UmbralDto;
 import ar.edu.ucc.trabajoFinal.service.UmbralService;
@@ -101,8 +104,7 @@ public class UmbralesSingleton {
 		variablesAControlar.add(tensionRed);
 		variablesAControlar.add(pvm);
 
-		// CARGAR EN LA BASE DE DATOS PARA PROBAR
-		// this.cargarUmbrales();
+		this.cargarUmbrales();
 	}
 
 	public static UmbralesSingleton getInstance() {
@@ -112,7 +114,7 @@ public class UmbralesSingleton {
 		return instance;
 	}
 
-	public void getUmbrales() {
+	public void cargarUmbrales() {
 		UmbralDto umbralDto;
 		for (Variable v : variablesAControlar) {
 			umbralDto = new UmbralDto();

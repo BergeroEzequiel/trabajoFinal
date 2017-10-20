@@ -45,9 +45,9 @@ public class TramaController {
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value = "/tramaByNodo/{ipNodo}", method = RequestMethod.GET, produces = "application/json")
-	public ResponseEntity<?> getTramaByNodo(@PathVariable("ipNodo") int ipNodo) throws Exception{
+	public ResponseEntity<?> getTramaByNodo(@PathVariable("numero") int numero) throws Exception{
 		
-		List<TramaDto> tramaDto = tramaService.getTramasByNodo(ipNodo);
+		List<TramaDto> tramaDto = tramaService.getTramasByNumero(numero);
 		return new ResponseEntity(tramaDto, HttpStatus.OK);
 		
 	}
@@ -72,7 +72,7 @@ public class TramaController {
 	public ResponseEntity<?> actualizarTrama(@RequestBody TramaDto tramaDto)
 			throws Exception {
 		
-		TramaDto tramaDtoRespuesta = tramaService.actualizarTrama(tramaDto);
+		TramaDto tramaDtoRespuesta = tramaService.actualizarEstadoControlTrama(tramaDto);
 		
 		return new ResponseEntity(tramaDtoRespuesta,HttpStatus.OK);
 	}
