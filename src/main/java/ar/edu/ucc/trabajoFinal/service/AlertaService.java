@@ -75,6 +75,7 @@ public class AlertaService {
 		alerta.setCodigo(alertaDto.getCodigo());
 		alerta.setDescripcion(alertaDto.getDescripcion());
 		alerta.setVariableAfectada(alertaDto.getVariableAfectada());
+		alerta.setValor(alertaDto.getValor());
 		alerta.setUmbralSuperado(alertaDto.getUmbralSuperado());
 		alerta.setNodoAfectado(alertaDto.getNodoAfectado());
 		alerta.setFecha(dateFormatter.parse(alertaDto.getFecha()));

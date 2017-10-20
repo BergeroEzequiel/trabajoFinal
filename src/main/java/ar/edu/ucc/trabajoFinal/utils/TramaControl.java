@@ -1,17 +1,14 @@
 package ar.edu.ucc.trabajoFinal.utils;
 
-import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import ar.edu.ucc.trabajoFinal.dto.AlertaDto;
 import ar.edu.ucc.trabajoFinal.dto.TramaDto;
-import ar.edu.ucc.trabajoFinal.service.TramaService;
-import ar.edu.ucc.trabajoFinal.service.UmbralService;
+import ar.edu.ucc.trabajoFinal.service.AlertaService;
 import ar.edu.ucc.trabajoFinal.trama.CorrienteContinua;
 import ar.edu.ucc.trabajoFinal.trama.CorrienteInterna;
 import ar.edu.ucc.trabajoFinal.trama.CorrienteRed;
@@ -39,7 +36,7 @@ public class TramaControl {
 	private Logger log = Logger.getLogger(this.getClass());
 	private PeticionPost peticionPost = new PeticionPost();
 	private Response response;
-	
+
 	String modulo;
 	int numero;
 	Variable tensionRed;
@@ -63,9 +60,11 @@ public class TramaControl {
 	Variable potenciaInterna;
 	Variable potenciaRed;
 	List<Variable> variablesAControlar;
+	
+	AlertaService alertaService = SpringContextBridge.services().getAlertaService();
 
 	public TramaControl() {
-		
+
 		this.tensionRed = new TensionRed();
 		this.corrienteRed = new CorrienteRed();
 		this.frecuenciaTension = new FrecuenciaTension();
@@ -181,20 +180,14 @@ public class TramaControl {
 		this.potenciaRed.setValorActual(tramaDto.getPotenciaRed());
 	}
 
-	public void controlarTrama(TramaDto tramaDto) {
+	public void controlarTrama(TramaDto tramaDto) throws ParseException {
 		for (Variable v : variablesAControlar) {
 			if (v.controlarVariable(v.getValorActual()) == false) {
-				
+
 				AlertaDto alertaDto = new AlertaDto(v, this.numero);
-				try {
-					this.response = this.peticionPost.post("http://localhost:8080/trabajoFinal/alerta", alertaDto.toString());
-					log.info(response.code());
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				alertaService.grabarAlerta(alertaDto);
 			}
 		}
 	}
-
+	
 }

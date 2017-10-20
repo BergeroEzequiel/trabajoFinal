@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import ar.edu.ucc.trabajoFinal.dto.UmbralDto;
 import ar.edu.ucc.trabajoFinal.service.UmbralService;
@@ -34,7 +31,8 @@ import ar.edu.ucc.trabajoFinal.trama.Variable;
 
 public class UmbralesSingleton {
 	private static UmbralesSingleton instance = null;
-	int nodo;
+//	String modulo;
+//	int numero;
 	Variable tensionRed;
 	Variable corrienteRed;
 	Variable frecuenciaTension;
@@ -56,8 +54,8 @@ public class UmbralesSingleton {
 	Variable potenciaInterna;
 	Variable potenciaRed;
 	List<Variable> variablesAControlar;
-	@Autowired
-	private UmbralService umbralService;
+	
+	UmbralService umbralService = SpringContextBridge.services().getUmbralService();
 
 	private UmbralesSingleton() {
 

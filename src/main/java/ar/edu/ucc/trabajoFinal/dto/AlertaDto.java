@@ -17,6 +17,8 @@ public class AlertaDto {
 	DateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
 
 	public AlertaDto(Variable v, int nodo) {
+		this.codigo="error";
+		this.descripcion="variable fuera de umbral";
 		this.variableAfectada = v.getNombre();
 		this.valor = v.getValorActual();
 		if (this.valor > v.getUmbral().getValorMax()) {
@@ -113,11 +115,11 @@ public class AlertaDto {
 
 	@Override
 	public String toString() {
-		return "{" + "codigo:" + getCodigo() + "descripcion:" + getDescripcion()
-		+ "variable_afectada:" + getVariableAfectada() + "valor:" + getValor() 
-		+ "umbral_superado:" + getUmbralSuperado() 
-		+ "nodo_afectado:" + getNodoAfectado() + "fecha:" + getFecha()
-		+ "hora:" + getHora() + "}";
+		return "{" + "codigo:" + getCodigo() + " descripcion:" + getDescripcion()
+		+ " variable_afectada:" + getVariableAfectada() + " valor:" + getValor() 
+		+ " umbral_superado:" + getUmbralSuperado() 
+		+ " nodo_afectado:" + getNodoAfectado() + " fecha:" + getFecha()
+		+ " hora:" + getHora() + "}";
 		
 	}
 
