@@ -3,6 +3,8 @@
 
     drop table if exists monitoreo_detalle;
 
+    drop table if exists monitoreo_procesado;
+
     drop table if exists umbrales;
 
     drop table if exists usuarios;
@@ -50,6 +52,73 @@
         tension_interna float not null,
         tension_red float not null,
         tension_tierra float not null,
+        primary key (ID)
+    ) ENGINE=InnoDB;
+
+    create table monitoreo_procesado (
+        ID bigint not null auto_increment,
+        VERSION bigint not null DEFAULT 0,
+        corriente_continua_avg float not null,
+        corriente_continua_max float not null,
+        corriente_continua_min float not null,
+        corriente_interna_avg float not null,
+        corriente_interna_max float not null,
+        corriente_interna_min float not null,
+        corriente_red_avg float not null,
+        corriente_red_max float not null,
+        corriente_red_min float not null,
+        desfasaje_avg float not null,
+        desfasaje_max float not null,
+        desfasaje_min float not null,
+        frecuencia_corriente_avg float not null,
+        frecuencia_corriente_max float not null,
+        frecuencia_corriente_min float not null,
+        frecuencia_tension_avg float not null,
+        frecuencia_tension_max float not null,
+        frecuencia_tension_min float not null,
+        humedad_avg float not null,
+        humedad_max float not null,
+        humedad_min float not null,
+        ip_nodo integer,
+        potencia_continua_avg float not null,
+        potencia_continua_max float not null,
+        potencia_continua_min float not null,
+        potencia_interna_avg float not null,
+        potencia_interna_max float not null,
+        potencia_interna_min float not null,
+        potencia_red_avg float not null,
+        potencia_red_max float not null,
+        potencia_red_min float not null,
+        pvm_avg float not null,
+        pvm_max float not null,
+        pvm_min float not null,
+        temperatura1_avg float not null,
+        temperatura1_max float not null,
+        temperatura1_min float not null,
+        temperatura2_avg float not null,
+        temperatura2_max float not null,
+        temperatura2_min float not null,
+        temperatura3_avg float not null,
+        temperatura3_max float not null,
+        temperatura3_min float not null,
+        temperatura4_avg float not null,
+        temperatura4_max float not null,
+        temperatura4_min float not null,
+        temperatura5_avg float not null,
+        temperatura5_max float not null,
+        temperatura5_min float not null,
+        tension_continua_avg float not null,
+        tension_continua_max float not null,
+        tension_continua_min float not null,
+        tension_interna_avg float not null,
+        tension_interna_max float not null,
+        tension_interna_min float not null,
+        tension_red_avg float not null,
+        tension_red_max float not null,
+        tension_red_min float not null,
+        tension_tierra_avg float not null,
+        tension_tierra_max float not null,
+        tension_tierra_min float not null,
         primary key (ID)
     ) ENGINE=InnoDB;
 
