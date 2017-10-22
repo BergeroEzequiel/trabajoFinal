@@ -229,106 +229,95 @@ public class TramaService {
 		return tramaDto;
 	}
 
-	@Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
-	public TramaDto getTramaPromedios(Date fechaDesde, Date fechaHasta, int nodo) {
-		
-		TramaAuxiliar tramaAuxPromedios = tramaDaoParticular.getTramaMaximos(fechaDesde, fechaHasta, nodo);
-		TramaDto tramaDto = new TramaDto();
-		tramaDto.setCorrienteContinua(tramaAuxPromedios.getCorrienteContinua());
-		tramaDto.setCorrienteInterna(tramaAuxPromedios.getCorrienteInterna());
-		tramaDto.setCorrienteRed(tramaAuxPromedios.getCorrienteRed());
-		tramaDto.setDesfasaje(tramaAuxPromedios.getDesfasaje());
-		tramaDto.setFrecuenciaCorriente(tramaAuxPromedios.getFrecuenciaCorriente());
-		tramaDto.setFrecuenciaTension(tramaAuxPromedios.getFrecuenciaTension());
-		tramaDto.setHumedad(tramaAuxPromedios.getHumedad());
-		tramaDto.setPotenciaContinua(tramaAuxPromedios.getPotenciaContinua());
-		tramaDto.setPotenciaInterna(tramaAuxPromedios.getPotenciaInterna());
-		tramaDto.setPotenciaRed(tramaAuxPromedios.getPotenciaRed());
-		tramaDto.setPvm(tramaAuxPromedios.getPvm());
-		tramaDto.setTemperatura1(tramaAuxPromedios.getTemperatura1());
-		tramaDto.setTemperatura2(tramaAuxPromedios.getTemperatura2());
-		tramaDto.setTemperatura3(tramaAuxPromedios.getTemperatura3());
-		tramaDto.setTemperatura4(tramaAuxPromedios.getTemperatura4());
-		tramaDto.setTemperatura5(tramaAuxPromedios.getTemperatura5());
-		tramaDto.setTensionContinua(tramaAuxPromedios.getTensionContinua());
-		tramaDto.setTensionInterna(tramaAuxPromedios.getTensionInterna());
-		tramaDto.setTensionRed(tramaAuxPromedios.getTensionRed());
-		tramaDto.setTensionTierra(tramaAuxPromedios.getTensionTierra());
-
-		return tramaDto;
-
-	}
-	
-	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-	public void controlarTrama(TramaDto tramaDto) throws ParseException {
-
-		TramaControl tramaControl = new TramaControl();
-		tramaControl.cargarValoresActuales(tramaDto);
-		tramaControl.controlarTrama(tramaDto);
-		
-		tramaDto.setEstadoControl(true);
-		this.actualizarEstadoControlTrama(tramaDto);
-	}
-	
-	@Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
-	public TramaDto getTramaMaximos(Date fechaDesde, Date fechaHasta, int nodo) {
-		
-		TramaAuxiliar tramaAuxMaximos = tramaDaoParticular.getTramaMaximos(fechaDesde, fechaHasta, nodo);
-		this.log.info(tramaAuxMaximos.getCorrienteRed());
-		TramaDto tramaDto = new TramaDto();
-		tramaDto.setCorrienteContinua(tramaAuxMaximos.getCorrienteContinua());
-		tramaDto.setCorrienteInterna(tramaAuxMaximos.getCorrienteInterna());
-		tramaDto.setCorrienteRed(tramaAuxMaximos.getCorrienteRed());
-		tramaDto.setDesfasaje(tramaAuxMaximos.getDesfasaje());
-		tramaDto.setFrecuenciaCorriente(tramaAuxMaximos.getFrecuenciaCorriente());
-		tramaDto.setFrecuenciaTension(tramaAuxMaximos.getFrecuenciaTension());
-		tramaDto.setHumedad(tramaAuxMaximos.getHumedad());
-		tramaDto.setPotenciaContinua(tramaAuxMaximos.getPotenciaContinua());
-		tramaDto.setPotenciaInterna(tramaAuxMaximos.getPotenciaInterna());
-		tramaDto.setPotenciaRed(tramaAuxMaximos.getPotenciaRed());
-		tramaDto.setPvm(tramaAuxMaximos.getPvm());
-		tramaDto.setTemperatura1(tramaAuxMaximos.getTemperatura1());
-		tramaDto.setTemperatura2(tramaAuxMaximos.getTemperatura2());
-		tramaDto.setTemperatura3(tramaAuxMaximos.getTemperatura3());
-		tramaDto.setTemperatura4(tramaAuxMaximos.getTemperatura4());
-		tramaDto.setTemperatura5(tramaAuxMaximos.getTemperatura5());
-		tramaDto.setTensionContinua(tramaAuxMaximos.getTensionContinua());
-		tramaDto.setTensionInterna(tramaAuxMaximos.getTensionInterna());
-		tramaDto.setTensionRed(tramaAuxMaximos.getTensionRed());
-		tramaDto.setTensionTierra(tramaAuxMaximos.getTensionTierra());
-
-		return tramaDto;
-
-	}
-	
-	@Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
-	public TramaDto getTramaMinimos(Date fechaDesde, Date fechaHasta, int nodo) {
-		
-		TramaAuxiliar tramaAuxMinimos = tramaDaoParticular.getTramaMaximos(fechaDesde, fechaHasta, nodo);
-		TramaDto tramaDto = new TramaDto();
-		tramaDto.setCorrienteContinua(tramaAuxMinimos.getCorrienteContinua());
-		tramaDto.setCorrienteInterna(tramaAuxMinimos.getCorrienteInterna());
-		tramaDto.setCorrienteRed(tramaAuxMinimos.getCorrienteRed());
-		tramaDto.setDesfasaje(tramaAuxMinimos.getDesfasaje());
-		tramaDto.setFrecuenciaCorriente(tramaAuxMinimos.getFrecuenciaCorriente());
-		tramaDto.setFrecuenciaTension(tramaAuxMinimos.getFrecuenciaTension());
-		tramaDto.setHumedad(tramaAuxMinimos.getHumedad());
-		tramaDto.setPotenciaContinua(tramaAuxMinimos.getPotenciaContinua());
-		tramaDto.setPotenciaInterna(tramaAuxMinimos.getPotenciaInterna());
-		tramaDto.setPotenciaRed(tramaAuxMinimos.getPotenciaRed());
-		tramaDto.setPvm(tramaAuxMinimos.getPvm());
-		tramaDto.setTemperatura1(tramaAuxMinimos.getTemperatura1());
-		tramaDto.setTemperatura2(tramaAuxMinimos.getTemperatura2());
-		tramaDto.setTemperatura3(tramaAuxMinimos.getTemperatura3());
-		tramaDto.setTemperatura4(tramaAuxMinimos.getTemperatura4());
-		tramaDto.setTemperatura5(tramaAuxMinimos.getTemperatura5());
-		tramaDto.setTensionContinua(tramaAuxMinimos.getTensionContinua());
-		tramaDto.setTensionInterna(tramaAuxMinimos.getTensionInterna());
-		tramaDto.setTensionRed(tramaAuxMinimos.getTensionRed());
-		tramaDto.setTensionTierra(tramaAuxMinimos.getTensionTierra());
-
-		return tramaDto;
-
-	}
+//	@Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
+//	public TramaDto getTramaPromedios(Date fechaDesde, Date fechaHasta, int nodo) {
+//		
+//		TramaAuxiliar tramaAuxPromedios = tramaDaoParticular.getTramaMaximos(fechaDesde, fechaHasta);
+//		TramaDto tramaDto = new TramaDto();
+//		tramaDto.setCorrienteContinua(tramaAuxPromedios.getCorrienteContinua());
+//		tramaDto.setCorrienteInterna(tramaAuxPromedios.getCorrienteInterna());
+//		tramaDto.setCorrienteRed(tramaAuxPromedios.getCorrienteRed());
+//		tramaDto.setDesfasaje(tramaAuxPromedios.getDesfasaje());
+//		tramaDto.setFrecuenciaCorriente(tramaAuxPromedios.getFrecuenciaCorriente());
+//		tramaDto.setFrecuenciaTension(tramaAuxPromedios.getFrecuenciaTension());
+//		tramaDto.setHumedad(tramaAuxPromedios.getHumedad());
+//		tramaDto.setPotenciaContinua(tramaAuxPromedios.getPotenciaContinua());
+//		tramaDto.setPotenciaInterna(tramaAuxPromedios.getPotenciaInterna());
+//		tramaDto.setPotenciaRed(tramaAuxPromedios.getPotenciaRed());
+//		tramaDto.setPvm(tramaAuxPromedios.getPvm());
+//		tramaDto.setTemperatura1(tramaAuxPromedios.getTemperatura1());
+//		tramaDto.setTemperatura2(tramaAuxPromedios.getTemperatura2());
+//		tramaDto.setTemperatura3(tramaAuxPromedios.getTemperatura3());
+//		tramaDto.setTemperatura4(tramaAuxPromedios.getTemperatura4());
+//		tramaDto.setTemperatura5(tramaAuxPromedios.getTemperatura5());
+//		tramaDto.setTensionContinua(tramaAuxPromedios.getTensionContinua());
+//		tramaDto.setTensionInterna(tramaAuxPromedios.getTensionInterna());
+//		tramaDto.setTensionRed(tramaAuxPromedios.getTensionRed());
+//		tramaDto.setTensionTierra(tramaAuxPromedios.getTensionTierra());
+//
+//		return tramaDto;
+//
+//	}
+//	
+//	@Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
+//	public TramaDto getTramaMaximos(Date fechaDesde, Date fechaHasta, int nodo) {
+//		
+//		TramaAuxiliar tramaAuxMaximos = tramaDaoParticular.getTramaMaximos(fechaDesde, fechaHasta);
+//		this.log.info(tramaAuxMaximos.getCorrienteRed());
+//		TramaDto tramaDto = new TramaDto();
+//		tramaDto.setCorrienteContinua(tramaAuxMaximos.getCorrienteContinua());
+//		tramaDto.setCorrienteInterna(tramaAuxMaximos.getCorrienteInterna());
+//		tramaDto.setCorrienteRed(tramaAuxMaximos.getCorrienteRed());
+//		tramaDto.setDesfasaje(tramaAuxMaximos.getDesfasaje());
+//		tramaDto.setFrecuenciaCorriente(tramaAuxMaximos.getFrecuenciaCorriente());
+//		tramaDto.setFrecuenciaTension(tramaAuxMaximos.getFrecuenciaTension());
+//		tramaDto.setHumedad(tramaAuxMaximos.getHumedad());
+//		tramaDto.setPotenciaContinua(tramaAuxMaximos.getPotenciaContinua());
+//		tramaDto.setPotenciaInterna(tramaAuxMaximos.getPotenciaInterna());
+//		tramaDto.setPotenciaRed(tramaAuxMaximos.getPotenciaRed());
+//		tramaDto.setPvm(tramaAuxMaximos.getPvm());
+//		tramaDto.setTemperatura1(tramaAuxMaximos.getTemperatura1());
+//		tramaDto.setTemperatura2(tramaAuxMaximos.getTemperatura2());
+//		tramaDto.setTemperatura3(tramaAuxMaximos.getTemperatura3());
+//		tramaDto.setTemperatura4(tramaAuxMaximos.getTemperatura4());
+//		tramaDto.setTemperatura5(tramaAuxMaximos.getTemperatura5());
+//		tramaDto.setTensionContinua(tramaAuxMaximos.getTensionContinua());
+//		tramaDto.setTensionInterna(tramaAuxMaximos.getTensionInterna());
+//		tramaDto.setTensionRed(tramaAuxMaximos.getTensionRed());
+//		tramaDto.setTensionTierra(tramaAuxMaximos.getTensionTierra());
+//
+//		return tramaDto;
+//
+//	}
+//	
+//	@Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
+//	public TramaDto getTramaMinimos(Date fechaDesde, Date fechaHasta, int nodo) {
+//		
+//		TramaAuxiliar tramaAuxMinimos = tramaDaoParticular.getTramaMaximos(fechaDesde, fechaHasta);
+//		TramaDto tramaDto = new TramaDto();
+//		tramaDto.setCorrienteContinua(tramaAuxMinimos.getCorrienteContinua());
+//		tramaDto.setCorrienteInterna(tramaAuxMinimos.getCorrienteInterna());
+//		tramaDto.setCorrienteRed(tramaAuxMinimos.getCorrienteRed());
+//		tramaDto.setDesfasaje(tramaAuxMinimos.getDesfasaje());
+//		tramaDto.setFrecuenciaCorriente(tramaAuxMinimos.getFrecuenciaCorriente());
+//		tramaDto.setFrecuenciaTension(tramaAuxMinimos.getFrecuenciaTension());
+//		tramaDto.setHumedad(tramaAuxMinimos.getHumedad());
+//		tramaDto.setPotenciaContinua(tramaAuxMinimos.getPotenciaContinua());
+//		tramaDto.setPotenciaInterna(tramaAuxMinimos.getPotenciaInterna());
+//		tramaDto.setPotenciaRed(tramaAuxMinimos.getPotenciaRed());
+//		tramaDto.setPvm(tramaAuxMinimos.getPvm());
+//		tramaDto.setTemperatura1(tramaAuxMinimos.getTemperatura1());
+//		tramaDto.setTemperatura2(tramaAuxMinimos.getTemperatura2());
+//		tramaDto.setTemperatura3(tramaAuxMinimos.getTemperatura3());
+//		tramaDto.setTemperatura4(tramaAuxMinimos.getTemperatura4());
+//		tramaDto.setTemperatura5(tramaAuxMinimos.getTemperatura5());
+//		tramaDto.setTensionContinua(tramaAuxMinimos.getTensionContinua());
+//		tramaDto.setTensionInterna(tramaAuxMinimos.getTensionInterna());
+//		tramaDto.setTensionRed(tramaAuxMinimos.getTensionRed());
+//		tramaDto.setTensionTierra(tramaAuxMinimos.getTensionTierra());
+//
+//		return tramaDto;
+//
+//	}
 
 }

@@ -19,7 +19,7 @@ public class AnotherBean {
 		TramaAuxiliar auxiliar = new TramaAuxiliar();
 //		log.info(tramaDao.getTramaMaximos(new Date(new GregorianCalendar(2017,9, 05).getTimeInMillis()), 
 //			new Date(new GregorianCalendar(2017,9, 05).getTimeInMillis()), 9));
-		auxiliar = tramaDao.getTramaMaximos(new Date(new GregorianCalendar(2017,9, 05).getTimeInMillis()), new Date(new GregorianCalendar(2017,9, 05).getTimeInMillis()), 9);
+//		auxiliar = tramaDao.getTramaMaximos(new Date(new GregorianCalendar(2017,9, 05).getTimeInMillis()), new Date(new GregorianCalendar(2017,9, 05).getTimeInMillis()), 9);
 		System.out.println(auxiliar);
 	}
 	

@@ -156,4 +156,11 @@ public class TramaAuxiliar {
 	public void setPotenciaInterna(Float potenciaInterna) {
 		this.potenciaInterna = potenciaInterna;
 	}
+	public int getIpNodo() {
+		return ipNodo;
+	}
+	public void setIpNodo(int ipNodo) {
+		this.ipNodo = ipNodo;
+	}
+	
 }

@@ -1,0 +1,11 @@
+-------------Expresiones para CronTrigger----------
+
+CADA 20 MINUTOS --->  	0 0/20 * 1/1 * ? *
+
+CADA 1 HORA ------->  	0 0 0/1 1/1 * ? *
+
+CADA 1 DIA --------> 	0 0 12 1/1 * ? *
+
+TODOS LOS DIAS DE LA SEMANA A LAS 22 HS --->  	0 0 22 ? * MON-FRI *
+
+TODOS LOS DOMINGOS DE LAS SEMANAS --------->  	0 0 22 ? * SUN *
