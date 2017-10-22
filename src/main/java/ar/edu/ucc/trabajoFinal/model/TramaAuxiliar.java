@@ -27,6 +27,7 @@ public class TramaAuxiliar {
 	private Float potenciaContinua;
 	private Float potenciaRed;
 	private Float potenciaInterna;
+	private int ipNodo;
 	public Float getTensionRed() {
 		return tensionRed;
 	}
@@ -147,4 +148,11 @@ public class TramaAuxiliar {
 	public void setPotenciaInterna(Float potenciaInterna) {
 		this.potenciaInterna = potenciaInterna;
 	}
+	public int getIpNodo() {
+		return ipNodo;
+	}
+	public void setIpNodo(int ipNodo) {
+		this.ipNodo = ipNodo;
+	}
+	
 }
