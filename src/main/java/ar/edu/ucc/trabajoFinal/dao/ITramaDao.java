@@ -20,5 +20,7 @@ public interface ITramaDao extends DaoGenerico<Trama, Long> {
 	public List<TramaAuxiliar> getTramaPromedio(Date fechaDesde, Date fechaHasta);
 	
 	public List<TramaPotencias> getPotenciasNodos();
+	
+	public TramaPotencias getPotenciasAcumuladasParque();
 
 }
