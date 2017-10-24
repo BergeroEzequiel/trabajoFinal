@@ -29,7 +29,8 @@ public class TramaDao extends DaoGenericoImp<Trama, Long> implements ITramaDao {
 						+ "MAX(temperatura4) AS temperatura4, MAX(temperatura5) AS temperatura5, MAX(humedad) AS humedad, MIN(pvm) AS pvm, MAX(potenciaContinua) AS potenciaContinua,"
 						+ "MAX(potenciaRed) AS potenciaRed, MAX(potenciaInterna) AS potenciaInterna, ipNodo AS ipNodo"
 						+ " from Trama where fecha >= :fechaDesde and fecha <= :fechaHasta "
-						+ "group by ipNodo"))
+						+ "group by ipNodo "
+						+ "order by ipNodo"))
 				.setResultTransformer(Transformers.aliasToBean(TramaAuxiliar.class))
 				.setParameter("fechaDesde", fechaDesde).setParameter("fechaHasta", fechaHasta).list();
 		return list;
@@ -40,14 +41,15 @@ public class TramaDao extends DaoGenericoImp<Trama, Long> implements ITramaDao {
 
 	public List<TramaAuxiliar> getTramaMinimos(Date fechaDesde, Date fechaHasta) {
 		List list =  ((Query) this.currentSession()
-				.createQuery("select MIN(tensionRed),"
-						+ "MIN(corrienteRed), MIN(frecuenciaTension), MIN(frecuenciaCorriente), MIN(desfasaje),"
+				.createQuery("select MIN(tensionRed) AS tensionRed,"
+						+ "MIN(corrienteRed) AS corrienteRed, MIN(frecuenciaTension) AS , MIN(frecuenciaCorriente), MIN(desfasaje),"
 						+ "MIN(tensionTierra), MIN(tensionInterna), MIN(corrienteInterna), MIN(tensionContinua),"
 						+ "MIN(corrienteContinua), MIN(temperatura1), MIN(temperatura2), MIN(temperatura3),"
 						+ "MIN(temperatura4), MIN(temperatura5), MIN(humedad), MIN(pvm), MIN(potenciaContinua),"
 						+ "MIN(potenciaRed), MIN(potenciaInterna), ipNodo AS ipNodo"
 						+ " from Trama where fecha >= :fechaDesde and fecha <= :fechaHasta "
-						+ "group by ipNodo"))
+						+ "group by ipNodo "
+						+ "order by ipNodo"))
 				.setResultTransformer(Transformers.aliasToBean(TramaAuxiliar.class))
 				.setParameter("fechaDesde", fechaDesde).setParameter("fechaHasta", fechaHasta).list();
 		return list;
@@ -63,7 +65,8 @@ public class TramaDao extends DaoGenericoImp<Trama, Long> implements ITramaDao {
 						+ "AVG(temperatura4), AVG(temperatura5), AVG(humedad), MIN(pvm), AVG(potenciaContinua),"
 						+ "AVG(potenciaRed), AVG(potenciaInterna), ipNodo AS ipNodo"
 						+ " from Trama where fecha >= :fechaDesde and fecha <= :fechaHasta "
-						+ "group by ipNodo"))
+						+ "group by ipNodo "
+						+ "order by ipNodo"))
 				.setResultTransformer(Transformers.aliasToBean(TramaAuxiliar.class))
 				.setParameter("fechaDesde", fechaDesde).setParameter("fechaHasta", fechaHasta).list();
 		return list;
@@ -77,11 +80,24 @@ public class TramaDao extends DaoGenericoImp<Trama, Long> implements ITramaDao {
 	@Override
 	public List<TramaPotencias> getPotenciasNodos() {
 		List list =  ((Query) this.currentSession()
-				.createQuery("MIN(potenciaContinua) AS potenciaContinua,"
-						+ "MIN(potenciaRed) AS potenciaRed, MIN(potenciaInterna) AS potenciaInterna, ipNodo AS ipNodo"
-						+ " from Trama group by ipNodo"))
+				.createQuery("SUM(potenciaContinua) AS potenciaContinua, "
+						+ "SUM(potenciaRed) AS potenciaRed, SUM(potenciaInterna) AS potenciaInterna, ipNodo AS ipNodo"
+						+ " from Trama group by ipNodo order by ipNodo"))
 				.setResultTransformer(Transformers.aliasToBean(TramaPotencias.class)).list();
 		return list;
 	}
+
+	@Override
+	public TramaPotencias getPotenciasAcumuladasParque() {
+		List list =  ((Query) this.currentSession()
+				.createQuery("potenciaContinua AS potenciaContinua, "
+						+ "potenciaRed AS potenciaRed, potenciaInterna AS potenciaInterna, ipNodo AS ipNodo"
+						+ " from Trama where fecha = :fechaDesde order by ipNodo"))
+				.setResultTransformer(Transformers.aliasToBean(TramaPotencias.class))
+				.setParameter("fechaDesde", new Date()).list();
+		return (TramaPotencias) list.get(0);
+	}
+
+	
 
 }
