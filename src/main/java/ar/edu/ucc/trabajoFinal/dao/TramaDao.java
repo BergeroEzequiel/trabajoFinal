@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import ar.edu.ucc.trabajoFinal.model.Trama;
 import ar.edu.ucc.trabajoFinal.model.TramaAuxiliar;
+import ar.edu.ucc.trabajoFinal.model.TramaPotencias;
 
 @Repository
 public class TramaDao extends DaoGenericoImp<Trama, Long> implements ITramaDao {
@@ -65,6 +66,21 @@ public class TramaDao extends DaoGenericoImp<Trama, Long> implements ITramaDao {
 						+ "group by ipNodo"))
 				.setResultTransformer(Transformers.aliasToBean(TramaAuxiliar.class))
 				.setParameter("fechaDesde", fechaDesde).setParameter("fechaHasta", fechaHasta).list();
+		return list;
+	}
+
+	/**
+	 * Devuelve una lista de variables que contienen todas las potencias por nodo.
+	 * PERO NO SE COMO CARAJO HACER LA QUERY PARA QUE ME DEVUELVA 
+	 * LOS ULTIMOS VALORES DE POTENCIAS QUE TENGA.
+	 */
+	@Override
+	public List<TramaPotencias> getPotenciasNodos() {
+		List list =  ((Query) this.currentSession()
+				.createQuery("MIN(potenciaContinua) AS potenciaContinua,"
+						+ "MIN(potenciaRed) AS potenciaRed, MIN(potenciaInterna) AS potenciaInterna, ipNodo AS ipNodo"
+						+ " from Trama group by ipNodo"))
+				.setResultTransformer(Transformers.aliasToBean(TramaPotencias.class)).list();
 		return list;
 	}
 
