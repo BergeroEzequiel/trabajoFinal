@@ -15,18 +15,19 @@
 		<property name="jobDataMap">
 			<map>
 				<entry key="tramaDao" value-ref="tramaDao" />
+				<entry key="tramaProcesadaDao" value-ref="tramaProcesadaDao" />
 			</map>
 		</property>
 		<property name="durability" value="true" />
 	</bean>
-	
+
 	<bean name="jobSemanal"
 		class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
 		<property name="jobClass" value="ar.edu.ucc.trabajoFinal.jobs.JobSemanal" />
 		<property name="jobDataMap">
 			<map>
 				<entry key="tramaDao" value-ref="tramaDao" />
-				<entry key="tramaProcesadaDao" value-ref="tramaProcesadaDao"/>
+				<entry key="tramaProcesadaDao" value-ref="tramaProcesadaDao" />
 			</map>
 		</property>
 		<property name="durability" value="true" />
@@ -53,8 +54,8 @@
 		<property name="jobDetail" ref="complexJobDetail" />
 		<property name="cronExpression" value="0 0 22 ? * MON-FRI *" />
 	</bean>
-	
-	<!-- Corre el job todos los domingos a las 22 hs (Como el gordo Lanata)-->
+
+	<!-- Corre el job todos los domingos a las 22 hs (Como el gordo Lanata) -->
 	<bean id="cronTriggerSemanal"
 		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 		<property name="jobDetail" ref="jobSemanal" />
@@ -68,7 +69,7 @@
 		<property name="jobDetails">
 			<list>
 				<ref bean="complexJobDetail" />
-				<ref bean="jobSemanal"/>
+				<ref bean="jobSemanal" />
 			</list>
 		</property>
 
@@ -76,8 +77,8 @@
 			<list>
 				<ref bean="cronTrigger" />
 				<ref bean="cronTrigger20Minutos" />
-				<ref bean="cronTriggerDiario"/>
-				<ref bean="cronTriggerSemanal"/>
+				<ref bean="cronTriggerDiario" />
+				<ref bean="cronTriggerSemanal" />
 			</list>
 		</property>
 	</bean>
