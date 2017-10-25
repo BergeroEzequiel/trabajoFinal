@@ -20,8 +20,8 @@ public class ScheduledJob extends QuartzJobBean {
 	protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
 		tramaDao.getTramaPromedio(null, null, 1);
 		TramaAuxiliar tramaDtoMaximos = tramaDao.getTramaMaximos(
-				new Date(new GregorianCalendar(2017, 9, 4, 0, 0, 0).getTimeInMillis()),
-				new Date(new GregorianCalendar(2017, 9, 4, 0, 0, 0).getTimeInMillis()), 8);
+				new Date(new GregorianCalendar(2017, 9, 17, 0, 0, 0).getTimeInMillis()),
+				new Date(new GregorianCalendar(2017, 9, 17, 0, 0, 0).getTimeInMillis()), 4);
 		System.out.println(tramaDtoMaximos.getHumedad());
 	}
 

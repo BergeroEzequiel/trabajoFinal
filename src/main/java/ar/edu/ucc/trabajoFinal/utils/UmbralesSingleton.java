@@ -117,6 +117,7 @@ public class UmbralesSingleton {
 		for (Variable v : variablesAControlar) {
 			umbralDto = new UmbralDto();
 			umbralDto = umbralService.getUmbralByVariable(v.getNombre());
+			v.getUmbral().setActivo(umbralDto.isActivo());
 			v.getUmbral().setValorMax(umbralDto.getValorMax());
 			v.getUmbral().setValorMin(umbralDto.getValorMin());
 		}

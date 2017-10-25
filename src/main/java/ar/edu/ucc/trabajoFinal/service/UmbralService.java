@@ -44,6 +44,8 @@ public class UmbralService {
 		umbralDto.setValorMax(umbral.getValorMax());
 		umbralDto.setValorMin(umbral.getValorMin());
 		umbralDto.setFechaUltimaModificacion(umbral.getUltimaModificacion());
+		umbralDto.setActivo(umbral.isActivo());
+		umbralDto.setTipo(umbral.getTipo());
 		
 		return umbralDto;
 	}
@@ -63,6 +65,8 @@ public class UmbralService {
 			umbralDto.setValorMax(umbral.getValorMax());
 			umbralDto.setValorMin(umbral.getValorMin());
 			umbralDto.setFechaUltimaModificacion(umbral.getUltimaModificacion());
+			umbralDto.setActivo(umbral.isActivo());
+			umbralDto.setTipo(umbral.getTipo());
 			
 			umbralesDto.add(umbralDto);
 		}
@@ -79,6 +83,8 @@ public class UmbralService {
 		umbralDto.setValorMax(umbral.getValorMax());
 		umbralDto.setValorMin(umbral.getValorMin());
 		umbralDto.setFechaUltimaModificacion(umbral.getUltimaModificacion());
+		umbralDto.setActivo(umbral.isActivo());
+		umbralDto.setTipo(umbral.getTipo());
 		
 		return umbralDto;
 	}
@@ -93,6 +99,8 @@ public class UmbralService {
 		umbral.setValorMax(umbralDto.getValorMax());
 		umbral.setValorMin(umbralDto.getValorMin());
 		umbral.setUltimaModificacion(umbralDto.getFechaUltimaModificacion());
+		umbral.setActivo(umbralDto.isActivo());
+		umbral.setTipo(umbralDto.getTipo());
 		
 		umbralDaoParticular.saveOrUpdate(umbral);
 		umbralDto.setId(umbral.getId());
@@ -111,6 +119,8 @@ public class UmbralService {
 		umbral.setValorMax(umbralDto.getValorMax());
 		umbral.setValorMin(umbralDto.getValorMin());
 		umbral.setUltimaModificacion(umbralDto.getFechaUltimaModificacion());
+		umbral.setActivo(umbralDto.isActivo());
+		umbral.setTipo(umbralDto.getTipo());
 		
 		umbralDaoParticular.saveOrUpdate(umbral);
 		

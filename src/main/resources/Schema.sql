@@ -12,7 +12,6 @@
     create table alertas (
         ID bigint not null auto_increment,
         VERSION bigint not null DEFAULT 0,
-        codigo varchar(50) not null,
         descripcion varchar(50) not null,
         fecha datetime not null,
         hora time not null,
@@ -20,6 +19,7 @@
         umbral_superado float not null,
         valor float not null,
         variable_afectada varchar(50) not null,
+        visualizar BOOLEAN DEFAULT true not null,
         primary key (ID)
     ) ENGINE=InnoDB;
 
@@ -125,6 +125,7 @@
     create table umbrales (
         ID bigint not null auto_increment,
         VERSION bigint not null DEFAULT 0,
+        activo BOOLEAN DEFAULT true not null,
         nombre_variable varchar(50) not null,
         ultima_modificacion date not null,
         valor_max float not null,

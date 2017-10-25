@@ -17,7 +17,6 @@ public class AlertaDto {
 	DateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
 
 	public AlertaDto(Variable v, int nodo) {
-		this.codigo="error";
 		this.descripcion="variable fuera de umbral";
 		this.variableAfectada = v.getNombre();
 		this.valor = v.getValorActual();
@@ -40,12 +39,12 @@ public class AlertaDto {
 		this.id = id;
 	}
 
-	private String codigo;
 	private String descripcion;
 	private String variableAfectada;
 	private float valor;
 	private float umbralSuperado;
 	private int nodoAfectado;
+	private boolean visualizar;
 	private String fecha;
 	private String hora;
 
@@ -55,14 +54,6 @@ public class AlertaDto {
 
 	public void setValor(float valor) {
 		this.valor = valor;
-	}
-
-	public String getCodigo() {
-		return codigo;
-	}
-
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
 	}
 
 	public String getDescripcion() {
@@ -97,6 +88,14 @@ public class AlertaDto {
 		this.nodoAfectado = nodoAfectado;
 	}
 
+	public boolean isVisualizar() {
+		return visualizar;
+	}
+
+	public void setVisualizar(boolean visualizar) {
+		this.visualizar = visualizar;
+	}
+
 	public String getFecha() {
 		return fecha;
 	}
@@ -115,7 +114,7 @@ public class AlertaDto {
 
 	@Override
 	public String toString() {
-		return "{" + "codigo:" + getCodigo() + " descripcion:" + getDescripcion()
+		return "{" + " descripcion:" + getDescripcion()
 		+ " variable_afectada:" + getVariableAfectada() + " valor:" + getValor() 
 		+ " umbral_superado:" + getUmbralSuperado() 
 		+ " nodo_afectado:" + getNodoAfectado() + " fecha:" + getFecha()

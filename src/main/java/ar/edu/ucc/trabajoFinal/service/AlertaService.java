@@ -53,11 +53,11 @@ public class AlertaService {
 		AlertaDto alertaDto;
 		for (Alerta alerta : alertas) {
 			alertaDto = new AlertaDto();
-			alertaDto.setCodigo(alerta.getCodigo());
 			alertaDto.setDescripcion(alerta.getDescripcion());
 			alertaDto.setVariableAfectada(alerta.getVariableAfectada());
 			alertaDto.setUmbralSuperado(alerta.getUmbralSuperado());
 			alertaDto.setNodoAfectado(alerta.getNodoAfectado());
+			alertaDto.setVisualizar(alerta.isVisualizar());
 			alertaDto.setFecha(dateFormatter.format(alerta.getFecha()));
 			alertaDto.setHora(timeFormatter.format(alerta.getHora()));
 			
@@ -72,12 +72,12 @@ public class AlertaService {
 		log.info("Guardando: " + alertaDto.toString());
 		
 		Alerta alerta = new Alerta();
-		alerta.setCodigo(alertaDto.getCodigo());
 		alerta.setDescripcion(alertaDto.getDescripcion());
 		alerta.setVariableAfectada(alertaDto.getVariableAfectada());
 		alerta.setValor(alertaDto.getValor());
 		alerta.setUmbralSuperado(alertaDto.getUmbralSuperado());
 		alerta.setNodoAfectado(alertaDto.getNodoAfectado());
+		alerta.setVisualizar(alertaDto.isVisualizar());
 		alerta.setFecha(dateFormatter.parse(alertaDto.getFecha()));
 		alerta.setHora(new Time(timeFormatter.parse(alertaDto.getHora()).getTime()));
 		

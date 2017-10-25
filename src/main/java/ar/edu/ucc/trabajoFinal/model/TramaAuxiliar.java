@@ -7,6 +7,7 @@ public class TramaAuxiliar {
 //			+ "MAX(tensionContinua) AS tensionContinua, MAX(corrienteContinua) AS corrienteContinua, MAX(temperatura1) AS temperatura1, MAX(temperatura2) AS temperatura2, MAX(temperatura3) AS temperatura3,"
 //			+ "MAX(temperatura4) AS temperatura4, MAX(temperatura5) AS temperatura5, MAX(humedad) AS humedad, MIN(pvm) AS pvm, MAX(potenciaContinua) AS potenciaContinua,"
 //			+ "MAX(potenciaRed) AS potenciaRed, MAX(potenciaInterna) AS potenciaInterna"
+	private Integer numero;
 	private Float tensionRed;
 	private Float corrienteRed;
 	private Float frecuenciaTension;
@@ -27,6 +28,14 @@ public class TramaAuxiliar {
 	private Float potenciaContinua;
 	private Float potenciaRed;
 	private Float potenciaInterna;
+	
+	
+	public Integer getNumero() {
+		return numero;
+	}
+	public void setNumero(Integer numero) {
+		this.numero = numero;
+	}
 	public Float getTensionRed() {
 		return tensionRed;
 	}

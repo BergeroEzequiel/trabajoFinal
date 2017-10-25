@@ -5,10 +5,12 @@ import java.sql.Date;
 public class UmbralDto {
 	
 	private Long id;
+	private boolean activo;
 	private float valorMax;
 	private float valorMin;
 	private String nombreVariable;
 	private Date fechaUltimaModificacion;
+	private int tipo;
 	
 	public Long getId() {
 		return id;
@@ -16,6 +18,12 @@ public class UmbralDto {
 	public void setId(Long id) {
 		this.id = id;
 	}	
+	public boolean isActivo() {
+		return activo;
+	}
+	public void setActivo(boolean activo) {
+		this.activo = activo;
+	}
 	public float getValorMax() {
 		return valorMax;
 	}
@@ -40,4 +48,11 @@ public class UmbralDto {
 	public void setFechaUltimaModificacion(Date date) {
 		this.fechaUltimaModificacion = date;
 	}
+	public int getTipo() {
+		return tipo;
+	}
+	public void setTipo(int tipo) {
+		this.tipo = tipo;
+	}
+	
 }

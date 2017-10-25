@@ -8,13 +8,14 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
+
 @Entity
 @Table(name="alertas")
 public class Alerta extends ObjetoGenerico{
-	
-	@Column(name="codigo", length=50, nullable=false)
-	private String codigo;
-	
+		
 	@Column(name="descripcion", length=50, nullable=false)
 	private String descripcion;
 	
@@ -23,14 +24,6 @@ public class Alerta extends ObjetoGenerico{
 	
 	@Column(name="valor", length=50, nullable=false)
 	private Float valor;
-	
-	public Float getValor() {
-		return valor;
-	}
-
-	public void setValor(Float valor) {
-		this.valor = valor;
-	}
 
 	@Column(name="umbral_superado", length=50, nullable=false)
 	private float umbralSuperado;
@@ -38,19 +31,14 @@ public class Alerta extends ObjetoGenerico{
 	@Column(name="nodo_afectado", nullable=false)
 	private int nodoAfectado;
 	
+	@Column(name="visualizar", nullable = false, columnDefinition = "BOOLEAN DEFAULT true")
+	private boolean visualizar;
+	
 	@Column(name="fecha", nullable=false)
 	private Date fecha;
 	
 	@Column(name="hora", nullable=false)
 	private Time hora;
-
-	public String getCodigo() {
-		return codigo;
-	}
-
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
-	}
 
 	public String getDescripcion() {
 		return descripcion;
@@ -67,6 +55,14 @@ public class Alerta extends ObjetoGenerico{
 	public void setVariableAfectada(String variableAfectada) {
 		this.variableAfectada = variableAfectada;
 	}
+	
+	public Float getValor() {
+		return valor;
+	}
+
+	public void setValor(Float valor) {
+		this.valor = valor;
+	}
 
 	public float getUmbralSuperado() {
 		return umbralSuperado;
@@ -82,6 +78,14 @@ public class Alerta extends ObjetoGenerico{
 
 	public void setNodoAfectado(int nodoAfectado) {
 		this.nodoAfectado = nodoAfectado;
+	}
+
+	public boolean isVisualizar() {
+		return visualizar;
+	}
+
+	public void setVisualizar(boolean visualizar) {
+		this.visualizar = visualizar;
 	}
 
 	public Date getFecha() {
