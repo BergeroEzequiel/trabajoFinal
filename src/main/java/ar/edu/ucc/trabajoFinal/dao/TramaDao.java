@@ -40,13 +40,13 @@ public class TramaDao extends DaoGenericoImp<Trama, Long> implements ITramaDao {
 	@Override
 	public List<TramaAuxiliar> getTramaMinimos(Date fechaDesde, Date fechaHasta) {
 		List list =  ((Query) this.currentSession()
-				.createQuery("select MIN(tensionRed) AS tensionRed,"
-						+ "MIN(corrienteRed) AS corrienteRed, MIN(frecuenciaTension) AS frecuenciaTension, MIN(frecuenciaCorriente) AS frecuenciaCorriente, MIN(desfasaje) AS desfasaje,"
-						+ "MIN(tensionTierra) AS tensionTierra, MIN(tensionInterna) AS tensionInterna, MIN(corrienteInterna) AS corrienteInterna, MIN(tensionContinua) AS tensionContinua,"
-						+ "MIN(corrienteContinua) AS corrienteContinua, MIN(temperatura1) AS temperatura1, MIN(temperatura2) AS temperatura2, MIN(temperatura3) AS temperatura3,"
-						+ "MIN(temperatura4) AS temperatura4, MIN(temperatura5) AS temperatura5, MIN(humedad), MIN(pvm) AS pvm, MIN(potenciaContinua) AS potenciaContinua,"
+				.createQuery("select MIN(tensionRed) AS tensionRed, "
+						+ "MIN(corrienteRed) AS corrienteRed, MIN(frecuenciaTension) AS frecuenciaTension, MIN(frecuenciaCorriente) AS frecuenciaCorriente, MIN(desfasaje) AS desfasaje, "
+						+ "MIN(tensionTierra) AS tensionTierra, MIN(tensionInterna) AS tensionInterna, MIN(corrienteInterna) AS corrienteInterna, MIN(tensionContinua) AS tensionContinua, "
+						+ "MIN(corrienteContinua) AS corrienteContinua, MIN(temperatura1) AS temperatura1, MIN(temperatura2) AS temperatura2, MIN(temperatura3) AS temperatura3, "
+						+ "MIN(temperatura4) AS temperatura4, MIN(temperatura5) AS temperatura5, MIN(humedad), MIN(pvm) AS pvm, MIN(potenciaContinua) AS potenciaContinua, "
 						+ "MIN(potenciaRed) AS potenciaRed, MIN(potenciaInterna) AS potenciaInterna, numero AS numero"
-						+ " from Trama where fecha >= :fechaDesde and fecha <= :fechaHasta "
+						+ "from Trama where fecha >= :fechaDesde and fecha <= :fechaHasta "
 						+ "group by numero "
 						+ "order by numero"))
 				.setResultTransformer(Transformers.aliasToBean(TramaAuxiliar.class))
@@ -57,13 +57,13 @@ public class TramaDao extends DaoGenericoImp<Trama, Long> implements ITramaDao {
 	@Override
 	public List<TramaAuxiliar> getTramaPromedio(Date fechaDesde, Date fechaHasta) {
 		List list =  ((Query) this.currentSession()
-				.createQuery("select AVG(tensionRed) AS tensionRed,"
-						+ "AVG(corrienteRed) AS corrienteRed, AVG(frecuenciaTension) AS frecuenciaTension, AVG(frecuenciaCorriente) AS frecuenciaCorriente, AVG(desfasaje) AS desfasaje,"
-						+ "AVG(tensionTierra) AS tensionTierra, AVG(tensionInterna) AS tensionInterna, AVG(corrienteInterna) AS corrienteInterna, AVG(tensionContinua) AS tensionContinua,"
-						+ "AVG(corrienteContinua) AS corrienteContinua, AVG(temperatura1) AS temperatura1, AVG(temperatura2) AS temperatura2, AVG(temperatura3) AS temperatura3,"
-						+ "AVG(temperatura4) AS temperatura4, AVG(temperatura5) AS temperatura5, AVG(humedad) AS humedad, MIN(pvm) AS pvm, AVG(potenciaContinua) AS potenciaContinua,"
-						+ "AVG(potenciaRed) AS potenciaRed, AVG(potenciaInterna) AS potenciaInterna, numero AS numero"
-						+ " from Trama where fecha >= :fechaDesde and fecha <= :fechaHasta "
+				.createQuery("select AVG(tensionRed) AS tensionRed, "
+						+ "AVG(corrienteRed) AS corrienteRed, AVG(frecuenciaTension) AS frecuenciaTension, AVG(frecuenciaCorriente) AS frecuenciaCorriente, AVG(desfasaje) AS desfasaje, "
+						+ "AVG(tensionTierra) AS tensionTierra, AVG(tensionInterna) AS tensionInterna, AVG(corrienteInterna) AS corrienteInterna, AVG(tensionContinua) AS tensionContinua, "
+						+ "AVG(corrienteContinua) AS corrienteContinua, AVG(temperatura1) AS temperatura1, AVG(temperatura2) AS temperatura2, AVG(temperatura3) AS temperatura3, "
+						+ "AVG(temperatura4) AS temperatura4, AVG(temperatura5) AS temperatura5, AVG(humedad) AS humedad, MIN(pvm) AS pvm, AVG(potenciaContinua) AS potenciaContinua, "
+						+ "AVG(potenciaRed) AS potenciaRed, AVG(potenciaInterna) AS potenciaInterna, numero AS numero "
+						+ "from Trama where fecha >= :fechaDesde and fecha <= :fechaHasta "
 						+ "group by numero "
 						+ "order by numero"))
 				.setResultTransformer(Transformers.aliasToBean(TramaAuxiliar.class))

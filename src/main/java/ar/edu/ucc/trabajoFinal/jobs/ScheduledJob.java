@@ -25,14 +25,14 @@ public class ScheduledJob extends QuartzJobBean {
 	@Override
 	protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
 		List<TramaAuxiliar> tramasDtoMaximos = tramaDao.getTramaMaximos(
-				new Date(new GregorianCalendar(2017, 8, 5, 0, 0, 0).getTimeInMillis()),
-				new Date(new GregorianCalendar(2017, 8, 5, 0, 0, 0).getTimeInMillis()));
+				new Date(new GregorianCalendar(2017, 8, 4, 0, 0, 0).getTimeInMillis()),
+				new Date(new GregorianCalendar(2017, 8, 4, 0, 0, 0).getTimeInMillis()));
 		List<TramaAuxiliar> tramasDtoMinimos = tramaDao.getTramaMinimos(
-				new Date(new GregorianCalendar(2017, 8, 5, 0, 0, 0).getTimeInMillis()),
-				new Date(new GregorianCalendar(2017, 8, 5, 0, 0, 0).getTimeInMillis()));
+				new Date(new GregorianCalendar(2017, 8, 4, 0, 0, 0).getTimeInMillis()),
+				new Date(new GregorianCalendar(2017, 8, 4, 0, 0, 0).getTimeInMillis()));
 		List<TramaAuxiliar> tramaDtoPromedios = tramaDao.getTramaPromedio(
-				new Date(new GregorianCalendar(2017, 8, 5, 0, 0, 0).getTimeInMillis()),
-				new Date(new GregorianCalendar(2017, 8, 5, 0, 0, 0).getTimeInMillis()));
+				new Date(new GregorianCalendar(2017, 8, 4, 0, 0, 0).getTimeInMillis()),
+				new Date(new GregorianCalendar(2017, 8, 4, 0, 0, 0).getTimeInMillis()));
 		
 		for (int i = 0; i < tramasDtoMaximos.size(); i++) {
 			TramaAuxiliar tramaMaximos = tramasDtoMaximos.get(i);
