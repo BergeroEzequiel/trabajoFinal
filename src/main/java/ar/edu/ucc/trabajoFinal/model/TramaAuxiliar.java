@@ -36,6 +36,7 @@ public class TramaAuxiliar {
 	public void setNumero(Integer numero) {
 		this.numero = numero;
 	}
+	private int ipNodo;
 	public Float getTensionRed() {
 		return tensionRed;
 	}

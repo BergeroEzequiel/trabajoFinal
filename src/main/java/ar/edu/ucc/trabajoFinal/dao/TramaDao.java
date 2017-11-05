@@ -38,7 +38,6 @@ public class TramaDao extends DaoGenericoImp<Trama, Long> implements ITramaDao {
 	}
 
 	@Override
-
 	public List<TramaAuxiliar> getTramaMinimos(Date fechaDesde, Date fechaHasta) {
 		List list =  ((Query) this.currentSession()
 				.createQuery("select MIN(tensionRed) AS tensionRed,"
