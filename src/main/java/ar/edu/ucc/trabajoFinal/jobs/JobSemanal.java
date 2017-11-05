@@ -89,7 +89,7 @@ public class JobSemanal extends QuartzJobBean {
 				tramaProcesada.setTensionContinuaMax(tramaMaximos.getTensionContinua());
 				tramaProcesada.setTensionContinuaMin(tramaMinimos.getTensionContinua());
 				tramaProcesada.setTensionInternaAvg(tramaPromedios.getTensionInterna());
-				tramaProcesada.setTensionContinuaMax(tramaMaximos.getTensionInterna());
+				tramaProcesada.setTensionInternaMax(tramaMaximos.getTensionInterna());
 				tramaProcesada.setTensionInternaMin(tramaMinimos.getTensionInterna());
 				tramaProcesada.setTensionRedAvg(tramaPromedios.getTensionRed());
 				tramaProcesada.setTensionRedMax(tramaMaximos.getTensionRed());
