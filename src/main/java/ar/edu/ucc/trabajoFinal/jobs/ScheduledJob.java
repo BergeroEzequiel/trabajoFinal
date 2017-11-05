@@ -39,9 +39,9 @@ public class ScheduledJob extends QuartzJobBean {
 			TramaAuxiliar tramaMinimos = tramasDtoMinimos.get(i);
 			TramaAuxiliar tramaPromedios = tramaDtoPromedios.get(i);
 			TramaProcesada tramaProcesada = new TramaProcesada();
-			if (tramaPromedios.getIpNodo() == tramaMaximos.getIpNodo()
-					&& tramaPromedios.getIpNodo() == tramaMinimos.getIpNodo()) {
-				tramaProcesada.setIpNodo(tramaPromedios.getIpNodo());
+			if (tramaPromedios.getNumero() == tramaMaximos.getNumero()
+					&& tramaPromedios.getNumero() == tramaMinimos.getNumero()) {
+				tramaProcesada.setIpNodo(tramaPromedios.getNumero());
 				tramaProcesada.setCorrienteContinuaAvg(tramaPromedios.getCorrienteContinua());
 				tramaProcesada.setCorrienteContinuaMax(tramaMaximos.getCorrienteContinua());
 				tramaProcesada.setCorrienteContinuaMin(tramaMinimos.getCorrienteContinua());

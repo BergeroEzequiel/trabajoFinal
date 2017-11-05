@@ -27,10 +27,10 @@ public class TramaDao extends DaoGenericoImp<Trama, Long> implements ITramaDao {
 						+ "MAX(desfasaje) AS desfasaje, MAX(tensionTierra) AS tensionTierra, MAX(tensionInterna) AS tensionInterna, MAX(corrienteInterna) AS corrienteInterna, "
 						+ "MAX(tensionContinua) AS tensionContinua, MAX(corrienteContinua) AS corrienteContinua, MAX(temperatura1) AS temperatura1, MAX(temperatura2) AS temperatura2, MAX(temperatura3) AS temperatura3,"
 						+ "MAX(temperatura4) AS temperatura4, MAX(temperatura5) AS temperatura5, MAX(humedad) AS humedad, MIN(pvm) AS pvm, MAX(potenciaContinua) AS potenciaContinua,"
-						+ "MAX(potenciaRed) AS potenciaRed, MAX(potenciaInterna) AS potenciaInterna, ipNodo AS ipNodo"
+						+ "MAX(potenciaRed) AS potenciaRed, MAX(potenciaInterna) AS potenciaInterna, numero AS numero"
 						+ " from Trama where fecha >= :fechaDesde and fecha <= :fechaHasta "
-						+ "group by ipNodo "
-						+ "order by ipNodo"))
+						+ "group by numero "
+						+ "order by numero"))
 				.setResultTransformer(Transformers.aliasToBean(TramaAuxiliar.class))
 				.setParameter("fechaDesde", fechaDesde).setParameter("fechaHasta", fechaHasta).list();
 		return list;
@@ -45,10 +45,10 @@ public class TramaDao extends DaoGenericoImp<Trama, Long> implements ITramaDao {
 						+ "MIN(tensionTierra) AS tensionTierra, MIN(tensionInterna) AS tensionInterna, MIN(corrienteInterna) AS corrienteInterna, MIN(tensionContinua) AS tensionContinua,"
 						+ "MIN(corrienteContinua) AS corrienteContinua, MIN(temperatura1) AS temperatura1, MIN(temperatura2) AS temperatura2, MIN(temperatura3) AS temperatura3,"
 						+ "MIN(temperatura4) AS temperatura4, MIN(temperatura5) AS temperatura5, MIN(humedad), MIN(pvm) AS pvm, MIN(potenciaContinua) AS potenciaContinua,"
-						+ "MIN(potenciaRed) AS potenciaRed, MIN(potenciaInterna) AS potenciaInterna, ipNodo AS ipNodo"
+						+ "MIN(potenciaRed) AS potenciaRed, MIN(potenciaInterna) AS potenciaInterna, numero AS numero"
 						+ " from Trama where fecha >= :fechaDesde and fecha <= :fechaHasta "
-						+ "group by ipNodo "
-						+ "order by ipNodo"))
+						+ "group by numero "
+						+ "order by numero"))
 				.setResultTransformer(Transformers.aliasToBean(TramaAuxiliar.class))
 				.setParameter("fechaDesde", fechaDesde).setParameter("fechaHasta", fechaHasta).list();
 		return list;
@@ -62,10 +62,10 @@ public class TramaDao extends DaoGenericoImp<Trama, Long> implements ITramaDao {
 						+ "AVG(tensionTierra) AS tensionTierra, AVG(tensionInterna) AS tensionInterna, AVG(corrienteInterna) AS corrienteInterna, AVG(tensionContinua) AS tensionContinua,"
 						+ "AVG(corrienteContinua) AS corrienteContinua, AVG(temperatura1) AS temperatura1, AVG(temperatura2) AS temperatura2, AVG(temperatura3) AS temperatura3,"
 						+ "AVG(temperatura4) AS temperatura4, AVG(temperatura5) AS temperatura5, AVG(humedad) AS humedad, MIN(pvm) AS pvm, AVG(potenciaContinua) AS potenciaContinua,"
-						+ "AVG(potenciaRed) AS potenciaRed, AVG(potenciaInterna) AS potenciaInterna, ipNodo AS ipNodo"
+						+ "AVG(potenciaRed) AS potenciaRed, AVG(potenciaInterna) AS potenciaInterna, numero AS numero"
 						+ " from Trama where fecha >= :fechaDesde and fecha <= :fechaHasta "
-						+ "group by ipNodo "
-						+ "order by ipNodo"))
+						+ "group by numero "
+						+ "order by numero"))
 				.setResultTransformer(Transformers.aliasToBean(TramaAuxiliar.class))
 				.setParameter("fechaDesde", fechaDesde).setParameter("fechaHasta", fechaHasta).list();
 		return list;
@@ -80,8 +80,8 @@ public class TramaDao extends DaoGenericoImp<Trama, Long> implements ITramaDao {
 	public List<TramaPotencias> getPotenciasNodos() {
 		List list =  ((Query) this.currentSession()
 				.createQuery("potenciaContinua AS potenciaContinua, "
-						+ "potenciaRed AS potenciaRed, potenciaInterna AS potenciaInterna, ipNodo AS ipNodo, hora AS hora"
-						+ " from Trama where fecha = :fechaActual order by ipNodo, hora asc"))
+						+ "potenciaRed AS potenciaRed, potenciaInterna AS potenciaInterna, numero AS numero, hora AS hora"
+						+ " from Trama where fecha = :fechaActual order by numero, hora asc"))
 				.setResultTransformer(Transformers.aliasToBean(TramaPotencias.class))
 				.setParameter("fechaActual", new Date()).list();;
 		return list;
