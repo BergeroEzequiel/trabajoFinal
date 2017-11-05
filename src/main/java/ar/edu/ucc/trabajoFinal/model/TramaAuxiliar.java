@@ -156,4 +156,5 @@ public class TramaAuxiliar {
 	public void setPotenciaInterna(Float potenciaInterna) {
 		this.potenciaInterna = potenciaInterna;
 	}
+	
 }
