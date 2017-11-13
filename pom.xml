@@ -1,15 +1,16 @@
-
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+	http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>ar.edu.ucc</groupId>
+	<groupId>ar.edu.ucc.trabajoFinal</groupId>
 	<artifactId>trabajoFinal</artifactId>
 	<packaging>war</packaging>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>trabajoFinal Maven Webapp</name>
+	<version>1.0-SNAPSHOT</version>
+	<name>CounterWebApp Maven Webapp</name>
 	<url>http://maven.apache.org</url>
-
 	<properties>
+		<jdk.version>1.8</jdk.version>
 		<spring.version>4.2.0.RELEASE</spring.version>
 		<hibernate.version>4.3.11.Final</hibernate.version>
 		<slf4j.version>1.6.1</slf4j.version>
@@ -224,18 +225,45 @@
 
 	</dependencies>
 	<build>
-		<finalName>trabajoFinal</finalName>
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-compiler-plugin</artifactId>
-					<configuration>
-						<source>1.8</source>
-						<target>1.8</target>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
+		<finalName>trabajoFInal</finalName>
+
+		<plugins>
+		    <!-- Eclipse project -->
+		  <plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-eclipse-plugin</artifactId>
+			<version>2.9</version>
+			<configuration>
+			        <!-- Always download and attach dependencies source code -->
+				<downloadSources>true</downloadSources>
+				<downloadJavadocs>false</downloadJavadocs>
+				<!-- Avoid type mvn eclipse:eclipse -Dwtpversion=2.0 -->
+				<wtpversion>2.0</wtpversion>
+			</configuration>
+		  </plugin>
+
+		  <!-- Set JDK Compiler Level -->
+		  <plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-compiler-plugin</artifactId>
+			<version>2.3.2</version>
+			<configuration>
+				<source>${jdk.version}</source>
+				<target>${jdk.version}</target>
+			</configuration>
+		  </plugin>
+
+		  <!-- For Maven Tomcat Plugin -->
+		  <plugin>
+			<groupId>org.apache.tomcat.maven</groupId>
+			<artifactId>tomcat8-maven-plugin</artifactId>
+			<version>2.2</version>
+			<configuration>
+				<path>/trabajoFinal</path>
+			</configuration>
+		  </plugin>
+
+		</plugins>
+
 	</build>
 </project>
