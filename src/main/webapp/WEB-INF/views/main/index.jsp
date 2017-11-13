@@ -1,6 +1,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html lang="en" ng-app="demoApp">
+<html lang="en" ng-app="home">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
@@ -11,8 +11,7 @@
     <title>Menhit</title>
 
 	<script src="resources/angularjs/angular.js"></script>
-	<script src="resources/angularjs/angularDemo.js"></script>
-	
+	<script src="resources/angularjs/home.js"></script>	
     <!-- Bootstrap -->
     <link href="<c:url value="/resources/vendors/bootstrap/dist/css/bootstrap.min.css" />" rel="stylesheet">
     <!-- Font Awesome -->
@@ -167,7 +166,7 @@
         </div>
 
         <!-- top navigation -->
-        <div class="top_nav" ng-controller="demoCtrl">
+        <div class="top_nav" ng-controller="userController">
           <div class="nav_menu">
             <nav>
               <div class="nav toggle">
@@ -264,13 +263,13 @@
         <!-- /top navigation -->
 
         <!-- page content -->
-        <div class="right_col" role="main">
+        <div class="right_col" role="main" ng-controller="homeController">
           <div class="">
             <div class="row top_tiles">
               <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="tile-stats">
                   <div class="icon"><i class="fa fa-caret-square-o-right"></i></div>
-                  <div class="count">179 KW</div>
+                  <div class="count">{{potenciasTotales.potenciaContinua | number:2}}</div>
                   <h3>Potencia Continua</h3>
                   <p>Lorem ipsum psdea itgum rixt.</p>
                 </div>
@@ -278,7 +277,7 @@
               <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="tile-stats">
                   <div class="icon"><i class="fa fa-comments-o"></i></div>
-                  <div class="count">168</div>
+                  <div class="count">{{potenciasTotales.potenciaInterna| number:2}}</div>
                   <h3>Potencia Interna</h3>
                   <p>Lorem ipsum psdea itgum rixt.</p>
                 </div>
@@ -286,7 +285,7 @@
               <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="tile-stats">
                   <div class="icon"><i class="fa fa-sort-amount-desc"></i></div>
-                  <div class="count">134</div>
+                  <div class="count">{{potenciasTotales.potenciaRed | number:2}}</div>
                   <h3>Potencia Red</h3>
                   <p>Lorem ipsum psdea itgum rixt.</p>
                 </div>
