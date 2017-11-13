@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class HomeController {
 
 
-	@RequestMapping(value = "/views/index", method = RequestMethod.GET)
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView home() {
 		ModelAndView home = new ModelAndView("index");
 		home.addObject("msg", "Mensaje en el Controller!!!!!!!!!!!!!11!");
