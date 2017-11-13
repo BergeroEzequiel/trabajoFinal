@@ -76,5 +76,14 @@ public class TramaController {
 		
 		return new ResponseEntity(tramaDtoRespuesta,HttpStatus.OK);
 	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@RequestMapping(value = "/potenciasNodos", method = RequestMethod.GET, produces = "application/json")
+	public ResponseEntity<?> getPotenciasNodos() throws Exception{
+		
+		List<TramaDto> tramaDto = tramaService.getPotenciasNodos();
+		return new ResponseEntity(tramaDto, HttpStatus.OK);
+		
+	}
 
 }

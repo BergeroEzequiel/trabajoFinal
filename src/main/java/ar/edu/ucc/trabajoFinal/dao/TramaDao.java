@@ -1,6 +1,9 @@
 package ar.edu.ucc.trabajoFinal.dao;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -14,6 +17,8 @@ import ar.edu.ucc.trabajoFinal.model.TramaPotencias;
 
 @Repository
 public class TramaDao extends DaoGenericoImp<Trama, Long> implements ITramaDao {
+	
+	SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 
 	public List<Trama> getTramaByNumero(int numero) {
 		return this.getByCriteria(Restrictions.eq("numero", numero));
@@ -72,18 +77,18 @@ public class TramaDao extends DaoGenericoImp<Trama, Long> implements ITramaDao {
 	}
 
 	/**
-	 * Devuelve una lista de variables que contienen todas las potencias por nodo.
-	 * PERO NO SE COMO CARAJO HACER LA QUERY PARA QUE ME DEVUELVA 
-	 * LOS ULTIMOS VALORES DE POTENCIAS QUE TENGA.
+	 * Devuelve una lista de tramasPotencias. Una trama por cada nodo en la base de datos.
+	 * Cada trama potencia es la que tenga el MAX(hora) es decir la mas actual por cada nodo.
+	 * @throws ParseException 
 	 */
 	@Override
-	public List<TramaPotencias> getPotenciasNodos() {
+	public List<TramaPotencias> getPotenciasNodos() throws ParseException {
 		List list =  ((Query) this.currentSession()
-				.createQuery("potenciaContinua AS potenciaContinua, "
-						+ "potenciaRed AS potenciaRed, potenciaInterna AS potenciaInterna, numero AS numero, hora AS hora"
-						+ " from Trama where fecha = :fechaActual order by numero, hora asc"))
+				.createQuery("select potenciaContinua AS potenciaContinua, "
+						+ "potenciaRed AS potenciaRed, potenciaInterna AS potenciaInterna, numero AS numero, MAX(hora) AS hora"
+						+ " from Trama where fecha >= :fechaActual group by numero order by numero"))
 				.setResultTransformer(Transformers.aliasToBean(TramaPotencias.class))
-				.setParameter("fechaActual", new Date()).list();;
+				.setParameter("fechaActual", dateFormatter.parse(dateFormatter.format(new Date()))).list();
 		return list;
 	}
 
