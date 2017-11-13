@@ -13,7 +13,7 @@
 		<!-- CHANGE THE DATABASE CONNECTION-->
 		<property name="jdbcUrl" value="jdbc:mysql://127.0.0.1:3306/trabajo_final"/>		
 		<property name="user" value="root" />
-		<property name="password" value="root" />
+		<property name="password" value="" />
 		<!-- ***************************************** -->
 		
 		<property name="minPoolSize" value="1" />

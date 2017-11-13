@@ -1,7 +1,6 @@
 package ar.edu.ucc.trabajoFinal.jobs;
 
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.quartz.JobExecutionContext;
@@ -14,26 +13,20 @@ import ar.edu.ucc.trabajoFinal.dao.TramaProcesadaDao;
 import ar.edu.ucc.trabajoFinal.model.TramaAuxiliar;
 import ar.edu.ucc.trabajoFinal.model.TramaProcesada;
 
-public class ScheduledJob extends QuartzJobBean {
-
+public class Job20Minutos extends QuartzJobBean{
+	
 	@Autowired
 	private TramaDao tramaDao;
-	
+
 	@Autowired
 	private TramaProcesadaDao tramaProcesadaDao;
 
 	@Override
-	protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
-		List<TramaAuxiliar> tramasDtoMaximos = tramaDao.getTramaMaximos(
-				new Date(new GregorianCalendar(2017, 8, 4, 0, 0, 0).getTimeInMillis()),
-				new Date(new GregorianCalendar(2017, 8, 4, 0, 0, 0).getTimeInMillis()));
-		List<TramaAuxiliar> tramasDtoMinimos = tramaDao.getTramaMinimos(
-				new Date(new GregorianCalendar(2017, 8, 4, 0, 0, 0).getTimeInMillis()),
-				new Date(new GregorianCalendar(2017, 8, 4, 0, 0, 0).getTimeInMillis()));
-		List<TramaAuxiliar> tramaDtoPromedios = tramaDao.getTramaPromedio(
-				new Date(new GregorianCalendar(2017, 8, 4, 0, 0, 0).getTimeInMillis()),
-				new Date(new GregorianCalendar(2017, 8, 4, 0, 0, 0).getTimeInMillis()));
-		
+	protected void executeInternal(JobExecutionContext arg0) throws JobExecutionException {
+		List<TramaAuxiliar> tramasDtoMaximos = tramaDao.getTramaMaximos(new Date(),new Date());
+		List<TramaAuxiliar> tramasDtoMinimos = tramaDao.getTramaMinimos(new Date(),new Date());
+		List<TramaAuxiliar> tramaDtoPromedios = tramaDao.getTramaPromedio(new Date(),new Date());
+
 		for (int i = 0; i < tramasDtoMaximos.size(); i++) {
 			TramaAuxiliar tramaMaximos = tramasDtoMaximos.get(i);
 			TramaAuxiliar tramaMinimos = tramasDtoMinimos.get(i);
@@ -106,15 +99,16 @@ public class ScheduledJob extends QuartzJobBean {
 				tramaProcesadaDao.add(tramaProcesada);
 			}
 		}
-		
+
 	}
 
 	public void setTramaDao(TramaDao tramaDao) {
 		this.tramaDao = tramaDao;
 	}
-	
+
 	public void setTramaProcesadaDao(TramaProcesadaDao tramaProcesadaDao) {
 		this.tramaProcesadaDao = tramaProcesadaDao;
 	}
+
 
 }
