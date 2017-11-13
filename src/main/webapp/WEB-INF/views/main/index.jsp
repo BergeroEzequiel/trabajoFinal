@@ -1,6 +1,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="demoApp">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
@@ -10,6 +10,9 @@
 
     <title>Menhit</title>
 
+	<script src="resources/angularjs/angular.js"></script>
+	<script src="resources/angularjs/angularDemo.js"></script>
+	
     <!-- Bootstrap -->
     <link href="<c:url value="/resources/vendors/bootstrap/dist/css/bootstrap.min.css" />" rel="stylesheet">
     <!-- Font Awesome -->
@@ -164,7 +167,7 @@
         </div>
 
         <!-- top navigation -->
-        <div class="top_nav">
+        <div class="top_nav" ng-controller="demoCtrl">
           <div class="nav_menu">
             <nav>
               <div class="nav toggle">
@@ -174,7 +177,7 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/img.jpg" alt="">Juan Castañola
+                    <img src="images/img.jpg" alt="">{{nombre}}
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
