@@ -22,13 +22,13 @@ public class TramaDao extends DaoGenericoImp<Trama, Long> implements ITramaDao {
 	@Override
 	public List<TramaAuxiliar> getTramaMaximos(Date fechaDesde, Date fechaHasta) {
 		List list =  ((Query) this.currentSession()
-				.createQuery("select MAX(tensionRed) AS tensionRed, numero AS numero, "
+				.createQuery("select MAX(tensionRed) AS tensionRed, "
 						+ "MAX(corrienteRed) AS corrienteRed, MAX(frecuenciaTension) AS frecuenciaTension, MAX(frecuenciaCorriente) AS frecuenciaCorriente, "
 						+ "MAX(desfasaje) AS desfasaje, MAX(tensionTierra) AS tensionTierra, MAX(tensionInterna) AS tensionInterna, MAX(corrienteInterna) AS corrienteInterna, "
 						+ "MAX(tensionContinua) AS tensionContinua, MAX(corrienteContinua) AS corrienteContinua, MAX(temperatura1) AS temperatura1, MAX(temperatura2) AS temperatura2, MAX(temperatura3) AS temperatura3,"
 						+ "MAX(temperatura4) AS temperatura4, MAX(temperatura5) AS temperatura5, MAX(humedad) AS humedad, MIN(pvm) AS pvm, MAX(potenciaContinua) AS potenciaContinua,"
-						+ "MAX(potenciaRed) AS potenciaRed, MAX(potenciaInterna) AS potenciaInterna, numero AS numero"
-						+ " from Trama where fecha >= :fechaDesde and fecha <= :fechaHasta "
+						+ "MAX(potenciaRed) AS potenciaRed, MAX(potenciaInterna) AS potenciaInterna, numero AS numero "
+						+ "from Trama where fecha >= :fechaDesde and fecha <= :fechaHasta "
 						+ "group by numero "
 						+ "order by numero"))
 				.setResultTransformer(Transformers.aliasToBean(TramaAuxiliar.class))
@@ -44,8 +44,8 @@ public class TramaDao extends DaoGenericoImp<Trama, Long> implements ITramaDao {
 						+ "MIN(corrienteRed) AS corrienteRed, MIN(frecuenciaTension) AS frecuenciaTension, MIN(frecuenciaCorriente) AS frecuenciaCorriente, MIN(desfasaje) AS desfasaje, "
 						+ "MIN(tensionTierra) AS tensionTierra, MIN(tensionInterna) AS tensionInterna, MIN(corrienteInterna) AS corrienteInterna, MIN(tensionContinua) AS tensionContinua, "
 						+ "MIN(corrienteContinua) AS corrienteContinua, MIN(temperatura1) AS temperatura1, MIN(temperatura2) AS temperatura2, MIN(temperatura3) AS temperatura3, "
-						+ "MIN(temperatura4) AS temperatura4, MIN(temperatura5) AS temperatura5, MIN(humedad), MIN(pvm) AS pvm, MIN(potenciaContinua) AS potenciaContinua, "
-						+ "MIN(potenciaRed) AS potenciaRed, MIN(potenciaInterna) AS potenciaInterna, numero AS numero"
+						+ "MIN(temperatura4) AS temperatura4, MIN(temperatura5) AS temperatura5, MIN(humedad) AS humedad, MIN(pvm) AS pvm, MIN(potenciaContinua) AS potenciaContinua, "
+						+ "MIN(potenciaRed) AS potenciaRed, MIN(potenciaInterna) AS potenciaInterna, numero AS numero "
 						+ "from Trama where fecha >= :fechaDesde and fecha <= :fechaHasta "
 						+ "group by numero "
 						+ "order by numero"))
@@ -57,12 +57,12 @@ public class TramaDao extends DaoGenericoImp<Trama, Long> implements ITramaDao {
 	@Override
 	public List<TramaAuxiliar> getTramaPromedio(Date fechaDesde, Date fechaHasta) {
 		List list =  ((Query) this.currentSession()
-				.createQuery("select AVG(tensionRed) AS tensionRed, "
-						+ "AVG(corrienteRed) AS corrienteRed, AVG(frecuenciaTension) AS frecuenciaTension, AVG(frecuenciaCorriente) AS frecuenciaCorriente, AVG(desfasaje) AS desfasaje, "
-						+ "AVG(tensionTierra) AS tensionTierra, AVG(tensionInterna) AS tensionInterna, AVG(corrienteInterna) AS corrienteInterna, AVG(tensionContinua) AS tensionContinua, "
-						+ "AVG(corrienteContinua) AS corrienteContinua, AVG(temperatura1) AS temperatura1, AVG(temperatura2) AS temperatura2, AVG(temperatura3) AS temperatura3, "
-						+ "AVG(temperatura4) AS temperatura4, AVG(temperatura5) AS temperatura5, AVG(humedad) AS humedad, MIN(pvm) AS pvm, AVG(potenciaContinua) AS potenciaContinua, "
-						+ "AVG(potenciaRed) AS potenciaRed, AVG(potenciaInterna) AS potenciaInterna, numero AS numero "
+				.createQuery("select CAST(AVG(tensionRed) AS float) AS tensionRed, "
+						+ "CAST(AVG(corrienteRed) AS float) AS corrienteRed, CAST(AVG(frecuenciaTension) AS float) AS frecuenciaTension, CAST(AVG(frecuenciaCorriente) AS float) AS frecuenciaCorriente, CAST(AVG(desfasaje) AS float) AS desfasaje, "
+						+ "CAST(AVG(tensionTierra) AS float) AS tensionTierra, CAST(AVG(tensionInterna) AS float) AS tensionInterna, CAST(AVG(corrienteInterna) AS float) AS corrienteInterna, CAST(AVG(tensionContinua) AS float) AS tensionContinua, "
+						+ "CAST(AVG(corrienteContinua) AS float) AS corrienteContinua, CAST(AVG(temperatura1) AS float) AS temperatura1, CAST(AVG(temperatura2) AS float) AS temperatura2, CAST(AVG(temperatura3) AS float) AS temperatura3, "
+						+ "CAST(AVG(temperatura4) AS float) AS temperatura4, CAST(AVG(temperatura5) AS float) AS temperatura5, CAST(AVG(humedad) AS float) AS humedad, CAST(AVG(pvm) AS float) AS pvm, CAST(AVG(potenciaContinua) AS float) AS potenciaContinua, "
+						+ "CAST(AVG(potenciaRed) AS float) AS potenciaRed, CAST(AVG(potenciaInterna) AS float) AS potenciaInterna, numero AS numero "
 						+ "from Trama where fecha >= :fechaDesde and fecha <= :fechaHasta "
 						+ "group by numero "
 						+ "order by numero"))
