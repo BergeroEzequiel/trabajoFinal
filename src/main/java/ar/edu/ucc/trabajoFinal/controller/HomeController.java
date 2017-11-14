@@ -12,9 +12,13 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView home() {
 		ModelAndView home = new ModelAndView("index");
-		home.addObject("msg", "Mensaje en el Controller!!!!!!!!!!!!!11!");
-
 		return home;
+	}
+	
+	@RequestMapping(value = "variables", method = RequestMethod.GET)
+	public ModelAndView variables() {
+		ModelAndView variables = new ModelAndView("variables");
+		return variables;
 	}
 
 }
