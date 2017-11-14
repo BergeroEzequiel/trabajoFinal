@@ -127,6 +127,7 @@
         VERSION bigint not null DEFAULT 0,
         activo BOOLEAN DEFAULT true not null,
         nombre_variable varchar(50) not null,
+        tipo integer,
         ultima_modificacion date not null,
         valor_max float not null,
         valor_min float not null,

@@ -213,7 +213,7 @@
                     <div class="clearfix"></div>
                   </div>
 
-                  <div class="x_content">
+                  <div class="x_content" ng-controller="umbralController">
 
                     <p>Add class <code>bulk_action</code> to table for bulk actions options on row select</p>
 
@@ -226,6 +226,7 @@
                             <th class="column-title">Fecha Ultima Modificación </th>
                             <th class="column-title">Valor Máximo </th>
                             <th class="column-title">Valor Mínimo </th>
+                            <th class="column-title">Tipo </th>
                             <th class="column-title">Activar Notificaciones</th>
                             <th class="column-title no-link last"><span class="nobr">Acción</span>
                             </th>
@@ -233,15 +234,17 @@
                         </thead>
 
                         <tbody>
-                          <tr class="even pointer">
-                            <td class=" ">corriente_continua</td>
-                            <td class=" ">May 23, 2014 11:47:56 PM </td>
-                            <td class=" ">250</td>
-                            <td class=" ">180</td>
-                            <td class="a-center ">
+                          <tr class="even pointer" ng-repeat="umbral in umbrales">
+                            <td class=" ">{{umbral.nombreVariable}}</td>
+                            <td class=" ">{{umbral.ultimaModificacion}}</td>
+                            <td class=" ">{{umbral.valorMax}}</td>
+                            <td class=" ">{{umbral.valorMin}}</td>
+                            <td class=" ">{{umbral.tipo}}</td>
+                            <td class="a-center ">{{umbral.activo}}
                               <input type="checkbox" class="flat">
                             </td>
                             <td class=" last"><a href="#">Editar</a></td>
+                            
                           </tr>
                         </tbody>
                       </table>
