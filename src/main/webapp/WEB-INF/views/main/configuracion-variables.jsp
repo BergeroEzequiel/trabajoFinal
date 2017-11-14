@@ -1,6 +1,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html lang="en" ng-app="home">
+<html lang="en" ng-app="variables">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
@@ -9,9 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Menhit</title>
-
-	<script src="resources/angularjs/angular.js"></script>
-	<script src="resources/angularjs/home.js"></script>	
+    	
     <!-- Bootstrap -->
     <link href="<c:url value="/resources/vendors/bootstrap/dist/css/bootstrap.min.css" />" rel="stylesheet">
     <!-- Font Awesome -->
@@ -236,7 +234,7 @@
                         <tbody>
                           <tr class="even pointer" ng-repeat="umbral in umbrales">
                             <td class=" ">{{umbral.nombreVariable}}</td>
-                            <td class=" ">{{umbral.ultimaModificacion}}</td>
+                            <td class=" ">{{umbral.fechaUltimaModificacion}}</td>
                             <td class=" ">{{umbral.valorMax}}</td>
                             <td class=" ">{{umbral.valorMin}}</td>
                             <td class=" ">{{umbral.tipo}}</td>
@@ -304,6 +302,8 @@
 
     <!-- Custom Theme Scripts -->
     <script src="<c:url value="/resources/build/js/custom.min.js"/>"></script>
+    <script src="resources/angularjs/angular.js"></script>
+	<script src="resources/angularjs/variables.js"></script>
   </body>
 </html>
         

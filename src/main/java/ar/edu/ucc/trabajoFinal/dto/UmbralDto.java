@@ -9,7 +9,7 @@ public class UmbralDto {
 	private float valorMax;
 	private float valorMin;
 	private String nombreVariable;
-	private Date fechaUltimaModificacion;
+	private String fechaUltimaModificacion;
 	private int tipo;
 	
 	public Long getId() {
@@ -42,10 +42,10 @@ public class UmbralDto {
 	public void setNombreVariable(String nombreVariable) {
 		this.nombreVariable = nombreVariable;
 	}
-	public Date getFechaUltimaModificacion() {
+	public String getFechaUltimaModificacion() {
 		return fechaUltimaModificacion;
 	}
-	public void setFechaUltimaModificacion(Date date) {
+	public void setFechaUltimaModificacion(String date) {
 		this.fechaUltimaModificacion = date;
 	}
 	public int getTipo() {
