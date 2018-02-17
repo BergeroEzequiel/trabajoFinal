@@ -40,6 +40,22 @@ angular.module('home', [])
 	
 	$scope.nombre = "Juan Castagnola"
 	
+})
+.controller("alertasController", function($scope, $http){
+	$scope.alertas = [];
+	$scope.getAlertas = function (){
+		  $http.get('http://localhost:8080/trabajoFinal/alertas/5')
+		  .then(successCallback, errorCallback);
+	  }
+	  function successCallback(response) {
+	    $scope.alertas = response.data;
+	  }
+
+	  function errorCallback(err) {
+	    console.log(err);
+	  }
+	  $scope.getAlertas();
+	
 });
 
 

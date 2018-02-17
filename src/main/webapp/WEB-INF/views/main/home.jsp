@@ -272,28 +272,19 @@
                     </ul>
                     <div class="clearfix"></div>
                   </div>
-                  <div class="x_content bs-example-popovers">
-
+                  <div class="x_content bs-example-popovers" ng-controller="alertasController">
+					<div  ng-repeat="alerta in alertas">
                     <div class="alert alert-success alert-dismissible fade in" role="alert">
                       <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
                       </button>
-                      <strong>Holy guacamole!</strong> Best check yo self, you're not looking too good.
+                      <strong>{{alerta.descripcion}}</strong> {{alerta.variableAfectada}}
+                      <p>Nodo afectado: {{alerta.nodoAfectado}} 
+                      Umbral Superado: {{alerta.umbralSuperado}}
+                      Valor: {{alerta.valor}}
+                      </p>.
                     </div>
-                    <div class="alert alert-info alert-dismissible fade in" role="alert">
-                      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-                      </button>
-                      <strong>Holy guacamole!</strong> Best check yo self, you're not looking too good.
-                    </div>
-                    <div class="alert alert-warning alert-dismissible fade in" role="alert">
-                      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-                      </button>
-                      <strong>Holy guacamole!</strong> Best check yo self, you're not looking too good.
-                    </div>
-                    <div class="alert alert-danger alert-dismissible fade in" role="alert">
-                      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-                      </button>
-                      <strong>Holy guacamole!</strong> Best check yo self, you're not looking too good.
-                    </div>
+                  	</div>
+                    
 
                   </div>
                 </div>

@@ -12,7 +12,7 @@ angular.module('variables', [])
 	  function errorCallback(err) {
 	    console.log(err);
 	  }
-	  $scope.getUmbrales();debugger;
+	  $scope.getUmbrales();
 	
 })
 .controller("userController", function($scope){
