@@ -1,5 +1,8 @@
 package ar.edu.ucc.trabajoFinal.service;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +31,9 @@ public class UmbralService {
 
 	IUmbralDao umbralDaoParticular;
 
+	SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+	DateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
+	
 	@PostConstruct
 	public void init() {
 		umbralDaoParticular = (UmbralDao) umbralDao;
@@ -43,7 +49,7 @@ public class UmbralService {
 		umbralDto.setNombreVariable(umbral.getNombreVariable());
 		umbralDto.setValorMax(umbral.getValorMax());
 		umbralDto.setValorMin(umbral.getValorMin());
-		umbralDto.setFechaUltimaModificacion(umbral.getUltimaModificacion());
+		umbralDto.setFechaUltimaModificacion(dateFormatter.format(umbral.getUltimaModificacion()));
 		umbralDto.setActivo(umbral.isActivo());
 		umbralDto.setTipo(umbral.getTipo());
 		
@@ -64,7 +70,7 @@ public class UmbralService {
 			umbralDto.setNombreVariable(umbral.getNombreVariable());
 			umbralDto.setValorMax(umbral.getValorMax());
 			umbralDto.setValorMin(umbral.getValorMin());
-			umbralDto.setFechaUltimaModificacion(umbral.getUltimaModificacion());
+			umbralDto.setFechaUltimaModificacion(dateFormatter.format(umbral.getUltimaModificacion()));
 			umbralDto.setActivo(umbral.isActivo());
 			umbralDto.setTipo(umbral.getTipo());
 			
@@ -82,7 +88,7 @@ public class UmbralService {
 		umbralDto.setNombreVariable(umbral.getNombreVariable());
 		umbralDto.setValorMax(umbral.getValorMax());
 		umbralDto.setValorMin(umbral.getValorMin());
-		umbralDto.setFechaUltimaModificacion(umbral.getUltimaModificacion());
+		umbralDto.setFechaUltimaModificacion(dateFormatter.format(umbral.getUltimaModificacion()));
 		umbralDto.setActivo(umbral.isActivo());
 		umbralDto.setTipo(umbral.getTipo());
 		
@@ -90,7 +96,7 @@ public class UmbralService {
 	}
 	
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-	public UmbralDto grabarUmbral(UmbralDto umbralDto) {
+	public UmbralDto grabarUmbral(UmbralDto umbralDto) throws ParseException {
 
 		log.info("Guardando: " + umbralDto.toString());
 
@@ -98,7 +104,7 @@ public class UmbralService {
 		umbral.setNombreVariable(umbralDto.getNombreVariable());
 		umbral.setValorMax(umbralDto.getValorMax());
 		umbral.setValorMin(umbralDto.getValorMin());
-		umbral.setUltimaModificacion(umbralDto.getFechaUltimaModificacion());
+		umbral.setUltimaModificacion(dateFormatter.parse(umbralDto.getFechaUltimaModificacion()));
 		umbral.setActivo(umbralDto.isActivo());
 		umbral.setTipo(umbralDto.getTipo());
 		
@@ -109,7 +115,7 @@ public class UmbralService {
 	}
 	
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-	public UmbralDto actualizarUmbral(UmbralDto umbralDto) {
+	public UmbralDto actualizarUmbral(UmbralDto umbralDto) throws ParseException {
 
 		log.info("Actualizando: " + umbralDto.toString());
 
@@ -118,7 +124,7 @@ public class UmbralService {
 		umbral.setNombreVariable(umbralDto.getNombreVariable());
 		umbral.setValorMax(umbralDto.getValorMax());
 		umbral.setValorMin(umbralDto.getValorMin());
-		umbral.setUltimaModificacion(umbralDto.getFechaUltimaModificacion());
+		umbral.setUltimaModificacion(dateFormatter.parse(umbralDto.getFechaUltimaModificacion()));
 		umbral.setActivo(umbralDto.isActivo());
 		umbral.setTipo(umbralDto.getTipo());
 		

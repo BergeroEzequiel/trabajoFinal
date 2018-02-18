@@ -26,7 +26,7 @@ public class Job20Minutos extends QuartzJobBean{
 		List<TramaAuxiliar> tramasDtoMaximos = tramaDao.getTramaMaximos(new Date(),new Date());
 		List<TramaAuxiliar> tramasDtoMinimos = tramaDao.getTramaMinimos(new Date(),new Date());
 		List<TramaAuxiliar> tramaDtoPromedios = tramaDao.getTramaPromedio(new Date(),new Date());
-
+		System.out.println("Llamando desde el JOB 20min");
 		for (int i = 0; i < tramasDtoMaximos.size(); i++) {
 			TramaAuxiliar tramaMaximos = tramasDtoMaximos.get(i);
 			TramaAuxiliar tramaMinimos = tramasDtoMinimos.get(i);

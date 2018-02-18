@@ -1,6 +1,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html lang="en" ng-app="home">
+<html lang="en" ng-app="variables">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Menhit</title>
-
+    	
     <!-- Bootstrap -->
     <link href="<c:url value="/resources/vendors/bootstrap/dist/css/bootstrap.min.css" />" rel="stylesheet">
     <!-- Font Awesome -->
@@ -18,7 +18,7 @@
     <link href="<c:url value="/resources/vendors/nprogress/nprogress.css" />" rel="stylesheet">
     <!-- bootstrap-daterangepicker -->
     <link href="<c:url value="/resources/vendors/bootstrap-daterangepicker/daterangepicker.css" />" rel="stylesheet">
-    <!-- iCheck -->
+	<!-- iCheck -->
     <link href="<c:url value="/resources/vendors/iCheck/skins/flat/green.css" />" rel="stylesheet">
 
     <!-- Custom Theme Style -->
@@ -172,89 +172,27 @@
             </nav>
           </div>
         </div>
-        <!-- /top navigation -->
-
-        <!-- page content -->
-        
-        <div class="right_col" role="main" ng-controller="homeController">
+        <!-- /top navigation -->		
+		
+		<!-- page content -->
+        <div class="right_col" role="main">
           <div class="">
-            <div class="row top_tiles">
-              <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <div class="tile-stats">
-                  <div class="icon"><i class="fa fa-flash"></i></div>
-                  <div class="count">{{potenciasTotales.potenciaContinua | number:2}}</div>
-                  <h3>Potencia Continua</h3>
-                  <p>Lorem ipsum psdea itgum rixt.</p>
-                </div>
+            <div class="page-title">
+              <div class="title_left">
+                <h3>Tables <small>Some examples to get you started</small></h3>
               </div>
-              <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <div class="tile-stats">
-                  <div class="icon"><i class="fa fa-feed"></i></div>
-                  <div class="count">{{potenciasTotales.potenciaInterna| number:2}}</div>
-                  <h3>Potencia Interna</h3>
-                  <p>Lorem ipsum psdea itgum rixt.</p>
-                </div>
-              </div>
-              <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <div class="tile-stats">
-                  <div class="icon"><i class="fa fa-plug"></i></div>
-                  <div class="count">{{potenciasTotales.potenciaRed | number:2}}</div>
-                  <h3>Potencia Red</h3>
-                  <p>Lorem ipsum psdea itgum rixt.</p>
-                </div>
-              </div>
-              <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <div class="tile-stats">
-                  <div class="icon"><i class="fa fa-thermometer"></i></div>
-                  <div class="count">29°C</div>
-                  <h3>Temperatura</h3>
-                  <p>Lorem ipsum psdea itgum rixt.</p>
-                </div>
-              </div>
+
+              
+
             </div>
 
-            <div class="row">
-              <div class="col-md-8">
+
+              <div class="clearfix"></div>
+
+              <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Seguimiento de la potencia entregada</h2>
-                    <div class="filter">
-                      <div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
-                        <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
-                        <span>December 30, 2014 - January 28, 2015</span> <b class="caret"></b>
-                      </div>
-                    </div>
-                    <div class="clearfix"></div>
-                  </div>
-
-                  <div class="x_content">
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                      <div class="demo-container" style="height:280px">
-                        <div id="echart_line" style="height:350px;"></div>
-                      </div>
-                      <div class="tiles">
-
-
-                      </div>
-
-                    </div>
-
-                    <div class="col-md-3 col-sm-12 col-xs-12">
-                      <div>
-
-
-                      </div>
-                    </div>
-
-                  </div>
-                </div>
-              </div>
-
-              <!-- Alertas -->
-              <div class="col-md-4">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>Alertas <small>Sessions</small></h2>
+                    <h2>Table design <small>Custom design</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -272,90 +210,53 @@
                     </ul>
                     <div class="clearfix"></div>
                   </div>
-                  <div class="x_content bs-example-popovers" ng-controller="alertasController">
-					<div  ng-repeat="alerta in alertas">
-                    <div class="alert alert-success alert-dismissible fade in" role="alert">
-                      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">Ã—</span>
-                      </button>
-                      <strong>{{alerta.descripcion}}</strong> {{alerta.variableAfectada}}
-                      <p>Nodo afectado: {{alerta.nodoAfectado}} 
-                      Umbral Superado: {{alerta.umbralSuperado}}
-                      Valor: {{alerta.valor}}
-                      </p>.
+
+                  <div class="x_content" ng-controller="umbralController">
+
+                    <p>Add class <code>bulk_action</code> to table for bulk actions options on row select</p>
+
+                    <div class="table-responsive">
+                      <table class="table table-striped table-bordered bulk_action">
+                        <thead>
+                          <tr class="headings">
+
+                            <th class="column-title">Nombre de la Variable </th>
+                            <th class="column-title">Fecha Ultima Modificación </th>
+                            <th class="column-title">Valor Máximo </th>
+                            <th class="column-title">Valor Mínimo </th>
+                            <th class="column-title">Tipo </th>
+                            <th class="column-title">Activar Notificaciones</th>
+                            <th class="column-title no-link last"><span class="nobr">Acción</span>
+                            </th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                          <tr class="even pointer" ng-repeat="umbral in umbrales">
+                            <td class=" ">{{umbral.nombreVariable}}</td>
+                            <td class=" ">{{umbral.fechaUltimaModificacion}}</td>
+                            <td class=" ">{{umbral.valorMax}}</td>
+                            <td class=" ">{{umbral.valorMin}}</td>
+                            <td class=" ">{{umbral.tipo}}</td>
+                            <td class="a-center ">{{umbral.activo}}
+                              <input type="checkbox" class="flat">
+                            </td>
+                            <td class=" last"><a href="#">Editar</a></td>
+                            
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
-                  	</div>
-                    
+
 
                   </div>
                 </div>
               </div>
             </div>
-
-
-
-            <div class="row">
-              <div class="col-md-12">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>Weekly Summary <small>Activity shares</small></h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-
-                    <div class="row" style="border-bottom: 1px solid #E0E0E0; padding-bottom: 5px; margin-bottom: 5px;">
-                      <div class="col-md-7" style="overflow:hidden;">
-                        <span class="sparkline_one" style="height: 160px; padding: 10px 25px;">
-                                      <canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
-                                  </span>
-                        <h4 style="margin:18px">Weekly sales progress</h4>
-                      </div>
-
-                      <div class="col-md-5">
-                        <div class="row" style="text-align: center;">
-                          <div class="col-md-4">
-                            <canvas class="canvasDoughnut" height="110" width="110" style="margin: 5px 10px 10px 0"></canvas>
-                            <h4 style="margin:0">Bounce Rates</h4>
-                          </div>
-                          <div class="col-md-4">
-                            <canvas class="canvasDoughnut" height="110" width="110" style="margin: 5px 10px 10px 0"></canvas>
-                            <h4 style="margin:0">New Traffic</h4>
-                          </div>
-                          <div class="col-md-4">
-                            <canvas class="canvasDoughnut" height="110" width="110" style="margin: 5px 10px 10px 0"></canvas>
-                            <h4 style="margin:0">Device Share</h4>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
           </div>
         </div>
         <!-- /page content -->
-
-      </div>
-    </div>
-  </body>
-
-
+        
         <!-- footer content -->
         <footer>
           <div class="pull-right">
@@ -402,6 +303,7 @@
     <!-- Custom Theme Scripts -->
     <script src="<c:url value="/resources/build/js/custom.min.js"/>"></script>
     <script src="resources/angularjs/angular.js"></script>
-	<script src="resources/angularjs/home.js"></script>	
+	<script src="resources/angularjs/variables.js"></script>
   </body>
 </html>
+        

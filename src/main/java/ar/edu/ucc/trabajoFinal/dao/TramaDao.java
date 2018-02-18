@@ -84,11 +84,21 @@ public class TramaDao extends DaoGenericoImp<Trama, Long> implements ITramaDao {
 	@Override
 	public List<TramaPotencias> getPotenciasNodos() throws ParseException {
 		List list =  ((Query) this.currentSession()
-				.createQuery("select potenciaContinua AS potenciaContinua, "
-						+ "potenciaRed AS potenciaRed, potenciaInterna AS potenciaInterna, numero AS numero, MAX(hora) AS hora"
-						+ " from Trama where fecha >= :fechaActual group by numero order by numero"))
-				.setResultTransformer(Transformers.aliasToBean(TramaPotencias.class))
-				.setParameter("fechaActual", dateFormatter.parse(dateFormatter.format(new Date()))).list();
+				.createQuery(
+						"select potenciaContinua as potenciaContinua, "
+						+ "potenciaInterna as potenciaInterna, "
+						+ "potenciaRed as potenciaRed, "
+						+ "hora as hora,"
+						+ "numero as numero " +
+						"from Trama " +
+						"where fecha = CURRENT_DATE() AND hora in "
+						+ "(SELECT MAX(hora) as hora"
+						+ " from Trama "
+						+ "where fecha = CURRENT_DATE() "
+						+ "GROUP BY numero) "+
+						"ORDER BY numero"
+						))
+				.setResultTransformer(Transformers.aliasToBean(TramaPotencias.class)).list();
 		return list;
 	}
 
