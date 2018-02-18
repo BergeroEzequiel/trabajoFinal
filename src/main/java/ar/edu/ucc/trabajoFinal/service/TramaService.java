@@ -233,7 +233,7 @@ public class TramaService {
 		
 		log.info("Obteniendo valores de las 3 potencias de cada nodo...");
 		List<TramaPotencias> tramasPotencias = tramaDaoParticular.getPotenciasNodos();
-		System.out.println(tramasPotencias.get(0).getPotenciaContinua());
+//		System.out.println(tramasPotencias.get(0).getPotenciaContinua());
 		TramaDto tramaDto;
 		List<TramaDto> tramasDto = new ArrayList<TramaDto>();
 		
