@@ -211,7 +211,10 @@ public class TramaService {
 		tramaDto.setPotenciaInterna(trama.getPotenciaInterna());
 		tramaDto.setPotenciaRed(trama.getPotenciaRed());
 		
-		//this.controlarTrama(tramaDto);
+//		this.controlarTrama(tramaDto);
+		this.tramaControl = new TramaControl();
+		this.tramaControl.cargarValoresActuales(tramaDto);
+		this.tramaControl.controlarTrama(tramaDto);
 		return tramaDto;
 	}
 
