@@ -50,13 +50,13 @@
                   <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="/trabajoFinal">Paneles Solares</a></li>
-                      <li><a href="index2.html">Aerogeneradores</a></li>
+                      <li><a href="#">Aerogeneradores</a></li>
                       <li><a href="index3.html">Termotanques Solares</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-sitemap"></i> Nodos <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="form.html">Estado Nodo</a></li>
+                      <li><a href="#">Estado Nodo</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-bell-o"></i> Alertas <span class="fa fa-chevron-down"></span></a>
@@ -65,17 +65,12 @@
                   </li>
                   <li><a><i class="fa fa-wrench"></i> Mantenimiento <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="tables.html">Tables</a></li>
-                      <li><a href="tables_dynamic.html">Table Dynamic</a></li>
+                      <li><a href="#">...</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-bar-chart-o"></i>Históricos<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="chartjs.html">Chart JS</a></li>
-                      <li><a href="chartjs2.html">Chart JS2</a></li>
-                      <li><a href="morisjs.html">Moris JS</a></li>
-                      <li><a href="echarts.html">ECharts</a></li>
-                      <li><a href="other_charts.html">Other Charts</a></li>
+                      <li><a href="#">...</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-group"></i>Usuarios<span class="fa fa-chevron-down"></span></a>
@@ -85,7 +80,7 @@
                   <li><a><i class="fa fa-cogs"></i>Configuración<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="variables">Variables</a></li>
-                      <li><a href="">Alertas</a></li>
+                      <li><a href="#">Alertas</a></li>
                     </ul>
                   </li>
                 </ul>
@@ -93,23 +88,6 @@
               
             </div>
             <!-- /sidebar menu -->
-
-            <!-- /menu footer buttons -->
-            <div class="sidebar-footer hidden-small">
-              <a data-toggle="tooltip" data-placement="top" title="Settings">
-                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Lock">
-                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
-                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-              </a>
-            </div>
-            <!-- /menu footer buttons -->
           </div>
         </div>
 

@@ -6,8 +6,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import javax.annotation.PostConstruct;
 
@@ -37,9 +35,6 @@ public class TramaService {
 	ITramaDao tramaDaoParticular;
 
 	TramaControl tramaControl;
-
-	// Para hacer el control asincrono
-	ExecutorService pool = Executors.newCachedThreadPool();
 
 	@PostConstruct
 	public void init() {
@@ -182,7 +177,6 @@ public class TramaService {
 		trama.setCorrienteRed(tramaDto.getCorrienteRed());
 		trama.setDesfasaje(tramaDto.getDesfasaje());
 		trama.setEstado(tramaDto.getEstado());
-		;
 		trama.setFecha(dateFormatter.parse(tramaDto.getFecha()));
 		trama.setFrecuenciaCorriente(tramaDto.getFrecuenciaCorriente());
 		trama.setFrecuenciaTension(tramaDto.getFrecuenciaTension());
@@ -211,7 +205,7 @@ public class TramaService {
 		tramaDto.setPotenciaInterna(trama.getPotenciaInterna());
 		tramaDto.setPotenciaRed(trama.getPotenciaRed());
 		
-//		this.controlarTrama(tramaDto);
+		// Controlar trama
 		this.tramaControl = new TramaControl();
 		this.tramaControl.cargarValoresActuales(tramaDto);
 		this.tramaControl.controlarTrama(tramaDto);
@@ -236,7 +230,6 @@ public class TramaService {
 		
 		log.info("Obteniendo valores de las 3 potencias de cada nodo...");
 		List<TramaPotencias> tramasPotencias = tramaDaoParticular.getPotenciasNodos();
-//		System.out.println(tramasPotencias.get(0).getPotenciaContinua());
 		TramaDto tramaDto;
 		List<TramaDto> tramasDto = new ArrayList<TramaDto>();
 		

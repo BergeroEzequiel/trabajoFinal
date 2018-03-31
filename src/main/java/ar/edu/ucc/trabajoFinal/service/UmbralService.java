@@ -73,6 +73,7 @@ public class UmbralService {
 			umbralDto.setFechaUltimaModificacion(dateFormatter.format(umbral.getUltimaModificacion()));
 			umbralDto.setActivo(umbral.isActivo());
 			umbralDto.setTipo(umbral.getTipo());
+			umbralDto.setId(umbral.getId());
 			
 			umbralesDto.add(umbralDto);
 		}

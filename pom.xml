@@ -225,7 +225,7 @@
 
 	</dependencies>
 	<build>
-		<finalName>trabajoFInal</finalName>
+		<finalName>trabajoFinal</finalName>
 
 		<plugins>
 		    <!-- Eclipse project -->

@@ -59,19 +59,19 @@
 
 
 	<!-- Run the job every 5 seconds -->
-	<bean id="cronTrigger"
-		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
-		<property name="jobDetail" ref="complexJobDetail" />
-		<property name="cronExpression" value="0/5 * * * * ?" />
-	</bean>
+<!-- 	<bean id="cronTrigger" -->
+<!-- 		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean"> -->
+<!-- 		<property name="jobDetail" ref="complexJobDetail" /> -->
+<!-- 		<property name="cronExpression" value="0/5 * * * * ?" /> -->
+<!-- 	</bean> -->
 
 	<!-- Corr el job cada 20 minutos -->
-	<bean id="cronTrigger20Minutos"
-		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
-		<property name="jobDetail" ref="job20Minutos" />
+<!-- 	<bean id="cronTrigger20Minutos" -->
+<!-- 		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean"> -->
+<!-- 		<property name="jobDetail" ref="job20Minutos" /> -->
 <!-- 		<property name="cronExpression" value="0 0/20 * 1/1 * ? *" /> -->
-		<property name="cronExpression" value="0/5 * * * * ?" />
-	</bean>
+<!-- 		<property name="cronExpression" value="0/5 * * * * ?" /> -->
+<!-- 	</bean> -->
 
 	<!-- Corre el job todos los dias a las 22 hs. -->
 	<bean id="cronTriggerDiario"
@@ -102,8 +102,8 @@
 
 		<property name="triggers">
 			<list>
-				<ref bean="cronTrigger" />
-				<ref bean="cronTrigger20Minutos" />
+<!-- 				<ref bean="cronTrigger" /> -->
+<!-- 				<ref bean="cronTrigger20Minutos" /> -->
 				<ref bean="cronTriggerDiario" />
 				<ref bean="cronTriggerSemanal" />
 			</list>
