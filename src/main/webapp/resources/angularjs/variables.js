@@ -1,4 +1,24 @@
-angular.module('variables', [])
+var variablesModule = angular.module('variables', [])
+variablesModule.directive('numbersOnly', function () {
+    return {
+        require: 'ngModel',
+        link: function (scope, element, attr, ngModelCtrl) {
+            function fromUser(text) {
+                if (text) {
+                    var transformedInput = text.replace(/[^0-9\.]/g, '');
+
+                    if (transformedInput !== text) {
+                        ngModelCtrl.$setViewValue(transformedInput);
+                        ngModelCtrl.$render();
+                    }
+                    return transformedInput;
+                }
+                return undefined;
+            }            
+            ngModelCtrl.$parsers.push(fromUser);
+        }
+    };
+})
 .controller("umbralController", function($scope, $http){
 	$scope.umbrales = [];
 	$scope.copia = [];
@@ -20,15 +40,21 @@ angular.module('variables', [])
 		umbral.editMode = true;
 	}
 	
-	$scope.cancel = function(umbral) { debugger;
+	$scope.cancel = function(umbral) {
 	  angular.copy(umbral.$original, umbral);
       umbral.editMode = false;
     }
 	
-	$scope.updateUmbral = function(umbral) { debugger;
+	$scope.updateUmbral = function(umbral) {
 		umbral.fechaUltimaModificacion = new Date();
 		$http.put('http://localhost:8080/trabajoFinal/umbral/', umbral);
 		umbral.editMode = false;
+	}
+	
+	$scope.filterValue = function($event){
+        if(isNaN(String.fromCharCode($event.keyCode))){
+            $event.preventDefault();
+        }
 	}
 	
 })
@@ -36,4 +62,4 @@ angular.module('variables', [])
 	
 	$scope.nombre = "Juan Castagnola"
 	
-});
+})

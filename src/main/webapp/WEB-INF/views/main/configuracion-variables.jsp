@@ -190,11 +190,11 @@
                             <td class=" ">{{umbral.fechaUltimaModificacion}}</td>
                             <td>
                               <span ng-hide="umbral.editMode">{{umbral.valorMin}}</span>
-                              <input type="text" name="valorMin" ng-show="umbral.editMode" class="form-control" ng-model="umbral.valorMin" placeholder="Valor Mínimo" required="" />
+                              <input numbers-only type="text" name="valorMin" ng-show="umbral.editMode" class="form-control" ng-model="umbral.valorMin" placeholder="Valor Mínimo" required="" />
                             </td>
                             <td>                           
                               <span ng-hide="umbral.editMode">{{umbral.valorMax}}</span>
-                              <input type="text" name="valorMax" ng-show="umbral.editMode" class="form-control" ng-model="umbral.valorMax" placeholder="Valor Máximo" required="" />
+                              <input numbers-only type="text" name="valorMax" ng-show="umbral.editMode" class="form-control" ng-model="umbral.valorMax" placeholder="Valor Máximo" required="" />
                             </td>
                             <td>
                               <span ng-hide="umbral.editMode">{{umbral.tipo}}</span>
