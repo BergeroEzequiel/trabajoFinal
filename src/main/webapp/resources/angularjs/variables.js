@@ -46,7 +46,7 @@ variablesModule.directive('numbersOnly', function () {
     }
 	
 	$scope.updateUmbral = function(umbral) {
-		umbral.fechaUltimaModificacion = new Date();
+		umbral.fechaUltimaModificacion = $scope.getLocalISOTime();
 		$http.put('http://localhost:8080/trabajoFinal/umbral/', umbral);
 		umbral.editMode = false;
 	}
@@ -55,6 +55,12 @@ variablesModule.directive('numbersOnly', function () {
         if(isNaN(String.fromCharCode($event.keyCode))){
             $event.preventDefault();
         }
+	}
+	
+	$scope.getLocalISOTime = function() {
+		var tzOffset = (new Date()).getTimezoneOffset() * 60000,
+		    localISOTime = (new Date(Date.now() - tzOffset)).toISOString().slice(0, -1);
+		return localISOTime.split('T')[0];
 	}
 	
 })

@@ -202,7 +202,7 @@
                             </td>
                             <td class="a-center ">
                               <input ng-hide="umbral.editMode" type="checkbox" disabled="disabled" class="flat" ng-checked="umbral.activo">
-                              <input type="checkbox" ng-show="umbral.editMode" class="flat" ng-checked="umbral.activo">
+                              <input type="checkbox" ng-show="umbral.editMode" class="flat" ng-checked="umbral.activo" ng-model="umbral.activo">
                             </td>
                             <td class="last">
                            	  <a href="" ng-hide="umbral.editMode" ng-click="editUmbral(umbral)">Editar</a>

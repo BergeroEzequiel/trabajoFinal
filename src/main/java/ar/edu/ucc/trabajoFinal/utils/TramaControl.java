@@ -210,6 +210,7 @@ public class TramaControl {
 				alertaService.grabarAlerta(alertaDto);
 			}
 		}
+		tramaDto.setEstadoControl(true);
 	}
 	
 }

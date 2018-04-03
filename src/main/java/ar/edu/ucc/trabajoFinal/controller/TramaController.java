@@ -62,8 +62,10 @@ public class TramaController {
 		
 		tramaService.grabarTrama(tramaDto);
 		
-		
-		return new ResponseEntity(tramaDto,HttpStatus.CREATED);
+		if (tramaDto.getEstadoControl()) {
+			this.actualizarTrama(tramaDto);
+		}
+		return new ResponseEntity(tramaDto, HttpStatus.CREATED);
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
