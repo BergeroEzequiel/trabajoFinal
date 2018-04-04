@@ -206,7 +206,10 @@ public class TramaService {
 		trama.setPotenciaRed(trama.calcularPotenciaRed());
 		
 		tramaDaoParticular.saveOrUpdate(trama);
-		tramaDto.setId(trama.getId());	
+                if(trama.getId() != null)
+                    log.info("id del objeto : " + trama.getId());
+		tramaDto.setId(trama.getId());
+                log.info("id de la entidad: " + trama.getId());
 		tramaDto.setPotenciaContinua(trama.getPotenciaContinua());
 		tramaDto.setPotenciaInterna(trama.getPotenciaInterna());
 		tramaDto.setPotenciaRed(trama.getPotenciaRed());
