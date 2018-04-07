@@ -1,5 +1,6 @@
 package ar.edu.ucc.trabajoFinal.model;
 
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -7,9 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="umbrales")
-public class Umbral extends ObjetoGenerico{
-	
+@Table(name="umbrales_especificos")
+public class UmbralEspecifico extends ObjetoGenerico{
+
 	@Column(name="valor_max", length=50, nullable=false)
 	private float valorMax;
 	
@@ -27,6 +28,9 @@ public class Umbral extends ObjetoGenerico{
 	
 	@Column(name="tipo")
 	private int tipo;
+	
+	@Column(name="id_nodo")
+	private Long idNodo;
 
 	public int getTipo() {
 		return tipo;
@@ -74,6 +78,14 @@ public class Umbral extends ObjetoGenerico{
 
 	public void setUltimaModificacion(Date ultimaModificacion) {
 		this.ultimaModificacion = ultimaModificacion;
+	}
+	
+	public Long getIdNodo() {
+		return idNodo;
+	}
+
+	public void setIdNodo(Long idNodo) {
+		this.idNodo = idNodo;
 	}
 
 }

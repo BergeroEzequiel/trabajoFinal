@@ -5,7 +5,11 @@
 
     drop table if exists monitoreo_procesado;
 
+    drop table if exists nodos;
+
     drop table if exists umbrales;
+
+    drop table if exists umbrales_especificos;
 
     drop table if exists usuarios;
 
@@ -122,13 +126,36 @@
         primary key (ID)
     ) ENGINE=InnoDB;
 
+    create table nodos (
+        ID bigint not null auto_increment,
+        VERSION bigint not null DEFAULT 0,
+        activo BOOLEAN DEFAULT true not null,
+        descripcion varchar(250) not null,
+        moludo varchar(50) not null,
+        numero integer not null,
+        primary key (ID)
+    ) ENGINE=InnoDB;
+
     create table umbrales (
         ID bigint not null auto_increment,
         VERSION bigint not null DEFAULT 0,
         activo BOOLEAN DEFAULT true not null,
         nombre_variable varchar(50) not null,
         tipo integer,
-        ultima_modificacion date not null,
+        ultima_modificacion datetime not null,
+        valor_max float not null,
+        valor_min float not null,
+        primary key (ID)
+    ) ENGINE=InnoDB;
+
+    create table umbrales_especificos (
+        ID bigint not null auto_increment,
+        VERSION bigint not null DEFAULT 0,
+        activo BOOLEAN DEFAULT true not null,
+        id_nodo integer,
+        nombre_variable varchar(50) not null,
+        tipo integer,
+        ultima_modificacion datetime not null,
         valor_max float not null,
         valor_min float not null,
         primary key (ID)

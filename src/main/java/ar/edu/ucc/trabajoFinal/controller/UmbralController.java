@@ -34,7 +34,7 @@ public class UmbralController {
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@RequestMapping(value = "/umbral", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/umbral/{tramaId}", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<?> getUmbral(@PathVariable("tramaId") Long tramaId)
 			throws Exception {
 		
