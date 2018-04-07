@@ -10,8 +10,14 @@ import org.springframework.scheduling.quartz.QuartzJobBean;
 
 import ar.edu.ucc.trabajoFinal.dao.TramaDao;
 import ar.edu.ucc.trabajoFinal.dao.TramaProcesadaDao;
+import ar.edu.ucc.trabajoFinal.model.TipoProcesamiento;
 import ar.edu.ucc.trabajoFinal.model.TramaAuxiliar;
 import ar.edu.ucc.trabajoFinal.model.TramaProcesada;
+import ar.edu.ucc.trabajoFinal.utils.Hora;
+import java.sql.Time;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Job20Minutos extends QuartzJobBean{
 	
@@ -20,12 +26,25 @@ public class Job20Minutos extends QuartzJobBean{
 
 	@Autowired
 	private TramaProcesadaDao tramaProcesadaDao;
+        
+        private Time horaActual;
+        private Time horaMenos20Minutos;
 
 	@Override
 	protected void executeInternal(JobExecutionContext arg0) throws JobExecutionException {
-		List<TramaAuxiliar> tramasDtoMaximos = tramaDao.getTramaMaximos(new Date(),new Date());
-		List<TramaAuxiliar> tramasDtoMinimos = tramaDao.getTramaMinimos(new Date(),new Date());
-		List<TramaAuxiliar> tramaDtoPromedios = tramaDao.getTramaPromedio(new Date(),new Date());
+		List<TramaAuxiliar> tramasDtoMaximos = null;
+                List<TramaAuxiliar> tramasDtoMinimos = null;
+                List<TramaAuxiliar> tramaDtoPromedios = null;
+            try {
+                horaActual = new Time(System.currentTimeMillis());
+                horaMenos20Minutos = Hora.restarMinutos(horaActual,20);
+                tramasDtoMaximos = tramaDao.getTramaMaximos(new Date(),new Date(), horaMenos20Minutos, horaActual);
+                tramasDtoMinimos = tramaDao.getTramaMinimos(new Date(),new Date(), horaMenos20Minutos, horaActual);
+		tramaDtoPromedios = tramaDao.getTramaPromedio(new Date(),new Date(), horaMenos20Minutos, horaActual);
+            } catch (ParseException ex) {
+                Logger.getLogger(Job20Minutos.class.getName()).log(Level.SEVERE, null, ex);
+            }
+		 
 		for (int i = 0; i < tramasDtoMaximos.size(); i++) {
 			TramaAuxiliar tramaMaximos = tramasDtoMaximos.get(i);
 			TramaAuxiliar tramaMinimos = tramasDtoMinimos.get(i);
@@ -94,6 +113,7 @@ public class Job20Minutos extends QuartzJobBean{
 				tramaProcesada.setTensionTierraAvg(tramaPromedios.getTensionTierra());
 				tramaProcesada.setTensionTierraMax(tramaMaximos.getTensionTierra());
 				tramaProcesada.setTensionTierraMin(tramaMinimos.getTensionTierra());
+                                tramaProcesada.setTipoProcesamiento(TipoProcesamiento.TIPO_1);
 
 				tramaProcesadaDao.add(tramaProcesada);
 			}

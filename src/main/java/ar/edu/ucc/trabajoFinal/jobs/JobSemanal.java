@@ -10,9 +10,13 @@ import org.springframework.scheduling.quartz.QuartzJobBean;
 
 import ar.edu.ucc.trabajoFinal.dao.TramaDao;
 import ar.edu.ucc.trabajoFinal.dao.TramaProcesadaDao;
+import ar.edu.ucc.trabajoFinal.model.TipoProcesamiento;
 import ar.edu.ucc.trabajoFinal.model.TramaAuxiliar;
 import ar.edu.ucc.trabajoFinal.model.TramaProcesada;
 import ar.edu.ucc.trabajoFinal.utils.Fecha;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class JobSemanal extends QuartzJobBean {
 
@@ -24,10 +28,16 @@ public class JobSemanal extends QuartzJobBean {
 
 	@Override
 	protected void executeInternal(JobExecutionContext arg0) throws JobExecutionException {
-		List<TramaAuxiliar> tramasDtoMaximos = tramaDao.getTramaMaximos(new Date(), Fecha.subDaysToDate(new Date(), 7));
-		List<TramaAuxiliar> tramasDtoMinimos = tramaDao.getTramaMinimos(new Date(), Fecha.subDaysToDate(new Date(), 7));
-		List<TramaAuxiliar> tramaDtoPromedios = tramaDao.getTramaPromedio(new Date(),
-				Fecha.subDaysToDate(new Date(), 7));
+                List<TramaAuxiliar> tramasDtoMaximos = null;
+                List<TramaAuxiliar> tramasDtoMinimos = null;
+                List<TramaAuxiliar> tramaDtoPromedios = null;
+            try {
+                tramasDtoMaximos = tramaDao.getTramaMaximos(Fecha.subDaysToDate(new Date(), 7), new Date());
+                tramasDtoMinimos = tramaDao.getTramaMinimos(Fecha.subDaysToDate(new Date(), 7), new Date());
+		tramaDtoPromedios = tramaDao.getTramaPromedio(Fecha.subDaysToDate(new Date(), 7), new Date());
+            } catch (ParseException ex) {
+                Logger.getLogger(Job20Minutos.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
 		for (int i = 0; i < tramasDtoMaximos.size(); i++) {
 			TramaAuxiliar tramaMaximos = tramasDtoMaximos.get(i);
@@ -96,7 +106,8 @@ public class JobSemanal extends QuartzJobBean {
 				tramaProcesada.setTensionRedMin(tramaMinimos.getTensionRed());
 				tramaProcesada.setTensionTierraAvg(tramaPromedios.getTensionTierra());
 				tramaProcesada.setTensionTierraMax(tramaMaximos.getTensionTierra());
-				tramaProcesada.setTensionTierraMin(tramaMinimos.getTensionTierra());
+				tramaProcesada.setTensionTierraMin(tramaMinimos.getTensionTierra());;
+                                tramaProcesada.setTipoProcesamiento(TipoProcesamiento.TIPO_3);
 
 				tramaProcesadaDao.add(tramaProcesada);
 			}

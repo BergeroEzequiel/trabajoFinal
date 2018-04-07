@@ -119,6 +119,7 @@
         tension_tierra_avg float not null,
         tension_tierra_max float not null,
         tension_tierra_min float not null,
+        tipo_procesamiento integer not null,
         primary key (ID)
     ) ENGINE=InnoDB;
 
@@ -128,7 +129,7 @@
         activo BOOLEAN DEFAULT true not null,
         nombre_variable varchar(50) not null,
         tipo integer,
-        ultima_modificacion date not null,
+        ultima_modificacion datetime not null,
         valor_max float not null,
         valor_min float not null,
         primary key (ID)

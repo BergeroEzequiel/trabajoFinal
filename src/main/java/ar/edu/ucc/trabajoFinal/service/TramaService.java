@@ -182,7 +182,6 @@ public class TramaService {
 		trama.setCorrienteRed(tramaDto.getCorrienteRed());
 		trama.setDesfasaje(tramaDto.getDesfasaje());
 		trama.setEstado(tramaDto.getEstado());
-		;
 		trama.setFecha(dateFormatter.parse(tramaDto.getFecha()));
 		trama.setFrecuenciaCorriente(tramaDto.getFrecuenciaCorriente());
 		trama.setFrecuenciaTension(tramaDto.getFrecuenciaTension());
@@ -204,10 +203,9 @@ public class TramaService {
 		trama.setPotenciaContinua(trama.calcularPotenciaContinua());
 		trama.setPotenciaInterna(trama.calcularPotenciaInterna());
 		trama.setPotenciaRed(trama.calcularPotenciaRed());
-		
-		tramaDaoParticular.saveOrUpdate(trama);
-                if(trama.getId() != null)
                     log.info("id del objeto : " + trama.getId());
+		tramaDaoParticular.saveOrUpdate(trama);
+                
 		tramaDto.setId(trama.getId());
                 log.info("id de la entidad: " + trama.getId());
 		tramaDto.setPotenciaContinua(trama.getPotenciaContinua());
