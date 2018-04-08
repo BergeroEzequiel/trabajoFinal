@@ -23,12 +23,9 @@ public class Consumer implements MessageListener {
         	try {
 				response = this.peticionPost.post("http://localhost:8080/trabajoFinal/trama", data);
 				if(response.code() == 201) {
-					log.info("TODO OK ninja");
-//					log.info(tramaDao.getTramaMaximos(new Date(new GregorianCalendar(2017,9, 05).getTimeInMillis()), 
-//							new Date(new GregorianCalendar(2017,9, 05).getTimeInMillis()), 9));
-					
+					log.info(response.toString());	
 				}else {
-					log.info(response.code() + "TODO MAL ninja");
+					log.info(response.toString());
 				}
 			} catch (IOException e) {
 				e.printStackTrace();

@@ -50,13 +50,13 @@
                   <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="/trabajoFinal">Paneles Solares</a></li>
-                      <li><a href="index2.html">Aerogeneradores</a></li>
+                      <li><a href="#">Aerogeneradores</a></li>
                       <li><a href="index3.html">Termotanques Solares</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-sitemap"></i> Nodos <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="form.html">Estado Nodo</a></li>
+                      <li><a href="#">Estado Nodo</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-bell-o"></i> Alertas <span class="fa fa-chevron-down"></span></a>
@@ -65,17 +65,12 @@
                   </li>
                   <li><a><i class="fa fa-wrench"></i> Mantenimiento <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="tables.html">Tables</a></li>
-                      <li><a href="tables_dynamic.html">Table Dynamic</a></li>
+                      <li><a href="#">...</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-bar-chart-o"></i>Históricos<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="chartjs.html">Chart JS</a></li>
-                      <li><a href="chartjs2.html">Chart JS2</a></li>
-                      <li><a href="morisjs.html">Moris JS</a></li>
-                      <li><a href="echarts.html">ECharts</a></li>
-                      <li><a href="other_charts.html">Other Charts</a></li>
+                      <li><a href="#">...</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-group"></i>Usuarios<span class="fa fa-chevron-down"></span></a>
@@ -85,7 +80,7 @@
                   <li><a><i class="fa fa-cogs"></i>Configuración<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="variables">Variables</a></li>
-                      <li><a href="">Alertas</a></li>
+                      <li><a href="#">Alertas</a></li>
                     </ul>
                   </li>
                 </ul>
@@ -93,23 +88,6 @@
               
             </div>
             <!-- /sidebar menu -->
-
-            <!-- /menu footer buttons -->
-            <div class="sidebar-footer hidden-small">
-              <a data-toggle="tooltip" data-placement="top" title="Settings">
-                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Lock">
-                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
-                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-              </a>
-            </div>
-            <!-- /menu footer buttons -->
           </div>
         </div>
 
@@ -178,42 +156,17 @@
         <div class="right_col" role="main">
           <div class="">
             <div class="page-title">
-              <div class="title_left">
-                <h3>Tables <small>Some examples to get you started</small></h3>
-              </div>
-
-              
-
-            </div>
-
 
               <div class="clearfix"></div>
 
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Table design <small>Custom design</small></h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
-                    <div class="clearfix"></div>
+                    <h2>Configuración de variables<small></small></h2>
+					<div class="clearfix"></div>
                   </div>
 
-                  <div class="x_content" ng-controller="umbralController">
-
-                    <p>Add class <code>bulk_action</code> to table for bulk actions options on row select</p>
+                  <div class="x_content" ng-controller="umbralController">                 
 
                     <div class="table-responsive">
                       <table class="table table-striped table-bordered bulk_action">
@@ -222,10 +175,10 @@
 
                             <th class="column-title">Nombre de la Variable </th>
                             <th class="column-title">Fecha Ultima Modificación </th>
-                            <th class="column-title">Valor Máximo </th>
                             <th class="column-title">Valor Mínimo </th>
+                            <th class="column-title">Valor Máximo </th>                            
                             <th class="column-title">Tipo </th>
-                            <th class="column-title">Activar Notificaciones</th>
+                            <th class="column-title">Activar Alertas</th>
                             <th class="column-title no-link last"><span class="nobr">Acción</span>
                             </th>
                           </tr>
@@ -233,15 +186,29 @@
 
                         <tbody>
                           <tr class="even pointer" ng-repeat="umbral in umbrales">
-                            <td class=" ">{{umbral.nombreVariable}}</td>
+                            <td class=" ">{{umbral.nombreVariable}}</td>                         
                             <td class=" ">{{umbral.fechaUltimaModificacion}}</td>
-                            <td class=" ">{{umbral.valorMax}}</td>
-                            <td class=" ">{{umbral.valorMin}}</td>
-                            <td class=" ">{{umbral.tipo}}</td>
-                            <td class="a-center ">{{umbral.activo}}
-                              <input type="checkbox" class="flat">
+                            <td>
+                              <span ng-hide="umbral.editMode">{{umbral.valorMin}}</span>
+                              <input numbers-only type="text" name="valorMin" ng-show="umbral.editMode" class="form-control" ng-model="umbral.valorMin" placeholder="Valor Mínimo" required="" />
                             </td>
-                            <td class=" last"><a href="#">Editar</a></td>
+                            <td>                           
+                              <span ng-hide="umbral.editMode">{{umbral.valorMax}}</span>
+                              <input numbers-only type="text" name="valorMax" ng-show="umbral.editMode" class="form-control" ng-model="umbral.valorMax" placeholder="Valor Máximo" required="" />
+                            </td>
+                            <td>
+                              <span ng-hide="umbral.editMode">{{umbral.tipo}}</span>
+                              <input type="text" name="tipo" ng-show="umbral.editMode" class="form-control" ng-model="umbral.tipo" placeholder="Tipo" required="" />
+                            </td>
+                            <td class="a-center ">
+                              <input ng-hide="umbral.editMode" type="checkbox" disabled="disabled" class="flat" ng-checked="umbral.activo">
+                              <input type="checkbox" ng-show="umbral.editMode" class="flat" ng-checked="umbral.activo" ng-model="umbral.activo">
+                            </td>
+                            <td class="last">
+                           	  <a href="" ng-hide="umbral.editMode" ng-click="editUmbral(umbral)">Editar</a>
+			                  <a href="" ng-show="umbral.editMode" ng-click="updateUmbral(umbral)">Guardar</a>
+			                  <a href="" ng-show="umbral.editMode" ng-click="cancel(umbral)">Cancelar</a>
+                            </td>
                             
                           </tr>
                         </tbody>

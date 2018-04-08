@@ -1,6 +1,6 @@
 package ar.edu.ucc.trabajoFinal.dto;
 
-public class UmbralDto {
+public class UmbralEspecificoDto {
 	
 	private Long id;
 	private boolean activo;
@@ -9,6 +9,7 @@ public class UmbralDto {
 	private String nombreVariable;
 	private String fechaUltimaModificacion;
 	private int tipo;
+	private Long idNodo;
 	
 	public Long getId() {
 		return id;
@@ -51,6 +52,12 @@ public class UmbralDto {
 	}
 	public void setTipo(int tipo) {
 		this.tipo = tipo;
+	}
+	public Long getIdNodo() {
+		return idNodo;
+	}
+	public void setIdNodo(Long idNodo) {
+		this.idNodo = idNodo;
 	}
 	
 }
