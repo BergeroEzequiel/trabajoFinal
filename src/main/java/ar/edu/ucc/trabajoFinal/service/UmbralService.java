@@ -82,18 +82,18 @@ public class UmbralService {
 	}
 	
 	@Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
-	public UmbralDto getUmbralByVariable(String nombreVariable){
+	public Umbral getUmbralByVariable(String nombreVariable){
 		
 		Umbral umbral = umbralDaoParticular.getUmbralByVariable(nombreVariable);
-		UmbralDto umbralDto = new UmbralDto();
-		umbralDto.setNombreVariable(umbral.getNombreVariable());
-		umbralDto.setValorMax(umbral.getValorMax());
-		umbralDto.setValorMin(umbral.getValorMin());
-		umbralDto.setFechaUltimaModificacion(dateFormatter.format(umbral.getUltimaModificacion()));
-		umbralDto.setActivo(umbral.isActivo());
-		umbralDto.setTipo(umbral.getTipo());
+//		UmbralDto umbralDto = new UmbralDto();
+//		umbralDto.setNombreVariable(umbral.getNombreVariable());
+//		umbralDto.setValorMax(umbral.getValorMax());
+//		umbralDto.setValorMin(umbral.getValorMin());
+//		umbralDto.setFechaUltimaModificacion(dateFormatter.format(umbral.getUltimaModificacion()));
+//		umbralDto.setActivo(umbral.isActivo());
+//		umbralDto.setTipo(umbral.getTipo());
 		
-		return umbralDto;
+		return umbral;
 	}
 	
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)

@@ -56,13 +56,21 @@ public class UmbralEspecificoService {
 	}
 	
 	@Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
+	public List<UmbralEspecifico> getUmbralesEspecificos(Long idNodo) {
+		Nodo nodo = nodoDaoParticular.load(idNodo);
+		if (nodo != null) {
+			return umbralEspDaoParticular.getUmbralesEspByNodo(idNodo);
+		} else return new ArrayList<UmbralEspecifico>();
+	}
+	
+	@Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
 	public List<UmbralEspecificoDto> getUmbrales(Long idNodo) {
 		Nodo nodo = nodoDaoParticular.load(idNodo);
 		List<Umbral> umbrales;
 		List<UmbralEspecifico> umbralesEsp;
 		if (nodo != null) {
 			umbrales = umbralDaoParticular.getAll();
-			umbralesEsp = umbralEspDaoParticular.getUmbralEspByNodo(idNodo);
+			umbralesEsp = umbralEspDaoParticular.getUmbralesEspByNodo(idNodo);
 		} else return new ArrayList<UmbralEspecificoDto>();
 
 		

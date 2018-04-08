@@ -1,4 +1,8 @@
 
+    alter table monitoreo_detalle 
+        drop 
+        foreign key FK_58u00fqpnvf9s4mgwcknkft1h;
+
     drop table if exists alertas;
 
     drop table if exists monitoreo_detalle;
@@ -41,8 +45,6 @@
         frecuencia_tension float not null,
         hora time,
         humedad float not null,
-        modulo varchar(255) not null,
-        numero integer not null,
         potencia_continua float not null,
         potencia_interna float not null,
         potencia_red float not null,
@@ -56,6 +58,7 @@
         tension_interna float not null,
         tension_red float not null,
         tension_tierra float not null,
+        id_nodo bigint,
         primary key (ID)
     ) ENGINE=InnoDB;
 
@@ -152,7 +155,7 @@
         ID bigint not null auto_increment,
         VERSION bigint not null DEFAULT 0,
         activo BOOLEAN DEFAULT true not null,
-        id_nodo integer,
+        id_nodo bigint,
         nombre_variable varchar(50) not null,
         tipo integer,
         ultima_modificacion datetime not null,
@@ -174,3 +177,8 @@
         ultima_coneccion datetime not null,
         primary key (ID)
     ) ENGINE=InnoDB;
+
+    alter table monitoreo_detalle 
+        add constraint FK_58u00fqpnvf9s4mgwcknkft1h 
+        foreign key (id_nodo) 
+        references nodos (ID);
