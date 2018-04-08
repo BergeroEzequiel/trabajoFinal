@@ -198,11 +198,9 @@ public class TramaService {
 		trama.setPotenciaContinua(trama.calcularPotenciaContinua());
 		trama.setPotenciaInterna(trama.calcularPotenciaInterna());
 		trama.setPotenciaRed(trama.calcularPotenciaRed());
-                    log.info("id del objeto : " + trama.getId());
 		tramaDaoParticular.saveOrUpdate(trama);
                 
 		tramaDto.setId(trama.getId());
-                log.info("id de la entidad: " + trama.getId());
 		tramaDto.setPotenciaContinua(trama.getPotenciaContinua());
 		tramaDto.setPotenciaInterna(trama.getPotenciaInterna());
 		tramaDto.setPotenciaRed(trama.getPotenciaRed());
@@ -230,13 +228,11 @@ public class TramaService {
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	public List<TramaDto> getPotenciasNodos() throws ParseException{
 		
-		log.info("Obteniendo valores de las 3 potencias de cada nodo...");
 		List<TramaPotencias> tramasPotencias = tramaDaoParticular.getPotenciasNodos();
 		TramaDto tramaDto;
 		List<TramaDto> tramasDto = new ArrayList<TramaDto>();
 		
 		for (TramaPotencias tramaPotencia : tramasPotencias) {
-			log.info(tramaPotencia.toString());
 			tramaDto = new TramaDto();
 			tramaDto.setPotenciaContinua(tramaPotencia.getPotenciaContinua());
 			tramaDto.setPotenciaInterna(tramaPotencia.getPotenciaInterna());
