@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 import ar.edu.ucc.trabajoFinal.service.AlertaService;
 import ar.edu.ucc.trabajoFinal.service.NodoService;
 import ar.edu.ucc.trabajoFinal.service.SpringContextBridgedServices;
-import ar.edu.ucc.trabajoFinal.service.UmbralEspecificoService;
 import ar.edu.ucc.trabajoFinal.service.UmbralService;
 
 @Component 
@@ -26,9 +25,6 @@ public class SpringContextBridge
     
     @Autowired
     private AlertaService alertaService;
-    
-    @Autowired
-    private UmbralEspecificoService umbralEspService;
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) 
@@ -62,11 +58,6 @@ public class SpringContextBridge
 	@Override
 	public AlertaService getAlertaService() {
 		return this.alertaService;
-	}
-
-	@Override
-	public UmbralEspecificoService getUmbralEspecificoService() {
-		return this.umbralEspService;
 	}
 
 	@Override

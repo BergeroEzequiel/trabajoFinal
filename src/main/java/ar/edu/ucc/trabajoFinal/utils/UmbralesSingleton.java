@@ -96,7 +96,7 @@ public class UmbralesSingleton {
 		Umbral umbral;
 		for (Variable v : variablesAControlar) {
 			umbral = new Umbral();
-			umbral = umbralService.getUmbralByVariable(v.getNombre());
+			umbral = umbralService.getUmbralGenericoByVariable(v.getNombre());
 			v.setUmbral(umbral);
 			this.mapUmbrales.put(umbral.getNombreVariable(), umbral);
 		}

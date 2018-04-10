@@ -6,13 +6,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import ar.edu.ucc.trabajoFinal.dto.AlertaDto;
 import ar.edu.ucc.trabajoFinal.dto.TramaDto;
+import ar.edu.ucc.trabajoFinal.model.Alerta;
 import ar.edu.ucc.trabajoFinal.model.Nodo;
 import ar.edu.ucc.trabajoFinal.model.Umbral;
-import ar.edu.ucc.trabajoFinal.model.UmbralEspecifico;
 import ar.edu.ucc.trabajoFinal.service.AlertaService;
-import ar.edu.ucc.trabajoFinal.service.UmbralEspecificoService;
+import ar.edu.ucc.trabajoFinal.service.UmbralService;
 import ar.edu.ucc.trabajoFinal.trama.Variable;
 
 public class TramaControl {
@@ -43,7 +42,7 @@ public class TramaControl {
 	private List<Variable> variablesAControlar;
 	
 	AlertaService alertaService = SpringContextBridge.services().getAlertaService();
-	UmbralEspecificoService umbralEspService = SpringContextBridge.services().getUmbralEspecificoService();
+	UmbralService umbralService = SpringContextBridge.services().getUmbralService();
 
 	public TramaControl() {
 		this.variablesAControlar = new ArrayList<Variable>();
@@ -99,24 +98,23 @@ public class TramaControl {
 	}
 	
 	public void cargarUmbrales() {
-		List<UmbralEspecifico> umbralesEsp = this.umbralEspService.getUmbralesEspecificos(this.nodo.getId());
-		Map<String, UmbralEspecifico> mapUmbralEsp = new HashMap<String, UmbralEspecifico>();
-		for (UmbralEspecifico umbralEsp : umbralesEsp) {
+		List<Umbral> umbralesEsp = this.umbralService.getUmbralesEspByNodo(this.nodo.getId());
+		Map<String, Umbral> mapUmbralEsp = new HashMap<String, Umbral>();
+		for (Umbral umbralEsp : umbralesEsp) {
 			mapUmbralEsp.put(umbralEsp.getNombreVariable(), umbralEsp);
 		}
 		for (Variable v : variablesAControlar) {
-			UmbralEspecifico esp = mapUmbralEsp.get(v.getNombre());
+			Umbral esp = mapUmbralEsp.get(v.getNombre());
 			if (esp != null) {
-				Umbral umbral = new Umbral();
-				umbral.setNombreVariable(esp.getNombreVariable());
-				umbral.setValorMax(esp.getValorMax());
-				umbral.setValorMin(esp.getValorMin());
-				umbral.setActivo(esp.isActivo());
-				umbral.setTipo(esp.getTipo());
-				umbral.setUltimaModificacion(esp.getUltimaModificacion());
-				umbral.setId(esp.getId());
-				
-				v.setUmbral(umbral);
+//				Umbral umbral = new Umbral();
+//				umbral.setNombreVariable(esp.getNombreVariable());
+//				umbral.setValorMax(esp.getValorMax());
+//				umbral.setValorMin(esp.getValorMin());
+//				umbral.setActivo(esp.isActivo());
+//				umbral.setTipo(esp.getTipo());
+//				umbral.setUltimaModificacion(esp.getUltimaModificacion());
+//				umbral.setId(esp.getId());
+				v.setUmbral(esp);
 			} else {
 				v.setUmbral(UmbralesSingleton.getInstance().getMapper().get(v.getNombre()));
 			}
@@ -127,11 +125,11 @@ public class TramaControl {
 		if (!this.nodo.isActivo()) return;
 		for (Variable v : variablesAControlar) {
 			if (v.controlarVariable(v.getValorActual()) == false) {
-				AlertaDto alertaDto = new AlertaDto(v, this.numero);
+				Alerta alerta = new Alerta(v, this.nodo);
 				if(v.getUmbral().isActivo()) {
-					alertaDto.setVisualizar(true);
-				} else alertaDto.setVisualizar(false);
-				alertaService.grabarAlerta(alertaDto);
+					alerta.setVisualizar(true);
+				} else alerta.setVisualizar(false);
+				alertaService.grabarAlerta(alerta);
 			}
 		}
 		tramaDto.setEstadoControl(true);

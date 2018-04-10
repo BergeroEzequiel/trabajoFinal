@@ -24,25 +24,25 @@ public class AlertaController {
 	@Autowired
 	private AlertaService alertaService;
 	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	@RequestMapping(value = "/alertas/{nodo}", method = RequestMethod.GET, produces = "application/json")
-	public ResponseEntity<?> getAlertasByNodo(@PathVariable("nodo") int nodo) throws Exception{
-		List<AlertaDto> alertasDto = alertaService.getAlertasByNodo(nodo);
-		return new ResponseEntity(alertasDto, HttpStatus.OK);
-	}
-	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@RequestMapping(value = "/alerta", 
-			method = RequestMethod.POST, produces = "application/json")
-	public ResponseEntity<?> crearAlerta(@RequestBody AlertaDto alertaDto)
-			throws Exception {
-		
-		log.info("Grabando: " + alertaDto.toString());
-		
-		alertaService.grabarAlerta(alertaDto);
-		
-		
-		return new ResponseEntity(alertaDto,HttpStatus.CREATED);
-	}
+//	@SuppressWarnings({ "unchecked", "rawtypes" })
+//	@RequestMapping(value = "/alertas/{nodo}", method = RequestMethod.GET, produces = "application/json")
+//	public ResponseEntity<?> getAlertasByNodo(@PathVariable("nodo") int nodo) throws Exception{
+//		List<Alerta> alertasDto = alertaService.getAlertasByNodo(nodo.getId());
+//		return new ResponseEntity(alertasDto, HttpStatus.OK);
+//	}
+//	
+//	@SuppressWarnings({ "rawtypes", "unchecked" })
+//	@RequestMapping(value = "/alerta", 
+//			method = RequestMethod.POST, produces = "application/json")
+//	public ResponseEntity<?> crearAlerta(@RequestBody AlertaDto alertaDto)
+//			throws Exception {
+//		
+//		log.info("Grabando: " + alertaDto.toString());
+//		
+//		alertaService.grabarAlerta(alertaDto);
+//		
+//		
+//		return new ResponseEntity(alertaDto,HttpStatus.CREATED);
+//	}
 	
 }

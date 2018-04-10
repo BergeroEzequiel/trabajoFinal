@@ -4,6 +4,5 @@ public interface SpringContextBridgedServices {
 	UmbralService getUmbralService();
 	AlertaService getAlertaService();
 	<T> T getService(Class<T> serviceType);
-	UmbralEspecificoService getUmbralEspecificoService();
 	NodoService getNodoService();
 }

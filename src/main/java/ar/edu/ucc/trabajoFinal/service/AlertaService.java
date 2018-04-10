@@ -42,49 +42,48 @@ public class AlertaService {
 		alertaDaoParticular = (AlertaDao) alertaDao;
 	}
 	
-	@Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
-	public List<AlertaDto> getAlertasByNodo(int ipNodo){
-		log.info("Filtrando alertas con el ipNodo: " + ipNodo);
-		
-		List<Alerta> alertas = alertaDaoParticular.getAlertasByNodo(ipNodo);
-		
-		List<AlertaDto> alertasDto = new ArrayList<AlertaDto>();
-		
-		AlertaDto alertaDto;
-		for (Alerta alerta : alertas) {
-			alertaDto = new AlertaDto();
-			alertaDto.setDescripcion(alerta.getDescripcion());
-			alertaDto.setVariableAfectada(alerta.getVariableAfectada());
-			alertaDto.setUmbralSuperado(alerta.getUmbralSuperado());
-			alertaDto.setValor(alerta.getValor());
-			alertaDto.setNodoAfectado(alerta.getNodoAfectado());
-			alertaDto.setVisualizar(alerta.isVisualizar());
-			alertaDto.setFecha(dateFormatter.format(alerta.getFecha()));
-			alertaDto.setHora(timeFormatter.format(alerta.getHora()));
-			
-			alertasDto.add(alertaDto);
-		}
-		return alertasDto;
-	}
+//	@Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
+//	public List<AlertaDto> getAlertasByNodo(int ipNodo){
+//		log.info("Filtrando alertas con el ipNodo: " + ipNodo);
+//		
+//		List<Alerta> alertas = alertaDaoParticular.getAlertasByNodo(ipNodo);
+//		
+//		List<AlertaDto> alertasDto = new ArrayList<AlertaDto>();
+//		
+//		AlertaDto alertaDto;
+//		for (Alerta alerta : alertas) {
+//			alertaDto = new AlertaDto();
+//			alertaDto.setDescripcion(alerta.getDescripcion());
+//			alertaDto.setVariableAfectada(alerta.getVariableAfectada());
+//			alertaDto.setUmbralSuperado(alerta.getUmbralSuperado());
+//			alertaDto.setValor(alerta.getValor());
+//			alertaDto.setNodoAfectado(alerta.getNodoAfectado());
+//			alertaDto.setVisualizar(alerta.isVisualizar());
+//			alertaDto.setFecha(dateFormatter.format(alerta.getFecha()));
+//			alertaDto.setHora(timeFormatter.format(alerta.getHora()));
+//			
+//			alertasDto.add(alertaDto);
+//		}
+//		return alertasDto;
+//	}
 	
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-	public AlertaDto grabarAlerta(AlertaDto alertaDto) throws ParseException {
+	public Alerta grabarAlerta(Alerta alerta) throws ParseException {
 
-		log.info("Guardando: " + alertaDto.toString());
+		log.info("Guardando: " + alerta.toString());
 		
-		Alerta alerta = new Alerta();
-		alerta.setDescripcion(alertaDto.getDescripcion());
-		alerta.setVariableAfectada(alertaDto.getVariableAfectada());
-		alerta.setValor(alertaDto.getValor());
-		alerta.setUmbralSuperado(alertaDto.getUmbralSuperado());
-		alerta.setNodoAfectado(alertaDto.getNodoAfectado());
-		alerta.setVisualizar(alertaDto.isVisualizar());
-		alerta.setFecha(dateFormatter.parse(alertaDto.getFecha()));
-		alerta.setHora(new Time(timeFormatter.parse(alertaDto.getHora()).getTime()));
+//		Alerta alerta = new Alerta();
+//		alerta.setDescripcion(alertaDto.getDescripcion());
+//		alerta.setVariableAfectada(alertaDto.getVariableAfectada());
+//		alerta.setValor(alertaDto.getValor());
+//		alerta.setUmbralSuperado(alertaDto.getUmbralSuperado());
+//		alerta.setNodoAfectado(alertaDto.getNodoAfectado());
+//		alerta.setVisualizar(alertaDto.isVisualizar());
+//		alerta.setFecha(dateFormatter.parse(alertaDto.getFecha()));
+//		alerta.setHora(new Time(timeFormatter.parse(alertaDto.getHora()).getTime()));
 		
 		alertaDaoParticular.saveOrUpdate(alerta);
-		alertaDto.setId(alerta.getId());
 		
-		return alertaDto;
+		return alerta;
 	}
 }

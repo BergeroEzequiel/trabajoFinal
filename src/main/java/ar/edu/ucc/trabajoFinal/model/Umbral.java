@@ -3,11 +3,22 @@ package ar.edu.ucc.trabajoFinal.model;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="umbrales")
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(
+		name="tipo_umbral", 
+		discriminatorType=DiscriminatorType.STRING
+		)
 public class Umbral extends ObjetoGenerico{
 	
 	@Column(name="valor_max", length=50, nullable=false)
@@ -25,15 +36,28 @@ public class Umbral extends ObjetoGenerico{
 	@Column(name="activo", nullable = false, columnDefinition = "BOOLEAN DEFAULT true")
 	private boolean activo;
 	
-	@Column(name="tipo")
-	private int tipo;
-
-	public int getTipo() {
-		return tipo;
+	@ManyToOne
+	@JoinColumn(name="id_criticidad")
+	private Criticidad criticidad;
+	
+	@ManyToOne
+	@JoinColumn(name="id_um")
+	private UnidadMedida unidadMedida;
+	
+	public Criticidad getCriticidad() {
+		return criticidad;
 	}
 
-	public void setTipo(int tipo) {
-		this.tipo = tipo;
+	public void setCriticidad(Criticidad criticidad) {
+		this.criticidad = criticidad;
+	}
+
+	public UnidadMedida getUnidadMedida() {
+		return unidadMedida;
+	}
+
+	public void setUnidadMedida(UnidadMedida unidadMedida) {
+		this.unidadMedida = unidadMedida;
 	}
 
 	public boolean isActivo() {
