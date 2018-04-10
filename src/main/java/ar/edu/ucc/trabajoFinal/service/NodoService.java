@@ -84,6 +84,15 @@ public class NodoService {
 		return nodosDto;
 	}
 	
+	/*Este metodo es exclusivamente para obtener la lista de Nodo 
+	 * que se utiliza para el NodoMapper. Para exponer la info de los nodos
+	 * se debe usar el metodo getNodos().
+	 */
+	@Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
+	public List<Nodo> getNodosForMapper() {
+		return nodoDaoParticular.getAll();
+	}
+	
 	@Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
 	public List<NodoDto> getNodosActivos() {
 

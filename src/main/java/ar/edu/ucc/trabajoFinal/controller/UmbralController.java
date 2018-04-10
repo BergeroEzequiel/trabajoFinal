@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import ar.edu.ucc.trabajoFinal.dto.UmbralDto;
+import ar.edu.ucc.trabajoFinal.model.Umbral;
 import ar.edu.ucc.trabajoFinal.service.UmbralService;
 
 @Controller
@@ -47,8 +48,8 @@ public class UmbralController {
 	@RequestMapping(value = "/umbral/{nombreVariable}", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<?> getUmbralByVariable(@PathVariable("nombreVariable") String nombreVariable) throws Exception{
 		
-		UmbralDto umbralDto = umbralService.getUmbralByVariable(nombreVariable);
-		return new ResponseEntity(umbralDto, HttpStatus.OK);
+		Umbral umbral = umbralService.getUmbralByVariable(nombreVariable);
+		return new ResponseEntity(umbral, HttpStatus.OK);
 		
 	}
 	
