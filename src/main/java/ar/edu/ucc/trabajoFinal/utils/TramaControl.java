@@ -17,37 +17,57 @@ import ar.edu.ucc.trabajoFinal.trama.Variable;
 
 public class TramaControl {
 	
-	String modulo;
-	int numero;
-	Nodo nodo;
-	Variable tensionRed = new Variable("tension_red");
-	Variable corrienteRed = new Variable("corriente_red");
-	Variable frecuenciaTension = new Variable("frecuencia_tension");
-	Variable frecuenciaCorriente = new Variable("frecuencia_corriente");
-	Variable desfasaje = new Variable("desfasaje");
-	Variable tensionTierra = new Variable("tension_tierra");
-	Variable tensionInterna = new Variable("tension_interna");
-	Variable corrienteInterna = new Variable("corriente_interna");
-	Variable tensionContinua = new Variable("tension_continua");
-	Variable corrienteContinua = new Variable("corriente_continua");
-	Variable temperatura1 = new Variable("temperatura1");
-	Variable temperatura2 = new Variable("temperatura2");
-	Variable temperatura3 = new Variable("temperatura3");
-	Variable temperatura4 = new Variable("temperatura4");
-	Variable temperatura5 = new Variable("temperatura5");
-	Variable humedad = new Variable("humedad");
-	Variable pvm = new Variable("pvm");
-	Variable potenciaContinua = new Variable("potencia_continua");
-	Variable potenciaInterna = new Variable("potencia_interna");
-	Variable potenciaRed = new Variable("potencia_red");
-	List<Variable> variablesAControlar;
+	private String modulo;
+	private int numero;
+	private Nodo nodo;
+	private Variable tensionRed = new Variable("tension_red");
+	private Variable corrienteRed = new Variable("corriente_red");
+	private Variable frecuenciaTension = new Variable("frecuencia_tension");
+	private Variable frecuenciaCorriente = new Variable("frecuencia_corriente");
+	private Variable desfasaje = new Variable("desfasaje");
+	private Variable tensionTierra = new Variable("tension_tierra");
+	private Variable tensionInterna = new Variable("tension_interna");
+	private Variable corrienteInterna = new Variable("corriente_interna");
+	private Variable tensionContinua = new Variable("tension_continua");
+	private Variable corrienteContinua = new Variable("corriente_continua");
+	private Variable temperatura1 = new Variable("temperatura1");
+	private Variable temperatura2 = new Variable("temperatura2");
+	private Variable temperatura3 = new Variable("temperatura3");
+	private Variable temperatura4 = new Variable("temperatura4");
+	private Variable temperatura5 = new Variable("temperatura5");
+	private Variable humedad = new Variable("humedad");
+	private Variable pvm = new Variable("pvm");
+	private Variable potenciaContinua = new Variable("potencia_continua");
+	private Variable potenciaInterna = new Variable("potencia_interna");
+	private Variable potenciaRed = new Variable("potencia_red");
+	private List<Variable> variablesAControlar;
 	
 	AlertaService alertaService = SpringContextBridge.services().getAlertaService();
 	UmbralEspecificoService umbralEspService = SpringContextBridge.services().getUmbralEspecificoService();
 
 	public TramaControl() {
 		this.variablesAControlar = new ArrayList<Variable>();
-		this.variablesAControlar = UmbralesSingleton.getInstance().getListaVariables();
+		variablesAControlar.add(corrienteContinua);
+		variablesAControlar.add(corrienteInterna);
+		variablesAControlar.add(corrienteRed);
+		variablesAControlar.add(desfasaje);
+		variablesAControlar.add(frecuenciaCorriente);
+		variablesAControlar.add(frecuenciaTension);
+		variablesAControlar.add(humedad);
+		variablesAControlar.add(potenciaContinua);
+		variablesAControlar.add(potenciaInterna);
+		variablesAControlar.add(potenciaRed);
+		variablesAControlar.add(temperatura1);
+		variablesAControlar.add(temperatura2);
+		variablesAControlar.add(temperatura3);
+		variablesAControlar.add(temperatura4);
+		variablesAControlar.add(temperatura4);
+		variablesAControlar.add(temperatura5);
+		variablesAControlar.add(tensionContinua);
+		variablesAControlar.add(tensionInterna);
+		variablesAControlar.add(tensionRed);
+		variablesAControlar.add(tensionTierra);
+		variablesAControlar.add(pvm);
 	}
 
 	public void cargarValoresActuales(TramaDto tramaDto) {

@@ -105,9 +105,5 @@ public class UmbralesSingleton {
 	public Map<String, Umbral> getMapper() {
 		return this.mapUmbrales;
 	}
-	
-	public List<Variable> getListaVariables() {
-		return this.variablesAControlar;
-	}
 
 }
