@@ -1,9 +1,35 @@
 
+    alter table alertas 
+        drop 
+        foreign key FK_pma5c5olv1akpqv2hui6v847k;
+
+    alter table alertas 
+        drop 
+        foreign key FK_hkthp7wkpch9lkgxkoeistjrc;
+
+    alter table alertas 
+        drop 
+        foreign key FK_f2vvcg8y37s832viqnvv1c5oi;
+
     alter table monitoreo_detalle 
         drop 
         foreign key FK_58u00fqpnvf9s4mgwcknkft1h;
 
+    alter table umbrales 
+        drop 
+        foreign key FK_d7vtnlc37w5na0rtdcr8msaow;
+
+    alter table umbrales 
+        drop 
+        foreign key FK_bg9as49r6n2y0lc492m5oj6px;
+
+    alter table umbrales 
+        drop 
+        foreign key FK_4avl17cmusu1mjclhtx1x90f0;
+
     drop table if exists alertas;
+
+    drop table if exists criticidades;
 
     drop table if exists monitoreo_detalle;
 
@@ -13,7 +39,7 @@
 
     drop table if exists umbrales;
 
-    drop table if exists umbrales_especificos;
+    drop table if exists unidades_medida;
 
     drop table if exists usuarios;
 
@@ -23,11 +49,21 @@
         descripcion varchar(50) not null,
         fecha datetime not null,
         hora time not null,
-        nodo_afectado integer not null,
-        umbral_superado float not null,
         valor float not null,
         variable_afectada varchar(50) not null,
         visualizar BOOLEAN DEFAULT true not null,
+        id_criticidad bigint,
+        id_nodo bigint,
+        id_umbral bigint,
+        primary key (ID)
+    ) ENGINE=InnoDB;
+
+    create table criticidades (
+        ID bigint not null auto_increment,
+        VERSION bigint not null DEFAULT 0,
+        cantidad_repeticiones integer,
+        periodo_tiempo varchar(255),
+        prioridad integer not null,
         primary key (ID)
     ) ENGINE=InnoDB;
 
@@ -140,27 +176,25 @@
     ) ENGINE=InnoDB;
 
     create table umbrales (
+        tipo_umbral varchar(31) not null,
         ID bigint not null auto_increment,
         VERSION bigint not null DEFAULT 0,
         activo BOOLEAN DEFAULT true not null,
         nombre_variable varchar(50) not null,
-        tipo integer,
         ultima_modificacion datetime not null,
         valor_max float not null,
         valor_min float not null,
+        id_criticidad bigint,
+        id_um bigint,
+        id_nodo bigint,
         primary key (ID)
     ) ENGINE=InnoDB;
 
-    create table umbrales_especificos (
+    create table unidades_medida (
         ID bigint not null auto_increment,
         VERSION bigint not null DEFAULT 0,
-        activo BOOLEAN DEFAULT true not null,
-        id_nodo bigint,
-        nombre_variable varchar(50) not null,
-        tipo integer,
-        ultima_modificacion datetime not null,
-        valor_max float not null,
-        valor_min float not null,
+        nombre varchar(255) not null,
+        factor_conversion float not null,
         primary key (ID)
     ) ENGINE=InnoDB;
 
@@ -178,7 +212,37 @@
         primary key (ID)
     ) ENGINE=InnoDB;
 
+    alter table alertas 
+        add constraint FK_pma5c5olv1akpqv2hui6v847k 
+        foreign key (id_criticidad) 
+        references criticidades (ID);
+
+    alter table alertas 
+        add constraint FK_hkthp7wkpch9lkgxkoeistjrc 
+        foreign key (id_nodo) 
+        references nodos (ID);
+
+    alter table alertas 
+        add constraint FK_f2vvcg8y37s832viqnvv1c5oi 
+        foreign key (id_umbral) 
+        references umbrales (ID);
+
     alter table monitoreo_detalle 
         add constraint FK_58u00fqpnvf9s4mgwcknkft1h 
+        foreign key (id_nodo) 
+        references nodos (ID);
+
+    alter table umbrales 
+        add constraint FK_d7vtnlc37w5na0rtdcr8msaow 
+        foreign key (id_criticidad) 
+        references criticidades (ID);
+
+    alter table umbrales 
+        add constraint FK_bg9as49r6n2y0lc492m5oj6px 
+        foreign key (id_um) 
+        references unidades_medida (ID);
+
+    alter table umbrales 
+        add constraint FK_4avl17cmusu1mjclhtx1x90f0 
         foreign key (id_nodo) 
         references nodos (ID);

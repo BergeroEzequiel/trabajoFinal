@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -19,6 +20,7 @@ import javax.persistence.Table;
 		name="tipo_umbral", 
 		discriminatorType=DiscriminatorType.STRING
 		)
+@DiscriminatorValue("generico")
 public class Umbral extends ObjetoGenerico{
 	
 	@Column(name="valor_max", length=50, nullable=false)

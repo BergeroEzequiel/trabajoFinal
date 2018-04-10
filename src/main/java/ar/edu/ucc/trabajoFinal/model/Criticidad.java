@@ -11,7 +11,7 @@ import javax.persistence.Table;
  * @author ezequiel
  */
 @Entity
-@Table(name = "criticidad")
+@Table(name = "criticidades")
 public class Criticidad extends ObjetoGenerico{
     
     @Enumerated(EnumType.ORDINAL)

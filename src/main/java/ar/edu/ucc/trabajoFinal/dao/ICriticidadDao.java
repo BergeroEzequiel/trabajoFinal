@@ -5,12 +5,12 @@
  */
 package ar.edu.ucc.trabajoFinal.dao;
 
-import ar.edu.ucc.trabajoFinal.model.Prioridad;
+import ar.edu.ucc.trabajoFinal.model.Criticidad;
 
 /**
  *
  * @author ezequiel
  */
-public interface IPrioridadDao extends DaoGenerico<Prioridad, Long>{
+public interface ICriticidadDao extends DaoGenerico<Criticidad, Long>{
     
 }
