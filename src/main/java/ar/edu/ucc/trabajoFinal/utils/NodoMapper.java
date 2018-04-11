@@ -13,7 +13,7 @@ public class NodoMapper {
 	private Map<String, Nodo> mapNodos = new HashMap<String, Nodo>();
 	
 	private NodoMapper() {
-		List<Nodo> nodos = this.nodoService.getNodosForMapper();
+		List<Nodo> nodos = this.nodoService.getNodos();
 		for(Nodo nodo : nodos) {
 //			NodoKey key = new NodoKey(nodo.getModulo(), nodo.getNumero());
 			mapNodos.put(nodo.getModulo() + nodo.getNumero(), nodo);

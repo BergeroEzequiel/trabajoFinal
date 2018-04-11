@@ -136,11 +136,11 @@ public class TramaService {
 	}
 
 	@Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
-	public List<TramaDto> getTramasByNumero(int numero){
+	public List<TramaDto> getTramasByNodo(Long idNodo){
 		
-		log.info("Filtrando tramas del modulo Solar con el numero: " + numero);
+		log.info("Filtrando tramas del modulo Solar con el nodo: " + idNodo);
 		
-		List<Trama> tramas = tramaDaoParticular.getTramaByNumero(numero);
+		List<Trama> tramas = tramaDaoParticular.getTramaByNodo(idNodo);
 		
 
 		List<TramaDto> tramasDto = new ArrayList<TramaDto>();
@@ -215,9 +215,11 @@ public class TramaService {
 		tramaDto.setPotenciaRed(trama.getPotenciaRed());
 		
 		// Controlar trama
-		this.tramaControl = new TramaControl();
-		this.tramaControl.cargarValoresActuales(tramaDto);
-		this.tramaControl.controlarTrama(tramaDto);
+		if (nodo.isActivo()) {
+			this.tramaControl = new TramaControl();
+			this.tramaControl.cargarValoresActuales(tramaDto);
+			this.tramaControl.controlarTrama(tramaDto);
+		}
 		return tramaDto;
 	}
 

@@ -62,6 +62,7 @@ public class Alerta extends ObjetoGenerico{
 		this.valor = v.getValorActual();
 		this.umbralSuperado = v.getUmbral();
 		this.nodoAfectado = nodo;
+		this.criticidad = v.getUmbral().getCriticidad();
 		this.fecha = new Date();
 		this.hora = new Time(System.currentTimeMillis());
 	}

@@ -135,11 +135,11 @@ public class UmbralService {
 //	}		
 		
 	@Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
-	public List<Umbral> getUmbralesEspByNodo(Long idNodo) {
-		Nodo nodo = nodoDaoParticular.load(idNodo);
-		if (nodo != null) {
+	public List<Umbral> getUmbralesEspByNodo(Nodo nodo) {
+//		Nodo nodo = nodoDaoParticular.load(idNodo);
+//		if (nodo != null) {
 			return umbralDaoParticular.getUmbralesEspByNodo(nodo);
-		} else return new ArrayList<Umbral>();
+//		} else return new ArrayList<Umbral>();
 	}
 	
 	@Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)

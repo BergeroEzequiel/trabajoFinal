@@ -14,10 +14,9 @@ public class UmbralDao extends DaoGenericoImp<Umbral, Long> implements IUmbralDa
 
 	@Override
 	public Umbral getUmbralGenericoByVariable(String nombreVariable) {
-		Umbral umbral = (Umbral) this.getByCriteria(
+		return this.getByCriteria(
 				Restrictions.eq("nombreVariable", nombreVariable),
-				Restrictions.eq("nodo", null));
-		return umbral;
+				Restrictions.eq("class", "generico")).get(0);
 	}
 	
 	@Override

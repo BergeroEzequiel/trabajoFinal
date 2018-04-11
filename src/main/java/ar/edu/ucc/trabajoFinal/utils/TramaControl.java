@@ -98,7 +98,7 @@ public class TramaControl {
 	}
 	
 	public void cargarUmbrales() {
-		List<Umbral> umbralesEsp = this.umbralService.getUmbralesEspByNodo(this.nodo.getId());
+		List<Umbral> umbralesEsp = this.umbralService.getUmbralesEspByNodo(this.nodo);
 		Map<String, Umbral> mapUmbralEsp = new HashMap<String, Umbral>();
 		for (Umbral umbralEsp : umbralesEsp) {
 			mapUmbralEsp.put(umbralEsp.getNombreVariable(), umbralEsp);
@@ -126,9 +126,16 @@ public class TramaControl {
 		for (Variable v : variablesAControlar) {
 			if (v.controlarVariable(v.getValorActual()) == false) {
 				Alerta alerta = new Alerta(v, this.nodo);
-				if(v.getUmbral().isActivo()) {
-					alerta.setVisualizar(true);
-				} else alerta.setVisualizar(false);
+				
+				/* El visualizar en true deveria setearlo el job, cosa de que desde la
+				UI consumamos el servicio getAlertas y que nos devuelva todas las
+				que se deban visualizar. Contemplar en el job que
+				alerta.getUmbralSuperado().isActivo() = true antes de activar
+				la bandera de visualizacion. */
+				
+//				if(v.getUmbral().isActivo()) {
+//					alerta.setVisualizar(true);
+//				} else alerta.setVisualizar(false);
 				alertaService.grabarAlerta(alerta);
 			}
 		}

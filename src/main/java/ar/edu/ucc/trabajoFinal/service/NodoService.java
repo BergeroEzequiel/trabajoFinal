@@ -35,118 +35,115 @@ public class NodoService {
 	}
 	
 	@Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
-	public NodoDto getNodo(Long id) {
+	public Nodo getNodo(Long id) {
 
 		Nodo nodo = nodoDaoParticular.load(id);
-		NodoDto nodoDto = new NodoDto();
-		nodoDto.setId(nodo.getId());
-		nodoDto.setModulo(nodo.getModulo());
-		nodoDto.setNumero(nodo.getNumero());
-		nodoDto.setActivo(nodo.isActivo());
-		nodoDto.setDescripcion(nodo.getDescripcion());
+//		NodoDto nodoDto = new NodoDto();
+//		nodoDto.setId(nodo.getId());
+//		nodoDto.setModulo(nodo.getModulo());
+//		nodoDto.setNumero(nodo.getNumero());
+//		nodoDto.setActivo(nodo.isActivo());
+//		nodoDto.setDescripcion(nodo.getDescripcion());
 		
-		return nodoDto;
+		return nodo;
 	}
 	
-	@Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
-	public NodoDto getNodoByModuloAndNumero(String modulo, int numero) {
-
-		Nodo nodo = nodoDaoParticular.getNodoByNumeroYModulo(modulo, numero);
-		NodoDto nodoDto = new NodoDto();
-		nodoDto.setId(nodo.getId());
-		nodoDto.setModulo(nodo.getModulo());
-		nodoDto.setNumero(nodo.getNumero());
-		nodoDto.setActivo(nodo.isActivo());
-		nodoDto.setDescripcion(nodo.getDescripcion());
-		
-		return nodoDto;
-	}
+//	@Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
+//	public NodoDto getNodoByModuloAndNumero(String modulo, int numero) {
+//
+//		Nodo nodo = nodoDaoParticular.getNodoByNumeroYModulo(modulo, numero);
+//		NodoDto nodoDto = new NodoDto();
+//		nodoDto.setId(nodo.getId());
+//		nodoDto.setModulo(nodo.getModulo());
+//		nodoDto.setNumero(nodo.getNumero());
+//		nodoDto.setActivo(nodo.isActivo());
+//		nodoDto.setDescripcion(nodo.getDescripcion());
+//		
+//		return nodoDto;
+//	}
 	
 	@Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
-	public List<NodoDto> getNodos() {
+	public List<Nodo> getNodos() {
 
 		List<Nodo> nodos = nodoDaoParticular.getAll();
 		
-		List<NodoDto> nodosDto = new ArrayList<NodoDto>();
+//		List<NodoDto> nodosDto = new ArrayList<NodoDto>();
+//
+//		NodoDto nodoDto;
+//		for (Nodo nodo : nodos) {
+//			nodoDto = new NodoDto();
+//			nodoDto.setId(nodo.getId());
+//			nodoDto.setModulo(nodo.getModulo());
+//			nodoDto.setNumero(nodo.getNumero());
+//			nodoDto.setActivo(nodo.isActivo());
+//			nodoDto.setDescripcion(nodo.getDescripcion());
+//			
+//			nodosDto.add(nodoDto);
+//		}
 
-		NodoDto nodoDto;
-		for (Nodo nodo : nodos) {
-			nodoDto = new NodoDto();
-			nodoDto.setId(nodo.getId());
-			nodoDto.setModulo(nodo.getModulo());
-			nodoDto.setNumero(nodo.getNumero());
-			nodoDto.setActivo(nodo.isActivo());
-			nodoDto.setDescripcion(nodo.getDescripcion());
-			
-			nodosDto.add(nodoDto);
-		}
-
-		return nodosDto;
+		return nodos;
 	}
 	
-	/*Este metodo es exclusivamente para obtener la lista de Nodo 
-	 * que se utiliza para el NodoMapper. Para exponer la info de los nodos
-	 * se debe usar el metodo getNodos().
-	 */
-	@Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
-	public List<Nodo> getNodosForMapper() {
-		return nodoDaoParticular.getAll();
-	}
+//	/*Este metodo es exclusivamente para obtener la lista de Nodo 
+//	 * que se utiliza para el NodoMapper. Para exponer la info de los nodos
+//	 * se debe usar el metodo getNodos().
+//	 */
+//	@Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
+//	public List<Nodo> getNodosForMapper() {
+//		return nodoDaoParticular.getAll();
+//	}
 	
 	@Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
-	public List<NodoDto> getNodosActivos() {
+	public List<Nodo> getNodosActivos() {
 
 		List<Nodo> nodos = nodoDaoParticular.getNodosActivos();
 		
-		List<NodoDto> nodosDto = new ArrayList<NodoDto>();
+//		List<NodoDto> nodosDto = new ArrayList<NodoDto>();
+//
+//		NodoDto nodoDto;
+//		for (Nodo nodo : nodos) {
+//			nodoDto = new NodoDto();
+//			nodoDto.setId(nodo.getId());
+//			nodoDto.setModulo(nodo.getModulo());
+//			nodoDto.setNumero(nodo.getNumero());
+//			nodoDto.setActivo(nodo.isActivo());
+//			nodoDto.setDescripcion(nodo.getDescripcion());
+//			
+//			nodosDto.add(nodoDto);
+//		}
 
-		NodoDto nodoDto;
-		for (Nodo nodo : nodos) {
-			nodoDto = new NodoDto();
-			nodoDto.setId(nodo.getId());
-			nodoDto.setModulo(nodo.getModulo());
-			nodoDto.setNumero(nodo.getNumero());
-			nodoDto.setActivo(nodo.isActivo());
-			nodoDto.setDescripcion(nodo.getDescripcion());
-			
-			nodosDto.add(nodoDto);
-		}
-
-		return nodosDto;
+		return nodos;
 	}
 	
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-	public NodoDto grabarNodo(NodoDto nodoDto) throws ParseException {
+	public Nodo grabarNodo(Nodo nodo) throws ParseException {
 
-		log.info("Guardando: " + nodoDto.toString());
+		log.info("Guardando: " + nodo.toString());
 
-		Nodo nodo = new Nodo();
-		nodo.setModulo(nodoDto.getModulo());
-		nodo.setNumero(nodoDto.getNumero());
-		nodo.setActivo(nodoDto.isActivo());
-		nodo.setDescripcion(nodoDto.getDescripcion());
+//		Nodo nodo = new Nodo();
+//		nodo.setModulo(nodoDto.getModulo());
+//		nodo.setNumero(nodoDto.getNumero());
+//		nodo.setActivo(nodoDto.isActivo());
+//		nodo.setDescripcion(nodoDto.getDescripcion());
 		
 		nodoDaoParticular.saveOrUpdate(nodo);
-		nodoDto.setId(nodo.getId());
-		
-		return nodoDto;
+		return nodo;
 	}
 	
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-	public NodoDto actualizarNodo(NodoDto nodoDto) throws ParseException {
+	public Nodo actualizarNodo(Nodo nodo) throws ParseException {
 
-		log.info("Actualizando: " + nodoDto.toString());
+		log.info("Actualizando: " + nodo.toString());
 
-		Nodo nodo = nodoDaoParticular.load(nodoDto.getId());
+//		Nodo nodoActualizar = nodoDaoParticular.load(nodo.getId());
 		
-		nodo.setModulo(nodoDto.getModulo());
-		nodo.setNumero(nodoDto.getNumero());
-		nodo.setActivo(nodoDto.isActivo());
-		nodo.setDescripcion(nodoDto.getDescripcion());
-		
+//		nodo.setModulo(nodoDto.getModulo());
+//		nodo.setNumero(nodoDto.getNumero());
+//		nodo.setActivo(nodoDto.isActivo());
+//		nodo.setDescripcion(nodoDto.getDescripcion());
+//		
 		nodoDaoParticular.saveOrUpdate(nodo);
-		
-		return nodoDto;
+		return nodo;
 	}
 	
 }

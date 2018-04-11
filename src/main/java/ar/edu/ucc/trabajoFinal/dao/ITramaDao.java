@@ -4,13 +4,14 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
+import ar.edu.ucc.trabajoFinal.model.Nodo;
 import ar.edu.ucc.trabajoFinal.model.Trama;
 import ar.edu.ucc.trabajoFinal.model.TramaAuxiliar;
 import ar.edu.ucc.trabajoFinal.model.TramaPotencias;
 
 public interface ITramaDao extends DaoGenerico<Trama, Long> {
 
-	public List<Trama> getTramaByNumero(int numero);
+	public List<Trama> getTramaByNodo(Long idNodo);
 
 	public List<TramaAuxiliar> getTramaMaximos(Date fechaDesde, Date fechaHasta);
 
