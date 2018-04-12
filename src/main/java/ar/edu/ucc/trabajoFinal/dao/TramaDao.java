@@ -3,7 +3,6 @@ package ar.edu.ucc.trabajoFinal.dao;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -11,6 +10,7 @@ import org.hibernate.criterion.Restrictions;
 import org.hibernate.transform.Transformers;
 import org.springframework.stereotype.Repository;
 
+import ar.edu.ucc.trabajoFinal.model.Nodo;
 import ar.edu.ucc.trabajoFinal.model.Trama;
 import ar.edu.ucc.trabajoFinal.model.TramaAuxiliar;
 import ar.edu.ucc.trabajoFinal.model.TramaPotencias;
@@ -24,10 +24,6 @@ public class TramaDao extends DaoGenericoImp<Trama, Long> implements ITramaDao {
 
     SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
     DateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
-
-    public List<Trama> getTramaByNumero(int numero) {
-        return this.getByCriteria(Restrictions.eq("numero", numero));
-    }
 
     @Override
     public List<TramaAuxiliar> getTramaMaximos(Date fechaDesde, Date fechaHasta) throws ParseException {
@@ -113,8 +109,12 @@ public class TramaDao extends DaoGenericoImp<Trama, Long> implements ITramaDao {
         return list;
     }
 
-    @Override
-    public TramaPotencias getPotenciasAcumuladasParque() {
+	public List<Trama> getTramaByNodo(Long idNodo) {
+		return this.getByCriteria(Restrictions.eq("nodo.id", idNodo));
+	}
+
+	@Override
+	public TramaPotencias getPotenciasAcumuladasParque() {
 //		List list =  ((Query) this.currentSession()
 //				.createQuery("potenciaContinua AS potenciaContinua, "
 //						+ "potenciaRed AS potenciaRed, potenciaInterna AS potenciaInterna, ipNodo AS ipNodo"

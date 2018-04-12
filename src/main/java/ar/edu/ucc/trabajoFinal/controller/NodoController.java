@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import ar.edu.ucc.trabajoFinal.dto.NodoDto;
+import ar.edu.ucc.trabajoFinal.model.Nodo;
 import ar.edu.ucc.trabajoFinal.service.NodoService;
 
 @Controller
@@ -29,40 +30,40 @@ public class NodoController {
 			throws Exception {
 		
 		log.info("Buscando todos los nodos. ");
-		List<NodoDto> nodos = nodoService.getNodos();
+		List<Nodo> nodos = nodoService.getNodos();
 		return new ResponseEntity(nodos, HttpStatus.OK);
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping(value = "/nodo/{idNodo}", method = RequestMethod.GET, produces = "application/json")
-	public ResponseEntity<?> getUmbral(@PathVariable("idNodo") Long idNodo)
+	public ResponseEntity<?> getNodo(@PathVariable("idNodo") Long idNodo)
 			throws Exception {
 		
 		log.info("Buscando el nodo: " + idNodo);
-		NodoDto nodo = nodoService.getNodo(idNodo);
+		Nodo nodo = nodoService.getNodo(idNodo);
 		return new ResponseEntity(nodo, HttpStatus.OK);
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping(value = "/nodo", 
 			method = RequestMethod.POST, produces = "application/json")
-	public ResponseEntity<?> crearUmbral(@RequestBody NodoDto nodoDto)
+	public ResponseEntity<?> crearNodo(@RequestBody Nodo nodo)
 			throws Exception {
 		
-		log.info("Grabando: " + nodoDto.toString());
+		log.info("Grabando: " + nodo.toString());
 		
-		nodoService.grabarNodo(nodoDto);
-		return new ResponseEntity(nodoDto, HttpStatus.CREATED);
+		nodoService.grabarNodo(nodo);
+		return new ResponseEntity(nodo, HttpStatus.CREATED);
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping(value = "/nodo", 
 			method = RequestMethod.PUT, produces = "application/json")
-	public ResponseEntity<?> actualizarUmbral(@RequestBody NodoDto nodoDto)
+	public ResponseEntity<?> actualizarNodo(@RequestBody Nodo nodo)
 			throws Exception {
 		
-		NodoDto nodoDtoRespuesta = nodoService.actualizarNodo(nodoDto);		
-		return new ResponseEntity(nodoDtoRespuesta,HttpStatus.OK);
+		Nodo nodoRespuesta = nodoService.actualizarNodo(nodo);		
+		return new ResponseEntity(nodoRespuesta,HttpStatus.OK);
 	}
 	
 	

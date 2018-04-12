@@ -32,22 +32,22 @@ public class TramaController {
 		return new ResponseEntity(tramas, HttpStatus.OK);
 	}
 	
-	//-----------ESTE METODO NO SE VA A USAR CREO -------------------------------
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@RequestMapping(value = "/trama/{tramaId}", method = RequestMethod.GET, produces = "application/json")
-	public ResponseEntity<?> getTrama(@PathVariable("tramaId") Long tramaId)
-			throws Exception {
-		
-		TramaDto tramaDto = tramaService.getTrama(tramaId);
-		
-		return new ResponseEntity(tramaDto, HttpStatus.OK);
-	}
+//	//-----------ESTE METODO NO SE VA A USAR CREO -------------------------------
+//	@SuppressWarnings({ "rawtypes", "unchecked" })
+//	@RequestMapping(value = "/trama/{tramaId}", method = RequestMethod.GET, produces = "application/json")
+//	public ResponseEntity<?> getTrama(@PathVariable("tramaId") Long tramaId)
+//			throws Exception {
+//		
+//		TramaDto tramaDto = tramaService.getTrama(tramaId);
+//		
+//		return new ResponseEntity(tramaDto, HttpStatus.OK);
+//	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	@RequestMapping(value = "/tramaByNodo/{ipNodo}", method = RequestMethod.GET, produces = "application/json")
-	public ResponseEntity<?> getTramaByNodo(@PathVariable("numero") int numero) throws Exception{
+	@RequestMapping(value = "/tramaByNodo/{idNodo}", method = RequestMethod.GET, produces = "application/json")
+	public ResponseEntity<?> getTramasByNodo(@PathVariable("idNodo") Long idNodo) throws Exception{
 		
-		List<TramaDto> tramaDto = tramaService.getTramasByNumero(numero);
+		List<TramaDto> tramaDto = tramaService.getTramasByNodo(idNodo);
 		return new ResponseEntity(tramaDto, HttpStatus.OK);
 		
 	}

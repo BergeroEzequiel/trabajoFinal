@@ -2,14 +2,20 @@ package ar.edu.ucc.trabajoFinal.model;
 
 
 import java.sql.Time;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+
+import ar.edu.ucc.trabajoFinal.trama.Variable;
 
 
 @Entity
@@ -25,11 +31,17 @@ public class Alerta extends ObjetoGenerico{
 	@Column(name="valor", length=50, nullable=false)
 	private Float valor;
 
-	@Column(name="umbral_superado", length=50, nullable=false)
-	private float umbralSuperado;
+	@ManyToOne
+	@JoinColumn(name="id_umbral")
+	private Umbral umbralSuperado;
 	
-	@Column(name="nodo_afectado", nullable=false)
-	private int nodoAfectado;
+	@ManyToOne
+	@JoinColumn(name="id_nodo")
+	private Nodo nodoAfectado;
+	
+	@ManyToOne
+	@JoinColumn(name="id_criticidad")
+	private Criticidad criticidad;
 	
 	@Column(name="visualizar", nullable = false, columnDefinition = "BOOLEAN DEFAULT true")
 	private boolean visualizar;
@@ -39,7 +51,22 @@ public class Alerta extends ObjetoGenerico{
 	
 	@Column(name="hora", nullable=false)
 	private Time hora;
-
+	
+	public Alerta() {
+		super();
+	}
+	
+	public Alerta(Variable v, Nodo nodo) {
+		this.descripcion="variable fuera de umbral";
+		this.variableAfectada = v.getNombre();
+		this.valor = v.getValorActual();
+		this.umbralSuperado = v.getUmbral();
+		this.nodoAfectado = nodo;
+		this.criticidad = v.getUmbral().getCriticidad();
+		this.fecha = new Date();
+		this.hora = new Time(System.currentTimeMillis());
+	}
+	
 	public String getDescripcion() {
 		return descripcion;
 	}
@@ -64,20 +91,28 @@ public class Alerta extends ObjetoGenerico{
 		this.valor = valor;
 	}
 
-	public float getUmbralSuperado() {
+	public Umbral getUmbralSuperado() {
 		return umbralSuperado;
 	}
 
-	public void setUmbralSuperado(float umbralSuperado) {
+	public void setUmbralSuperado(Umbral umbralSuperado) {
 		this.umbralSuperado = umbralSuperado;
 	}
 
-	public int getNodoAfectado() {
+	public Nodo getNodoAfectado() {
 		return nodoAfectado;
 	}
 
-	public void setNodoAfectado(int nodoAfectado) {
+	public void setNodoAfectado(Nodo nodoAfectado) {
 		this.nodoAfectado = nodoAfectado;
+	}
+
+	public Criticidad getCriticidad() {
+		return criticidad;
+	}
+
+	public void setCriticidad(Criticidad criticidad) {
+		this.criticidad = criticidad;
 	}
 
 	public boolean isVisualizar() {

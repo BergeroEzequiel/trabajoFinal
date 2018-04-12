@@ -12,7 +12,7 @@ import ar.edu.ucc.trabajoFinal.model.UmbralEspecifico;
 public class UmbralEspecificoDao extends DaoGenericoImp<UmbralEspecifico, Long> implements IUmbralEspecificoDao{
 
 	@Override
-	public List<UmbralEspecifico> getUmbralEspByNodo(Long idNodo) {
+	public List<UmbralEspecifico> getUmbralesEspByNodo(Long idNodo) {
 		List<UmbralEspecifico> umbralesEsp = this.getByCriteria(Restrictions.like("idNodo", idNodo));
 		System.out.println(umbralesEsp.size());
 		return umbralesEsp;
@@ -20,7 +20,7 @@ public class UmbralEspecificoDao extends DaoGenericoImp<UmbralEspecifico, Long> 
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<UmbralEspecifico> getUmbralEspByNodo(String modulo, int numero) {
+	public List<UmbralEspecifico> getUmbralesEspByNodo(String modulo, int numero) {
 		List<UmbralEspecifico> list =  this.currentSession()
 				.createQuery(
 					"from UmbralEspecifico where idNodo ="

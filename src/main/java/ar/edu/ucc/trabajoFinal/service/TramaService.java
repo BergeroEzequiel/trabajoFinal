@@ -19,8 +19,10 @@ import ar.edu.ucc.trabajoFinal.dao.DaoGenerico;
 import ar.edu.ucc.trabajoFinal.dao.ITramaDao;
 import ar.edu.ucc.trabajoFinal.dao.TramaDao;
 import ar.edu.ucc.trabajoFinal.dto.TramaDto;
+import ar.edu.ucc.trabajoFinal.model.Nodo;
 import ar.edu.ucc.trabajoFinal.model.Trama;
 import ar.edu.ucc.trabajoFinal.model.TramaPotencias;
+import ar.edu.ucc.trabajoFinal.utils.NodoMapper;
 import ar.edu.ucc.trabajoFinal.utils.TramaControl;
 
 @Service
@@ -67,8 +69,9 @@ public class TramaService {
 		tramaDto.setFrecuenciaTension(trama.getFrecuenciaTension());
 		tramaDto.setHora(timeFormatter.format(trama.getHora()));
 		tramaDto.setHumedad(trama.getHumedad());
-		tramaDto.setModulo(trama.getModulo());
-		tramaDto.setNumero(trama.getNumero());
+//		tramaDto.setModulo(trama.getModulo());
+//		tramaDto.setNumero(trama.getNumero());
+		tramaDto.setNodo(trama.getNodo());
 		tramaDto.setPotenciaContinua(trama.getPotenciaContinua());
 		tramaDto.setPotenciaInterna(trama.getPotenciaInterna());
 		tramaDto.setPotenciaRed(trama.getPotenciaRed());
@@ -109,8 +112,9 @@ public class TramaService {
 			tramaDto.setFrecuenciaTension(trama.getFrecuenciaTension());
 			tramaDto.setHora(timeFormatter.format((trama.getHora())));
 			tramaDto.setHumedad(trama.getHumedad());
-			tramaDto.setModulo(trama.getModulo());
-			tramaDto.setNumero(trama.getNumero());
+//			tramaDto.setModulo(trama.getModulo());
+//			tramaDto.setNumero(trama.getNumero());
+			tramaDto.setNodo(trama.getNodo());
 			tramaDto.setPotenciaContinua(trama.getPotenciaContinua());
 			tramaDto.setPotenciaInterna(trama.getPotenciaInterna());
 			tramaDto.setPotenciaRed(trama.getPotenciaRed());
@@ -132,11 +136,11 @@ public class TramaService {
 	}
 
 	@Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
-	public List<TramaDto> getTramasByNumero(int numero){
+	public List<TramaDto> getTramasByNodo(Long idNodo){
 		
-		log.info("Filtrando tramas del modulo Solar con el numero: " + numero);
+		log.info("Filtrando tramas del modulo Solar con el nodo: " + idNodo);
 		
-		List<Trama> tramas = tramaDaoParticular.getTramaByNumero(numero);
+		List<Trama> tramas = tramaDaoParticular.getTramaByNodo(idNodo);
 		
 
 		List<TramaDto> tramasDto = new ArrayList<TramaDto>();
@@ -154,8 +158,9 @@ public class TramaService {
 			tramaDto.setFrecuenciaTension(trama.getFrecuenciaTension());
 			tramaDto.setHora(timeFormatter.format(trama.getHora()));
 			tramaDto.setHumedad(trama.getHumedad());
-			tramaDto.setModulo(trama.getModulo());
-			tramaDto.setNumero(trama.getNumero());
+//			tramaDto.setModulo(trama.getModulo());
+//			tramaDto.setNumero(trama.getNumero());
+			tramaDto.setNodo(trama.getNodo());
 			tramaDto.setPotenciaContinua(trama.getPotenciaContinua());
 			tramaDto.setPotenciaInterna(trama.getPotenciaInterna());
 			tramaDto.setPotenciaRed(trama.getPotenciaRed());
@@ -170,8 +175,14 @@ public class TramaService {
 	public TramaDto grabarTrama(TramaDto tramaDto) throws ParseException {
 
 		log.info("Guardando: " + tramaDto.toString());
-
 		Trama trama = new Trama();
+
+		Nodo nodo = NodoMapper.getInstance().getMappedNodos().get(tramaDto.getModulo() + tramaDto.getNumero());
+		if (nodo == null) {
+			return new TramaDto();
+		}
+		trama.setNodo(nodo);
+		tramaDto.setNodo(nodo);
 		trama.setCorrienteContinua(tramaDto.getCorrienteContinua());
 		trama.setCorrienteInterna(tramaDto.getCorrienteInterna());
 		trama.setCorrienteRed(tramaDto.getCorrienteRed());
@@ -182,8 +193,6 @@ public class TramaService {
 		trama.setFrecuenciaTension(tramaDto.getFrecuenciaTension());
 		trama.setHora(Time.valueOf(tramaDto.getHora()));
 		trama.setHumedad(tramaDto.getHumedad());
-		trama.setModulo(tramaDto.getModulo());
-		trama.setNumero(tramaDto.getNumero());
 		trama.setPvm(tramaDto.getPvm());
 		trama.setTemperatura1(tramaDto.getTemperatura1());
 		trama.setTemperatura2(tramaDto.getTemperatura2());
@@ -206,9 +215,11 @@ public class TramaService {
 		tramaDto.setPotenciaRed(trama.getPotenciaRed());
 		
 		// Controlar trama
-		this.tramaControl = new TramaControl();
-		this.tramaControl.cargarValoresActuales(tramaDto);
-		this.tramaControl.controlarTrama(tramaDto);
+		if (nodo.isActivo()) {
+			this.tramaControl = new TramaControl();
+			this.tramaControl.cargarValoresActuales(tramaDto);
+			this.tramaControl.controlarTrama(tramaDto);
+		}
 		return tramaDto;
 	}
 
@@ -237,7 +248,7 @@ public class TramaService {
 			tramaDto.setPotenciaContinua(tramaPotencia.getPotenciaContinua());
 			tramaDto.setPotenciaInterna(tramaPotencia.getPotenciaInterna());
 			tramaDto.setPotenciaRed(tramaPotencia.getPotenciaRed());
-			tramaDto.setNumero(tramaPotencia.getNumero());
+//			tramaDto.setNumero(tramaPotencia.getNumero());
 			tramaDto.setHora(timeFormatter.format(tramaPotencia.getHora()));
 			
 			tramasDto.add(tramaDto);
