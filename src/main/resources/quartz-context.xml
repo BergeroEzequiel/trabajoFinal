@@ -58,8 +58,6 @@
               class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
         <property name="jobDetail" ref="job20Minutos" />
         <property name="cronExpression" value="0 0/20 * 1/1 * ? *" /> 
-         <!--Descomentar para correr cada 5 segundos el job20Minutos-->
-        <!--<property name="cronExpression" value="0/5 * * * * ?" />--> 
     </bean>
 
     <!-- Corre el job todos los dias a las 22 hs. -->
@@ -67,6 +65,10 @@
               class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
         <property name="jobDetail" ref="jobDiario" />
         <property name="cronExpression" value="0 0 22 ? * MON-FRI *" />
+        <!--Descomentar para correr el job cada 2 minutos-->
+        <!--<property name="cronExpression" value="0 0/2 * 1/1 * ? *" />-->
+        <!--Descomentar para correr cada 5 segundos el job20Minutos-->
+        <!--<property name="cronExpression" value="0/5 * * * * ?" />--> 
     </bean>
 
     <!-- Corre el job todos los domingos a las 22 hs (Como el gordo Lanata) -->
