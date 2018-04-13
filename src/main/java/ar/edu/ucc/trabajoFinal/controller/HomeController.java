@@ -15,10 +15,10 @@ public class HomeController {
 		return home;
 	}
 	
-	@RequestMapping(value = "variables", method = RequestMethod.GET)
+	@RequestMapping(value = "conf-umbrales", method = RequestMethod.GET)
 	public ModelAndView variables() {
-		ModelAndView variables = new ModelAndView("variables");
-		return variables;
+		ModelAndView umbrales = new ModelAndView("conf-umbrales");
+		return umbrales;
 	}
 
 }

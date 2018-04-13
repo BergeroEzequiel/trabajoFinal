@@ -13,9 +13,9 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
         <property name="url" value="/WEB-INF/views/main/home.jsp" />
     </bean>
     
-    <bean id="variables"
+    <bean id="conf-umbrales"
         class="org.springframework.web.servlet.view.JstlView">
-        <property name="url" value="/WEB-INF/views/main/configuracion-variables.jsp" />
+        <property name="url" value="/WEB-INF/views/main/configuracion-umbrales.jsp" />
     </bean>
     
     

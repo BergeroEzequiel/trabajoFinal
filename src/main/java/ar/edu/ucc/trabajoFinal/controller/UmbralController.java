@@ -34,19 +34,19 @@ public class UmbralController {
 		return new ResponseEntity(umbrales, HttpStatus.OK);
 	}
 	
-//	@SuppressWarnings({ "rawtypes", "unchecked" })
-//	@RequestMapping(value = "/umbral/{tramaId}", method = RequestMethod.GET, produces = "application/json")
-//	public ResponseEntity<?> getUmbral(@PathVariable("tramaId") Long tramaId)
-//			throws Exception {
-//		
-//		log.info("Buscando el umbral: " + tramaId);
-//		Umbral umbral = umbralService.getUmbral(tramaId);
-//		return new ResponseEntity(umbral, HttpStatus.OK);
-//	}
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@RequestMapping(value = "/umbrales/{idNodo}", method = RequestMethod.GET, produces = "application/json")
+	public ResponseEntity<?> getUmbralesNodo(@PathVariable("idNodo") Long idNodo)
+			throws Exception {
+		
+		log.info("Buscando todos los umbrales especiales del nodo " + idNodo);
+		List<Umbral> umbrales = umbralService.getUmbralesNodo(idNodo);
+		return new ResponseEntity(umbrales, HttpStatus.OK);
+	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value = "/umbral/{nombreVariable}", method = RequestMethod.GET, produces = "application/json")
-	public ResponseEntity<?> getUmbralByVariable(@PathVariable("nombreVariable") String nombreVariable) throws Exception{
+	public ResponseEntity<?> getUmbralGenericoByVariable(@PathVariable("nombreVariable") String nombreVariable) throws Exception{
 		
 		Umbral umbral = umbralService.getUmbralGenericoByVariable(nombreVariable);
 		return new ResponseEntity(umbral, HttpStatus.OK);

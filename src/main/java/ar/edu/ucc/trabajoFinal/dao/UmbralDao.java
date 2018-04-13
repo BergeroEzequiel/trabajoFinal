@@ -20,14 +20,14 @@ public class UmbralDao extends DaoGenericoImp<Umbral, Long> implements IUmbralDa
 	}
 	
 	@Override
-	public List<Umbral> getUmbralesEspByNodo(Nodo nodo) {
+	public List<Umbral> getUmbralesEspByNodo(Long idNodo) {
 		List<Umbral> umbralesEsp = this.getByCriteria(
-				Restrictions.eq("nodo", nodo));
+				Restrictions.eq("nodo.id", idNodo));
 		return umbralesEsp;
 	}
 
 	@Override
 	public List<Umbral> getUmbralesGenericos() {
-		return this.getByCriteria(Restrictions.eq("nodo", null));		
+		return this.getByCriteria(Restrictions.eq("class", "generico"));		
 	}
 }

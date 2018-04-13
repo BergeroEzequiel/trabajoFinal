@@ -2,8 +2,6 @@ package ar.edu.ucc.trabajoFinal.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
 /**
@@ -14,9 +12,8 @@ import javax.persistence.Table;
 @Table(name = "criticidades")
 public class Criticidad extends ObjetoGenerico{
     
-    @Enumerated(EnumType.ORDINAL)
     @Column(name="prioridad", nullable=false)
-    private Prioridad prioridad;
+    private String prioridad;
     
     @Column(name = "cantidad_repeticiones")
     private int cantidadRepeticiones;
@@ -24,11 +21,11 @@ public class Criticidad extends ObjetoGenerico{
     @Column(name = "periodo_tiempo")
     private String periodoTiempo;
 
-    public Prioridad getPrioridad() {
+    public String getPrioridad() {
         return prioridad;
     }
 
-    public void setPrioridad(Prioridad prioridad) {
+    public void setPrioridad(String prioridad) {
         this.prioridad = prioridad;
     }
 

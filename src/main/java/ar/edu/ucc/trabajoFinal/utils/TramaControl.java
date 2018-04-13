@@ -98,7 +98,7 @@ public class TramaControl {
 	}
 	
 	public void cargarUmbrales() {
-		List<Umbral> umbralesEsp = this.umbralService.getUmbralesEspByNodo(this.nodo);
+		List<Umbral> umbralesEsp = this.umbralService.getUmbralesEspByNodo(this.nodo.getId());
 		Map<String, Umbral> mapUmbralEsp = new HashMap<String, Umbral>();
 		for (Umbral umbralEsp : umbralesEsp) {
 			mapUmbralEsp.put(umbralEsp.getNombreVariable(), umbralEsp);

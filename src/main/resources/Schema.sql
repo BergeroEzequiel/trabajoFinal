@@ -67,7 +67,7 @@
         VERSION bigint not null DEFAULT 0,
         cantidad_repeticiones integer,
         periodo_tiempo varchar(255),
-        prioridad integer not null,
+        prioridad varchar(255) not null,
         primary key (ID)
     ) ENGINE=InnoDB;
 
@@ -198,8 +198,8 @@
     create table unidades_medida (
         ID bigint not null auto_increment,
         VERSION bigint not null DEFAULT 0,
-        nombre varchar(255) not null,
         factor_conversion float not null,
+        nombre varchar(255) not null,
         primary key (ID)
     ) ENGINE=InnoDB;
 
