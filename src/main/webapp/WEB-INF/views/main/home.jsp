@@ -79,7 +79,7 @@
                   </li>
                   <li><a><i class="fa fa-cogs"></i>Configuración<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="variables">Variables</a></li>
+                      <li><a href="conf-umbrales">Umbrales</a></li>
                       <li><a href="#">Alertas</a></li>
                     </ul>
                   </li>

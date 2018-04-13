@@ -7,7 +7,7 @@ import ar.edu.ucc.trabajoFinal.model.Nodo;
 
 public interface IAlertaDao extends DaoGenerico<Alerta, Long>{
 
-	public List<Alerta> getAlertasByNodo(Nodo nodo);
+	public List<Alerta> getAlertasByNodo(Long idNodo);
 	
 	public List<Alerta> getAlertas();
 }

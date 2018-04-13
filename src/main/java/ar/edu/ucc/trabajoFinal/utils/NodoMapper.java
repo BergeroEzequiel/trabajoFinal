@@ -15,7 +15,6 @@ public class NodoMapper {
 	private NodoMapper() {
 		List<Nodo> nodos = this.nodoService.getNodos();
 		for(Nodo nodo : nodos) {
-//			NodoKey key = new NodoKey(nodo.getModulo(), nodo.getNumero());
 			mapNodos.put(nodo.getModulo() + nodo.getNumero(), nodo);
 		}
 		

@@ -1,6 +1,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html lang="en" ng-app="variables">
+<html lang="en" ng-app="umbrales">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
@@ -79,7 +79,7 @@
                   </li>
                   <li><a><i class="fa fa-cogs"></i>Configuración<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="variables">Variables</a></li>
+                      <li><a href="conf-umbrales">Umbrales</a></li>
                       <li><a href="#">Alertas</a></li>
                     </ul>
                   </li>
@@ -162,7 +162,7 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Configuración de variables<small></small></h2>
+                    <h2>Configuración de umbrales<small></small></h2>
 					<div class="clearfix"></div>
                   </div>
 
@@ -176,8 +176,9 @@
                             <th class="column-title">Nombre de la Variable </th>
                             <th class="column-title">Fecha Ultima Modificación </th>
                             <th class="column-title">Valor Mínimo </th>
-                            <th class="column-title">Valor Máximo </th>                            
-                            <th class="column-title">Tipo </th>
+                            <th class="column-title">Valor Máximo </th>
+                            <th class="column-title">Unidad Medida </th>                            
+                            <th class="column-title">Criticidad</th>
                             <th class="column-title">Activar Alertas</th>
                             <th class="column-title no-link last"><span class="nobr">Acción</span>
                             </th>
@@ -186,8 +187,8 @@
 
                         <tbody>
                           <tr class="even pointer" ng-repeat="umbral in umbrales">
-                            <td class=" ">{{umbral.nombreVariable}}</td>                         
-                            <td class=" ">{{umbral.fechaUltimaModificacion}}</td>
+                            <td class=" ">{{ getHumanRedableName(umbral.nombreVariable) }}</td>                         
+                            <td class=" ">{{umbral.ultimaModificacion}}</td>
                             <td>
                               <span ng-hide="umbral.editMode">{{umbral.valorMin}}</span>
                               <input numbers-only type="text" name="valorMin" ng-show="umbral.editMode" class="form-control" ng-model="umbral.valorMin" placeholder="Valor Mínimo" required="" />
@@ -196,9 +197,17 @@
                               <span ng-hide="umbral.editMode">{{umbral.valorMax}}</span>
                               <input numbers-only type="text" name="valorMax" ng-show="umbral.editMode" class="form-control" ng-model="umbral.valorMax" placeholder="Valor Máximo" required="" />
                             </td>
+                            <td>                           
+                              <span ng-hide="umbral.editMode">{{umbral.unidadMedida.nombre}}</span>
+                              <select ng-show="umbral.editMode" ng-model="selectedUm">
+                              	<option ng-repeat="um in medidas" ng-value="um">{{um.nombre}}</option>
+                              </select>
+                            </td>
                             <td>
-                              <span ng-hide="umbral.editMode">{{umbral.tipo}}</span>
-                              <input type="text" name="tipo" ng-show="umbral.editMode" class="form-control" ng-model="umbral.tipo" placeholder="Tipo" required="" />
+                              <span ng-hide="umbral.editMode">{{umbral.criticidad.prioridad}}</span>
+                              <select ng-show="umbral.editMode" ng-model="selectedCrit">
+                              	<option ng-repeat="crit in criticidades" ng-value="crit">{{crit.prioridad}}</option>
+                              </select>
                             </td>
                             <td class="a-center ">
                               <input ng-hide="umbral.editMode" type="checkbox" disabled="disabled" class="flat" ng-checked="umbral.activo">
@@ -206,7 +215,7 @@
                             </td>
                             <td class="last">
                            	  <a href="" ng-hide="umbral.editMode" ng-click="editUmbral(umbral)">Editar</a>
-			                  <a href="" ng-show="umbral.editMode" ng-click="updateUmbral(umbral)">Guardar</a>
+			                  <a href="" ng-show="umbral.editMode" ng-click="updateUmbral(umbral, selectedUm, selectedCrit)">Guardar</a>
 			                  <a href="" ng-show="umbral.editMode" ng-click="cancel(umbral)">Cancelar</a>
                             </td>
                             
@@ -270,7 +279,7 @@
     <!-- Custom Theme Scripts -->
     <script src="<c:url value="/resources/build/js/custom.min.js"/>"></script>
     <script src="resources/angularjs/angular.js"></script>
-	<script src="resources/angularjs/variables.js"></script>
+	<script src="resources/angularjs/umbrales.js"></script>
   </body>
 </html>
         

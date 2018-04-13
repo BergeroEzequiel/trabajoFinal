@@ -62,7 +62,7 @@ public class NodoController {
 	public ResponseEntity<?> actualizarNodo(@RequestBody Nodo nodo)
 			throws Exception {
 		
-		Nodo nodoRespuesta = nodoService.actualizarNodo(nodo);		
+		Nodo nodoRespuesta = nodoService.grabarNodo(nodo);		
 		return new ResponseEntity(nodoRespuesta,HttpStatus.OK);
 	}
 	

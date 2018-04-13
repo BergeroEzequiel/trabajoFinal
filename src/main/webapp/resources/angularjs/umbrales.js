@@ -1,5 +1,5 @@
-var variablesModule = angular.module('variables', [])
-variablesModule.directive('numbersOnly', function () {
+var umbralesModule = angular.module('umbrales', [])
+umbralesModule.directive('numbersOnly', function () {
     return {
         require: 'ngModel',
         link: function (scope, element, attr, ngModelCtrl) {
@@ -21,12 +21,16 @@ variablesModule.directive('numbersOnly', function () {
 })
 .controller("umbralController", function($scope, $http){
 	$scope.umbrales = [];
+	$scope.medidas;
+	$scope.selectedUm = null;
+	$scope.criticidades;
+	$scope.selectedCrit = null;
 	$scope.copia = [];
 	$scope.getUmbrales = function (){
 		  $http.get('http://localhost:8080/trabajoFinal/umbrales')
-		  .then(successCallback, errorCallback);
+		  .then(onUmbralesCallback, errorCallback);
 	  }
-	  function successCallback(response) {
+	  function onUmbralesCallback(response) {
 	    $scope.umbrales = response.data;
 	  }
 
@@ -34,6 +38,26 @@ variablesModule.directive('numbersOnly', function () {
 	    console.log(err);
 	  }
 	  $scope.getUmbrales();
+	  
+	$scope.getUnidadesMedida = function (){
+		  $http.get('http://localhost:8080/trabajoFinal/unidades-medida')
+		  .then(onUnidadesMedidaCallback, errorCallback);
+	  }
+	  function onUnidadesMedidaCallback(response) {
+	    $scope.medidas = response.data;
+	  }
+
+	  $scope.getUnidadesMedida();
+	  
+	$scope.getCriticidades = function (){
+		  $http.get('http://localhost:8080/trabajoFinal/criticidades')
+		  .then(onCriticidadesCallback, errorCallback);
+	  }
+	  function onCriticidadesCallback(response) {
+	    $scope.criticidades = response.data;
+	  }
+
+	  $scope.getCriticidades();
 	  
 	$scope.editUmbral = function(umbral) {
 		umbral.$original = umbral.$original || angular.copy(umbral);
@@ -45,22 +69,23 @@ variablesModule.directive('numbersOnly', function () {
       umbral.editMode = false;
     }
 	
-	$scope.updateUmbral = function(umbral) {
-		umbral.fechaUltimaModificacion = $scope.getLocalISOTime();
+	$scope.updateUmbral = function(umbral, selectedUm, selectedCrit) { debugger;
+		umbral.ultimaModificacion = $scope.getLocalISOTime();
+		umbral.unidadMedida = selectedUm;
+		umbral.criticidad = selectedCrit;
 		$http.put('http://localhost:8080/trabajoFinal/umbral/', umbral);
 		umbral.editMode = false;
-	}
-	
-	$scope.filterValue = function($event){
-        if(isNaN(String.fromCharCode($event.keyCode))){
-            $event.preventDefault();
-        }
 	}
 	
 	$scope.getLocalISOTime = function() {
 		var tzOffset = (new Date()).getTimezoneOffset() * 60000,
 		    localISOTime = (new Date(Date.now() - tzOffset)).toISOString().slice(0, -1);
 		return localISOTime.split('T')[0];
+	}
+	
+	$scope.getHumanRedableName = function(name) {
+		var name = name.replace("_"," ");
+		return name.charAt(0).toUpperCase() + name.slice(1);
 	}
 	
 })

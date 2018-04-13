@@ -39,26 +39,8 @@ public class AlertaService {
 	}
 	
 	@Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
-	public List<Alerta> getAlertasByNodo(Nodo nodo){
-		
-		List<Alerta> alertas = alertaDaoParticular.getAlertasByNodo(nodo);
-		
-//		List<AlertaDto> alertasDto = new ArrayList<AlertaDto>();
-		
-//		AlertaDto alertaDto;
-//		for (Alerta alerta : alertas) {
-//			alertaDto = new AlertaDto();
-//			alertaDto.setDescripcion(alerta.getDescripcion());
-//			alertaDto.setVariableAfectada(alerta.getVariableAfectada());
-//			alertaDto.setUmbralSuperado(alerta.getUmbralSuperado());
-//			alertaDto.setValor(alerta.getValor());
-//			alertaDto.setNodoAfectado(alerta.getNodoAfectado());
-//			alertaDto.setVisualizar(alerta.isVisualizar());
-//			alertaDto.setFecha(dateFormatter.format(alerta.getFecha()));
-//			alertaDto.setHora(timeFormatter.format(alerta.getHora()));
-//			
-//			alertasDto.add(alertaDto);
-//		}
+	public List<Alerta> getAlertasByNodo(Long idNodo){		
+		List<Alerta> alertas = alertaDaoParticular.getAlertasByNodo(idNodo);
 		return alertas;
 	}
 	
@@ -66,27 +48,13 @@ public class AlertaService {
 	public Alerta grabarAlerta(Alerta alerta) {
 
 		log.info("Guardando: " + alerta.toString());
-		
-//		Alerta alerta = new Alerta();
-//		alerta.setDescripcion(alertaDto.getDescripcion());
-//		alerta.setVariableAfectada(alertaDto.getVariableAfectada());
-//		alerta.setValor(alertaDto.getValor());
-//		alerta.setUmbralSuperado(alertaDto.getUmbralSuperado());
-//		alerta.setNodoAfectado(alertaDto.getNodoAfectado());
-//		alerta.setVisualizar(alertaDto.isVisualizar());
-//		alerta.setFecha(dateFormatter.parse(alertaDto.getFecha()));
-//		alerta.setHora(new Time(timeFormatter.parse(alertaDto.getHora()).getTime()));
-		
 		alertaDaoParticular.saveOrUpdate(alerta);
-		
 		return alerta;
 	}
 	
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-	public List<Alerta> getAlertas() {
-		
+	public List<Alerta> getAlertas() {		
 		List<Alerta> alertas = this.alertaDaoParticular.getAlertas();
-		
 		return alertas;
 	}
 }

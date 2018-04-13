@@ -63,7 +63,7 @@
         VERSION bigint not null DEFAULT 0,
         cantidad_repeticiones integer,
         periodo_tiempo varchar(255),
-        prioridad integer not null,
+        prioridad varchar(255) not null,
         primary key (ID)
     ) ENGINE=InnoDB;
 
@@ -181,7 +181,7 @@
         VERSION bigint not null DEFAULT 0,
         activo BOOLEAN DEFAULT true not null,
         nombre_variable varchar(50) not null,
-        ultima_modificacion datetime not null,
+        ultima_modificacion date not null,
         valor_max float not null,
         valor_min float not null,
         id_criticidad bigint,
@@ -193,8 +193,8 @@
     create table unidades_medida (
         ID bigint not null auto_increment,
         VERSION bigint not null DEFAULT 0,
-        nombre varchar(255) not null,
         factor_conversion float not null,
+        nombre varchar(255) not null,
         primary key (ID)
     ) ENGINE=InnoDB;
 

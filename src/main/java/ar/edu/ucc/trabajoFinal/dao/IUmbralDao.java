@@ -9,7 +9,7 @@ public interface IUmbralDao extends DaoGenerico<Umbral, Long>{
 	
 	public Umbral getUmbralGenericoByVariable(String nombreVariable);
 
-	public List<Umbral> getUmbralesEspByNodo(Nodo nodo);
+	public List<Umbral> getUmbralesEspByNodo(Long idNodo);
 	
 	public List<Umbral> getUmbralesGenericos();
 	

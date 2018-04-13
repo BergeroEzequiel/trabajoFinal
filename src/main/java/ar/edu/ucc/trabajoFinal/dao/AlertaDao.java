@@ -12,8 +12,8 @@ import ar.edu.ucc.trabajoFinal.model.Nodo;
 public class AlertaDao extends DaoGenericoImp<Alerta, Long> implements IAlertaDao{
 
 	@Override
-	public List<Alerta> getAlertasByNodo(Nodo nodo) {
-		return this.getByCriteria(Restrictions.eq("nodoAfectado", nodo),
+	public List<Alerta> getAlertasByNodo(Long idNodo) {
+		return this.getByCriteria(Restrictions.eq("nodoAfectado.id", idNodo),
 				Restrictions.eq("visualizar", true));
 	}
 
@@ -21,5 +21,5 @@ public class AlertaDao extends DaoGenericoImp<Alerta, Long> implements IAlertaDa
 	public List<Alerta> getAlertas() {
 		return this.getByCriteria(Restrictions.eq("visualizar", true));
 	}
-
+	
 }

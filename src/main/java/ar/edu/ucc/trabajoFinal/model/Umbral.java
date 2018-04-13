@@ -12,6 +12,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 
 @Entity
 @Table(name="umbrales")
@@ -30,6 +31,7 @@ public class Umbral extends ObjetoGenerico{
 	private float valorMin;
 	
 	@Column(name="ultima_modificacion", length=50, nullable=false)
+	@Temporal(javax.persistence.TemporalType.DATE)
 	private Date ultimaModificacion;
 	
 	@Column(name= "nombre_variable", length = 50, nullable = false)

@@ -9,20 +9,20 @@ import javax.persistence.Table;
 public class UnidadMedida extends ObjetoGenerico {
 
 	@Column(name = "nombre", nullable = false)
-	private String estado;
+	private String nombre;
 	
 	
 	@Column(name = "factor_conversion", nullable = false)
 	private float factorConversion;
 
 
-	public String getEstado() {
-		return estado;
+	public String getNombre() {
+		return nombre;
 	}
 
 
-	public void setEstado(String estado) {
-		this.estado = estado;
+	public void setNombre(String estado) {
+		this.nombre = nombre;
 	}
 
 
