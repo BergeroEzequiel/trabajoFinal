@@ -4,14 +4,17 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "monitoreo_procesado")
 public class TramaProcesada extends ObjetoGenerico {
 
-    @Column(name = "ip_nodo")
-    private int ipNodo;
+    @ManyToOne
+    @JoinColumn(name="id_nodo")
+    private Nodo nodo;
 
     @Column(name = "tension_red_max", nullable = false)
     private float tensionRedMax;
@@ -197,12 +200,12 @@ public class TramaProcesada extends ObjetoGenerico {
     @Column(name="tipo_procesamiento", nullable=false)
     private TipoProcesamiento tipoProcesamiento;
 
-    public int getIpNodo() {
-        return ipNodo;
+    public Nodo getNodo() {
+        return nodo;
     }
 
-    public void setIpNodo(int ipNodo) {
-        this.ipNodo = ipNodo;
+    public void setNodo(Nodo nodo) {
+        this.nodo = nodo;
     }
 
     public float getTensionRedMax() {

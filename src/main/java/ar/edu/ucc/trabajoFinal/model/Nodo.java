@@ -1,5 +1,6 @@
 package ar.edu.ucc.trabajoFinal.model;
 
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -51,5 +52,15 @@ public class Nodo extends ObjetoGenerico{
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
+
+//    @Override
+//    public boolean equals(Object obj) {
+//        if(this == obj) return true;
+//        if(!(obj instanceof Nodo)) return false;
+//        Nodo nodo = (Nodo) obj;
+//        return  Objects.equals(this.getId(), nodo.getId());
+//    }
+        
+        
 
 }

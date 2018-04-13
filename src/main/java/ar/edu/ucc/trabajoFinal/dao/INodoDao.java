@@ -9,4 +9,6 @@ public interface INodoDao extends DaoGenerico<Nodo, Long>{
 	public List<Nodo> getNodosActivos();
 	
 	public Nodo getNodoByNumeroYModulo(String modulo, int numero);
+        
+        public Nodo getNodoById(Long id);
 }

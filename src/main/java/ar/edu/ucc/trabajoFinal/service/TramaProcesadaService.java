@@ -58,7 +58,8 @@ public class TramaProcesadaService {
 		tramaProcesada.setHumedadAvg(tramaProcesadaDto.getHumedadAvg());
 		tramaProcesada.setHumedadMax(tramaProcesadaDto.getHumedadMax());
 		tramaProcesada.setHumedadMin(tramaProcesadaDto.getHumedadMin());
-		tramaProcesada.setIpNodo(tramaProcesadaDto.getIpNodo());
+//		tramaProcesada.setIpNodo(tramaProcesadaDto.getIpNodo());
+                tramaProcesada.setNodo(tramaProcesadaDto.getNodo());
 		tramaProcesada.setPotenciaContinuaAvg(tramaProcesadaDto.getPotenciaContinuaAvg());
 		tramaProcesada.setPotenciaContinuaMax(tramaProcesadaDto.getPotenciaContinuaMax());
 		tramaProcesada.setPotenciaContinuaMin(tramaProcesadaDto.getPotenciaContinuaMin());

@@ -33,10 +33,10 @@ public class TramaDao extends DaoGenericoImp<Trama, Long> implements ITramaDao {
                         + "MAX(desfasaje) AS desfasaje, MAX(tensionTierra) AS tensionTierra, MAX(tensionInterna) AS tensionInterna, MAX(corrienteInterna) AS corrienteInterna, "
                         + "MAX(tensionContinua) AS tensionContinua, MAX(corrienteContinua) AS corrienteContinua, MAX(temperatura1) AS temperatura1, MAX(temperatura2) AS temperatura2, MAX(temperatura3) AS temperatura3,"
                         + "MAX(temperatura4) AS temperatura4, MAX(temperatura5) AS temperatura5, MAX(humedad) AS humedad, MIN(pvm) AS pvm, MAX(potenciaContinua) AS potenciaContinua,"
-                        + "MAX(potenciaRed) AS potenciaRed, MAX(potenciaInterna) AS potenciaInterna, numero AS numero "
+                        + "MAX(potenciaRed) AS potenciaRed, MAX(potenciaInterna) AS potenciaInterna, nodo.id AS nodo "
                         + "from Trama where fecha >= :fechaDesde and fecha <= :fechaHasta "
-                        + "group by numero "
-                        + "order by numero"))
+                        + "group by nodo "
+                        + "order by nodo"))
                 .setResultTransformer(Transformers.aliasToBean(TramaAuxiliar.class))
                 .setParameter("fechaDesde", dateFormatter.parse(dateFormatter.format(fechaDesde)))
                 .setParameter("fechaHasta", dateFormatter.parse(dateFormatter.format(fechaHasta))).list();
@@ -53,10 +53,10 @@ public class TramaDao extends DaoGenericoImp<Trama, Long> implements ITramaDao {
                         + "MIN(tensionTierra) AS tensionTierra, MIN(tensionInterna) AS tensionInterna, MIN(corrienteInterna) AS corrienteInterna, MIN(tensionContinua) AS tensionContinua, "
                         + "MIN(corrienteContinua) AS corrienteContinua, MIN(temperatura1) AS temperatura1, MIN(temperatura2) AS temperatura2, MIN(temperatura3) AS temperatura3, "
                         + "MIN(temperatura4) AS temperatura4, MIN(temperatura5) AS temperatura5, MIN(humedad) AS humedad, MIN(pvm) AS pvm, MIN(potenciaContinua) AS potenciaContinua, "
-                        + "MIN(potenciaRed) AS potenciaRed, MIN(potenciaInterna) AS potenciaInterna, numero AS numero "
+                        + "MIN(potenciaRed) AS potenciaRed, MIN(potenciaInterna) AS potenciaInterna, nodo.id AS nodo "
                         + "from Trama where fecha >= :fechaDesde and fecha <= :fechaHasta "
-                        + "group by numero "
-                        + "order by numero"))
+                        + "group by nodo "
+                        + "order by nodo"))
                 .setResultTransformer(Transformers.aliasToBean(TramaAuxiliar.class))
                 .setParameter("fechaDesde", dateFormatter.parse(dateFormatter.format(fechaDesde)))
                 .setParameter("fechaHasta", dateFormatter.parse(dateFormatter.format(fechaHasta))).list();
@@ -71,10 +71,10 @@ public class TramaDao extends DaoGenericoImp<Trama, Long> implements ITramaDao {
                         + "CAST(AVG(tensionTierra) AS float) AS tensionTierra, CAST(AVG(tensionInterna) AS float) AS tensionInterna, CAST(AVG(corrienteInterna) AS float) AS corrienteInterna, CAST(AVG(tensionContinua) AS float) AS tensionContinua, "
                         + "CAST(AVG(corrienteContinua) AS float) AS corrienteContinua, CAST(AVG(temperatura1) AS float) AS temperatura1, CAST(AVG(temperatura2) AS float) AS temperatura2, CAST(AVG(temperatura3) AS float) AS temperatura3, "
                         + "CAST(AVG(temperatura4) AS float) AS temperatura4, CAST(AVG(temperatura5) AS float) AS temperatura5, CAST(AVG(humedad) AS float) AS humedad, CAST(AVG(pvm) AS float) AS pvm, CAST(AVG(potenciaContinua) AS float) AS potenciaContinua, "
-                        + "CAST(AVG(potenciaRed) AS float) AS potenciaRed, CAST(AVG(potenciaInterna) AS float) AS potenciaInterna, numero AS numero "
+                        + "CAST(AVG(potenciaRed) AS float) AS potenciaRed, CAST(AVG(potenciaInterna) AS float) AS potenciaInterna, nodo.id AS nodo "
                         + "from Trama where fecha >= :fechaDesde and fecha <= :fechaHasta "
-                        + "group by numero "
-                        + "order by numero"))
+                        + "group by nodo "
+                        + "order by nodo"))
                 .setResultTransformer(Transformers.aliasToBean(TramaAuxiliar.class))
                 .setParameter("fechaDesde", dateFormatter.parse(dateFormatter.format(fechaDesde)))
                 .setParameter("fechaHasta", dateFormatter.parse(dateFormatter.format(fechaHasta))).list();
@@ -96,14 +96,14 @@ public class TramaDao extends DaoGenericoImp<Trama, Long> implements ITramaDao {
                         + "potenciaInterna as potenciaInterna, "
                         + "potenciaRed as potenciaRed, "
                         + "hora as hora,"
-                        + "numero as numero "
+                        + "nodo as nodo "
                         + "from Trama "
                         + "where fecha = CURRENT_DATE() AND hora in "
                         + "(SELECT MAX(hora) as hora"
                         + " from Trama "
                         + "where fecha = CURRENT_DATE() "
-                        + "GROUP BY numero) "
-                        + "ORDER BY numero"
+                        + "GROUP BY nodo) "
+                        + "ORDER BY nodo"
                 ))
                 .setResultTransformer(Transformers.aliasToBean(TramaPotencias.class)).list();
         return list;
@@ -133,15 +133,15 @@ public class TramaDao extends DaoGenericoImp<Trama, Long> implements ITramaDao {
                         + "MAX(desfasaje) AS desfasaje, MAX(tensionTierra) AS tensionTierra, MAX(tensionInterna) AS tensionInterna, MAX(corrienteInterna) AS corrienteInterna, "
                         + "MAX(tensionContinua) AS tensionContinua, MAX(corrienteContinua) AS corrienteContinua, MAX(temperatura1) AS temperatura1, MAX(temperatura2) AS temperatura2, MAX(temperatura3) AS temperatura3,"
                         + "MAX(temperatura4) AS temperatura4, MAX(temperatura5) AS temperatura5, MAX(humedad) AS humedad, MIN(pvm) AS pvm, MAX(potenciaContinua) AS potenciaContinua,"
-                        + "MAX(potenciaRed) AS potenciaRed, MAX(potenciaInterna) AS potenciaInterna, numero AS numero "
+                        + "MAX(potenciaRed) AS potenciaRed, MAX(potenciaInterna) AS potenciaInterna, nodo.id AS nodo "
                         + "from Trama where fecha >= :fechaDesde and fecha <= :fechaHasta and hora >= :horaDesde and hora <= :horaHasta "
-                        + "group by numero "
-                        + "order by numero"))
-                .setResultTransformer(Transformers.aliasToBean(TramaAuxiliar.class))
+                        + "GROUP BY nodo "
+                        + "ORDER BY nodo"))
                 .setParameter("fechaDesde", dateFormatter.parse(dateFormatter.format(fechaDesde)))
                 .setParameter("fechaHasta", dateFormatter.parse(dateFormatter.format(fechaHasta)))
                 .setParameter("horaDesde", horaDesde)
-                .setParameter("horaHasta", horaHasta).list();
+                .setParameter("horaHasta", horaHasta)
+                .setResultTransformer(Transformers.aliasToBean(TramaAuxiliar.class)).list();
         
         return list;
 
@@ -156,10 +156,10 @@ public class TramaDao extends DaoGenericoImp<Trama, Long> implements ITramaDao {
                         + "MIN(tensionTierra) AS tensionTierra, MIN(tensionInterna) AS tensionInterna, MIN(corrienteInterna) AS corrienteInterna, MIN(tensionContinua) AS tensionContinua, "
                         + "MIN(corrienteContinua) AS corrienteContinua, MIN(temperatura1) AS temperatura1, MIN(temperatura2) AS temperatura2, MIN(temperatura3) AS temperatura3, "
                         + "MIN(temperatura4) AS temperatura4, MIN(temperatura5) AS temperatura5, MIN(humedad) AS humedad, MIN(pvm) AS pvm, MIN(potenciaContinua) AS potenciaContinua, "
-                        + "MIN(potenciaRed) AS potenciaRed, MIN(potenciaInterna) AS potenciaInterna, numero AS numero "
+                        + "MIN(potenciaRed) AS potenciaRed, MIN(potenciaInterna) AS potenciaInterna, nodo.id AS nodo "
                         + "from Trama where fecha >= :fechaDesde and fecha <= :fechaHasta and hora >= :horaDesde and hora <= :horaHasta "
-                        + "group by numero "
-                        + "order by numero"))
+                        + "group by nodo "
+                        + "order by nodo"))
                 .setResultTransformer(Transformers.aliasToBean(TramaAuxiliar.class))
                 .setParameter("fechaDesde", dateFormatter.parse(dateFormatter.format(fechaDesde)))
                 .setParameter("fechaHasta", dateFormatter.parse(dateFormatter.format(fechaHasta)))
@@ -170,18 +170,18 @@ public class TramaDao extends DaoGenericoImp<Trama, Long> implements ITramaDao {
 
     @Override
     public List<TramaAuxiliar> getTramaPromedio(Date fechaDesde, Date fechaHasta, Time horaDesde, Time horaHasta) throws ParseException {
-        System.out.println("IMPRIMIENDO HORA HASTA--->" + horaHasta);
-        System.out.println("IMPRIMIENDO HORA  ---> " + (horaDesde));
+//        System.out.println("IMPRIMIENDO HORA HASTA--->" + horaHasta);
+//        System.out.println("IMPRIMIENDO HORA  ---> " + (horaDesde));
         List list = ((Query) this.currentSession()
                 .createQuery("select CAST(AVG(tensionRed) AS float) AS tensionRed, "
                         + "CAST(AVG(corrienteRed) AS float) AS corrienteRed, CAST(AVG(frecuenciaTension) AS float) AS frecuenciaTension, CAST(AVG(frecuenciaCorriente) AS float) AS frecuenciaCorriente, CAST(AVG(desfasaje) AS float) AS desfasaje, "
                         + "CAST(AVG(tensionTierra) AS float) AS tensionTierra, CAST(AVG(tensionInterna) AS float) AS tensionInterna, CAST(AVG(corrienteInterna) AS float) AS corrienteInterna, CAST(AVG(tensionContinua) AS float) AS tensionContinua, "
                         + "CAST(AVG(corrienteContinua) AS float) AS corrienteContinua, CAST(AVG(temperatura1) AS float) AS temperatura1, CAST(AVG(temperatura2) AS float) AS temperatura2, CAST(AVG(temperatura3) AS float) AS temperatura3, "
                         + "CAST(AVG(temperatura4) AS float) AS temperatura4, CAST(AVG(temperatura5) AS float) AS temperatura5, CAST(AVG(humedad) AS float) AS humedad, CAST(AVG(pvm) AS float) AS pvm, CAST(AVG(potenciaContinua) AS float) AS potenciaContinua, "
-                        + "CAST(AVG(potenciaRed) AS float) AS potenciaRed, CAST(AVG(potenciaInterna) AS float) AS potenciaInterna, numero AS numero "
+                        + "CAST(AVG(potenciaRed) AS float) AS potenciaRed, CAST(AVG(potenciaInterna) AS float) AS potenciaInterna, nodo.id AS nodo "
                         + "from Trama where fecha >= :fechaDesde and fecha <= :fechaHasta and hora >= :horaDesde and hora <= :horaHasta "
-                        + "group by numero "
-                        + "order by numero"
+                        + "group by nodo "
+                        + "order by nodo"
                 ))
                 .setResultTransformer(Transformers.aliasToBean(TramaAuxiliar.class))
                 .setParameter("fechaDesde", dateFormatter.parse(dateFormatter.format(fechaDesde)))

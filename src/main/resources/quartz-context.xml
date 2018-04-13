@@ -19,6 +19,7 @@
             <map>
                 <entry key="tramaDao" value-ref="tramaDao" />
                 <entry key="tramaProcesadaDao" value-ref="tramaProcesadaDao" />
+                <entry key="nodoDao" value-ref="nodoDao" />
             </map>
         </property>
         <property name="durability" value="true" />
@@ -31,6 +32,7 @@
             <map>
                 <entry key="tramaDao" value-ref="tramaDao" />
                 <entry key="tramaProcesadaDao" value-ref="tramaProcesadaDao" />
+                <entry key="nodoDao" value-ref="nodoDao" />
             </map>
         </property>
         <property name="durability" value="true" />
@@ -43,6 +45,7 @@
             <map>
                 <entry key="tramaDao" value-ref="tramaDao" />
                 <entry key="tramaProcesadaDao" value-ref="tramaProcesadaDao" />
+                <entry key="nodoDao" value-ref="nodoDao" />
             </map>
         </property>
         <property name="durability" value="true" />
@@ -56,7 +59,7 @@
         <property name="jobDetail" ref="job20Minutos" />
         <property name="cronExpression" value="0 0/20 * 1/1 * ? *" /> 
          <!--Descomentar para correr cada 5 segundos el job20Minutos-->
-<!--        <property name="cronExpression" value="0/5 * * * * ?" /> -->
+        <!--<property name="cronExpression" value="0/5 * * * * ?" />--> 
     </bean>
 
     <!-- Corre el job todos los dias a las 22 hs. -->

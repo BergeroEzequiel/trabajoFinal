@@ -70,7 +70,7 @@ public class TramaService {
 		tramaDto.setHora(timeFormatter.format(trama.getHora()));
 		tramaDto.setHumedad(trama.getHumedad());
 //		tramaDto.setModulo(trama.getModulo());
-//		tramaDto.setNumero(trama.getNumero());
+//		tramaDto.setNodo(trama.getNodo());
 		tramaDto.setNodo(trama.getNodo());
 		tramaDto.setPotenciaContinua(trama.getPotenciaContinua());
 		tramaDto.setPotenciaInterna(trama.getPotenciaInterna());
@@ -113,7 +113,7 @@ public class TramaService {
 			tramaDto.setHora(timeFormatter.format((trama.getHora())));
 			tramaDto.setHumedad(trama.getHumedad());
 //			tramaDto.setModulo(trama.getModulo());
-//			tramaDto.setNumero(trama.getNumero());
+//			tramaDto.setNodo(trama.getNodo());
 			tramaDto.setNodo(trama.getNodo());
 			tramaDto.setPotenciaContinua(trama.getPotenciaContinua());
 			tramaDto.setPotenciaInterna(trama.getPotenciaInterna());
@@ -159,7 +159,7 @@ public class TramaService {
 			tramaDto.setHora(timeFormatter.format(trama.getHora()));
 			tramaDto.setHumedad(trama.getHumedad());
 //			tramaDto.setModulo(trama.getModulo());
-//			tramaDto.setNumero(trama.getNumero());
+//			tramaDto.setNodo(trama.getNodo());
 			tramaDto.setNodo(trama.getNodo());
 			tramaDto.setPotenciaContinua(trama.getPotenciaContinua());
 			tramaDto.setPotenciaInterna(trama.getPotenciaInterna());
@@ -248,7 +248,8 @@ public class TramaService {
 			tramaDto.setPotenciaContinua(tramaPotencia.getPotenciaContinua());
 			tramaDto.setPotenciaInterna(tramaPotencia.getPotenciaInterna());
 			tramaDto.setPotenciaRed(tramaPotencia.getPotenciaRed());
-//			tramaDto.setNumero(tramaPotencia.getNumero());
+                        tramaDto.setNodo(tramaPotencia.getNodo());
+//                        tramaDto.setNumero(tramaPotencia.getNodo());
 			tramaDto.setHora(timeFormatter.format(tramaPotencia.getHora()));
 			
 			tramasDto.add(tramaDto);

@@ -4,7 +4,7 @@ import java.sql.Time;
 
 public class TramaAuxiliar {
 
-    private Integer numero;
+    private Nodo nodo;
     private Float tensionRed;
     private Float corrienteRed;
     private Float frecuenciaTension;
@@ -27,12 +27,18 @@ public class TramaAuxiliar {
     private Float potenciaInterna;
     private Time hora;
 
-    public Integer getNumero() {
-        return numero;
+    public Nodo getNodo() {
+            return nodo;
     }
 
-    public void setNumero(Integer numero) {
-        this.numero = numero;
+//    public void setNodo(Nodo nodo) {
+//            this.nodo = nodo;
+//    }
+    
+    public void setNodo(Long idNodo) {
+        Nodo nodo = new Nodo();
+        nodo.setId(idNodo);
+        this.nodo = nodo;
     }
 
     public Float getTensionRed() {

@@ -21,4 +21,9 @@ public class NodoDao  extends DaoGenericoImp<Nodo, Long> implements INodoDao{
 				Restrictions.eqOrIsNull("numero", numero)).get(0);
 	}
 
+    @Override
+    public Nodo getNodoById(Long id) {
+        return this.getByCriteria(Restrictions.eq("id", id)).get(0);
+    }
+
 }
