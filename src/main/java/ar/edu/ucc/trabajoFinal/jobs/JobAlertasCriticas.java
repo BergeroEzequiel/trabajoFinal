@@ -33,6 +33,7 @@ public class JobAlertasCriticas extends QuartzJobBean {
     SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
     DateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
 
+    // algo
     @Autowired
     private AlertaDao alertaDao;
 
