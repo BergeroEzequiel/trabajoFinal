@@ -21,10 +21,10 @@ umbralesModule.directive('numbersOnly', function () {
 })
 .controller("umbralController", function($scope, $http){
 	$scope.umbrales = [];
-	$scope.medidas;
-	$scope.selectedUm = null;
-	$scope.criticidades;
-	$scope.selectedCrit = null;
+	$scope.medidas = [];
+	$scope.selectedUm = {};
+	$scope.criticidades = []
+	$scope.selectedCrit = {};
 	$scope.copia = [];
 	$scope.getUmbrales = function (){
 		  $http.get('http://localhost:8080/trabajoFinal/umbrales')
@@ -61,6 +61,8 @@ umbralesModule.directive('numbersOnly', function () {
 	  
 	$scope.editUmbral = function(umbral) {
 		umbral.$original = umbral.$original || angular.copy(umbral);
+		$scope.selectedUm = umbral.unidadMedida;
+		$scope.selectedCrit = umbral.criticidad;
 		umbral.editMode = true;
 	}
 	
@@ -69,7 +71,7 @@ umbralesModule.directive('numbersOnly', function () {
       umbral.editMode = false;
     }
 	
-	$scope.updateUmbral = function(umbral, selectedUm, selectedCrit) { debugger;
+	$scope.updateUmbral = function(umbral, selectedUm, selectedCrit) {
 		umbral.ultimaModificacion = $scope.getLocalISOTime();
 		umbral.unidadMedida = selectedUm;
 		umbral.criticidad = selectedCrit;

@@ -199,17 +199,21 @@
                             </td>
                             <td>                           
                               <span ng-hide="umbral.editMode">{{umbral.unidadMedida.nombre}}</span>
-                              <select ng-show="umbral.editMode" ng-model="selectedUm">
-                              	<option ng-repeat="um in medidas" ng-value="um">{{um.nombre}}</option>
+                              <select ng-show="umbral.editMode" 
+                              	ng-model="selectedUm" 
+                              	ng-options="um.nombre for um in medidas track by um.id">
+                              	<option value=""></option>
                               </select>
                             </td>
                             <td>
                               <span ng-hide="umbral.editMode">{{umbral.criticidad.prioridad}}</span>
-                              <select ng-show="umbral.editMode" ng-model="selectedCrit">
-                              	<option ng-repeat="crit in criticidades" ng-value="crit">{{crit.prioridad}}</option>
+                              <select ng-show="umbral.editMode" 
+                              	ng-model="selectedCrit"
+                              	ng-options="crit.prioridad for crit in criticidades track by crit.id">
+                              	<option value=""></option>
                               </select>
                             </td>
-                            <td class="a-center ">
+                            <td class="a-center">
                               <input ng-hide="umbral.editMode" type="checkbox" disabled="disabled" class="flat" ng-checked="umbral.activo">
                               <input type="checkbox" ng-show="umbral.editMode" class="flat" ng-checked="umbral.activo" ng-model="umbral.activo">
                             </td>
