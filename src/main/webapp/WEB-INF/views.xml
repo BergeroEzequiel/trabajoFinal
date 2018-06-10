@@ -8,15 +8,20 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 <!--         <property name="url" value="/WEB-INF/views/main/index.jsp" /> -->
 <!--     </bean> -->
     
-    <bean id="home"
+    <bean id="home-solar"
         class="org.springframework.web.servlet.view.JstlView">
-        <property name="url" value="/WEB-INF/views/main/home.jsp" />
+        <property name="url" value="/WEB-INF/views/home/home-solar.jsp" />
     </bean>
     
+    <!-- CONFIGURACION -->
     <bean id="conf-umbrales"
         class="org.springframework.web.servlet.view.JstlView">
-        <property name="url" value="/WEB-INF/views/main/configuracion-umbrales.jsp" />
+        <property name="url" value="/WEB-INF/views/configuracion/conf-umbrales.jsp" />
     </bean>
     
+    <bean id="conf-alertas"
+        class="org.springframework.web.servlet.view.JstlView">
+        <property name="url" value="/WEB-INF/views/configuracion/conf-alertas.jsp" />
+    </bean>    
     
 </beans>

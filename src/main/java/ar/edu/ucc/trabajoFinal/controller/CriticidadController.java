@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -29,6 +30,16 @@ public class CriticidadController {
 		log.info("Buscando todas las criticidades. ");
 		List<Criticidad> criticidades = criticidadService.getCriticidades();
 		return new ResponseEntity(criticidades, HttpStatus.OK);
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@RequestMapping(value = "/criticidad", 
+			method = RequestMethod.PUT, produces = "application/json")
+	public ResponseEntity<?> actualizarCriticidad(@RequestBody Criticidad criticidad)
+			throws Exception {
+		
+		Criticidad criticidadRespuesta = criticidadService.grabarCriticidad(criticidad);		
+		return new ResponseEntity(criticidadRespuesta,HttpStatus.OK);
 	}
 
 }

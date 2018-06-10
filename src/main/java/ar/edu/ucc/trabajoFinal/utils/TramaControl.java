@@ -124,7 +124,7 @@ public class TramaControl {
 	public void controlarTrama(TramaDto tramaDto) throws ParseException {
 		if (!this.nodo.isActivo()) return;
 		for (Variable v : variablesAControlar) {
-			if (v.controlarVariable(v.getValorActual()) == false) {
+			if (v.getUmbral().isActivo() && !v.controlarVariable(v.getValorActual())) {
 				Alerta alerta = new Alerta(v, this.nodo);
 				
 				/* El visualizar en true deveria setearlo el job, cosa de que desde la

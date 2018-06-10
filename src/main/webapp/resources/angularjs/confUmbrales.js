@@ -1,4 +1,4 @@
-var umbralesModule = angular.module('umbrales', [])
+var umbralesModule = angular.module('confUmbrales', [])
 umbralesModule.directive('numbersOnly', function () {
     return {
         require: 'ngModel',
@@ -91,7 +91,7 @@ umbralesModule.directive('numbersOnly', function () {
 	}
 	
 })
-.controller("userController", function($scope){
+.controller("userController", function($scope) {
 	
 	$scope.nombre = "Juan Castagnola"
 	

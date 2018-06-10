@@ -1,5 +1,6 @@
 package ar.edu.ucc.trabajoFinal.service;
 
+import java.text.ParseException;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -36,6 +37,13 @@ public class CriticidadService {
 
 		List<Criticidad> criticidades = criticidadDaoParticular.getAll();
 		return criticidades;
+	}
+	
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
+	public Criticidad grabarCriticidad(Criticidad criticidad) throws ParseException {
+		log.info("Guardando: " + criticidad.toString());
+		criticidadDaoParticular.saveOrUpdate(criticidad);
+		return criticidad;
 	}
 }
 	
