@@ -38,6 +38,7 @@
 				<ul class="nav child_menu">
 					<li><a href="conf-umbrales">Umbrales</a></li>
 					<li><a href="conf-alertas">Alertas</a></li>
+					<li><a href="conf-nodos">Nodos</a></li>
 				</ul></li>
 		</ul>
 	</div>

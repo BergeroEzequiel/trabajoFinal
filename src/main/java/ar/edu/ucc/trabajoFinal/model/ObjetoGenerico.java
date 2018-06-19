@@ -14,10 +14,6 @@ public class ObjetoGenerico {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
 	private Long id;
-	
-	@Version
-	@Column(name = "VERSION", columnDefinition = "bigint not null DEFAULT 0")
-	private Long version;
 
 	public Long getId() {
 		return id;
@@ -25,13 +21,5 @@ public class ObjetoGenerico {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public Long getVersion() {
-		return version;
-	}
-
-	public void setVersion(Long version) {
-		this.version = version;
 	}
 }

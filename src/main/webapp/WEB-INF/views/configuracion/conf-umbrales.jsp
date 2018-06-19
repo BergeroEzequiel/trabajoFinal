@@ -54,14 +54,12 @@
 											ng-model="umbral.valorMax" placeholder="Valor Máximo"
 											required="" /></td>
 										<td><span ng-hide="umbral.editMode">{{umbral.unidadMedida.nombre}}</span>
-											<select ng-show="umbral.editMode" ng-model="selectedUm"
-											ng-options="um.nombre for um in medidas track by um.id">
-												<option value=""></option>
+											<select ng-show="umbral.editMode" ng-model="umbral.unidadMedida"
+												ng-options="um.nombre for um in medidas track by um.id">
 										</select></td>
 										<td><span ng-hide="umbral.editMode">{{umbral.criticidad.prioridad}}</span>
-											<select ng-show="umbral.editMode" ng-model="selectedCrit"
-											ng-options="crit.prioridad for crit in criticidades track by crit.id">
-												<option value=""></option>
+											<select ng-show="umbral.editMode" ng-model="umbral.criticidad"
+												ng-options="crit.prioridad for crit in criticidades track by crit.id">
 										</select></td>
 										<td class="a-center"><input ng-hide="umbral.editMode"
 											type="checkbox" disabled="disabled" class="flat"
@@ -72,7 +70,7 @@
 										<td class="last"><a href="" ng-hide="umbral.editMode"
 											ng-click="editUmbral(umbral)">Editar</a> <a href=""
 											ng-show="umbral.editMode"
-											ng-click="updateUmbral(umbral, selectedUm, selectedCrit)">Guardar</a>
+											ng-click="updateUmbral(umbral)">Guardar</a>
 											<a href="" ng-show="umbral.editMode"
 											ng-click="cancel(umbral)">Cancelar</a></td>
 
@@ -92,8 +90,8 @@
 
 <%@include file="../layout/footer.jsp"%>
 <script src="resources/angularjs/confUmbrales.js"></script>
-	<!-- close container body and main container -->
-	</div> 
+<!-- close container body and main container -->
+</div>
 </div>
 </body>
 </html>

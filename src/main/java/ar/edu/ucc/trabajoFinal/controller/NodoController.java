@@ -63,7 +63,7 @@ public class NodoController {
 			throws Exception {
 		
 		Nodo nodoRespuesta = nodoService.grabarNodo(nodo);		
-		return new ResponseEntity(nodoRespuesta,HttpStatus.OK);
+		return new ResponseEntity(nodoRespuesta, HttpStatus.OK);
 	}
 	
 	

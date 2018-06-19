@@ -49,7 +49,6 @@
 
     create table alertas (
         ID bigint not null auto_increment,
-        VERSION bigint not null DEFAULT 0,
         descripcion varchar(50) not null,
         fecha datetime not null,
         hora time not null,
@@ -64,7 +63,6 @@
 
     create table criticidades (
         ID bigint not null auto_increment,
-        VERSION bigint not null DEFAULT 0,
         cantidad_repeticiones integer,
         periodo_tiempo varchar(255),
         prioridad varchar(255) not null,
@@ -73,7 +71,6 @@
 
     create table monitoreo_detalle (
         ID bigint not null auto_increment,
-        VERSION bigint not null DEFAULT 0,
         corriente_continua float not null,
         corriente_interna float not null,
         corriente_red float not null,
@@ -104,7 +101,6 @@
 
     create table monitoreo_procesado (
         ID bigint not null auto_increment,
-        VERSION bigint not null DEFAULT 0,
         corriente_continua_avg float not null,
         corriente_continua_max float not null,
         corriente_continua_min float not null,
@@ -172,7 +168,6 @@
 
     create table nodos (
         ID bigint not null auto_increment,
-        VERSION bigint not null DEFAULT 0,
         activo BOOLEAN DEFAULT true not null,
         descripcion varchar(250) not null,
         moludo varchar(50) not null,
@@ -183,7 +178,6 @@
     create table umbrales (
         tipo_umbral varchar(31) not null,
         ID bigint not null auto_increment,
-        VERSION bigint not null DEFAULT 0,
         activo BOOLEAN DEFAULT true not null,
         nombre_variable varchar(50) not null,
         ultima_modificacion date not null,
@@ -197,7 +191,6 @@
 
     create table unidades_medida (
         ID bigint not null auto_increment,
-        VERSION bigint not null DEFAULT 0,
         factor_conversion float not null,
         nombre varchar(255) not null,
         primary key (ID)
@@ -205,7 +198,6 @@
 
     create table usuarios (
         ID bigint not null auto_increment,
-        VERSION bigint not null DEFAULT 0,
         apellido varchar(50) not null,
         email varchar(200) not null,
         estado_sistema bit not null,

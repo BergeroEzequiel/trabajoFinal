@@ -21,11 +21,9 @@ umbralesModule.directive('numbersOnly', function () {
 })
 .controller("umbralController", function($scope, $http){
 	$scope.umbrales = [];
+	$scope.umbral;
 	$scope.medidas = [];
-	$scope.selectedUm = {};
-	$scope.criticidades = []
-	$scope.selectedCrit = {};
-	$scope.copia = [];
+	$scope.criticidades = [];
 	$scope.getUmbrales = function (){
 		  $http.get('http://localhost:8080/trabajoFinal/umbrales')
 		  .then(onUmbralesCallback, errorCallback);
@@ -60,23 +58,23 @@ umbralesModule.directive('numbersOnly', function () {
 	  $scope.getCriticidades();
 	  
 	$scope.editUmbral = function(umbral) {
-		umbral.$original = umbral.$original || angular.copy(umbral);
-		$scope.selectedUm = umbral.unidadMedida;
-		$scope.selectedCrit = umbral.criticidad;
+		umbral.$original = angular.copy(umbral);
 		umbral.editMode = true;
 	}
 	
 	$scope.cancel = function(umbral) {
-	  angular.copy(umbral.$original, umbral);
-      umbral.editMode = false;
+		angular.copy(umbral.$original, umbral);
+		umbral.editMode = false;
     }
 	
-	$scope.updateUmbral = function(umbral, selectedUm, selectedCrit) {
+	$scope.updateUmbral = function(umbral) {
 		umbral.ultimaModificacion = $scope.getLocalISOTime();
-		umbral.unidadMedida = selectedUm;
-		umbral.criticidad = selectedCrit;
-		$http.put('http://localhost:8080/trabajoFinal/umbral/', umbral);
-		umbral.editMode = false;
+		$scope.umbral = umbral;
+		$http.put('http://localhost:8080/trabajoFinal/umbral/', umbral)
+			.then(onSuccessUpdateCallback, errorCallback);
+		function onSuccessUpdateCallback(response) {
+			$scope.umbral.editMode = false;
+		};
 	}
 	
 	$scope.getLocalISOTime = function() {

@@ -1,5 +1,5 @@
-var umbralesModule = angular.module('confAlertas', [])
-umbralesModule.directive('numbersOnly', function () {
+var alertasModule = angular.module('confAlertas', [])
+alertasModule.directive('numbersOnly', function () {
     return {
         require: 'ngModel',
         link: function (scope, element, attr, ngModelCtrl) {
@@ -21,7 +21,7 @@ umbralesModule.directive('numbersOnly', function () {
 })
 .controller("criticidadController", function($scope, $http){
 	$scope.criticidades = [];
-	$scope.copia = [];
+	$scope.criticidad;
 	  
 	$scope.getCriticidades = function (){
 		  $http.get('http://localhost:8080/trabajoFinal/criticidades')
@@ -37,7 +37,7 @@ umbralesModule.directive('numbersOnly', function () {
 	  $scope.getCriticidades();
 	  
 	$scope.editCriticidad = function(criticidad) {
-		criticidad.$original = criticidad.$original || angular.copy(criticidad);
+		criticidad.$original = angular.copy(criticidad);
 		criticidad.editMode = true;
 	}
 	
@@ -47,13 +47,12 @@ umbralesModule.directive('numbersOnly', function () {
     }
 	
 	$scope.updateCriticidad = function(criticidad) {
-		$http.put('http://localhost:8080/trabajoFinal/criticidad/', criticidad);
-		criticidad.editMode = false;
-	}
-	
-	$scope.getHumanRedableName = function(name) {
-		var name = name.replace("_"," ");
-		return name.charAt(0).toUpperCase() + name.slice(1);
+		$scope.criticidad = criticidad;
+		$http.put('http://localhost:8080/trabajoFinal/criticidad/', criticidad)
+			.then(onSuccessUpdateCallback, errorCallback);
+		function onSuccessUpdateCallback(response) {
+			$scope.criticidad.editMode = false;
+		}
 	}
 	
 })

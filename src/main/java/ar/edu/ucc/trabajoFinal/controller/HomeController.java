@@ -27,5 +27,11 @@ public class HomeController {
 		ModelAndView confAlertas = new ModelAndView("conf-alertas");
 		return confAlertas;
 	}
+	
+	@RequestMapping(value = "conf-nodos", method = RequestMethod.GET)
+	public ModelAndView confNodos() {
+		ModelAndView confNodos = new ModelAndView("conf-nodos");
+		return confNodos;
+	}
 
 }
