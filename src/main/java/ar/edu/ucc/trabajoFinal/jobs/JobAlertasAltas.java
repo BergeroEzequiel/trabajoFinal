@@ -24,7 +24,7 @@ import org.springframework.scheduling.quartz.QuartzJobBean;
  *
  * @author ezequiel
  */
-public class JobAlertasCriticas extends QuartzJobBean {
+public class JobAlertasAltas extends QuartzJobBean{
     
     SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
     DateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
@@ -39,21 +39,21 @@ public class JobAlertasCriticas extends QuartzJobBean {
     private NodoDao nodoDao;
 
     private Time horaActual;
-    private Time horaMenos2Minutos;
+    private Time horaMenos10Minutos;
 
     @Override
     protected void executeInternal(JobExecutionContext jec) throws JobExecutionException {
         List<AlertaAuxiliar> alertasAGenerar = null;
         horaActual = new Time(System.currentTimeMillis());
-        horaMenos2Minutos = Hora.restarMinutos(horaActual, 2);
-        Criticidad criticidadCritica = criticidadDao.getCriticidadByPrioridad("Critica");
-        alertasAGenerar = alertaDao.getAlertasAMostrar(horaMenos2Minutos, horaActual,
-                criticidadCritica);
+        horaMenos10Minutos = Hora.restarMinutos(horaActual, 10);
+        Criticidad criticidadAlta = criticidadDao.getCriticidadByPrioridad("Alta");
+        alertasAGenerar = alertaDao.getAlertasAMostrar(horaMenos10Minutos, horaActual,
+                criticidadAlta);
         if(!alertasAGenerar.isEmpty())
             for (AlertaAuxiliar alertaAuxiliar : alertasAGenerar) {
-                if (alertaAuxiliar.getCantidadRepeticiones() >= criticidadCritica.getCantidadRepeticiones()) {
+                if (alertaAuxiliar.getCantidadRepeticiones() >= criticidadAlta.getCantidadRepeticiones()) {
                     Alerta alerta = new Alerta();
-                    alerta.setCriticidad(criticidadCritica);
+                    alerta.setCriticidad(criticidadAlta);
                     alerta.setDescripcion(" Se generaron " + alertaAuxiliar.getCantidadRepeticiones());
                     try {
                         alerta.setFecha(dateFormatter.parse(dateFormatter.format(new Date())));
@@ -82,5 +82,5 @@ public class JobAlertasCriticas extends QuartzJobBean {
     public void setNodoDao(NodoDao nodoDao) {
         this.nodoDao = nodoDao;
     }
-
+    
 }

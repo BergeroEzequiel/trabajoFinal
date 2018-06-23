@@ -1,7 +1,6 @@
 package ar.edu.ucc.trabajoFinal.service;
 
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -17,7 +16,9 @@ import ar.edu.ucc.trabajoFinal.dao.AlertaDao;
 import ar.edu.ucc.trabajoFinal.dao.DaoGenerico;
 import ar.edu.ucc.trabajoFinal.dao.IAlertaDao;
 import ar.edu.ucc.trabajoFinal.model.Alerta;
-import ar.edu.ucc.trabajoFinal.model.Nodo;
+import java.sql.Time;
+import java.text.ParseException;
+import java.util.Date;
 
 @Service
 @Transactional
@@ -39,8 +40,8 @@ public class AlertaService {
 	}
 	
 	@Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
-	public List<Alerta> getAlertasByNodo(Long idNodo){		
-		List<Alerta> alertas = alertaDaoParticular.getAlertasByNodo(idNodo);
+	public List<Alerta> getAlertasByNodo(Long idNodo, Date fechaDesde, Date fechaHasta) throws ParseException{		
+		List<Alerta> alertas = alertaDaoParticular.getAlertasByNodo(idNodo, fechaDesde, fechaHasta);
 		return alertas;
 	}
 	
@@ -53,8 +54,8 @@ public class AlertaService {
 	}
 	
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-	public List<Alerta> getAlertas() {		
-		List<Alerta> alertas = this.alertaDaoParticular.getAlertas();
+	public List<Alerta> getAlertas(Time horaDesde, Time horaHasta) throws ParseException {		
+		List<Alerta> alertas = this.alertaDaoParticular.getAlertas(horaDesde, horaHasta);
 		return alertas;
 	}
 }

@@ -16,6 +16,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import ar.edu.ucc.trabajoFinal.trama.Variable;
+import javax.persistence.FetchType;
 
 
 @Entity
@@ -28,22 +29,22 @@ public class Alerta extends ObjetoGenerico{
 	@Column(name="variable_afectada", length=50, nullable=false)
 	private String variableAfectada;
 	
-	@Column(name="valor", length=50, nullable=false)
+	@Column(name="valor", length=50)
 	private Float valor;
 
 	@ManyToOne
-	@JoinColumn(name="id_umbral")
+	@JoinColumn(name="id_umbral", nullable = true)
 	private Umbral umbralSuperado;
 	
 	@ManyToOne
 	@JoinColumn(name="id_nodo")
-	private Nodo nodoAfectado;
+	private Nodo nodo;
 	
 	@ManyToOne
 	@JoinColumn(name="id_criticidad")
 	private Criticidad criticidad;
 	
-	@Column(name="visualizar", nullable = false, columnDefinition = "BOOLEAN DEFAULT true")
+	@Column(name="visualizar", nullable = false, columnDefinition = "BOOLEAN DEFAULT false")
 	private boolean visualizar;
 	
 	@Column(name="fecha", nullable=false)
@@ -61,7 +62,7 @@ public class Alerta extends ObjetoGenerico{
 		this.variableAfectada = v.getNombre();
 		this.valor = v.getValorActual();
 		this.umbralSuperado = v.getUmbral();
-		this.nodoAfectado = nodo;
+		this.nodo = nodo;
 		this.criticidad = v.getUmbral().getCriticidad();
 		this.fecha = new Date();
 		this.hora = new Time(System.currentTimeMillis());
@@ -99,13 +100,14 @@ public class Alerta extends ObjetoGenerico{
 		this.umbralSuperado = umbralSuperado;
 	}
 
-	public Nodo getNodoAfectado() {
-		return nodoAfectado;
-	}
+        public Nodo getNodo() {
+            return nodo;
+        }
 
-	public void setNodoAfectado(Nodo nodoAfectado) {
-		this.nodoAfectado = nodoAfectado;
-	}
+        public void setNodo(Nodo nodo) {
+            this.nodo = nodo;
+        }
+
 
 	public Criticidad getCriticidad() {
 		return criticidad;
