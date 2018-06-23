@@ -13,4 +13,6 @@ import ar.edu.ucc.trabajoFinal.model.Criticidad;
  */
 public interface ICriticidadDao extends DaoGenerico<Criticidad, Long>{
     
+    public Criticidad getCriticidadByPrioridad(String prioridad);
+    
 }
