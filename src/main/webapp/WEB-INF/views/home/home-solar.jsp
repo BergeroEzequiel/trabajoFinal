@@ -108,16 +108,22 @@
 					<div class="x_content bs-example-popovers"
 						ng-controller="alertasController">
 						<div ng-repeat="alerta in alertas">
-							<div class="alert alert-success alert-dismissible fade in"
-								role="alert">
+							<div class="alert alert-dismissible fade in"
+								role="alert"
+                                                                ng-class="{
+                                                                    'alerta-critica': (alerta.criticidad.prioridad === 'Critica'),
+                                                                    'alerta-alta': (alerta.criticidad.prioridad === 'Alta'),
+                                                                    'alerta-media': (alerta.criticidad.prioridad === 'Media'),
+                                                                    'alerta-baja': (alerta.criticidad.prioridad === 'Baja')
+                                                                }">
 								<button type="button" class="close" data-dismiss="alert"
 									aria-label="Close">
 									<span aria-hidden="true">×</span>
 								</button>
 								<strong>{{alerta.descripcion}}</strong>
 								{{alerta.variableAfectada}}
-								<p>Nodo afectado: {{alerta.nodoAfectado}} Umbral Superado:
-									{{alerta.umbralSuperado}} Valor: {{alerta.valor}}</p>
+								<p>Nodo afectado: {{alerta.nodo.modulo + alerta.nodo.numero}} Criticidad:
+									{{alerta.criticidad.prioridad}} Hora: {{alerta.hora}}</p>
 								.
 							</div>
 						</div>

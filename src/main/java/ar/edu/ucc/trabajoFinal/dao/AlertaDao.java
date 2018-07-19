@@ -13,8 +13,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.hibernate.Query;
 import org.hibernate.transform.Transformers;
 
@@ -24,20 +22,22 @@ public class AlertaDao extends DaoGenericoImp<Alerta, Long> implements IAlertaDa
     SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
     DateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
 
-    //FALTA AGREGAR EL PERIODO DE TIEMPO COMO FILTRO ACA!!!
     @Override
-    public List<Alerta> getAlertasByNodo(Long idNodo, Date fechaDesde, Date fechaHasta) throws ParseException{
-        return this.getByCriteria(Restrictions.eq("nodo.id", idNodo),
-                Restrictions.eq("visualizar", true), 
+    public List<Alerta> getAlertasByNodo(Long idNodo, Date fechaDesde, Date fechaHasta, Criticidad criticidad) throws ParseException{
+        return this.getByCriteria(
+                idNodo != null? Restrictions.eq("nodo.id", idNodo) : null,
+                Restrictions.eq("visualizar", true),
+                criticidad != null? Restrictions.eq("criticidad", criticidad) : null,
                 Restrictions.ge("fecha", dateFormatter.parse(dateFormatter.format(fechaDesde))),
                 Restrictions.le("fecha", dateFormatter.parse(dateFormatter.format(fechaHasta))));
     }
 
     
     @Override
-    public List<Alerta> getAlertas(Time horaDesde, Time horaHasta) throws ParseException{
-        return this.getByCriteria(Restrictions.eq("visualizar", true), 
-                Restrictions.eq("visualizar", true), 
+    public List<Alerta> getAlertas(Time horaDesde, Time horaHasta, Criticidad criticidad) throws ParseException{
+        return this.getByCriteria( 
+                Restrictions.eq("visualizar", true),
+                criticidad != null ? Restrictions.eq("criticidad.id", criticidad.getId()): Restrictions.sqlRestriction("1 = 1"),
                 Restrictions.ge("hora", horaDesde), 
                 Restrictions.le("hora", horaHasta),
                 Restrictions.eq("fecha", dateFormatter.parse(dateFormatter.format(new Date()))));

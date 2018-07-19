@@ -2,8 +2,6 @@ package ar.edu.ucc.trabajoFinal.model;
 
 
 import java.sql.Time;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -12,11 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
 
 import ar.edu.ucc.trabajoFinal.trama.Variable;
-import javax.persistence.FetchType;
 
 
 @Entity

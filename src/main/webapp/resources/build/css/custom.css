@@ -4077,17 +4077,28 @@ ul.verticle_bars li {
     background-color: rgba(52, 152, 219, 0.88);
     border-color: rgba(52, 152, 219, 0.88)
 }
-.alert-warning {
+.alert-warning, .alerta-baja {
     color: #E9EDEF;
     background-color: rgba(243, 156, 18, 0.88);
     border-color: rgba(243, 156, 18, 0.88)
 }
 .alert-danger,
-.alert-error {
+.alert-error, .alerta-alta {
     color: #E9EDEF;
     background-color: rgba(231, 76, 60, 0.88);
     border-color: rgba(231, 76, 60, 0.88)
 }
+.alerta-critica {
+    color: #E9EDEF;
+    background-color: rgba(239, 13, 13, 0.9);
+    border-color: rgba(239, 13, 13, 0.9)
+}
+.alerta-media {
+    color: #E9EDEF;
+    background-color: rgba(252, 128, 36, 0.9);
+    border-color: rgba(252, 128, 36, 0.9)
+}
+rgba(252, 128, 36, 0.9)
 .ui-pnotify.dark .ui-pnotify-container {
     color: #E9EDEF;
     background-color: rgba(52, 73, 94, 0.88);

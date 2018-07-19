@@ -32,11 +32,11 @@ public class AlertaController {
 	private AlertaService alertaService;
 	
         /**
-         * Recibe un rango horario (horaDesde y horaHasta) y busca todas las alertas
-         * a visualizar de el DIA ACTUAL en ese rango horario.
+         * Recibe un rango horario (horaDesde y horaHasta) y una prioridad de criticidad. Busca todas las alertas
+         * a visualizar de el DIA ACTUAL en ese rango horario y con esa criticidad(Critica, Alta, etc).
          * La hora se debe pasar como HH:MM:SS
          * Ejemplo de uso:
-         *      http://localhost:8080/trabajoFinal/alertas?horaDesde=01:01:01&horaHasta=02:02:02
+         *      http://localhost:8080/trabajoFinal/alertas?horaDesde=01:01:01&horaHasta=02:02:02&prioridadCriticidad=Critica
          * 
          * @param horaDesde
          * @param horaHasta
@@ -45,17 +45,19 @@ public class AlertaController {
          */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value = "/alertas", method = RequestMethod.GET, produces = "application/json")
-	public ResponseEntity<?> getAlertasByNodo(
-                @RequestParam("horaDesde") String horaDesde, 
-                @RequestParam("horaHasta") String horaHasta) throws Exception{
-		List<Alerta> alertas = alertaService.getAlertas(Time.valueOf(horaDesde), Time.valueOf(horaHasta));
+	public ResponseEntity<?> getAlertas(
+                @RequestParam(value = "horaDesde") String horaDesde, 
+                @RequestParam(value = "horaHasta") String horaHasta,
+                @RequestParam(value = "prioridadCriticidad", required = false) String prioridadCriticidad) throws Exception{
+		List<Alerta> alertas = alertaService.getAlertas(Time.valueOf(horaDesde), Time.valueOf(horaHasta), prioridadCriticidad);
 		return new ResponseEntity(alertas, HttpStatus.OK);
 	}
 	
         /**
-         * Busca todas las alertas a visualizar de un determinado nodo y 
+         * Busca todas las alertas a visualizar de un determinado nodo, una determinada Criticidad y 
          * en un rango de fechas determinado.
-         * De ser posible enviar la fecha de la forma: YYYY-MM-DD
+         * De ser posible enviar la fecha de la forma: YYYY-MM-DD.
+         * idNodo y prioridadCriticidad son parámetros no requeridos, las fechas SI.
          * Ejemplo para consumir la API:
          *      http://localhost:8080/trabajoFinal/alertasPorNodo?idNodo=1&fechaDesde=2018-06-01&fechaHasta=2018-06-31
          * 
@@ -67,11 +69,13 @@ public class AlertaController {
          */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value = "/alertasPorNodo", method = RequestMethod.GET, produces = "application/json")
-	public ResponseEntity<?> getAlertasByNodo(@RequestParam("idNodo") Long idNodo, 
-                @RequestParam("fechaDesde") String fechaDesde, 
-                @RequestParam("fechaHasta") String fechaHasta) throws Exception{
+	public ResponseEntity<?> getAlertasByNodo(
+                @RequestParam(value = "idNodo", required = false) Long idNodo, 
+                @RequestParam(value = "fechaDesde") String fechaDesde, 
+                @RequestParam(value = "fechaHasta") String fechaHasta,
+                @RequestParam(value = "prioridadCriticidad", required = false) String prioridadCriticidad) throws Exception{
 		List<Alerta> alertasDto = alertaService.getAlertasByNodo(
-                        idNodo, dateFormatter.parse(fechaDesde), dateFormatter.parse(fechaHasta));
+                        idNodo, dateFormatter.parse(fechaDesde), dateFormatter.parse(fechaHasta), prioridadCriticidad);
 		return new ResponseEntity(alertasDto, HttpStatus.OK);
 	}
 	

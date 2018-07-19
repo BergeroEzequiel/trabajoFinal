@@ -29,6 +29,6 @@
 	rel="stylesheet">
 
 <!-- Custom Theme Style -->
-<link href="<c:url value="/resources/build/css/custom.min.css" />"
+<link href="<c:url value="/resources/build/css/custom.css" />"
 	rel="stylesheet">
 </head>
