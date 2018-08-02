@@ -196,6 +196,12 @@
 		</div>
 
 	</div>
+    <!-- TEST -->
+        <div class="x_content">
+            <div class="col-md-7" ng-controller="chartController">
+                <canvas id="myChart" style="display: inline-block; width: 478px; height: 125px; vertical-align: top;"></canvas>
+            </div>
+        </div>
 </div>
 <!-- /page content -->
 

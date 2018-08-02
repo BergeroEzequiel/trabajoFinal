@@ -32,7 +32,7 @@ angular.module('home', [])
   
   $scope.getTramas();
   
-  $interval( function(){$scope.getTramas();}, 10000);
+  $interval( function(){$scope.getTramas();}, 30000);
   
 })
 
@@ -40,6 +40,98 @@ angular.module('home', [])
 	
 	$scope.nombre = "Juan Castagnola"
 	
+})
+.controller("chartController", function($scope, $http, $interval){
+    
+    $scope.tramas = [];
+    $scope.potenciasTotales = null;
+    $scope.myChart = null;
+
+    $scope.getTramas = function (){
+        $scope.potenciasTotales = {
+                        potenciaContinua:0,
+                        potenciaRed:0,
+                        potenciaInterna:0
+        }; 
+        $http.get('http://localhost:8080/trabajoFinal/potenciasNodos')
+        .then(successCallback, errorCallback);
+    }
+
+    function successCallback(response) {
+      $scope.tramas = response.data;
+
+      angular.forEach($scope.tramas, function(value, key){
+             if(value.potenciaContinua != null && value.potenciaRed != null 
+                             && value.potenciaInterna != null){
+                     $scope.potenciasTotales.potenciaContinua += value.potenciaContinua;
+                     $scope.potenciasTotales.potenciaRed += value.potenciaRed;
+                     $scope.potenciasTotales.potenciaInterna += value.potenciaInterna;
+             };
+           });
+           $scope.buildChart();
+
+    }
+
+    function errorCallback(err) {
+      console.log(err);
+    }
+
+    $scope.getTramas();
+
+    $interval( function(){$scope.getTramas();}, 30000);
+            
+    $scope.buildChart = function () {
+        var ctx = document.getElementById("myChart").getContext('2d');
+
+        if (!$scope.myChart) {
+            $scope.myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ["pot 1", "pot 2", "pot 3"],
+                datasets: [{
+                    label: '# of Votes',
+                    data: [
+                        $scope.potenciasTotales.potenciaContinua,
+                     $scope.potenciasTotales.potenciaRed,
+                     $scope.potenciasTotales.potenciaInterna
+                    ],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }]
+                }
+            }
+        })
+    } else {
+            $scope.myChart.data.datasets.forEach((dataset) => {
+            dataset.data = [
+                     $scope.potenciasTotales.potenciaContinua,
+                     $scope.potenciasTotales.potenciaRed,
+                     $scope.potenciasTotales.potenciaInterna
+                    ];
+            });
+//        $scope.myChart.data.datasets.data = data;
+        $scope.myChart.update();
+    }
+    
+}
+        
 })
 .controller("alertasController", function ($scope, $http, $interval, $filter) {
         $scope.alertasCriticas = [];
