@@ -34,4 +34,11 @@ public class HomeController {
 		return confNodos;
 	}
 
+	// ALERTAS
+	@RequestMapping(value = "alertas-detalle", method = RequestMethod.GET)
+	public ModelAndView alertas() {
+		ModelAndView alertasDetalle = new ModelAndView("alertas-detalle");
+		return alertasDetalle;
+	}
+
 }
