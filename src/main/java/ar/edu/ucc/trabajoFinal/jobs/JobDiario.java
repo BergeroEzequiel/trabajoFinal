@@ -14,6 +14,7 @@ import ar.edu.ucc.trabajoFinal.dao.TramaProcesadaDao;
 import ar.edu.ucc.trabajoFinal.model.TipoProcesamiento;
 import ar.edu.ucc.trabajoFinal.model.TramaAuxiliar;
 import ar.edu.ucc.trabajoFinal.model.TramaProcesada;
+import java.sql.Time;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -111,6 +112,8 @@ public class JobDiario extends QuartzJobBean {
                 tramaProcesada.setTensionTierraMax(tramaMaximos.getTensionTierra());
                 tramaProcesada.setTensionTierraMin(tramaMinimos.getTensionTierra());
                 tramaProcesada.setTipoProcesamiento(TipoProcesamiento.TIPO_2);
+                tramaProcesada.setHora(new Time(System.currentTimeMillis()));
+                tramaProcesada.setFecha(new Date());
 
                 tramaProcesadaDao.add(tramaProcesada);
             }

@@ -1,5 +1,7 @@
 package ar.edu.ucc.trabajoFinal.model;
 
+import java.sql.Time;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -7,13 +9,14 @@ import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 
 @Entity
 @Table(name = "monitoreo_procesado")
 public class TramaProcesada extends ObjetoGenerico {
 
     @ManyToOne
-    @JoinColumn(name="id_nodo")
+    @JoinColumn(name = "id_nodo")
     private Nodo nodo;
 
     @Column(name = "tension_red_max", nullable = false)
@@ -197,8 +200,15 @@ public class TramaProcesada extends ObjetoGenerico {
     private float potenciaInternaAvg;
 
     @Enumerated(EnumType.ORDINAL)
-    @Column(name="tipo_procesamiento", nullable=false)
+    @Column(name = "tipo_procesamiento", nullable = false)
     private TipoProcesamiento tipoProcesamiento;
+
+    @Column(name = "fecha", nullable = true)
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date fecha;
+
+    @Column(name = "hora", nullable = true)
+    private Time hora;
 
     public Nodo getNodo() {
         return nodo;
@@ -694,6 +704,22 @@ public class TramaProcesada extends ObjetoGenerico {
 
     public void setTipoProcesamiento(TipoProcesamiento tipoProcesamiento) {
         this.tipoProcesamiento = tipoProcesamiento;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+
+    public Time getHora() {
+        return hora;
+    }
+
+    public void setHora(Time hora) {
+        this.hora = hora;
     }
     
     

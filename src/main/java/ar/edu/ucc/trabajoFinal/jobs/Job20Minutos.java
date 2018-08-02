@@ -118,6 +118,8 @@ public class Job20Minutos extends QuartzJobBean {
                 tramaProcesada.setTensionTierraMax(tramaMaximos.getTensionTierra());
                 tramaProcesada.setTensionTierraMin(tramaMinimos.getTensionTierra());
                 tramaProcesada.setTipoProcesamiento(TipoProcesamiento.TIPO_1);
+                tramaProcesada.setHora(horaActual);
+                tramaProcesada.setFecha(new Date());
 
                 tramaProcesadaDao.add(tramaProcesada);
             }
