@@ -112,7 +112,7 @@ public class JobSemanal extends QuartzJobBean {
                 tramaProcesada.setTensionTierraAvg(tramaPromedios.getTensionTierra());
                 tramaProcesada.setTensionTierraMax(tramaMaximos.getTensionTierra());
                 tramaProcesada.setTensionTierraMin(tramaMinimos.getTensionTierra());;
-                tramaProcesada.setTipoProcesamiento(TipoProcesamiento.TIPO_3);
+                tramaProcesada.setTipoProcesamiento(new TipoProcesamiento(TipoProcesamiento.SEMANAL));
                 tramaProcesada.setHora(new Time(System.currentTimeMillis()));
                 tramaProcesada.setFecha(new Date());
 

@@ -1,24 +1,38 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ar.edu.ucc.trabajoFinal.model;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  *
  * @author ezequiel
  */
-public enum TipoProcesamiento {
-    TIPO_1("20 Minutos"), TIPO_2("Diario"), TIPO_3("Semanal");
+@Entity
+@Table(name = "tipo_procesamiento")
+public class TipoProcesamiento extends ObjetoGenerico{
+
+    public TipoProcesamiento() {
+    }
+
+    public TipoProcesamiento(Long id) {
+        this.setId(id);
+    }
     
-    private final String descripcion;
+    //NOTA: Estos IDs deben ser los mismos que los de la BD.
+    
+    public static final long MINUTOS20 = 1;
+    public static final long DIARIO = 2;
+    public static final long SEMANAL = 3;
+    
+    @Column(name = "descripcion", nullable = false)
+    private String descripcion;
 
     public String getDescripcion() {
         return descripcion;
     }
-    
-    private TipoProcesamiento(String descripcion){
+
+    public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
     

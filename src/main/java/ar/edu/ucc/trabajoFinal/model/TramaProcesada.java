@@ -199,8 +199,8 @@ public class TramaProcesada extends ObjetoGenerico {
     @Column(name = "potencia_interna_avg", nullable = false)
     private float potenciaInternaAvg;
 
-    @Enumerated(EnumType.ORDINAL)
-    @Column(name = "tipo_procesamiento", nullable = false)
+    @ManyToOne
+    @JoinColumn(name="id_tipo_procesamiento")
     private TipoProcesamiento tipoProcesamiento;
 
     @Column(name = "fecha", nullable = true)

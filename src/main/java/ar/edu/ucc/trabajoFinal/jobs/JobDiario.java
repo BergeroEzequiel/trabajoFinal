@@ -111,7 +111,7 @@ public class JobDiario extends QuartzJobBean {
                 tramaProcesada.setTensionTierraAvg(tramaPromedios.getTensionTierra());
                 tramaProcesada.setTensionTierraMax(tramaMaximos.getTensionTierra());
                 tramaProcesada.setTensionTierraMin(tramaMinimos.getTensionTierra());
-                tramaProcesada.setTipoProcesamiento(TipoProcesamiento.TIPO_2);
+                tramaProcesada.setTipoProcesamiento(new TipoProcesamiento(TipoProcesamiento.DIARIO));
                 tramaProcesada.setHora(new Time(System.currentTimeMillis()));
                 tramaProcesada.setFecha(new Date());
 
