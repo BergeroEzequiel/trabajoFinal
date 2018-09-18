@@ -9,6 +9,7 @@ import ar.edu.ucc.trabajoFinal.model.Alerta;
 import ar.edu.ucc.trabajoFinal.model.Criticidad;
 import ar.edu.ucc.trabajoFinal.model.Nodo;
 import ar.edu.ucc.trabajoFinal.model.ObjetoGenerico;
+import ar.edu.ucc.trabajoFinal.model.TipoProcesamiento;
 import ar.edu.ucc.trabajoFinal.model.Trama;
 import ar.edu.ucc.trabajoFinal.model.TramaProcesada;
 import ar.edu.ucc.trabajoFinal.model.Umbral;
@@ -41,6 +42,7 @@ public class SqlSchemaGenerator {
 		config.addAnnotatedClass(TramaProcesada.class);
 		config.addAnnotatedClass(Criticidad.class);
 		config.addAnnotatedClass(UnidadMedida.class);
+                config.addAnnotatedClass(TipoProcesamiento.class);
 		
 		SchemaExport schemaExport = new SchemaExport(config);
 		schemaExport.setDelimiter(";");

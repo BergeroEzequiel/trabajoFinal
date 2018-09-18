@@ -25,9 +25,9 @@ public class AlertaDao extends DaoGenericoImp<Alerta, Long> implements IAlertaDa
     @Override
     public List<Alerta> getAlertasByNodo(Long idNodo, Date fechaDesde, Date fechaHasta, Criticidad criticidad) throws ParseException{
         return this.getByCriteria(
-                idNodo != null? Restrictions.eq("nodo.id", idNodo) : null,
+                idNodo != null? Restrictions.eq("nodo.id", idNodo) : Restrictions.sqlRestriction("1 = 1"),
                 Restrictions.eq("visualizar", true),
-                criticidad != null? Restrictions.eq("criticidad", criticidad) : null,
+                criticidad != null? Restrictions.eq("criticidad", criticidad) : Restrictions.sqlRestriction("1 = 1"),
                 Restrictions.ge("fecha", dateFormatter.parse(dateFormatter.format(fechaDesde))),
                 Restrictions.le("fecha", dateFormatter.parse(dateFormatter.format(fechaHasta))));
     }

@@ -109,7 +109,8 @@
     <bean id="cronTrigger20Minutos"
               class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
         <property name="jobDetail" ref="job20Minutos" />
-        <property name="cronExpression" value="0 0/20 * 1/1 * ? *" /> 
+        <property name="cronExpression" value="0 0/2 * 1/1 * ? *" />
+        <!--<property name="cronExpression" value="0 0/20 * 1/1 * ? *" />--> 
     </bean>
 
     <!-- Corre el job todos los dias a las 22 hs. -->

@@ -19,6 +19,10 @@
         drop 
         foreign key FK_44a9ciuvf4eccmymykurkai35;
 
+    alter table monitoreo_procesado 
+        drop 
+        foreign key FK_23b49w3is6prrexptbn69fuhk;
+
     alter table umbrales 
         drop 
         foreign key FK_d7vtnlc37w5na0rtdcr8msaow;
@@ -40,6 +44,8 @@
     drop table if exists monitoreo_procesado;
 
     drop table if exists nodos;
+
+    drop table if exists tipo_procesamiento;
 
     drop table if exists umbrales;
 
@@ -113,7 +119,7 @@
         desfasaje_avg float not null,
         desfasaje_max float not null,
         desfasaje_min float not null,
-        fecha datetime,
+        fecha date,
         frecuencia_corriente_avg float not null,
         frecuencia_corriente_max float not null,
         frecuencia_corriente_min float not null,
@@ -163,8 +169,8 @@
         tension_tierra_avg float not null,
         tension_tierra_max float not null,
         tension_tierra_min float not null,
-        tipo_procesamiento integer not null,
         id_nodo bigint,
+        id_tipo_procesamiento bigint,
         primary key (ID)
     ) ENGINE=InnoDB;
 
@@ -174,6 +180,12 @@
         descripcion varchar(250) not null,
         moludo varchar(50) not null,
         numero integer not null,
+        primary key (ID)
+    ) ENGINE=InnoDB;
+
+    create table tipo_procesamiento (
+        ID bigint not null auto_increment,
+        descripcion varchar(255) not null,
         primary key (ID)
     ) ENGINE=InnoDB;
 
@@ -235,6 +247,11 @@
         add constraint FK_44a9ciuvf4eccmymykurkai35 
         foreign key (id_nodo) 
         references nodos (ID);
+
+    alter table monitoreo_procesado 
+        add constraint FK_23b49w3is6prrexptbn69fuhk 
+        foreign key (id_tipo_procesamiento) 
+        references tipo_procesamiento (ID);
 
     alter table umbrales 
         add constraint FK_d7vtnlc37w5na0rtdcr8msaow 
