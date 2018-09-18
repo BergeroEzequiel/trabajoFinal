@@ -2,11 +2,15 @@ package ar.edu.ucc.trabajoFinal.trama;
 
 import ar.edu.ucc.trabajoFinal.model.Umbral;
 
-public abstract class Variable {
+public class Variable {
 	
 	protected String nombre;
 	protected float valorActual;
 	protected Umbral umbral = new Umbral();
+	
+	public Variable(String nombre) {
+		this.setNombre(nombre);
+	}
 	
 	public boolean controlarVariable(float valorActual){
 		if(this.umbral.getValorMax() > valorActual && valorActual > this.umbral.getValorMin()) return true;

@@ -1,10 +1,7 @@
 package ar.edu.ucc.trabajoFinal.service;
 
-import java.sql.Time;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -16,74 +13,65 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.ucc.trabajoFinal.dao.AlertaDao;
+import ar.edu.ucc.trabajoFinal.dao.CriticidadDao;
 import ar.edu.ucc.trabajoFinal.dao.DaoGenerico;
 import ar.edu.ucc.trabajoFinal.dao.IAlertaDao;
-import ar.edu.ucc.trabajoFinal.dto.AlertaDto;
-import ar.edu.ucc.trabajoFinal.dto.TramaDto;
+import ar.edu.ucc.trabajoFinal.dao.ICriticidadDao;
 import ar.edu.ucc.trabajoFinal.model.Alerta;
-import ar.edu.ucc.trabajoFinal.model.Trama;
+import ar.edu.ucc.trabajoFinal.model.Criticidad;
+import java.sql.Time;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Date;
 
 @Service
 @Transactional
 public class AlertaService {
-	
-	private Logger log = Logger.getLogger(this.getClass());
 
-	@Autowired
-	DaoGenerico<Alerta, Long> alertaDao;
+    private Logger log = Logger.getLogger(this.getClass());
 
-	IAlertaDao alertaDaoParticular;
+    @Autowired
+    DaoGenerico<Alerta, Long> alertaDao;
 
-	SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
-	DateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
-	
-	@PostConstruct
-	public void init() {
-		alertaDaoParticular = (AlertaDao) alertaDao;
-	}
-	
-	@Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
-	public List<AlertaDto> getAlertasByNodo(int ipNodo){
-		log.info("Filtrando alertas con el ipNodo: " + ipNodo);
-		
-		List<Alerta> alertas = alertaDaoParticular.getAlertasByNodo(ipNodo);
-		
-		List<AlertaDto> alertasDto = new ArrayList<AlertaDto>();
-		
-		AlertaDto alertaDto;
-		for (Alerta alerta : alertas) {
-			alertaDto = new AlertaDto();
-			alertaDto.setDescripcion(alerta.getDescripcion());
-			alertaDto.setVariableAfectada(alerta.getVariableAfectada());
-			alertaDto.setUmbralSuperado(alerta.getUmbralSuperado());
-			alertaDto.setNodoAfectado(alerta.getNodoAfectado());
-			alertaDto.setVisualizar(alerta.isVisualizar());
-			alertaDto.setFecha(dateFormatter.format(alerta.getFecha()));
-			alertaDto.setHora(timeFormatter.format(alerta.getHora()));
-			
-			alertasDto.add(alertaDto);
-		}
-		return alertasDto;
-	}
-	
-	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-	public AlertaDto grabarAlerta(AlertaDto alertaDto) throws ParseException {
+    @Autowired
+    DaoGenerico<Criticidad, Long> criticidadDao;
 
-		log.info("Guardando: " + alertaDto.toString());
-		
-		Alerta alerta = new Alerta();
-		alerta.setDescripcion(alertaDto.getDescripcion());
-		alerta.setVariableAfectada(alertaDto.getVariableAfectada());
-		alerta.setValor(alertaDto.getValor());
-		alerta.setUmbralSuperado(alertaDto.getUmbralSuperado());
-		alerta.setNodoAfectado(alertaDto.getNodoAfectado());
-		alerta.setVisualizar(alertaDto.isVisualizar());
-		alerta.setFecha(dateFormatter.parse(alertaDto.getFecha()));
-		alerta.setHora(new Time(timeFormatter.parse(alertaDto.getHora()).getTime()));
-		
-		alertaDaoParticular.saveOrUpdate(alerta);
-		alertaDto.setId(alerta.getId());
-		
-		return alertaDto;
-	}
+    IAlertaDao alertaDaoParticular;
+    ICriticidadDao criticidadDaoParticular;
+
+    SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+    DateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
+
+    @PostConstruct
+    public void init() {
+        alertaDaoParticular = (AlertaDao) alertaDao;
+        criticidadDaoParticular = (CriticidadDao) criticidadDao;
+
+    }
+
+    @Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
+    public List<Alerta> getAlertasByNodo(Long idNodo, Date fechaDesde, Date fechaHasta, String prioridad) throws ParseException {
+        Criticidad criticidad = null;
+        if(prioridad != null && !prioridad.isEmpty())
+            criticidad = this.criticidadDaoParticular.getCriticidadByPrioridad(prioridad);
+        List<Alerta> alertas = alertaDaoParticular.getAlertasByNodo(idNodo, fechaDesde, fechaHasta, criticidad);
+        return alertas;
+    }
+
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
+    public Alerta grabarAlerta(Alerta alerta) {
+
+        log.info("Guardando: " + alerta.toString());
+        alertaDaoParticular.saveOrUpdate(alerta);
+        return alerta;
+    }
+
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
+    public List<Alerta> getAlertas(Time horaDesde, Time horaHasta, String prioridad) throws ParseException {
+        Criticidad criticidad = null;
+        if(prioridad != null && !prioridad.isEmpty())
+            criticidad = this.criticidadDaoParticular.getCriticidadByPrioridad(prioridad);
+        List<Alerta> alertas = this.alertaDaoParticular.getAlertas(horaDesde, horaHasta, criticidad);
+        return alertas;
+    }
 }

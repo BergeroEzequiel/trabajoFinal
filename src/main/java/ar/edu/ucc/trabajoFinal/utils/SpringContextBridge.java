@@ -7,6 +7,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
 import ar.edu.ucc.trabajoFinal.service.AlertaService;
+import ar.edu.ucc.trabajoFinal.service.NodoService;
 import ar.edu.ucc.trabajoFinal.service.SpringContextBridgedServices;
 import ar.edu.ucc.trabajoFinal.service.UmbralService;
 
@@ -16,6 +17,9 @@ public class SpringContextBridge
 
     private static ApplicationContext applicationContext;
 
+    @Autowired
+    private NodoService nodoService;
+    
     @Autowired
     private UmbralService umbralService;
     
@@ -54,6 +58,11 @@ public class SpringContextBridge
 	@Override
 	public AlertaService getAlertaService() {
 		return this.alertaService;
+	}
+
+	@Override
+	public NodoService getNodoService() {
+		return this.nodoService;
 	}
 
 }

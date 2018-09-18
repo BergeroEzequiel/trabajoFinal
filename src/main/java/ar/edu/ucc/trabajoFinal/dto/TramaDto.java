@@ -3,6 +3,7 @@ package ar.edu.ucc.trabajoFinal.dto;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
+import ar.edu.ucc.trabajoFinal.model.Nodo;
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
 
@@ -29,6 +30,7 @@ public class TramaDto {
 		this.humedad=((float) tramaJson.getDouble("humedad"));
 		this.modulo=(tramaJson.getString("modulo"));
 		this.numero=(tramaJson.getInt("numero"));
+		
 		this.potenciaContinua=((float) tramaJson.getDouble("potencia_continua"));
 		this.potenciaInterna=((float) tramaJson.getDouble("potencia_interna"));
 		this.potenciaRed=((float) tramaJson.getDouble("potencia_red"));
@@ -50,6 +52,8 @@ public class TramaDto {
 	private String modulo;
 
 	private int numero;
+	
+	private Nodo nodo;
 
 	private String estado;
 
@@ -114,6 +118,14 @@ public class TramaDto {
 
 	public void setNumero(int numero) {
 		this.numero = numero;
+	}
+
+	public Nodo getNodo() {
+		return nodo;
+	}
+
+	public void setNodo(Nodo nodo) {
+		this.nodo = nodo;
 	}
 
 	public boolean getEstadoControl() {
@@ -319,7 +331,7 @@ public class TramaDto {
 	
 	@Override
 	public String toString() {
-		return "{" + "modulo=" + getModulo() + ", numero='" + getNumero() + '\'' + ", estado='" + getEstado() + '\'' + ", tension_red='"
+		return "{" + "nodo=" + getModulo() + ", numero='" + getNumero() + '\'' + ", estado='" + getEstado() + '\'' + ", tension_red='"
 				+ getTensionRed() + '\'' + ", corriente_red='" + getCorrienteRed() + '\''
 				+ ", frecuencia_tension='" + getFrecuenciaTension() + '\'' + ", frecuencia_corriente='"
 				+ getFrecuenciaCorriente() + '\'' + ", desfasaje='" + getDesfasaje() + '\''

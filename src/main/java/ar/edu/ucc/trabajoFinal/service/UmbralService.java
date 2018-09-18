@@ -15,10 +15,14 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.ucc.trabajoFinal.dao.DaoGenerico;
+import ar.edu.ucc.trabajoFinal.dao.INodoDao;
 import ar.edu.ucc.trabajoFinal.dao.IUmbralDao;
 import ar.edu.ucc.trabajoFinal.dao.UmbralDao;
 import ar.edu.ucc.trabajoFinal.dto.UmbralDto;
+import ar.edu.ucc.trabajoFinal.dto.UmbralEspecificoDto;
+import ar.edu.ucc.trabajoFinal.model.Nodo;
 import ar.edu.ucc.trabajoFinal.model.Umbral;
+import ar.edu.ucc.trabajoFinal.model.UmbralEspecifico;
 
 @Service
 @Transactional
@@ -30,6 +34,11 @@ public class UmbralService {
 	DaoGenerico<Umbral, Long> umbralDao;
 
 	IUmbralDao umbralDaoParticular;
+	
+	@Autowired
+	DaoGenerico<Nodo, Long> nodoDao;
+	
+	INodoDao nodoDaoParticular;
 
 	SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 	DateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
@@ -40,97 +49,50 @@ public class UmbralService {
 	}
 	
 	@Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
-	public UmbralDto getUmbral(Long id) {
-		
-		log.info("Cargando umbral: " + id);
-
-		Umbral umbral = umbralDaoParticular.load(id);
-		UmbralDto umbralDto = new UmbralDto();
-		umbralDto.setNombreVariable(umbral.getNombreVariable());
-		umbralDto.setValorMax(umbral.getValorMax());
-		umbralDto.setValorMin(umbral.getValorMin());
-		umbralDto.setFechaUltimaModificacion(dateFormatter.format(umbral.getUltimaModificacion()));
-		umbralDto.setActivo(umbral.isActivo());
-		umbralDto.setTipo(umbral.getTipo());
-		
-		return umbralDto;
+	public List<Umbral> getUmbralesGenericos() {
+		log.info("Buscando todos los umbrales genericos");
+		List<Umbral> umbrales = umbralDaoParticular.getUmbralesGenericos();
+		return umbrales;
 	}
 	
 	@Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
-	public List<UmbralDto> getUmbrales() {
-		log.info("Buscando todos las tramas");
-
-		List<Umbral> umbrales = umbralDaoParticular.getAll();
-		
-		List<UmbralDto> umbralesDto = new ArrayList<UmbralDto>();
-
-		UmbralDto umbralDto;
-		for (Umbral umbral : umbrales) {
-			umbralDto = new UmbralDto();
-			umbralDto.setNombreVariable(umbral.getNombreVariable());
-			umbralDto.setValorMax(umbral.getValorMax());
-			umbralDto.setValorMin(umbral.getValorMin());
-			umbralDto.setFechaUltimaModificacion(dateFormatter.format(umbral.getUltimaModificacion()));
-			umbralDto.setActivo(umbral.isActivo());
-			umbralDto.setTipo(umbral.getTipo());
-			
-			umbralesDto.add(umbralDto);
-		}
-
-		return umbralesDto;
-	}
-	
-	@Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
-	public UmbralDto getUmbralByVariable(String nombreVariable){
-		
-		Umbral umbral = umbralDaoParticular.getUmbralByVariable(nombreVariable);
-		UmbralDto umbralDto = new UmbralDto();
-		umbralDto.setNombreVariable(umbral.getNombreVariable());
-		umbralDto.setValorMax(umbral.getValorMax());
-		umbralDto.setValorMin(umbral.getValorMin());
-		umbralDto.setFechaUltimaModificacion(dateFormatter.format(umbral.getUltimaModificacion()));
-		umbralDto.setActivo(umbral.isActivo());
-		umbralDto.setTipo(umbral.getTipo());
-		
-		return umbralDto;
+	public Umbral getUmbralGenericoByVariable(String nombreVariable){		
+		Umbral umbral = umbralDaoParticular.getUmbralGenericoByVariable(nombreVariable);
+		return umbral;
 	}
 	
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-	public UmbralDto grabarUmbral(UmbralDto umbralDto) throws ParseException {
-
-		log.info("Guardando: " + umbralDto.toString());
-
-		Umbral umbral = new Umbral();
-		umbral.setNombreVariable(umbralDto.getNombreVariable());
-		umbral.setValorMax(umbralDto.getValorMax());
-		umbral.setValorMin(umbralDto.getValorMin());
-		umbral.setUltimaModificacion(dateFormatter.parse(umbralDto.getFechaUltimaModificacion()));
-		umbral.setActivo(umbralDto.isActivo());
-		umbral.setTipo(umbralDto.getTipo());
-		
+	public Umbral grabarUmbral(Umbral umbral) throws ParseException {
+		log.info("Guardando: " + umbral.toString());
 		umbralDaoParticular.saveOrUpdate(umbral);
-		umbralDto.setId(umbral.getId());
-		
-		return umbralDto;
-	}
-	
-	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-	public UmbralDto actualizarUmbral(UmbralDto umbralDto) throws ParseException {
-
-		log.info("Actualizando: " + umbralDto.toString());
-
-		Umbral umbral = umbralDaoParticular.load(umbralDto.getId());
-		
-		umbral.setNombreVariable(umbralDto.getNombreVariable());
-		umbral.setValorMax(umbralDto.getValorMax());
-		umbral.setValorMin(umbralDto.getValorMin());
-		umbral.setUltimaModificacion(dateFormatter.parse(umbralDto.getFechaUltimaModificacion()));
-		umbral.setActivo(umbralDto.isActivo());
-		umbral.setTipo(umbralDto.getTipo());
-		
-		umbralDaoParticular.saveOrUpdate(umbral);
-		
-		return umbralDto;
+		return umbral;
 	}		
 		
+	@Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
+	public List<Umbral> getUmbralesEspByNodo(Long idNodo) {
+		return umbralDaoParticular.getUmbralesEspByNodo(idNodo);
+	}
+	
+	@Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
+	public List<Umbral> getUmbralesNodo(Long idNodo) {
+		List<Umbral> umbrales = umbralDaoParticular.getUmbralesGenericos();;
+		List<Umbral> umbralesEsp = umbralDaoParticular.getUmbralesEspByNodo(idNodo);
+		
+		List<Umbral> umbralesMerge = new ArrayList<Umbral>();
+
+		ArrayList<String> variablesEspecificas = new ArrayList<String>();
+		
+		for (Umbral umbralEsp : umbralesEsp) {			
+			umbralesMerge.add(umbralEsp);
+			variablesEspecificas.add(umbralEsp.getNombreVariable());
+		}
+		for (Umbral umbral : umbrales) {
+			if (!variablesEspecificas.contains(umbral.getNombreVariable())) {
+				umbralesMerge.add(umbral);
+			}
+		}
+		
+		return umbralesMerge;
+	}
+	
 }

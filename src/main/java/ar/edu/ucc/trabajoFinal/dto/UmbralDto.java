@@ -1,7 +1,5 @@
 package ar.edu.ucc.trabajoFinal.dto;
 
-import java.sql.Date;
-
 public class UmbralDto {
 	
 	private Long id;

@@ -1,10 +1,12 @@
 package ar.edu.ucc.trabajoFinal.dto;
 
+import ar.edu.ucc.trabajoFinal.model.Nodo;
+
 public class TramaProcesadaDto {
 	
 	private Long id;
 	
-	private int ipNodo;
+	private Nodo nodo;
 	
 	private float tensionRedMax;
 
@@ -134,13 +136,15 @@ public class TramaProcesadaDto {
 		this.id = id;
 	}
 
-	public int getIpNodo() {
-		return ipNodo;
-	}
+        public Nodo getNodo() {
+            return nodo;
+        }
 
-	public void setIpNodo(int ipNodo) {
-		this.ipNodo = ipNodo;
-	}
+        public void setNodo(Nodo nodo) {
+            this.nodo = nodo;
+        }
+
+        
 
 	public float getTensionRedMax() {
 		return tensionRedMax;

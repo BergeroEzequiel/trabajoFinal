@@ -15,6 +15,9 @@ import ar.edu.ucc.trabajoFinal.dao.ITramaProcesadaDao;
 import ar.edu.ucc.trabajoFinal.dao.TramaProcesadaDao;
 import ar.edu.ucc.trabajoFinal.dto.TramaProcesadaDto;
 import ar.edu.ucc.trabajoFinal.model.TramaProcesada;
+import java.sql.Time;
+import java.util.Date;
+import java.util.List;
 
 @Service
 @Transactional
@@ -23,13 +26,13 @@ public class TramaProcesadaService {
 	private Logger log = Logger.getLogger(this.getClass());
 
 	@Autowired
-	DaoGenerico<TramaProcesada, Long> tramaDaoParticular;
+	DaoGenerico<TramaProcesada, Long> tramaProcesadaDao;
 
 	ITramaProcesadaDao tramaProcesadaDaoParticular;
 
 	@PostConstruct
 	public void init() {
-		tramaProcesadaDaoParticular = (TramaProcesadaDao) tramaDaoParticular;
+		tramaProcesadaDaoParticular = (TramaProcesadaDao) tramaProcesadaDao;
 	}
 	
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
@@ -58,7 +61,8 @@ public class TramaProcesadaService {
 		tramaProcesada.setHumedadAvg(tramaProcesadaDto.getHumedadAvg());
 		tramaProcesada.setHumedadMax(tramaProcesadaDto.getHumedadMax());
 		tramaProcesada.setHumedadMin(tramaProcesadaDto.getHumedadMin());
-		tramaProcesada.setIpNodo(tramaProcesadaDto.getIpNodo());
+//		tramaProcesada.setIpNodo(tramaProcesadaDto.getIpNodo());
+                tramaProcesada.setNodo(tramaProcesadaDto.getNodo());
 		tramaProcesada.setPotenciaContinuaAvg(tramaProcesadaDto.getPotenciaContinuaAvg());
 		tramaProcesada.setPotenciaContinuaMax(tramaProcesadaDto.getPotenciaContinuaMax());
 		tramaProcesada.setPotenciaContinuaMin(tramaProcesadaDto.getPotenciaContinuaMin());
@@ -99,12 +103,22 @@ public class TramaProcesadaService {
 		tramaProcesada.setTensionTierraMax(tramaProcesadaDto.getTensionTierraMax());
 		tramaProcesada.setTensionTierraMin(tramaProcesadaDto.getTensionTierraMin());
 		
-		tramaDaoParticular.saveOrUpdate(tramaProcesada);
+		tramaProcesadaDao.saveOrUpdate(tramaProcesada);
 		
 		tramaProcesadaDto.setId(tramaProcesada.getId());		
 		
 		return tramaProcesadaDto;
 		
 	}
+        
+        @Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
+        public List<TramaProcesada> getTramasProcesadasByFecha(Date fechaDesde, Date fechaHasta, Long idTipoProcesamiento) throws ParseException{
+            return tramaProcesadaDaoParticular.getTramasProcesadasByFecha(fechaDesde, fechaHasta, idTipoProcesamiento);
+        }
+        
+        @Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
+        public List<TramaProcesada> getTramasProcesadasByHora(Time horaDesde, Time horaHasta, Long idTipoProcesamiento) throws ParseException{
+            return tramaProcesadaDaoParticular.getTramasProcesadasByHora(horaDesde, horaHasta, idTipoProcesamiento);
+        }
 
 }

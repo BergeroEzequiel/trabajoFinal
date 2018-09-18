@@ -4,17 +4,19 @@ import java.sql.Time;
 
 public class TramaPotencias {
 	
-	private int numero;
+	private Nodo nodo;
 	private Float potenciaContinua;
 	private Float potenciaRed;
 	private Float potenciaInterna;
 	private Time hora;
-	public int getNumero() {
-		return numero;
-	}
-	public void setNumero(int numero) {
-		this.numero = numero;	
-	}
+
+        public Nodo getNodo() {
+            return nodo;
+        }
+
+        public void setNodo(Nodo nodo) {
+            this.nodo = nodo;
+        }
 	public Float getPotenciaContinua() {
 		return potenciaContinua;
 	}

@@ -8,17 +8,30 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class HomeController {
 
-
+	// HOME
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView home() {
-		ModelAndView home = new ModelAndView("home");
+		ModelAndView home = new ModelAndView("home-solar");
 		return home;
 	}
 	
-	@RequestMapping(value = "variables", method = RequestMethod.GET)
-	public ModelAndView variables() {
-		ModelAndView variables = new ModelAndView("variables");
-		return variables;
+	// CONFIGURACION
+	@RequestMapping(value = "conf-umbrales", method = RequestMethod.GET)
+	public ModelAndView confUmbrales() {
+		ModelAndView confUmbrales = new ModelAndView("conf-umbrales");
+		return confUmbrales;
+	}
+	
+	@RequestMapping(value = "conf-alertas", method = RequestMethod.GET)
+	public ModelAndView confAlertas() {
+		ModelAndView confAlertas = new ModelAndView("conf-alertas");
+		return confAlertas;
+	}
+	
+	@RequestMapping(value = "conf-nodos", method = RequestMethod.GET)
+	public ModelAndView confNodos() {
+		ModelAndView confNodos = new ModelAndView("conf-nodos");
+		return confNodos;
 	}
 
 }

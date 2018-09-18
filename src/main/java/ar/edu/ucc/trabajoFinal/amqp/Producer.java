@@ -22,14 +22,14 @@ public class Producer {
 
 		SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 		DateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
-		int[] array = {1,2,3,4,5,6};
+		int[] array = {1};
 		
 		for (int i = 0; i < 2000; i++) {
 			
 			
 			for (int j = 0; j < array.length; j++) {
 				TramaDto tramaAuxiliar = new TramaDto();
-				tramaAuxiliar.setCorrienteContinua((float)Math.random()*100);
+				tramaAuxiliar.setCorrienteContinua((float)667);
 				tramaAuxiliar.setCorrienteInterna((float)Math.random()*100);
 				tramaAuxiliar.setCorrienteRed((float)Math.random()*100);
 				tramaAuxiliar.setDesfasaje((float)Math.random()*100);
