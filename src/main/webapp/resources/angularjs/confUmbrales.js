@@ -1,5 +1,5 @@
 var umbralesModule = angular.module('confUmbrales', [])
-umbralesModule.directive('numbersOnly', function () {
+umbralesModule.directive('numbersOnly', function() {
     return {
         require: 'ngModel',
         link: function (scope, element, attr, ngModelCtrl) {
@@ -19,12 +19,12 @@ umbralesModule.directive('numbersOnly', function () {
         }
     };
 })
-.controller("umbralController", function($scope, $http){
+.controller("umbralController", function($scope, $http) {
 	$scope.umbrales = [];
 	$scope.umbral;
 	$scope.medidas = [];
 	$scope.criticidades = [];
-	$scope.getUmbrales = function (){
+	$scope.getUmbrales = function() {
 		  $http.get('http://localhost:8080/trabajoFinal/umbrales')
 		  .then(onUmbralesCallback, errorCallback);
 	  }
@@ -37,7 +37,7 @@ umbralesModule.directive('numbersOnly', function () {
 	  }
 	  $scope.getUmbrales();
 	  
-	$scope.getUnidadesMedida = function (){
+	$scope.getUnidadesMedida = function() {
 		  $http.get('http://localhost:8080/trabajoFinal/unidades-medida')
 		  .then(onUnidadesMedidaCallback, errorCallback);
 	  }
@@ -47,7 +47,7 @@ umbralesModule.directive('numbersOnly', function () {
 
 	  $scope.getUnidadesMedida();
 	  
-	$scope.getCriticidades = function (){
+	$scope.getCriticidades = function() {
 		  $http.get('http://localhost:8080/trabajoFinal/criticidades')
 		  .then(onCriticidadesCallback, errorCallback);
 	  }
@@ -74,7 +74,7 @@ umbralesModule.directive('numbersOnly', function () {
 			.then(onSuccessUpdateCallback, errorCallback);
 		function onSuccessUpdateCallback(response) {
 			$scope.umbral.editMode = false;
-		};
+		}
 	}
 	
 	$scope.getLocalISOTime = function() {

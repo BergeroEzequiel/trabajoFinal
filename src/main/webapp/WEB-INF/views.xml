@@ -7,7 +7,8 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 <!--         class="org.springframework.web.servlet.view.JstlView"> -->
 <!--         <property name="url" value="/WEB-INF/views/main/index.jsp" /> -->
 <!--     </bean> -->
-    
+
+    <!--- HOME -->
     <bean id="home-solar"
         class="org.springframework.web.servlet.view.JstlView">
         <property name="url" value="/WEB-INF/views/home/home-solar.jsp" />
@@ -27,6 +28,12 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
     <bean id="conf-nodos"
         class="org.springframework.web.servlet.view.JstlView">
         <property name="url" value="/WEB-INF/views/configuracion/conf-nodos.jsp" />
-    </bean> 
+    </bean>
+
+    <!-- ALERTAS -->
+    <bean id="alertas-detalle"
+          class="org.springframework.web.servlet.view.JstlView">
+        <property name="url" value="/WEB-INF/views/alertas/alertas-detalle.jsp" />
+    </bean>
     
 </beans>
