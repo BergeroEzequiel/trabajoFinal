@@ -12,6 +12,7 @@ import javax.persistence.Table;
 
 
 import ar.edu.ucc.trabajoFinal.trama.Variable;
+import javax.persistence.Temporal;
 
 
 @Entity
@@ -43,6 +44,7 @@ public class Alerta extends ObjetoGenerico{
 	private boolean visualizar;
 	
 	@Column(name="fecha", nullable=false)
+        @Temporal(javax.persistence.TemporalType.DATE)
 	private Date fecha;
 	
 	@Column(name="hora", nullable=false)
