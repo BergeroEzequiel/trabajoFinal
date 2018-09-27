@@ -8,13 +8,16 @@ import org.springframework.stereotype.Repository;
 import ar.edu.ucc.trabajoFinal.model.Alerta;
 import ar.edu.ucc.trabajoFinal.model.AlertaAuxiliar;
 import ar.edu.ucc.trabajoFinal.model.Criticidad;
+import ar.edu.ucc.trabajoFinal.utils.Fecha;
 import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import org.hibernate.Query;
 import org.hibernate.transform.Transformers;
+import org.hibernate.type.StandardBasicTypes;
 
 @Repository
 public class AlertaDao extends DaoGenericoImp<Alerta, Long> implements IAlertaDao {
@@ -23,13 +26,16 @@ public class AlertaDao extends DaoGenericoImp<Alerta, Long> implements IAlertaDa
     DateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
 
     @Override
-    public List<Alerta> getAlertasByNodo(Long idNodo, Date fechaDesde, Date fechaHasta, Criticidad criticidad) throws ParseException{
+    public List<Alerta> getAlertasByNodo(Long idNodo, String fechaDesde, String fechaHasta, Criticidad criticidad) throws ParseException{
+        Calendar c = Calendar.getInstance();
+        c.setTime(dateFormatter.parse(fechaHasta));
+        c.add(Calendar.DATE, 1);
         return this.getByCriteria(
                 idNodo != null? Restrictions.eq("nodo.id", idNodo) : Restrictions.sqlRestriction("1 = 1"),
-                Restrictions.eq("visualizar", true),
+                Restrictions.eq("visualizar", false),
                 criticidad != null? Restrictions.eq("criticidad", criticidad) : Restrictions.sqlRestriction("1 = 1"),
-                Restrictions.ge("fecha", dateFormatter.parse(dateFormatter.format(fechaDesde))),
-                Restrictions.le("fecha", dateFormatter.parse(dateFormatter.format(fechaHasta))));
+                Restrictions.ge("fecha", dateFormatter.parse(fechaDesde)),
+                Restrictions.lt("fecha", dateFormatter.parse(dateFormatter.format(c.getTime()))));
     }
 
     

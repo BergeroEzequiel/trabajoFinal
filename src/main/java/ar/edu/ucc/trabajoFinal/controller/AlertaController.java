@@ -54,7 +54,7 @@ public class AlertaController {
 	}
 	
         /**
-         * Busca todas las alertas a visualizar de un determinado nodo, una determinada Criticidad y 
+         * Busca todas las alertas a visualizar de un determinado nodo, una determinada Criticidad (Critica, Alta, Media o Baja) y 
          * en un rango de fechas determinado.
          * De ser posible enviar la fecha de la forma: YYYY-MM-DD.
          * idNodo y prioridadCriticidad son parámetros no requeridos, las fechas SI.
@@ -73,9 +73,9 @@ public class AlertaController {
                 @RequestParam(value = "idNodo", required = false) Long idNodo, 
                 @RequestParam(value = "fechaDesde") String fechaDesde, 
                 @RequestParam(value = "fechaHasta") String fechaHasta,
-                @RequestParam(value = "prioridadCriticidad", required = false) String prioridadCriticidad) throws Exception{
+                @RequestParam(value = "criticidad", required = false) String criticidad) throws Exception{
 		List<Alerta> alertasDto = alertaService.getAlertasByNodo(
-                        idNodo, dateFormatter.parse(fechaDesde), dateFormatter.parse(fechaHasta), prioridadCriticidad);
+                        idNodo, fechaDesde, fechaHasta, criticidad);
 		return new ResponseEntity(alertasDto, HttpStatus.OK);
 	}
 	

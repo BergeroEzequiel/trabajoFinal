@@ -50,7 +50,7 @@ public class AlertaService {
     }
 
     @Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
-    public List<Alerta> getAlertasByNodo(Long idNodo, Date fechaDesde, Date fechaHasta, String prioridad) throws ParseException {
+    public List<Alerta> getAlertasByNodo(Long idNodo, String fechaDesde, String fechaHasta, String prioridad) throws ParseException {
         Criticidad criticidad = null;
         if(prioridad != null && !prioridad.isEmpty())
             criticidad = this.criticidadDaoParticular.getCriticidadByPrioridad(prioridad);

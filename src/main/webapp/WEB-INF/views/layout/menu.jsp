@@ -25,7 +25,7 @@
 				<ul class="nav child_menu">
 					<li><a href="#">...</a></li>
 				</ul></li>
-			<li><a><i class="fa fa-bar-chart-o"></i>Histï¿½ricos<span
+			<li><a><i class="fa fa-bar-chart-o"></i>Históricos<span
 					class="fa fa-chevron-down"></span></a>
 				<ul class="nav child_menu">
 					<li><a href="#">...</a></li>
@@ -34,7 +34,7 @@
 					class="fa fa-chevron-down"></span></a>
 				<ul class="nav child_menu">
 				</ul></li>
-			<li><a><i class="fa fa-cogs"></i>Configuraciï¿½n<span
+			<li><a><i class="fa fa-cogs"></i>Configuración<span
 					class="fa fa-chevron-down"></span></a>
 				<ul class="nav child_menu">
 					<li><a href="conf-umbrales">Umbrales</a></li>
