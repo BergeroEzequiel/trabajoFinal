@@ -5,7 +5,10 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 /**
- *
+ * 1 	20 minutos
+ * 2 	Diario 	
+ * 3 	Semanal
+ * Se usan para correr los jobs.
  * @author ezequiel
  */
 @Entity

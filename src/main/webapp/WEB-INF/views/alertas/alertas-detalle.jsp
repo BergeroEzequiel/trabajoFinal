@@ -41,7 +41,6 @@
                     </div>
                     <button type="button" class="btn btn-default pull-right" ng-click="getAlertas()">Buscar</button>
 
-                    <%--<div class="clearfix"></div>--%>
                     <div class="x_content">
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered bulk_action">

@@ -8,16 +8,11 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 
 @Entity
 @Table(name = "monitoreo_detalle")
 public class Trama extends ObjetoGenerico {
-
-//	@Column(name = "modulo", nullable = false)
-//	private String modulo;
-//	
-//	@Column(name = "numero", nullable = false)
-//	private int numero;
 	
 	@ManyToOne
 	@JoinColumn(name="id_nodo")
@@ -78,6 +73,7 @@ public class Trama extends ObjetoGenerico {
 	private float pvm;
 
 	@Column(name = "fecha", nullable = true)
+        @Temporal(javax.persistence.TemporalType.DATE)
 	private Date fecha;
 
 	@Column(name = "hora", nullable = true)
@@ -109,23 +105,6 @@ public class Trama extends ObjetoGenerico {
 		return (float) (Math.cos((double) Math.toRadians(this.desfasaje)) * this.corrienteRed * this.tensionRed);
 		
 	}
-	
-	
-//	public String getModulo() {
-//		return modulo;
-//	}
-//
-//	public void setModulo(String modulo) {
-//		this.modulo = modulo;
-//	}
-//
-//	public int getNumero() {
-//		return numero;
-//	}
-//
-//	public void setNumero(int numero) {
-//		this.numero = numero;
-//	}
 
 	public Nodo getNodo() {
 		return nodo;

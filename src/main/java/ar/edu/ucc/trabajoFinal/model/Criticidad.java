@@ -5,7 +5,11 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 /**
- *
+ * ID   Repe    Tiempo          Prioridad
+ * 1 	2 	2 minutos 	Critica
+ * 2 	5 	10 minutos 	Alta
+ * 3 	10 	30 minutos 	Media
+ * 4 	20 	60 Minutos 	Baja
  * @author ezequiel
  */
 @Entity
