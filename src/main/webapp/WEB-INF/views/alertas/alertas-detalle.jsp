@@ -17,26 +17,35 @@
                             Detalle de alertas<small></small>
                         </h2>
                         <div class="clearfix"></div>
-                        <div class="filter">
-                            <div id="reportrange" class="pull-right"
-                                 style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
-                                <i class="glyphicon glyphicon-calendar fa fa-calendar"></i> <span></span> <b class="caret"></b>
-                            </div>
-                            <select class="pull-center" ng-options="crit.prioridad for crit in criticidades track by crit.id" 
-                                    ng-model="criticidadSeleccionada">
-                                <option value="">Todas</option>   
-                            </select>
-                            <select class="pull-left" ng-options="nodo.modulo + ' ' + nodo.numero for nodo in nodos track by nodo.id" 
-                                    ng-model="nodoSeleccionado">
-                                <option value="">Todos</option> 
-                            </select>
-                        </div>
-                        
-                        <div class="clearfix"></div>
                     </div>
-
-                   
-
+                    
+                    <div class="x_content">
+                    
+                    <div id="datatable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                        <div class="row">
+                        <div class="filter" style="float: left">
+                                <div id="reportrange" class="pull-right"
+                                     style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
+                                    <i class="glyphicon glyphicon-calendar fa fa-calendar"></i> <span></span> <b class="caret"></b>
+                                </div>
+                               <div class="pull-right" style="margin-left: 10px; margin-right: 10px">
+                                    <label>Nodo: </label>  
+                                    <select class="" ng-options="nodo.modulo + ' ' + nodo.numero for nodo in nodos track by nodo.id" 
+                                        ng-model="nodoSeleccionado">
+                                        <option value="">Todos</option> 
+                                    </select>
+                                </div>
+                                <div class="pull-right">
+                                    <label>Criticidad: </label>
+                                    <select class="" ng-options="crit.prioridad for crit in criticidades track by crit.id" 
+                                            ng-model="criticidadSeleccionada">
+                                        <option value="">Todas</option>  
+                                    </select>
+                                </div>
+                            </div>
+                        <!--<div class="clearfix"></div>-->
+                   </div>
+<div class="row">
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered bulk_action">
                                 <thead>
@@ -51,7 +60,6 @@
                                     <th class="column-title">Criticidad</th>
                                     <th class="column-title">Fecha</th>
                                     <th class="column-title">Hora</th>
-                                    <th class="column-title no-link last"><span class="nobr">Acción</span>
                                     </th>
                                 </tr>
                                 </thead>
@@ -72,8 +80,8 @@
                                 </tbody>
                             </table>
                         </div>
-                        
-                    
+                        </div>
+                   </div> 
                 </div>
             </div>
         </div>

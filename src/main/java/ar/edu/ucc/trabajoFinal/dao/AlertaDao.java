@@ -26,7 +26,7 @@ public class AlertaDao extends DaoGenericoImp<Alerta, Long> implements IAlertaDa
     DateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
 
     @Override
-    public List<Alerta> getAlertasByNodo(Long idNodo, String fechaDesde, String fechaHasta, Criticidad criticidad) throws ParseException{
+    public List<Alerta> getAlertasByFecha(String fechaDesde, String fechaHasta, Long idNodo, Criticidad criticidad) throws ParseException{
         Calendar c = Calendar.getInstance();
         c.setTime(dateFormatter.parse(fechaHasta));
         c.add(Calendar.DATE, 1);

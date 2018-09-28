@@ -75,13 +75,10 @@ var alertasModule = angular.module('detalleAlerta', [])
     }
     
     $scope.getAlertas = function() {
-        var url = 'http://localhost:8080/trabajoFinal/alertasPorNodo?',
-            params = '';        
-        params = ($scope.nodoSeleccionado) ? 'idNodo=' + $scope.nodoSeleccionado.id : '';
-        params = ($scope.nodoSeleccionado) ? params + '&' : '';
-        params = ($scope.criticidadSeleccionada) ? 'criticidad=' + $scope.criticidadSeleccionada.prioridad : '';
-        params = ($scope.criticidadSeleccionada) ? params + '&' : '';
-        params = params + 'fechaDesde=' + $scope.fechaDesde + '&fechaHasta=' + $scope.fechaHasta;
+        var url = 'http://localhost:8080/trabajoFinal/alertasPorFecha?',
+            params = 'fechaDesde=' + $scope.fechaDesde + '&fechaHasta=' + $scope.fechaHasta;    
+        params = ($scope.nodoSeleccionado) ? params + '&idNodo=' + $scope.nodoSeleccionado.id : '';
+        params = ($scope.criticidadSeleccionada) ? params + '&criticidad=' + $scope.criticidadSeleccionada.prioridad : '';
         
         $http.get(url + params).then(onAlertasCallback, errorCallback);
     }
@@ -126,6 +123,6 @@ var alertasModule = angular.module('detalleAlerta', [])
 })
 .controller("userController", function($scope) {
 
-    $scope.nombre = "Juan Castagnola"
+    $scope.nombre = "Juan Sarlan"
 
 });
