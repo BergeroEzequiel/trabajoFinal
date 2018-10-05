@@ -36,4 +36,10 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
         <property name="url" value="/WEB-INF/views/alertas/alertas-detalle.jsp" />
     </bean>
     
+    <!-- LOGIN -->
+    <bean id="login"
+          class="org.springframework.web.servlet.view.JstlView">
+        <property name="url" value="/WEB-INF/views/login/login.jsp" />
+    </bean>
+    
 </beans>
