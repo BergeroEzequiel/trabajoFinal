@@ -18,40 +18,36 @@
                         </h2>
                         <div class="clearfix"></div>
                     </div>
-                    
+
+                    <div class="filter">
+                        <div class="pull-left">
+                            <label>Nodo: </label>
+                            <select class="btn btn-default" ng-options="nodo.modulo + ' ' + nodo.numero for nodo in nodos track by nodo.id"
+                                    ng-model="nodoSeleccionado">
+                                <option value="">Todos</option>
+                            </select>
+                        </div>
+                        <div class="pull-left" style="margin-left: 14px; margin-right: 14px">
+                            <label>Criticidad: </label>
+                            <select class="btn btn-default" ng-options="crit.prioridad for crit in criticidades track by crit.id"
+                                    ng-model="criticidadSeleccionada">
+                                <option value="">Todas</option>
+                            </select>
+                        </div>
+                        <div id="reportrange" class="pull-left"
+                             style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
+                            <i class="glyphicon glyphicon-calendar fa fa-calendar"></i> <span></span> <b class="caret"></b>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-default pull-right" ng-click="getAlertas()">Buscar</button>
+
                     <div class="x_content">
-                    
-                    <div id="datatable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
-                        <div class="row">
-                        <div class="filter" style="float: left">
-                                <div id="reportrange" class="pull-right"
-                                     style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
-                                    <i class="glyphicon glyphicon-calendar fa fa-calendar"></i> <span></span> <b class="caret"></b>
-                                </div>
-                               <div class="pull-right" style="margin-left: 10px; margin-right: 10px">
-                                    <label>Nodo: </label>  
-                                    <select class="" ng-options="nodo.modulo + ' ' + nodo.numero for nodo in nodos track by nodo.id" 
-                                        ng-model="nodoSeleccionado">
-                                        <option value="">Todos</option> 
-                                    </select>
-                                </div>
-                                <div class="pull-right">
-                                    <label>Criticidad: </label>
-                                    <select class="" ng-options="crit.prioridad for crit in criticidades track by crit.id" 
-                                            ng-model="criticidadSeleccionada">
-                                        <option value="">Todas</option>  
-                                    </select>
-                                </div>
-                            </div>
-                        <!--<div class="clearfix"></div>-->
-                   </div>
-<div class="row">
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered bulk_action">
                                 <thead>
                                 <tr class="headings">
 
-                                    <th class="column-title">Descripción</th>
+                                    <th class="column-title">Descripciï¿½n</th>
                                     <th class="column-title">Variable Afectada</th>
                                     <th class="column-title">Valor</th>
                                     <th class="column-title">Umbral max</th>
@@ -60,6 +56,7 @@
                                     <th class="column-title">Criticidad</th>
                                     <th class="column-title">Fecha</th>
                                     <th class="column-title">Hora</th>
+                                    <th class="column-title no-link last"><span class="nobr">Acciï¿½n</span>
                                     </th>
                                 </tr>
                                 </thead>
@@ -80,8 +77,9 @@
                                 </tbody>
                             </table>
                         </div>
-                        </div>
-                   </div> 
+                    </div>
+                        
+                    
                 </div>
             </div>
         </div>
