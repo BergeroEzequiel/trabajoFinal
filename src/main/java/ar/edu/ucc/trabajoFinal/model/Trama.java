@@ -79,13 +79,13 @@ public class Trama extends ObjetoGenerico {
 	@Column(name = "hora", nullable = true)
 	private Time hora;
 
-	@Column(name = "potencia_continua", nullable = false)
+	@Column(name = "potencia_continua", nullable = false, scale = 2)
 	private float potenciaContinua;
 
-	@Column(name = "potencia_red", nullable = false)
+	@Column(name = "potencia_red", nullable = false, scale = 2)
 	private float potenciaRed;
 
-	@Column(name = "potencia_interna", nullable = false)
+	@Column(name = "potencia_interna", nullable = false, scale = 2)
 	private float potenciaInterna;
 	
 	@Column(name = "estado_control", nullable = false)
@@ -101,9 +101,7 @@ public class Trama extends ObjetoGenerico {
 	}
 	
 	public float calcularPotenciaRed() {
-		
 		return (float) (Math.cos((double) Math.toRadians(this.desfasaje)) * this.corrienteRed * this.tensionRed);
-		
 	}
 
 	public Nodo getNodo() {
