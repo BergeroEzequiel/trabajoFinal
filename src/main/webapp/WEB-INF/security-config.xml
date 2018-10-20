@@ -22,9 +22,16 @@
     </http>
   
     <authentication-manager >
-        <authentication-provider user-service-ref="customUserDetailsService"/>
+        <authentication-provider user-service-ref="customUserDetailsService">
+            <password-encoder ref="bCryptPasswordEncoder"/>
+        </authentication-provider>
+        
     </authentication-manager>
       
     <beans:bean id="customUserDetailsService" class="ar.edu.ucc.trabajoFinal.service.CustomUserDetailsService" />
+    
+    <beans:bean id="bCryptPasswordEncoder"
+        class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+    </beans:bean>
     
 </beans:beans>

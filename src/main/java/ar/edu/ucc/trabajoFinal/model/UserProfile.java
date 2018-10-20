@@ -7,17 +7,11 @@ package ar.edu.ucc.trabajoFinal.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Table;
  
 @Entity
 @Table(name="rol")
 public class UserProfile extends ObjetoGenerico{
- 
-//    @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-//    private int id; 
  
     @Column(name="tipo", length=15, unique=true, nullable=false)
     private String type = UserProfileType.USER.getUserProfileType();

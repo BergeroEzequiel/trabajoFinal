@@ -19,9 +19,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name="usuario")
 public class User  extends ObjetoGenerico{
-    
-//    @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-//    private int id;
  
     @Column(name="sso_id", unique=true, nullable=false)
     private String ssoId;
