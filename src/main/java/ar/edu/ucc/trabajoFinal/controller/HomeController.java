@@ -45,6 +45,13 @@ public class HomeController {
 		ModelAndView alertasDetalle = new ModelAndView("alertas-detalle");
 		return alertasDetalle;
 	}
+
+	// HISTORICOS
+	@RequestMapping(value = "historicos", method = RequestMethod.GET)
+	public ModelAndView historicos() {
+		ModelAndView historicos = new ModelAndView("historicos");
+		return historicos;
+	}
         
         @RequestMapping(value = "/login", method = RequestMethod.GET)
         public ModelAndView login() {

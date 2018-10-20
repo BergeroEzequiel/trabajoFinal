@@ -23,7 +23,7 @@ public class Producer {
 
 		SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 		DateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
-		int[] array = {1,2,3,4,5};
+		int[] array = {1,2,3};
                 Random r = new Random();
 		
 		for (int i = 0; i < 2000; i++) {
