@@ -15,7 +15,8 @@ import ar.edu.ucc.trabajoFinal.model.TramaProcesada;
 import ar.edu.ucc.trabajoFinal.model.Umbral;
 import ar.edu.ucc.trabajoFinal.model.UmbralEspecifico;
 import ar.edu.ucc.trabajoFinal.model.UnidadMedida;
-import ar.edu.ucc.trabajoFinal.model.Usuario;
+import ar.edu.ucc.trabajoFinal.model.User;
+import ar.edu.ucc.trabajoFinal.model.UserProfile;
 
 
 public class SqlSchemaGenerator {
@@ -38,11 +39,12 @@ public class SqlSchemaGenerator {
 		config.addAnnotatedClass(Umbral.class);
 		config.addAnnotatedClass(UmbralEspecifico.class);
 		config.addAnnotatedClass(Alerta.class);
-		config.addAnnotatedClass(Usuario.class);
 		config.addAnnotatedClass(TramaProcesada.class);
 		config.addAnnotatedClass(Criticidad.class);
 		config.addAnnotatedClass(UnidadMedida.class);
                 config.addAnnotatedClass(TipoProcesamiento.class);
+                config.addAnnotatedClass(User.class);
+                config.addAnnotatedClass(UserProfile.class);
 		
 		SchemaExport schemaExport = new SchemaExport(config);
 		schemaExport.setDelimiter(";");

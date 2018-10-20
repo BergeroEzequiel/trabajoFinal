@@ -22,6 +22,7 @@ import ar.edu.ucc.trabajoFinal.dto.TramaDto;
 import ar.edu.ucc.trabajoFinal.model.Nodo;
 import ar.edu.ucc.trabajoFinal.model.Trama;
 import ar.edu.ucc.trabajoFinal.model.TramaPotencias;
+import ar.edu.ucc.trabajoFinal.model.TramaUltimasPotencias;
 import ar.edu.ucc.trabajoFinal.utils.NodoMapper;
 import ar.edu.ucc.trabajoFinal.utils.TramaControl;
 
@@ -259,5 +260,9 @@ public class TramaService {
 		return tramasDto;
 		
 	}
+        
+        public List<TramaUltimasPotencias> getUltimasPotenciasPorNodos() throws ParseException {
+            return tramaDaoParticular.getUltimasPotenciasPorNodos();
+        }
 
 }

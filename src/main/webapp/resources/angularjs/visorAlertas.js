@@ -25,7 +25,7 @@ angular.module('visorAlertas', [])
             function errorCallback(err) {
                 console.log(err);
             }
-
+            
             $scope.getAlertas();
 
             $interval(function () {

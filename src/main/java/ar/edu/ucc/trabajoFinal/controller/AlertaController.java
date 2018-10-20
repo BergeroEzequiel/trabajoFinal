@@ -54,28 +54,28 @@ public class AlertaController {
 	}
 	
         /**
-         * Busca todas las alertas a visualizar de un determinado nodo, una determinada Criticidad y 
+         * Busca todas las alertas a visualizar de un determinado nodo, una determinada Criticidad (Critica, Alta, Media o Baja) y 
          * en un rango de fechas determinado.
          * De ser posible enviar la fecha de la forma: YYYY-MM-DD.
          * idNodo y prioridadCriticidad son parámetros no requeridos, las fechas SI.
          * Ejemplo para consumir la API:
          *      http://localhost:8080/trabajoFinal/alertasPorNodo?idNodo=1&fechaDesde=2018-06-01&fechaHasta=2018-06-31
-         * 
-         * @param idNodo
          * @param fechaDesde
          * @param fechaHasta
+         * @param idNodo
+         * @param criticidad
          * @return
          * @throws Exception 
          */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	@RequestMapping(value = "/alertasPorNodo", method = RequestMethod.GET, produces = "application/json")
-	public ResponseEntity<?> getAlertasByNodo(
-                @RequestParam(value = "idNodo", required = false) Long idNodo, 
+	@RequestMapping(value = "/alertasPorFecha", method = RequestMethod.GET, produces = "application/json")
+	public ResponseEntity<?> getAlertasByFecha(
                 @RequestParam(value = "fechaDesde") String fechaDesde, 
                 @RequestParam(value = "fechaHasta") String fechaHasta,
-                @RequestParam(value = "prioridadCriticidad", required = false) String prioridadCriticidad) throws Exception{
-		List<Alerta> alertasDto = alertaService.getAlertasByNodo(
-                        idNodo, dateFormatter.parse(fechaDesde), dateFormatter.parse(fechaHasta), prioridadCriticidad);
+                @RequestParam(value = "idNodo", required = false) Long idNodo,
+                @RequestParam(value = "criticidad", required = false) String criticidad) throws Exception{
+		List<Alerta> alertasDto = alertaService.getAlertasByFecha(
+                        fechaDesde, fechaHasta, idNodo, criticidad);
 		return new ResponseEntity(alertasDto, HttpStatus.OK);
 	}
 	

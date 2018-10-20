@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import ar.edu.ucc.trabajoFinal.dto.TramaDto;
+import ar.edu.ucc.trabajoFinal.model.TramaUltimasPotencias;
 import ar.edu.ucc.trabajoFinal.service.TramaService;
 
 @Controller
@@ -85,6 +86,15 @@ public class TramaController {
 		
 		List<TramaDto> tramaDto = tramaService.getPotenciasNodos();
 		return new ResponseEntity(tramaDto, HttpStatus.OK);
+		
+	}
+        
+        @SuppressWarnings({ "unchecked", "rawtypes" })
+	@RequestMapping(value = "/ultimasPotenciasPorNodos", method = RequestMethod.GET, produces = "application/json")
+	public ResponseEntity<?> getUltimasPotenciasPorNodos() throws Exception{
+		
+                List<TramaUltimasPotencias> tramaUltimasPotencias = tramaService.getUltimasPotenciasPorNodos();
+		return new ResponseEntity(tramaUltimasPotencias, HttpStatus.OK);
 		
 	}
 

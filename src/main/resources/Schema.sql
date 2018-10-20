@@ -35,6 +35,14 @@
         drop 
         foreign key FK_4avl17cmusu1mjclhtx1x90f0;
 
+    alter table usuarios_rol 
+        drop 
+        foreign key FK_a16nuioaclvnvtvueuvpxnb00;
+
+    alter table usuarios_rol 
+        drop 
+        foreign key FK_j1lrbl2tx28twvjtf0lg07ph6;
+
     drop table if exists alertas;
 
     drop table if exists criticidades;
@@ -45,18 +53,22 @@
 
     drop table if exists nodos;
 
+    drop table if exists rol;
+
     drop table if exists tipo_procesamiento;
 
     drop table if exists umbrales;
 
     drop table if exists unidades_medida;
 
-    drop table if exists usuarios;
+    drop table if exists usuario;
+
+    drop table if exists usuarios_rol;
 
     create table alertas (
         ID bigint not null auto_increment,
         descripcion varchar(50) not null,
-        fecha datetime not null,
+        fecha date not null,
         hora time not null,
         valor float,
         variable_afectada varchar(50) not null,
@@ -83,7 +95,7 @@
         desfasaje float not null,
         estado varchar(255) not null,
         estado_control bit not null,
-        fecha datetime,
+        fecha date,
         frecuencia_corriente float not null,
         frecuencia_tension float not null,
         hora time,
@@ -183,6 +195,12 @@
         primary key (ID)
     ) ENGINE=InnoDB;
 
+    create table rol (
+        ID bigint not null auto_increment,
+        tipo varchar(15) not null,
+        primary key (ID)
+    ) ENGINE=InnoDB;
+
     create table tipo_procesamiento (
         ID bigint not null auto_increment,
         descripcion varchar(255) not null,
@@ -210,18 +228,28 @@
         primary key (ID)
     ) ENGINE=InnoDB;
 
-    create table usuarios (
+    create table usuario (
         ID bigint not null auto_increment,
-        apellido varchar(50) not null,
-        email varchar(200) not null,
-        estado_sistema bit not null,
-        nombre varchar(50) not null,
-        nombre_cuenta varchar(50) not null,
-        password varchar(16) not null,
-        rol varchar(200) not null,
-        ultima_coneccion datetime not null,
+        email varchar(255) not null,
+        nombre varchar(255) not null,
+        apellido varchar(255) not null,
+        password varchar(255) not null,
+        sso_id varchar(255) not null,
+        estado varchar(255) not null,
         primary key (ID)
     ) ENGINE=InnoDB;
+
+    create table usuarios_rol (
+        id_usuario bigint not null,
+        id_rol bigint not null,
+        primary key (id_usuario, id_rol)
+    ) ENGINE=InnoDB;
+
+    alter table rol 
+        add constraint UK_3a0sdqoex77hppupnidq0jew4 unique (tipo);
+
+    alter table usuario 
+        add constraint UK_p1vsg4p3syowleudmkkfsf6jx unique (sso_id);
 
     alter table alertas 
         add constraint FK_pma5c5olv1akpqv2hui6v847k 
@@ -267,3 +295,13 @@
         add constraint FK_4avl17cmusu1mjclhtx1x90f0 
         foreign key (id_nodo) 
         references nodos (ID);
+
+    alter table usuarios_rol 
+        add constraint FK_a16nuioaclvnvtvueuvpxnb00 
+        foreign key (id_rol) 
+        references rol (ID);
+
+    alter table usuarios_rol 
+        add constraint FK_j1lrbl2tx28twvjtf0lg07ph6 
+        foreign key (id_usuario) 
+        references usuario (ID);

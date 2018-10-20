@@ -17,7 +17,7 @@ public interface IAlertaDao extends DaoGenerico<Alerta, Long> {
      * @param idNodo
      * @return listadoDeAlertas
      */
-    public List<Alerta> getAlertasByNodo(Long idNodo, Date fechaDesde, Date fechaHasta, Criticidad criticidad) throws ParseException;
+    public List<Alerta> getAlertasByFecha(String fechaDesde, String fechaHasta, Long idNodo, Criticidad criticidad) throws ParseException;
 
     /**
      * Recibe un rango horario (horaDesde y horaHasta) y una Criticidad. Busca todas las alertas

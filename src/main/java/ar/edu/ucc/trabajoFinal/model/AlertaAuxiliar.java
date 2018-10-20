@@ -15,10 +15,6 @@ public class AlertaAuxiliar {
     public Nodo getNodo() {
         return nodo;
     }
-
-    //    public void setNodo(Nodo nodo) {
-//            this.nodo = nodo;
-//    }
     
     public void setNodo(Long idNodo) {
         Nodo nodo = new Nodo();

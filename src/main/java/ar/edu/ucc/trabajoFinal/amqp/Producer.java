@@ -10,6 +10,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import ar.edu.ucc.trabajoFinal.dto.TramaDto;
+import java.util.Random;
 
 
 public class Producer {
@@ -22,34 +23,35 @@ public class Producer {
 
 		SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 		DateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
-		int[] array = {1};
+		int[] array = {1,2,3};
+                Random r = new Random();
 		
 		for (int i = 0; i < 2000; i++) {
 			
 			
 			for (int j = 0; j < array.length; j++) {
 				TramaDto tramaAuxiliar = new TramaDto();
-				tramaAuxiliar.setCorrienteContinua((float)667);
-				tramaAuxiliar.setCorrienteInterna((float)Math.random()*100);
-				tramaAuxiliar.setCorrienteRed((float)Math.random()*100);
-				tramaAuxiliar.setDesfasaje((float)Math.random()*100);
+				tramaAuxiliar.setCorrienteContinua(r.nextInt(11));
+				tramaAuxiliar.setCorrienteInterna(r.nextInt(11));
+				tramaAuxiliar.setCorrienteRed(r.nextInt(11));
+				tramaAuxiliar.setDesfasaje(r.nextInt(11));
 				tramaAuxiliar.setEstado("OK");
 				tramaAuxiliar.setFecha(dateFormatter.format(new Date()));
-				tramaAuxiliar.setFrecuenciaCorriente((float)Math.random()*100);
-				tramaAuxiliar.setFrecuenciaTension((float)Math.random()*100);
+				tramaAuxiliar.setFrecuenciaCorriente(r.nextInt(11));
+				tramaAuxiliar.setFrecuenciaTension(r.nextInt(11));
 				tramaAuxiliar.setHora(timeFormatter.format((new Date())));
-				tramaAuxiliar.setHumedad((float)Math.random()*100);
+				tramaAuxiliar.setHumedad(r.nextInt(11));
 				tramaAuxiliar.setNumero(array[j]);
-				tramaAuxiliar.setPvm((float)Math.random()*100);
-				tramaAuxiliar.setTemperatura1((float)Math.random()*100);
-				tramaAuxiliar.setTemperatura2((float)Math.random()*100);
-				tramaAuxiliar.setTemperatura3((float)Math.random()*100);
-				tramaAuxiliar.setTemperatura4((float)Math.random()*100);
-				tramaAuxiliar.setTemperatura5((float)Math.random()*100);
-				tramaAuxiliar.setTensionContinua((float)Math.random()*100);
-				tramaAuxiliar.setTensionInterna((float)Math.random()*100);
-				tramaAuxiliar.setTensionRed((float)Math.random()*100);
-				tramaAuxiliar.setTensionTierra((float)Math.random()*100);
+				tramaAuxiliar.setPvm(r.nextInt(11));
+				tramaAuxiliar.setTemperatura1(r.nextInt(11));
+				tramaAuxiliar.setTemperatura2(r.nextInt(11));
+				tramaAuxiliar.setTemperatura3(r.nextInt(11));
+				tramaAuxiliar.setTemperatura4(r.nextInt(11));
+				tramaAuxiliar.setTemperatura5(r.nextInt(11));
+				tramaAuxiliar.setTensionContinua(r.nextInt(11));
+				tramaAuxiliar.setTensionInterna(r.nextInt(11));
+				tramaAuxiliar.setTensionRed(r.nextInt(11));
+				tramaAuxiliar.setTensionTierra(r.nextInt(11));
 				tramaAuxiliar.setModulo("Solar");
 				
 				CustomMessage cm = new CustomMessage(tramaAuxiliar);

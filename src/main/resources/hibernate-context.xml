@@ -4,52 +4,52 @@
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">		
 
-	
-	<bean id="recordDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
-		lazy-init="true" destroy-method="close">
-		
-		<property name="driverClass" value="org.gjt.mm.mysql.Driver" />
-		
-		<!-- CHANGE THE DATABASE CONNECTION-->
-		<property name="jdbcUrl" value="jdbc:mysql://127.0.0.1:3306/trabajo_final"/>		
-		<property name="user" value="root" />
-		<property name="password" value="" />
-		<!-- ***************************************** -->
-		
-		<property name="minPoolSize" value="1" />
-		<property name="maxPoolSize" value="100" />
-		<property name="unreturnedConnectionTimeout" value="7200" />
-		<property name="debugUnreturnedConnectionStackTraces" value="true" />
-		<property name="checkoutTimeout" value="60000" />
-		<property name="maxStatements" value="0" />
-		<property name="initialPoolSize" value="1" />
-		<property name="idleConnectionTestPeriod" value="10800" />
-		<property name="maxIdleTime" value="21600" />
-		<property name="preferredTestQuery" value="SELECT 1" />
-		<property name="testConnectionOnCheckout" value="true" />
-		<property name="acquireRetryAttempts" value="5" />
-		<property name="breakAfterAcquireFailure" value="false" />
-	</bean>
-
-	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">		
-		<property name="packagesToScan" value="ar.edu.ucc.trabajoFinal.model" />
-		
-		<property name="dataSource">
-			<ref bean="recordDataSource" />
-		</property>
-		
-		<property name="hibernateProperties">
-			<props>
-				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>
-				<prop key="hibernate.connection.isolation">2</prop>
-				<prop key="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</prop>
-				
-				<prop key="hibernate.show_sql">true</prop>
-			</props>
-		</property>
-	</bean>
-	
-	<!-- Valores por defecto no lo vemos en detalle -->
+	<!-- Data Source Declaration -->
+    <bean id="DataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://127.0.0.1:3306/trabajo_final" />
+        <property name="username" value="root" />
+        <property name="password" value="" />   
+        <property name="testOnConnect" value="true" />
+        <property name="testWhileIdle" value="true" />
+        <property name="testOnBorrow" value="true" />
+        <property name="testOnReturn" value="true" />
+        <property name="logValidationErrors" value="true" />
+        <property name="validationQuery" value="select 1 from dual" />
+        <property name="validationQueryTimeout" value="10" />
+        <property name="maxActive" value="500" />
+        <property name="initialSize" value="150" /> 
+        <property name="maxIdle" value="500" /> <!--El numero maximo de conexiones posibles en el pool todo el tiempo. Si alguna pasa el minEvictableIdleTimeMillis, se libera.-->
+        <property name="minIdle" value="150" /> <!-- El numero minimo de conexiones que debe tener el pool. -->
+        <property name="timeBetweenEvictionRunsMillis" value="60000" /> <!-- Indica la frecuencia con la que se comprueban las conexiones activas/abandonadas y etc. -->
+        <property name="minEvictableIdleTimeMillis" value="120000" /> <!--Las conexiones inactivas por mas de 180000 mili segundos se liberan. -->
+        <property name="removeAbandoned" value="true" />
+        <property name="removeAbandonedTimeout" value="180" /> <!-- Si una query tarda mas de esto, se la considera disponible para remover. -->
+        <property name="maxAge" value="0" />
+        <property name="initSQL" value="SET GLOBAL max_connections = 1000" />
+    </bean>
+    
+    <!-- Session Factory Declaration -->
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="DataSource" />
+        <property name="packagesToScan">
+            <list>
+                <value>ar.edu.ucc.trabajoFinal.model</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+                <!--Si lo ponemos en true lo cargamos mucho al tomcat (y llenamos demasiados los logs)-->
+                <prop key="hibernate.show_sql">false</prop>
+                <prop key="hibernate.format_sql">false</prop>
+                <prop key="hibernate.connection.useUnicode">true</prop>
+                <prop key="hibernate.connection.characterEncoding">UTF-8</prop>
+                <prop key="hibernate.connection.SetBigStringTryClob">true</prop>
+                <prop key="hibernate.jdbc.batch_size">0</prop>
+            </props>
+        </property>
+    </bean>
 	
 	
 

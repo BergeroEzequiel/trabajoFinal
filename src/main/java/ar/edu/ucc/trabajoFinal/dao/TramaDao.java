@@ -10,14 +10,13 @@ import org.hibernate.criterion.Restrictions;
 import org.hibernate.transform.Transformers;
 import org.springframework.stereotype.Repository;
 
-import ar.edu.ucc.trabajoFinal.model.Nodo;
 import ar.edu.ucc.trabajoFinal.model.Trama;
 import ar.edu.ucc.trabajoFinal.model.TramaAuxiliar;
 import ar.edu.ucc.trabajoFinal.model.TramaPotencias;
+import ar.edu.ucc.trabajoFinal.model.TramaUltimasPotencias;
+import ar.edu.ucc.trabajoFinal.utils.Hora;
 import java.sql.Time;
 import java.text.DateFormat;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 @Repository
 public class TramaDao extends DaoGenericoImp<Trama, Long> implements ITramaDao {
@@ -190,5 +189,22 @@ public class TramaDao extends DaoGenericoImp<Trama, Long> implements ITramaDao {
                 .setParameter("horaHasta", horaHasta).list();
         return list;
     }
+
+    @Override
+    public List<TramaUltimasPotencias> getUltimasPotenciasPorNodos() throws ParseException{
+        
+        List list = this.currentSession().createSQLQuery("SELECT id_nodo as nodo, "
+                + "SUBSTRING_INDEX(GROUP_CONCAT(potencia_continua ORDER BY fecha, hora DESC), ',', 10) as potenciaContinua, "
+                + "SUBSTRING_INDEX(GROUP_CONCAT(potencia_interna ORDER BY fecha, hora DESC), ',', 10) as potenciaInterna, "
+                + "SUBSTRING_INDEX(GROUP_CONCAT(potencia_red ORDER BY fecha, hora DESC), ',', 10) as potenciaRed, "
+                + "SUBSTRING_INDEX(GROUP_CONCAT(hora ORDER BY fecha, hora DESC), ',', 10) as hora "
+                + "FROM `monitoreo_detalle` "
+                + "WHERE fecha = CURRENT_DATE AND hora >= NOW() - INTERVAL 10 MINUTE "
+                + "GROUP BY id_nodo")
+                .addEntity(TramaUltimasPotencias.class).list();
+                
+        return list;
+    }
+        
 
 }
