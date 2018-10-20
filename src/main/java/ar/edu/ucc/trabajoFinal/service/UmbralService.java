@@ -15,14 +15,9 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.ucc.trabajoFinal.dao.DaoGenerico;
-import ar.edu.ucc.trabajoFinal.dao.INodoDao;
 import ar.edu.ucc.trabajoFinal.dao.IUmbralDao;
 import ar.edu.ucc.trabajoFinal.dao.UmbralDao;
-import ar.edu.ucc.trabajoFinal.dto.UmbralDto;
-import ar.edu.ucc.trabajoFinal.dto.UmbralEspecificoDto;
-import ar.edu.ucc.trabajoFinal.model.Nodo;
 import ar.edu.ucc.trabajoFinal.model.Umbral;
-import ar.edu.ucc.trabajoFinal.model.UmbralEspecifico;
 
 @Service
 @Transactional
@@ -34,11 +29,6 @@ public class UmbralService {
 	DaoGenerico<Umbral, Long> umbralDao;
 
 	IUmbralDao umbralDaoParticular;
-	
-	@Autowired
-	DaoGenerico<Nodo, Long> nodoDao;
-	
-	INodoDao nodoDaoParticular;
 
 	SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 	DateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
