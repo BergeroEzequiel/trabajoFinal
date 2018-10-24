@@ -261,8 +261,8 @@ public class TramaService {
 		
 	}
         
-        public List<TramaUltimasPotencias> getUltimasPotenciasPorNodos() throws ParseException {
-            return tramaDaoParticular.getUltimasPotenciasPorNodos();
+        public List<TramaUltimasPotencias> getUltimasPotenciasPorNodos(Long idNodo) throws ParseException {
+            return tramaDaoParticular.getUltimasPotenciasPorNodos(idNodo);
         }
 
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import ar.edu.ucc.trabajoFinal.dto.TramaDto;
 import ar.edu.ucc.trabajoFinal.model.TramaUltimasPotencias;
 import ar.edu.ucc.trabajoFinal.service.TramaService;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class TramaController {
@@ -89,11 +90,21 @@ public class TramaController {
 		
 	}
         
+        /**
+         * Devuelve las últimas 10 potencias de cada nodd si no se le pasa valores.
+         * Si se le pasa un nodo, solo devuelve las últimas 10 de ese nodo.
+         * ejemplo
+         *  http://localhost:8080/trabajoFinal/ultimasPotenciasPorNodos?idNodo=1
+         * @param idNodo
+         * @return
+         * @throws Exception 
+         */
         @SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value = "/ultimasPotenciasPorNodos", method = RequestMethod.GET, produces = "application/json")
-	public ResponseEntity<?> getUltimasPotenciasPorNodos() throws Exception{
+	public ResponseEntity<?> getUltimasPotenciasPorNodos(
+                @RequestParam(value = "idNodo", required = false) Long idNodo) throws Exception{
 		
-                List<TramaUltimasPotencias> tramaUltimasPotencias = tramaService.getUltimasPotenciasPorNodos();
+                List<TramaUltimasPotencias> tramaUltimasPotencias = tramaService.getUltimasPotenciasPorNodos(idNodo);
 		return new ResponseEntity(tramaUltimasPotencias, HttpStatus.OK);
 		
 	}
