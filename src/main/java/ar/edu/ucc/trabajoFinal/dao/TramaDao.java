@@ -210,6 +210,21 @@ public class TramaDao extends DaoGenericoImp<Trama, Long> implements ITramaDao {
                 
         return list;
     }
+
+    @Override
+    public List<Trama> getUltimasNTramasPorNodos(Long idNodo, Integer limit) {
+        String query = "SELECT * "
+                    + "FROM monitoreo_detalle "
+                    + "INNER JOIN nodos N on monitoreo_detalle.id_nodo = N.ID "
+                    + "WHERE N.activo = 1 AND fecha = CURRENT_DATE AND hora >= NOW() - INTERVAL 10 MINUTE "
+                    + "AND id_nodo = " + idNodo
+                    + " ORDER BY hora DESC "
+                    + "LIMIT " + limit;
+        List list = this.currentSession().createSQLQuery(query)
+                .addEntity(Trama.class).list();
+                
+        return list;
+    }
         
 
 }
