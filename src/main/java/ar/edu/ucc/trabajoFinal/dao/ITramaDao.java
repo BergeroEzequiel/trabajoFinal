@@ -33,6 +33,8 @@ public interface ITramaDao extends DaoGenerico<Trama, Long>{
 
 	public TramaPotencias getPotenciasAcumuladasParque();
         
-        public List<TramaUltimasPotencias> getUltimasPotenciasPorNodos() throws ParseException;
+        public List<TramaUltimasPotencias> getUltimasPotenciasPorNodos(Long idNodo) throws ParseException;
+        
+        public List<Trama> getUltimasNTramasPorNodos(Long idNodo, Integer limit);
 
 }

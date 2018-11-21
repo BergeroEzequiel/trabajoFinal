@@ -191,17 +191,37 @@ public class TramaDao extends DaoGenericoImp<Trama, Long> implements ITramaDao {
     }
 
     @Override
-    public List<TramaUltimasPotencias> getUltimasPotenciasPorNodos() throws ParseException{
+    public List<TramaUltimasPotencias> getUltimasPotenciasPorNodos(Long idNodo) throws ParseException{
+        String whereNodo = idNodo != null? "AND id_nodo = " + idNodo + " " : "";
         
-        List list = this.currentSession().createSQLQuery("SELECT id_nodo as nodo, "
-                + "SUBSTRING_INDEX(GROUP_CONCAT(potencia_continua ORDER BY fecha, hora DESC), ',', 10) as potenciaContinua, "
-                + "SUBSTRING_INDEX(GROUP_CONCAT(potencia_interna ORDER BY fecha, hora DESC), ',', 10) as potenciaInterna, "
-                + "SUBSTRING_INDEX(GROUP_CONCAT(potencia_red ORDER BY fecha, hora DESC), ',', 10) as potenciaRed, "
-                + "SUBSTRING_INDEX(GROUP_CONCAT(hora ORDER BY fecha, hora DESC), ',', 10) as hora "
-                + "FROM `monitoreo_detalle` "
-                + "WHERE fecha = CURRENT_DATE AND hora >= NOW() - INTERVAL 10 MINUTE "
-                + "GROUP BY id_nodo")
+        String query = "SELECT id_nodo as nodo, "
+                    + "SUBSTRING_INDEX(GROUP_CONCAT(potencia_continua ORDER BY fecha, hora DESC), ',', 10) as potenciaContinua, "
+                    + "SUBSTRING_INDEX(GROUP_CONCAT(potencia_interna ORDER BY fecha, hora DESC), ',', 10) as potenciaInterna, "
+                    + "SUBSTRING_INDEX(GROUP_CONCAT(potencia_red ORDER BY fecha, hora DESC), ',', 10) as potenciaRed, "
+                    + "SUBSTRING_INDEX(GROUP_CONCAT(hora ORDER BY fecha, hora DESC), ',', 10) as hora "
+                    + "FROM monitoreo_detalle "
+                    + "INNER JOIN nodos N on monitoreo_detalle.id_nodo = N.ID "
+                    + "WHERE N.activo = 1 AND fecha = CURRENT_DATE AND hora >= NOW() - INTERVAL 10 MINUTE "
+                    + whereNodo                
+                    + "GROUP BY id_nodo";
+        
+        List list = this.currentSession().createSQLQuery(query)
                 .addEntity(TramaUltimasPotencias.class).list();
+                
+        return list;
+    }
+
+    @Override
+    public List<Trama> getUltimasNTramasPorNodos(Long idNodo, Integer limit) {
+        String query = "SELECT * "
+                    + "FROM monitoreo_detalle "
+                    + "INNER JOIN nodos N on monitoreo_detalle.id_nodo = N.ID "
+                    + "WHERE N.activo = 1 AND fecha = CURRENT_DATE AND hora >= NOW() - INTERVAL 10 MINUTE "
+                    + "AND id_nodo = " + idNodo
+                    + " ORDER BY hora DESC "
+                    + "LIMIT " + limit;
+        List list = this.currentSession().createSQLQuery(query)
+                .addEntity(Trama.class).list();
                 
         return list;
     }
