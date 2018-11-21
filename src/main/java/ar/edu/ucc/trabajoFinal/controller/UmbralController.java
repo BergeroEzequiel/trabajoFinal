@@ -2,6 +2,7 @@ package ar.edu.ucc.trabajoFinal.controller;
 
 import java.util.List;
 
+import ar.edu.ucc.trabajoFinal.model.UmbralEspecifico;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -56,25 +57,30 @@ public class UmbralController {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping(value = "/umbral", 
 			method = RequestMethod.POST, produces = "application/json")
-	public ResponseEntity<?> crearUmbral(@RequestBody Umbral umbral)
+	public ResponseEntity<?> crearUmbral(@RequestBody UmbralEspecifico umbralEsp)
 			throws Exception {
 		
-		log.info("Grabando: " + umbral.toString());
+		log.info("Grabando: " + umbralEsp.toString());
 		
-		umbralService.grabarUmbral(umbral);
-		return new ResponseEntity(umbral, HttpStatus.CREATED);
+		umbralService.grabarUmbral(umbralEsp);
+		return new ResponseEntity(umbralEsp, HttpStatus.CREATED);
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping(value = "/umbral", 
 			method = RequestMethod.PUT, produces = "application/json")
-	public ResponseEntity<?> actualizarUmbral(@RequestBody Umbral umbral)
+	public ResponseEntity<?> actualizarUmbral(@RequestBody UmbralEspecifico umbralEsp)
 			throws Exception {
 		
-		Umbral umbralRespuesta = umbralService.grabarUmbral(umbral);		
+		Umbral umbralRespuesta = umbralService.grabarUmbral(umbralEsp);
 		return new ResponseEntity(umbralRespuesta,HttpStatus.OK);
 	}
-	
-	
+
+    @RequestMapping(value = "/deleteUmbralEspecifico/{idUmbral}",
+            method = RequestMethod.DELETE, produces = "application/json")
+    public ResponseEntity<?> deleteUmbralEspecifico(@PathVariable("idUmbral") Long idUmbral) {
+	    this.umbralService.deleteUmbralEspecifico(idUmbral);
+	    return new ResponseEntity(null, HttpStatus.OK);
+    }
 
 }

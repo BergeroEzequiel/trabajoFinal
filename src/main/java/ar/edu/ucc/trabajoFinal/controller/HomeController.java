@@ -46,6 +46,13 @@ public class HomeController {
 		return alertasDetalle;
 	}
 
+	// NODOS
+	@RequestMapping(value = "nodos-detalle", method = RequestMethod.GET)
+	public ModelAndView nodos() {
+		ModelAndView nodosDetalle = new ModelAndView("nodos-detalle");
+		return nodosDetalle;
+	}
+
 	// HISTORICOS
 	@RequestMapping(value = "historicos", method = RequestMethod.GET)
 	public ModelAndView historicos() {
