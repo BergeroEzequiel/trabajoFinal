@@ -49,9 +49,6 @@
 
                                     <th class="column-title">Descripci�n</th>
                                     <th class="column-title">Variable Afectada</th>
-                                    <th class="column-title">Valor</th>
-                                    <th class="column-title">Umbral max</th>
-                                    <th class="column-title">Umbral min</th>
                                     <th class="column-title">Nodo</th>
                                     <th class="column-title">Criticidad</th>
                                     <th class="column-title">Fecha</th>
@@ -65,17 +62,59 @@
                                     <tr class="even pointer" ng-repeat="alerta in alertas">
                                         <td class=" ">{{alerta.descripcion}}</td>
                                         <td class=" ">{{getHumanRedableName(alerta.variableAfectada)}}</td>
-                                        <td class=" ">{{alerta.valor}}</td>
-                                        <td class=" ">{{alerta.umbralSuperado.valorMax}}</td>
-                                        <td class=" ">{{alerta.umbralSuperado.valorMin}}</td>
                                         <td class=" ">{{alerta.nodo.modulo + ' ' + alerta.nodo.numero}}</td>
                                         <td class=" ">{{alerta.criticidad.prioridad}}</td>
                                         <td class=" ">{{alerta.fecha | date:'dd/MM/yyyy'}}</td>
                                         <td class=" ">{{alerta.hora}}</td>
+                                        <td class=" ">
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg" ng-click="getDetalleAlerta(alerta)">Ver Detalle</button>
+                                        </td>
                                     </tr>
 
                                 </tbody>
                             </table>
+
+                            <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"></span>
+                                            </button>
+                                            <h4 class="modal-title" id="myModalLabel">Detalle de la alerta</h4>
+                                        </div>
+                                        <div class="modal-body" ng-show="showDetalles">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered bulk_action">
+                                                    <thead>
+                                                    <th class="column-title">Descripci�n</th>
+                                                    <th class="column-title">Variable Afectada</th>
+                                                    <th class="column-title">Valor</th>
+                                                    <th class="column-title">Umbral min</th>
+                                                    <th class="column-title">Umbral max</th>
+                                                    <th class="column-title">Nodo</th>
+                                                    <th class="column-title">Criticidad</th>
+                                                    <th class="column-title">Fecha</th>
+                                                    <th class="column-title">Hora</th>
+                                                    </thead>
+                                                    <tbody class="table">
+                                                    <tr class="even pointer" ng-repeat="detalle in detalleAlerta">
+                                                        <td class=" ">{{detalle.descripcion}}</td>
+                                                        <td class=" ">{{getHumanRedableName(detalle.variableAfectada)}}</td>
+                                                        <td class=" ">{{detalle.valor}}</td>
+                                                        <td class=" ">{{detalle.umbralSuperado.valorMin}}</td>
+                                                        <td class=" ">{{detalle.umbralSuperado.valorMax}}</td>
+                                                        <td class=" ">{{detalle.nodo.modulo + ' ' + alerta.nodo.numero}}</td>
+                                                        <td class=" ">{{detalle.criticidad.prioridad}}</td>
+                                                        <td class=" ">{{detalle.fecha | date:'dd/MM/yyyy'}}</td>
+                                                        <td class=" ">{{detalle.hora}}</td>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                         
