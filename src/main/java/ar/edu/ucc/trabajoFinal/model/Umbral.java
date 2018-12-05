@@ -98,17 +98,6 @@ public class Umbral extends ObjetoGenerico{
 		this.ultimaModificacion = ultimaModificacion;
 	}
 
-<<<<<<< HEAD
-    public String getTipoUmbral() {
-        return tipoUmbral;
-    }
-
-    public void setTipoUmbral(String tipoUmbral) {
-        this.tipoUmbral = tipoUmbral;
-    }
-        
-        
-=======
 	public String getTipoUmbral() {
 		return tipoUmbral;
 	}
@@ -116,6 +105,5 @@ public class Umbral extends ObjetoGenerico{
 	public void setTipoUmbral(String tipoUmbral) {
 		this.tipoUmbral = tipoUmbral;
 	}
->>>>>>> 849120f501a5d6c7db751a42ed55f37937b6cb2f
 
 }
