@@ -41,6 +41,12 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
         <property name="url" value="/WEB-INF/views/alertas/alertas-detalle.jsp" />
     </bean>
 
+    <!-- NODOS -->
+    <bean id="nodos-detalle"
+          class="org.springframework.web.servlet.view.JstlView">
+        <property name="url" value="/WEB-INF/views/nodos/nodos-detalle.jsp" />
+    </bean>
+
     <!-- HISTORICOS -->
     <bean id="historicos"
           class="org.springframework.web.servlet.view.JstlView">

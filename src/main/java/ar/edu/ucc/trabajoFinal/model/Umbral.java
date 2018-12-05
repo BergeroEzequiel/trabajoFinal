@@ -2,17 +2,7 @@ package ar.edu.ucc.trabajoFinal.model;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorType;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
+import javax.persistence.*;
 
 @Entity
 @Table(name="umbrales")
@@ -50,6 +40,7 @@ public class Umbral extends ObjetoGenerico{
         
         @Column(name = "tipo_umbral", insertable = false, updatable = false)
         private String tipoUmbral;
+
 	
 	public Criticidad getCriticidad() {
 		return criticidad;
@@ -107,6 +98,7 @@ public class Umbral extends ObjetoGenerico{
 		this.ultimaModificacion = ultimaModificacion;
 	}
 
+<<<<<<< HEAD
     public String getTipoUmbral() {
         return tipoUmbral;
     }
@@ -116,5 +108,14 @@ public class Umbral extends ObjetoGenerico{
     }
         
         
+=======
+	public String getTipoUmbral() {
+		return tipoUmbral;
+	}
+
+	public void setTipoUmbral(String tipoUmbral) {
+		this.tipoUmbral = tipoUmbral;
+	}
+>>>>>>> 849120f501a5d6c7db751a42ed55f37937b6cb2f
 
 }

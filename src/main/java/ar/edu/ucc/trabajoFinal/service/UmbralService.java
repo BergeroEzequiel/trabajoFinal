@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import ar.edu.ucc.trabajoFinal.model.UmbralEspecifico;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -52,9 +53,21 @@ public class UmbralService {
 	}
 	
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-	public Umbral grabarUmbral(Umbral umbral) throws ParseException {
-		log.info("Guardando: " + umbral.toString());
-		umbralDaoParticular.saveOrUpdate(umbral);
+	public Umbral grabarUmbral(UmbralEspecifico umbralEsp) throws ParseException {
+		Boolean isEspecifico = true;
+		Umbral umbral = new Umbral();
+		if (umbralEsp.getNodo() == null) {
+			isEspecifico = false;
+			umbral.setId(umbralEsp.getId());
+			umbral.setActivo(umbralEsp.isActivo());
+			umbral.setCriticidad(umbralEsp.getCriticidad());
+			umbral.setNombreVariable(umbralEsp.getNombreVariable());
+			umbral.setUnidadMedida(umbralEsp.getUnidadMedida());
+			umbral.setValorMax(umbralEsp.getValorMax());
+			umbral.setValorMin(umbralEsp.getValorMin());
+			umbral.setUltimaModificacion(umbralEsp.getUltimaModificacion());
+		}
+		umbralDaoParticular.saveOrUpdate((isEspecifico) ? umbralEsp : umbral);
 		return umbral;
 	}		
 		
@@ -84,5 +97,12 @@ public class UmbralService {
 		
 		return umbralesMerge;
 	}
-	
+
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
+    public void deleteUmbralEspecifico(Long id) {
+	    Umbral umbral = this.umbralDaoParticular.load(id);
+	    if (umbral.getTipoUmbral().equalsIgnoreCase("especifico")) {
+	    	this.umbralDaoParticular.remove(umbral);
+		}
+    }
 }

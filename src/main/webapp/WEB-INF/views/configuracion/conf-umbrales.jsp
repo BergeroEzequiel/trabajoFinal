@@ -14,7 +14,7 @@
 				<div class="x_panel">
 					<div class="x_title">
 						<h2>
-							Configuración de umbrales<small></small>
+							Configuraciï¿½n de umbrales<small></small>
 						</h2>
 						<div class="clearfix"></div>
 					</div>
@@ -22,18 +22,18 @@
 					<div class="x_content" ng-controller="umbralController">
 
 						<div class="table-responsive">
-							<table class="table table-striped table-bordered bulk_action">
+							<table class="table table-striped responsive-utilities jambo_table bulk_action">
 								<thead>
 									<tr class="headings">
 
 										<th class="column-title">Nombre de la Variable</th>
-										<th class="column-title">Fecha Ultima Modificación</th>
-										<th class="column-title">Valor Mínimo</th>
-										<th class="column-title">Valor Máximo</th>
+										<th class="column-title">Fecha Ultima Modificaciï¿½n</th>
+										<th class="column-title">Valor Mï¿½nimo</th>
+										<th class="column-title">Valor Mï¿½ximo</th>
 										<th class="column-title">Unidad Medida</th>
 										<th class="column-title">Criticidad</th>
 										<th class="column-title">Activar Alertas</th>
-										<th class="column-title no-link last"><span class="nobr">Acción</span>
+										<th class="column-title no-link last"><span class="nobr">Acciï¿½n</span>
 										</th>
 									</tr>
 								</thead>
@@ -46,19 +46,19 @@
 										<td><span ng-hide="umbral.editMode">{{umbral.valorMin}}</span>
 											<input numbers-only type="text" name="valorMin"
 											ng-show="umbral.editMode" class="form-control"
-											ng-model="umbral.valorMin" placeholder="Valor Mínimo"
+											ng-model="umbral.valorMin" placeholder="Valor Mï¿½nimo"
 											required="" /></td>
 										<td><span ng-hide="umbral.editMode">{{umbral.valorMax}}</span>
 											<input numbers-only type="text" name="valorMax"
 											ng-show="umbral.editMode" class="form-control"
-											ng-model="umbral.valorMax" placeholder="Valor Máximo"
+											ng-model="umbral.valorMax" placeholder="Valor Mï¿½ximo"
 											required="" /></td>
 										<td><span ng-hide="umbral.editMode">{{umbral.unidadMedida.nombre}}</span>
-											<select ng-show="umbral.editMode" ng-model="umbral.unidadMedida"
+											<select class="btn btn-default" ng-show="umbral.editMode" ng-model="umbral.unidadMedida"
 												ng-options="um.nombre for um in medidas track by um.id">
 										</select></td>
 										<td><span ng-hide="umbral.editMode">{{umbral.criticidad.prioridad}}</span>
-											<select ng-show="umbral.editMode" ng-model="umbral.criticidad"
+											<select class="btn btn-default" ng-show="umbral.editMode" ng-model="umbral.criticidad"
 												ng-options="crit.prioridad for crit in criticidades track by crit.id">
 										</select></td>
 										<td class="a-center"><input ng-hide="umbral.editMode"
@@ -71,7 +71,7 @@
 											ng-click="editUmbral(umbral)">Editar</a> <a href=""
 											ng-show="umbral.editMode"
 											ng-click="updateUmbral(umbral)">Guardar</a>
-											<a href="" ng-show="umbral.editMode"
+											<a style="margin-left: 10px" href="" ng-show="umbral.editMode"
 											ng-click="cancel(umbral)">Cancelar</a></td>
 
 									</tr>

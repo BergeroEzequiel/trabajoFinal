@@ -13,7 +13,7 @@
 			<li><a><i class="fa fa-sitemap"></i> Nodos <span
 					class="fa fa-chevron-down"></span></a>
 				<ul class="nav child_menu">
-					<li><a href="#">Estado Nodo</a></li>
+					<li><a href="nodos-detalle">Estado Nodo</a></li>
 				</ul></li>
 			<li><a><i class="fa fa-bell-o"></i> Alertas <span
 					class="fa fa-chevron-down"></span></a>
