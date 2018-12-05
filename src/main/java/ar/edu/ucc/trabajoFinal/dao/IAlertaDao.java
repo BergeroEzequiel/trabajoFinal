@@ -33,4 +33,6 @@ public interface IAlertaDao extends DaoGenerico<Alerta, Long> {
 
     public List<AlertaAuxiliar> getAlertasAMostrar(Time horaDesde, Time horaHasta,
             Criticidad criticidad);
+
+    public List<Alerta> getDetalleAlerta(Alerta alerta);
 }

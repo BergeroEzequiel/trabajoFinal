@@ -2,6 +2,7 @@ package ar.edu.ucc.trabajoFinal.dao;
 
 import java.util.List;
 
+import ar.edu.ucc.trabajoFinal.utils.Hora;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -32,7 +33,7 @@ public class AlertaDao extends DaoGenericoImp<Alerta, Long> implements IAlertaDa
         c.add(Calendar.DATE, 1);
         return this.getByCriteria(
                 idNodo != null? Restrictions.eq("nodo.id", idNodo) : Restrictions.sqlRestriction("1 = 1"),
-                Restrictions.eq("visualizar", false),
+                Restrictions.eq("visualizar", true),
                 criticidad != null? Restrictions.eq("criticidad", criticidad) : Restrictions.sqlRestriction("1 = 1"),
                 Restrictions.ge("fecha", dateFormatter.parse(fechaDesde)),
                 Restrictions.lt("fecha", dateFormatter.parse(dateFormatter.format(c.getTime()))));
@@ -72,9 +73,36 @@ public class AlertaDao extends DaoGenericoImp<Alerta, Long> implements IAlertaDa
             System.out.println("SE ROMPIO LA QUERY");
             return null;
         }
-        
-        
-        
+    }
+
+    @Override
+    public List<Alerta> getDetalleAlerta(Alerta alerta) {
+        Time horaDesde = null;
+        switch (alerta.getCriticidad().getPrioridad()) {
+            case "Critica":
+                horaDesde = Hora.restarMinutos(alerta.getHora(), 2);
+                break;
+            case "Alta":
+                horaDesde = Hora.restarMinutos(alerta.getHora(), 10);
+                break;
+            case "Media":
+                horaDesde = Hora.restarMinutos(alerta.getHora(), 30);
+                break;
+            case "Baja":
+                horaDesde = Hora.restarMinutos(alerta.getHora(), 60);
+                break;
+            default:
+                horaDesde = null;
+        }
+        return this.getByCriteria(
+            Restrictions.eq("visualizar", false),
+            Restrictions.eq("criticidad", alerta.getCriticidad()),
+            Restrictions.eq("nodo", alerta.getNodo()),
+            Restrictions.eq("variableAfectada", alerta.getVariableAfectada()),
+            Restrictions.eq("fecha", alerta.getFecha()),
+            Restrictions.le("hora", alerta.getHora()),
+            Restrictions.ge("hora", horaDesde));
+
     }
 
 }

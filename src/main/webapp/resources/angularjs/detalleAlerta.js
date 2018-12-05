@@ -5,6 +5,9 @@ var alertasModule = angular.module('detalleAlerta', [])
     $scope.nodos = [];
     $scope.nodoSeleccionado = null;
     $scope.alertas = [];
+    $scope.detalleAlerta = [];
+    $scope.showDetalles = false;
+    $scope.alertaSeleccionada = null;
     $scope.fechaDesde = null;
     $scope.fechaHasta = null;
     $scope.startFilter = function() {
@@ -60,7 +63,10 @@ var alertasModule = angular.module('detalleAlerta', [])
             }, cb);
 
             cb(start, end);
+            $scope.fechaDesde = start.format('YYYY-MM-DD');
+            $scope.fechaHasta = end.format('YYYY-MM-DD');
             $scope.handleFilterEvents();
+            $scope.getAlertas();
         });
     }
 
@@ -77,8 +83,8 @@ var alertasModule = angular.module('detalleAlerta', [])
     $scope.getAlertas = function() {
         var url = 'http://localhost:8080/trabajoFinal/alertasPorFecha?',
             params = 'fechaDesde=' + $scope.fechaDesde + '&fechaHasta=' + $scope.fechaHasta;    
-        params = ($scope.nodoSeleccionado) ? params + '&idNodo=' + $scope.nodoSeleccionado.id : '';
-        params = ($scope.criticidadSeleccionada) ? params + '&criticidad=' + $scope.criticidadSeleccionada.prioridad : '';
+        params = ($scope.nodoSeleccionado) ? params + '&idNodo=' + $scope.nodoSeleccionado.id : params;
+        params = ($scope.criticidadSeleccionada) ? params + '&criticidad=' + $scope.criticidadSeleccionada.prioridad : params;
         
         $http.get(url + params).then(onAlertasCallback, errorCallback);
     }
@@ -119,6 +125,19 @@ var alertasModule = angular.module('detalleAlerta', [])
     $scope.getNodos();
 
     $scope.getCriticidades();
+
+    $scope.getDetalleAlerta = function(alerta) {
+        $scope.detalleAlerta = [];
+        $scope.showDetalles = false;
+        $scope.alertaSeleccionada = alerta;
+        $http.get('http://localhost:8080/trabajoFinal/detalleAlerta/' + $scope.alertaSeleccionada.id)
+            .then(onDetallesCallback, errorCallback)
+    }
+
+    function onDetallesCallback(response) {
+        $scope.detalleAlerta = response.data;
+        $scope.showDetalles = true;
+    }
 
 })
 .controller("userController", function($scope) {

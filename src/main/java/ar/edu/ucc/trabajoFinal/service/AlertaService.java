@@ -74,4 +74,11 @@ public class AlertaService {
         List<Alerta> alertas = this.alertaDaoParticular.getAlertas(horaDesde, horaHasta, criticidad);
         return alertas;
     }
+
+    @Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
+    public List<Alerta> getDetalleAlerta(Long idAlerta) throws ParseException {
+        Alerta alerta = alertaDaoParticular.load(idAlerta);
+        List<Alerta> alertas = this.alertaDaoParticular.getDetalleAlerta(alerta);
+        return alertas;
+    }
 }
