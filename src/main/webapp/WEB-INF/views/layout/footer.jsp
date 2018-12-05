@@ -44,4 +44,5 @@
 	<!-- Custom Theme Scripts -->
 	<script src="<c:url value="/resources/build/js/custom.min.js"/>"></script>
 	<script src="resources/angularjs/angular.js"></script>
-	<script src="resources/angularjs/home.js"></script>	
+	<script src="resources/angularjs/home.js"></script>
+        <script src="<c:url value="/resources/vendors/multiSelect/dist/src/angularjs-dropdown-multiselect.js"/>"></script>

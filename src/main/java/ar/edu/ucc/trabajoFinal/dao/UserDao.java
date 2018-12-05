@@ -6,6 +6,7 @@
 package ar.edu.ucc.trabajoFinal.dao;
 
 import ar.edu.ucc.trabajoFinal.model.User;
+import java.util.List;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -24,6 +25,11 @@ public class UserDao extends DaoGenericoImp<User, Long> implements IUserDao{
     @Override
     public User findBySSO(String sso) {
         return this.getByCriteria(Restrictions.eq("ssoId", sso)).get(0);
+    }
+
+    @Override
+    public List<User> getUsuariosByState(String state) {
+        return this.getByCriteria(Restrictions.eq("state", state));
     }
     
 }

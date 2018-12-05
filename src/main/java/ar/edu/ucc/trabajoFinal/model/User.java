@@ -5,15 +5,10 @@
  */
 package ar.edu.ucc.trabajoFinal.model;
 
-import java.util.HashSet;
-import java.util.Set;
- 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
  
 @Entity
@@ -22,7 +17,7 @@ public class User  extends ObjetoGenerico{
  
     @Column(name="sso_id", unique=true, nullable=false)
     private String ssoId;
-     
+    
     @Column(name="password", nullable=false)
     private String password;
          
@@ -34,15 +29,14 @@ public class User  extends ObjetoGenerico{
  
     @Column(name="email", nullable=false)
     private String email;
- 
-    @Column(name="estado", nullable=false)
-    private String state=State.ACTIVE.getState();
- 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "usuarios_rol", 
-             joinColumns = { @JoinColumn(name = "id_usuario") }, 
-             inverseJoinColumns = { @JoinColumn(name = "id_rol") })
-    private Set<UserProfile> userProfiles = new HashSet<UserProfile>();
+    
+    @ManyToOne
+    @JoinColumn(name="id_rol")
+    private UserProfile userProfile;
+    
+    @ManyToOne
+    @JoinColumn(name="id_estado")
+    private Estado estado;
  
     public String getSsoId() {
         return ssoId;
@@ -83,23 +77,23 @@ public class User  extends ObjetoGenerico{
     public void setEmail(String email) {
         this.email = email;
     }
- 
-    public String getState() {
-        return state;
+
+    public Estado getEstado() {
+        return estado;
     }
- 
-    public void setState(String state) {
-        this.state = state;
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
     }
- 
-    public Set<UserProfile> getUserProfiles() {
-        return userProfiles;
+    
+    public UserProfile getUserProfile() {
+        return userProfile;
     }
- 
-    public void setUserProfiles(Set<UserProfile> userProfiles) {
-        this.userProfiles = userProfiles;
+
+    public void setUserProfile(UserProfile userProfile) {
+        this.userProfile = userProfile;
     }
- 
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -109,30 +103,30 @@ public class User  extends ObjetoGenerico{
         return result;
     }
  
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (!(obj instanceof User))
-            return false;
-        User other = (User) obj;
-        if (getId() != other.getId())
-            return false;
-        if (ssoId == null) {
-            if (other.ssoId != null)
-                return false;
-        } else if (!ssoId.equals(other.ssoId))
-            return false;
-        return true;
-    }
+//    @Override
+//    public boolean equals(Object obj) {
+//        if (this == obj)
+//            return true;
+//        if (obj == null)
+//            return false;
+//        if (!(obj instanceof User))
+//            return false;
+//        User other = (User) obj;
+//        if (getId() != other.getId())
+//            return false;
+//        if (ssoId == null) {
+//            if (other.ssoId != null)
+//                return false;
+//        } else if (!ssoId.equals(other.ssoId))
+//            return false;
+//        return true;
+//    }
  
     @Override
     public String toString() {
         return "User [id=" + getId() + ", ssoId=" + ssoId + ", password=" + password
                 + ", firstName=" + firstName + ", lastName=" + lastName
-                + ", email=" + email + ", state=" + state + ", userProfiles=" + userProfiles +"]";
+                + ", email=" + email + "]";
     }
     
 }

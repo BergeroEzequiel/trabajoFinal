@@ -7,8 +7,8 @@
 					class="fa fa-chevron-down"></span></a>
 				<ul class="nav child_menu">
 					<li><a href="/trabajoFinal">Paneles Solares</a></li>
-					<li><a href="#">Aerogeneradores</a></li>
-					<li><a href="index3.html">Termotanques Solares</a></li>
+					<li><a href="en-mantenimiento">Aerogeneradores</a></li>
+					<li><a href="en-mantenimiento">Termotanques Solares</a></li>
 				</ul></li>
 			<li><a><i class="fa fa-sitemap"></i> Nodos <span
 					class="fa fa-chevron-down"></span></a>
@@ -40,6 +40,7 @@
 					<li><a href="conf-umbrales">Umbrales</a></li>
 					<li><a href="conf-alertas">Alertas</a></li>
 					<li><a href="conf-nodos">Nodos</a></li>
+                                        <li><a href="conf-usuarios">Usuarios</a></li>
 				</ul></li>
 		</ul>
 	</div>

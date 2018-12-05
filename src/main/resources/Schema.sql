@@ -35,17 +35,19 @@
         drop 
         foreign key FK_4avl17cmusu1mjclhtx1x90f0;
 
-    alter table usuarios_rol 
+    alter table usuario 
         drop 
-        foreign key FK_a16nuioaclvnvtvueuvpxnb00;
+        foreign key FK_9t3qvia4f8jp25vt3gmd5v8mc;
 
-    alter table usuarios_rol 
+    alter table usuario 
         drop 
-        foreign key FK_j1lrbl2tx28twvjtf0lg07ph6;
+        foreign key FK_q4ash4htvwbqx827lds2kp2w8;
 
     drop table if exists alertas;
 
     drop table if exists criticidades;
+
+    drop table if exists estado;
 
     drop table if exists monitoreo_detalle;
 
@@ -62,8 +64,6 @@
     drop table if exists unidades_medida;
 
     drop table if exists usuario;
-
-    drop table if exists usuarios_rol;
 
     create table alertas (
         ID bigint not null auto_increment,
@@ -84,6 +84,12 @@
         cantidad_repeticiones integer,
         periodo_tiempo varchar(255),
         prioridad varchar(255) not null,
+        primary key (ID)
+    ) ENGINE=InnoDB;
+
+    create table estado (
+        ID bigint not null auto_increment,
+        descripcion varchar(255),
         primary key (ID)
     ) ENGINE=InnoDB;
 
@@ -235,14 +241,9 @@
         apellido varchar(255) not null,
         password varchar(255) not null,
         sso_id varchar(255) not null,
-        estado varchar(255) not null,
+        id_estado bigint,
+        id_rol bigint,
         primary key (ID)
-    ) ENGINE=InnoDB;
-
-    create table usuarios_rol (
-        id_usuario bigint not null,
-        id_rol bigint not null,
-        primary key (id_usuario, id_rol)
     ) ENGINE=InnoDB;
 
     alter table rol 
@@ -296,12 +297,12 @@
         foreign key (id_nodo) 
         references nodos (ID);
 
-    alter table usuarios_rol 
-        add constraint FK_a16nuioaclvnvtvueuvpxnb00 
+    alter table usuario 
+        add constraint FK_9t3qvia4f8jp25vt3gmd5v8mc 
+        foreign key (id_estado) 
+        references estado (ID);
+
+    alter table usuario 
+        add constraint FK_q4ash4htvwbqx827lds2kp2w8 
         foreign key (id_rol) 
         references rol (ID);
-
-    alter table usuarios_rol 
-        add constraint FK_j1lrbl2tx28twvjtf0lg07ph6 
-        foreign key (id_usuario) 
-        references usuario (ID);

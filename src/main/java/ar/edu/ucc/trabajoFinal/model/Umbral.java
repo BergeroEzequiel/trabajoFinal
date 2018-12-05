@@ -47,6 +47,9 @@ public class Umbral extends ObjetoGenerico{
 	@ManyToOne
 	@JoinColumn(name="id_um")
 	private UnidadMedida unidadMedida;
+        
+        @Column(name = "tipo_umbral", insertable = false, updatable = false)
+        private String tipoUmbral;
 	
 	public Criticidad getCriticidad() {
 		return criticidad;
@@ -103,5 +106,15 @@ public class Umbral extends ObjetoGenerico{
 	public void setUltimaModificacion(Date ultimaModificacion) {
 		this.ultimaModificacion = ultimaModificacion;
 	}
+
+    public String getTipoUmbral() {
+        return tipoUmbral;
+    }
+
+    public void setTipoUmbral(String tipoUmbral) {
+        this.tipoUmbral = tipoUmbral;
+    }
+        
+        
 
 }

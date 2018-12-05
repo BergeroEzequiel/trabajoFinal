@@ -7,6 +7,7 @@ import org.hibernate.tool.hbm2ddl.SchemaExport;
 
 import ar.edu.ucc.trabajoFinal.model.Alerta;
 import ar.edu.ucc.trabajoFinal.model.Criticidad;
+import ar.edu.ucc.trabajoFinal.model.Estado;
 import ar.edu.ucc.trabajoFinal.model.Nodo;
 import ar.edu.ucc.trabajoFinal.model.ObjetoGenerico;
 import ar.edu.ucc.trabajoFinal.model.TipoProcesamiento;
@@ -45,6 +46,7 @@ public class SqlSchemaGenerator {
                 config.addAnnotatedClass(TipoProcesamiento.class);
                 config.addAnnotatedClass(User.class);
                 config.addAnnotatedClass(UserProfile.class);
+                config.addAnnotatedClass(Estado.class);
 		
 		SchemaExport schemaExport = new SchemaExport(config);
 		schemaExport.setDelimiter(";");

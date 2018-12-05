@@ -7,13 +7,13 @@
     <http auto-config="true" >
         <intercept-url pattern="/login" access="permitAll" />
         <intercept-url pattern="/" access="isAuthenticated()" />
-        <intercept-url pattern="/conf-umbrales" access="hasRole('ADMIN')" />
-        <intercept-url pattern="/conf-alertas" access="hasRole('ADMIN')" />
-        <intercept-url pattern="/conf-nodos" access="hasRole('ADMIN')" />
+        <intercept-url pattern="/conf-umbrales" access="hasRole('Administrador')" />
+        <intercept-url pattern="/conf-alertas" access="hasRole('Administrador')" />
+        <intercept-url pattern="/conf-nodos" access="hasRole('Administrador')" />
         
-        <intercept-url pattern="/alertas-detalle" access="hasRole('ADMIN')" />
-<!--        <intercept-url pattern="/admin**" access="hasRole('ADMIN')" />
-        <intercept-url pattern="/dba**" access="hasRole('ADMIN') and hasRole('DBA')" />-->
+        <intercept-url pattern="/alertas-detalle" access="hasRole('Administrador')" />
+<!--        <intercept-url pattern="/admin**" access="hasRole('Administrador')" />
+        <intercept-url pattern="/dba**" access="hasRole('Administrador') and hasRole('DBA')" />-->
         <form-login  login-page="/login"
                      username-parameter="ssoId"
                      password-parameter="password"

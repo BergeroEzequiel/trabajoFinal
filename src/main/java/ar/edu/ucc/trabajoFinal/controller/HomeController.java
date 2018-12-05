@@ -38,6 +38,12 @@ public class HomeController {
 		ModelAndView confNodos = new ModelAndView("conf-nodos");
 		return confNodos;
 	}
+        
+        @RequestMapping(value = "conf-usuarios", method = RequestMethod.GET)
+	public ModelAndView confUsuarios() {
+		ModelAndView confUsuarios = new ModelAndView("conf-usuarios");
+		return confUsuarios;
+	}
 
 	// ALERTAS
 	@RequestMapping(value = "alertas-detalle", method = RequestMethod.GET)
@@ -68,5 +74,12 @@ public class HomeController {
             ModelAndView login = new ModelAndView("login");
             return login;
         }
+        
+        // PAGINA DE MANTENIMIENTO
+	@RequestMapping(value = "en-mantenimiento", method = RequestMethod.GET)
+	public ModelAndView enMantenimiento() {
+		ModelAndView enMantenimiento = new ModelAndView("en-mantenimiento");
+		return enMantenimiento;
+	}
 
 }

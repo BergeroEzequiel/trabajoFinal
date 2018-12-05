@@ -5,6 +5,7 @@
  */
 package ar.edu.ucc.trabajoFinal.service;
 
+import ar.edu.ucc.trabajoFinal.model.Estado;
 import ar.edu.ucc.trabajoFinal.model.User;
 import ar.edu.ucc.trabajoFinal.model.UserProfile;
 import java.util.ArrayList;
@@ -37,17 +38,18 @@ public class CustomUserDetailsService implements UserDetailsService{
             throw new UsernameNotFoundException("Username not found");
         }
             return new org.springframework.security.core.userdetails.User(user.getSsoId(), user.getPassword(), 
-                 user.getState().equals("Active"), true, true, true, getGrantedAuthorities(user));
+                 user.getEstado().getId().equals(Estado.ACTIVO), true, true, true, getGrantedAuthorities(user));
     }
  
      
     private List<GrantedAuthority> getGrantedAuthorities(User user){
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
          
-        for(UserProfile userProfile : user.getUserProfiles()){
-            System.out.println("UserProfile : "+userProfile);
-            authorities.add(new SimpleGrantedAuthority("ROLE_"+userProfile.getType()));
-        }
+        
+        UserProfile userProfile = user.getUserProfile();
+        System.out.println("Rol del usuario : " + userProfile);
+        authorities.add(new SimpleGrantedAuthority("ROLE_"+userProfile.getType()));
+            
         System.out.print("authorities :"+authorities);
         return authorities;
     }  

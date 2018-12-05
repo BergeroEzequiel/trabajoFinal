@@ -14,7 +14,7 @@ import javax.persistence.Table;
 public class UserProfile extends ObjetoGenerico{
  
     @Column(name="tipo", length=15, unique=true, nullable=false)
-    private String type = UserProfileType.USER.getUserProfileType();
+    private String type ;
      
     public String getType() {
         return type;
@@ -23,8 +23,7 @@ public class UserProfile extends ObjetoGenerico{
     public void setType(String type) {
         this.type = type;
     }
- 
- 
+    
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -44,11 +43,6 @@ public class UserProfile extends ObjetoGenerico{
             return false;
         UserProfile other = (UserProfile) obj;
         if (getId() != other.getId())
-            return false;
-        if (type == null) {
-            if (other.type != null)
-                return false;
-        } else if (!type.equals(other.type))
             return false;
         return true;
     }

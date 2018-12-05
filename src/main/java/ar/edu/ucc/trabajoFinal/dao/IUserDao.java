@@ -6,6 +6,7 @@
 package ar.edu.ucc.trabajoFinal.dao;
 
 import ar.edu.ucc.trabajoFinal.model.User;
+import java.util.List;
 
 /**
  *
@@ -16,5 +17,7 @@ public interface IUserDao extends DaoGenerico<User, Long> {
     User findById(Long id);
      
     User findBySSO(String sso);
+    
+    List<User> getUsuariosByState(String state);
     
 }
