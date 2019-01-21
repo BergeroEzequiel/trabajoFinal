@@ -49,7 +49,7 @@ public class JobAlertasMedias extends QuartzJobBean{
         Criticidad criticidadMedia = criticidadDao.getCriticidadByPrioridad("Media");
         alertasAGenerar = alertaDao.getAlertasAMostrar(horaMenos30Minutos, horaActual,
                 criticidadMedia);
-        if(!alertasAGenerar.isEmpty())
+        if(alertasAGenerar != null && !alertasAGenerar.isEmpty())
             for (AlertaAuxiliar alertaAuxiliar : alertasAGenerar) {
                 if (alertaAuxiliar.getCantidadRepeticiones() >= criticidadMedia.getCantidadRepeticiones()) {
                     Alerta alerta = new Alerta();

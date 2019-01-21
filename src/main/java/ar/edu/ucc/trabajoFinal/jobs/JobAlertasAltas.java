@@ -49,7 +49,7 @@ public class JobAlertasAltas extends QuartzJobBean{
         Criticidad criticidadAlta = criticidadDao.getCriticidadByPrioridad("Alta");
         alertasAGenerar = alertaDao.getAlertasAMostrar(horaMenos10Minutos, horaActual,
                 criticidadAlta);
-        if(!alertasAGenerar.isEmpty())
+        if(alertasAGenerar != null && !alertasAGenerar.isEmpty())
             for (AlertaAuxiliar alertaAuxiliar : alertasAGenerar) {
                 if (alertaAuxiliar.getCantidadRepeticiones() >= criticidadAlta.getCantidadRepeticiones()) {
                     Alerta alerta = new Alerta();
