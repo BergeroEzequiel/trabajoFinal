@@ -3,11 +3,10 @@ var usuariosModule = angular.module('confUsuarios', [])
         $scope.usuarios = [];
         $scope.usuario;
         $scope.nuevoUsuario;
+        $scope.usuarioPassword;
         $scope.roles = [];
         $scope.estados = [];
         $scope.mostrarLogin = 1;
-        
-        
 
         $scope.getUsuarios = function () {
             $http.get('http://localhost:8080/trabajoFinal/usuarios')
@@ -63,12 +62,27 @@ var usuariosModule = angular.module('confUsuarios', [])
         $scope.getEstados();
         
         $scope.crearUsuario = function (nuevoUsuario) {
-            $http.post('http://localhost:8080/trabajoFinal/usuario/', nuevoUsuario)
+            $http.post('http://localhost:8080/trabajoFinal/usuario', nuevoUsuario)
                     .then(onSuccessCreateCallback, errorCallback);
         }
         
         function onSuccessCreateCallback(response) {
                 $scope.nuevoUsuario = {};
+        }
+        
+        $scope.cambiarPassword = function (usuarioPassword){
+            $http.put('http://localhost:8080/trabajoFinal/usuarioPassword', usuarioPassword)
+                    .then(onSuccessCambiarPasswordCallback, errorCambiarPasswordCallback)
+        }
+        
+        function onSuccessCambiarPasswordCallback(response) {
+                $scope.usuarioPassword = {};
+                alert('Actualizacion de password exitosa!');
+        }
+        
+        function errorCambiarPasswordCallback(err) {
+                alert('No se pudo actualizar su password!. ' + err.data.message);
+                console.log(err);
         }
         
         $scope.ocultarFormLogin = function () {

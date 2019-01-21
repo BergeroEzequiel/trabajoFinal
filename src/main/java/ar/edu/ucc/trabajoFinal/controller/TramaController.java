@@ -16,6 +16,7 @@ import ar.edu.ucc.trabajoFinal.dto.TramaDto;
 import ar.edu.ucc.trabajoFinal.model.Trama;
 import ar.edu.ucc.trabajoFinal.model.TramaUltimasPotencias;
 import ar.edu.ucc.trabajoFinal.service.TramaService;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -27,6 +28,7 @@ public class TramaController {
 	private TramaService tramaService;
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
+        @Secured("ROLE_ADMINISTRADOR")
 	@RequestMapping(value = "/tramas", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<?> getTramas()
 			throws Exception {
@@ -83,6 +85,7 @@ public class TramaController {
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
+        @Secured("ROLE_BASICO")
 	@RequestMapping(value = "/potenciasNodos", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<?> getPotenciasNodos() throws Exception{
 		

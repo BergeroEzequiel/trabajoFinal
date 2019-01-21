@@ -20,7 +20,8 @@
 	
 	<mvc:annotation-driven />
 	<context:component-scan base-package="ar.edu.ucc.trabajoFinal.controller" />
-	
+	<context:property-placeholder location="classpath:app.properties"/> 
+        
 <!-- 	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource"> -->
 <!--     	<property name="basename" value="messages"/> -->
 <!-- 	</bean> -->
@@ -37,6 +38,15 @@
 			</array>
 		</property>
 	</bean>
+        
+        
+        
+        <bean id="appProperties" class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+            <property name="location" value="classpath:app.properties"/>         
+        </bean>
+        
+        
+        
 
  		
 	<!-- Bean name based view resolver, used to return JSON in ModelAndView objects -->

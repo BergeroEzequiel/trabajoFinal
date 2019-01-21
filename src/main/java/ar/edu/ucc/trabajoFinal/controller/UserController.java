@@ -6,7 +6,8 @@
 package ar.edu.ucc.trabajoFinal.controller;
 
 import ar.edu.ucc.trabajoFinal.dto.UserDto;
-import ar.edu.ucc.trabajoFinal.model.User;
+import ar.edu.ucc.trabajoFinal.model.Usuario;
+import ar.edu.ucc.trabajoFinal.service.CustomUserDetailsService;
 import ar.edu.ucc.trabajoFinal.service.UserService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,12 +30,15 @@ public class UserController {
     @Autowired
     UserService usuarioService;
     
+//    @Autowired
+//    CustomUserDetailsService userDetailsService;
+    
     private BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
     
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @RequestMapping(value = "/usuario", 
                     method = RequestMethod.POST, produces = "application/json")
-    public ResponseEntity<?> crearUsuario(@RequestBody User user)
+    public ResponseEntity<?> crearUsuario(@RequestBody Usuario user)
                     throws Exception {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         usuarioService.grabarNuevoUsuario(user);
@@ -46,7 +50,7 @@ public class UserController {
     public ResponseEntity<?> getUsuarios()
                     throws Exception {
 
-        List<User> usuarios = usuarioService.getUsuarios();
+        List<Usuario> usuarios = usuarioService.getUsuarios();
         return new ResponseEntity(usuarios, HttpStatus.OK);
     }
     
@@ -55,16 +59,16 @@ public class UserController {
     public ResponseEntity<?> getUsuariosByState(@RequestParam(value = "state", required = true) String state)
                     throws Exception {
 
-        List<User> usuarios = usuarioService.getUsuariosByState(state);
+        List<Usuario> usuarios = usuarioService.getUsuariosByState(state);
         return new ResponseEntity(usuarios, HttpStatus.OK);
     }
     
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @RequestMapping(value = "/usuario", 
                     method = RequestMethod.PUT, produces = "application/json")
-    public ResponseEntity<?> actualizarUsuario(@RequestBody User usuario)
+    public ResponseEntity<?> actualizarUsuario(@RequestBody Usuario usuario)
                     throws Exception {
-        User usuarioRespuesta = usuarioService.actualizarUsuario(usuario);
+        Usuario usuarioRespuesta = usuarioService.actualizarUsuario(usuario);
         return new ResponseEntity(usuarioRespuesta,HttpStatus.OK);
     }
     
@@ -73,9 +77,13 @@ public class UserController {
                     method = RequestMethod.PUT, produces = "application/json")
     public ResponseEntity<?> actualizarPasswordUsuario(@RequestBody UserDto usuarioDto)
                     throws Exception {
+        try {
+            Usuario usuarioRespuesta = usuarioService.actualizarPasswordUsuario(usuarioDto);
+            return new ResponseEntity(usuarioRespuesta,HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(e, HttpStatus.BAD_REQUEST);
+        }
         
-        User usuarioRespuesta = usuarioService.actualizarPasswordUsuario(usuarioDto);
-        return new ResponseEntity(usuarioRespuesta,HttpStatus.OK);
     }
     
 }

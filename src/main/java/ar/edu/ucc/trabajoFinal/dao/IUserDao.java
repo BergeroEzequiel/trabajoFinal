@@ -5,19 +5,19 @@
  */
 package ar.edu.ucc.trabajoFinal.dao;
 
-import ar.edu.ucc.trabajoFinal.model.User;
+import ar.edu.ucc.trabajoFinal.model.Usuario;
 import java.util.List;
 
 /**
  *
  * @author ezequiel
  */
-public interface IUserDao extends DaoGenerico<User, Long> {
+public interface IUserDao extends DaoGenerico<Usuario, Long> {
     
-    User findById(Long id);
+    Usuario findById(Long id);
      
-    User findBySSO(String sso);
+    Usuario findBySSO(String sso);
     
-    List<User> getUsuariosByState(String state);
+    List<Usuario> getUsuariosByState(String state);
     
 }

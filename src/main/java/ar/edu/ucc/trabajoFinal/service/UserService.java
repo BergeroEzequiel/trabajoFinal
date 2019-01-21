@@ -12,7 +12,7 @@ import ar.edu.ucc.trabajoFinal.dao.IUserDao;
 import ar.edu.ucc.trabajoFinal.dao.UserDao;
 import ar.edu.ucc.trabajoFinal.dto.UserDto;
 import ar.edu.ucc.trabajoFinal.model.Estado;
-import ar.edu.ucc.trabajoFinal.model.User;
+import ar.edu.ucc.trabajoFinal.model.Usuario;
 import java.text.ParseException;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -31,7 +31,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserService {
     
     @Autowired
-    DaoGenerico<User, Long> usuarioDao;
+    DaoGenerico<Usuario, Long> usuarioDao;
 
     IUserDao usuarioDaoParticular;
     
@@ -48,16 +48,16 @@ public class UserService {
             estadoDaoParticular = (EstadoDao) estadoDao;
     }
  
-    public User findById(Long id) {
+    public Usuario findById(Long id) {
         return usuarioDaoParticular.findById(id);
     }
  
-    public User findBySso(String sso) {
+    public Usuario findBySso(String sso) {
         return usuarioDaoParticular.findBySSO(sso);
     }
     
     @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-    public User grabarNuevoUsuario(User user) {
+    public Usuario grabarNuevoUsuario(Usuario user) {
         if(user.getId() == null){
             user.setEstado(estadoDaoParticular.getEstadoById(Estado.PENDIENTE));
             user.setUserProfile(null);
@@ -69,24 +69,26 @@ public class UserService {
     }
     
     @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-    public List<User> getUsuarios() throws ParseException {
-        List<User> usuarios = this.usuarioDaoParticular.getAll();
+    public List<Usuario> getUsuarios() throws ParseException {
+        List<Usuario> usuarios = this.usuarioDaoParticular.getAll();
         return usuarios;
     }
     
-    public List<User> getUsuariosByState(String state){
+    public List<Usuario> getUsuariosByState(String state){
         return usuarioDaoParticular.getUsuariosByState(state);
     }
     
     @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-    public User actualizarPasswordUsuario(UserDto userDto) {
+    public Usuario actualizarPasswordUsuario(UserDto userDto) {
         if(userDto.getPassword().equals(userDto.getPasswordNuevo()))
             throw new RuntimeException("Los password son iguales. Para cambiar "
                     + "la password debe ingresar una distinta a la anterior.");
-        if(userDto.getId() == null)
-            throw new RuntimeException("ID nulo. No se puede actualizar la password de un usuario sin ID.");
+        Usuario usuario = this.usuarioDaoParticular.findBySSO(userDto.getSsoId());
+        if(usuario == null)
+            throw new RuntimeException("El usuario con nombre " + userDto.getSsoId() + " no existe.");
+        if(usuario != null && ! bCryptPasswordEncoder.matches(userDto.getPassword(), usuario.getPassword()))
+            throw new RuntimeException("Contraseña incorrecta. Si no recuerda su contraseña seleccione 'Recuperar password'.");
         
-        User usuario = this.usuarioDaoParticular.findById(userDto.getId());
         usuario.setPassword(bCryptPasswordEncoder.encode(userDto.getPasswordNuevo()));
         usuarioDaoParticular.saveOrUpdate(usuario);
         
@@ -100,11 +102,11 @@ public class UserService {
      * @return 
      */
     @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-    public User actualizarUsuario(User user) {
+    public Usuario actualizarUsuario(Usuario user) {
         if(user.getId() == null)
             throw new RuntimeException("ID nulo. No se puede actualizar un usuario sin ID.");
         
-        User usuarioOriginal = this.usuarioDaoParticular.findById(user.getId());
+        Usuario usuarioOriginal = this.usuarioDaoParticular.findById(user.getId());
         usuarioOriginal.setEmail(user.getEmail());
         usuarioOriginal.setEstado(user.getEstado());
         usuarioOriginal.setFirstName(user.getFirstName());

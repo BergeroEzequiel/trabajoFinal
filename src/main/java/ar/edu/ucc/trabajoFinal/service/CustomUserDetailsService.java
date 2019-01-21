@@ -6,22 +6,27 @@
 package ar.edu.ucc.trabajoFinal.service;
 
 import ar.edu.ucc.trabajoFinal.model.Estado;
-import ar.edu.ucc.trabajoFinal.model.User;
+import ar.edu.ucc.trabajoFinal.model.Usuario;
 import ar.edu.ucc.trabajoFinal.model.UserProfile;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author ezequiel
  */
+@Service
+@Transactional
 public class CustomUserDetailsService implements UserDetailsService{
 
     @Autowired
@@ -31,7 +36,7 @@ public class CustomUserDetailsService implements UserDetailsService{
     @Override
     public UserDetails loadUserByUsername(String ssoId)
             throws UsernameNotFoundException {
-        User user = userService.findBySso(ssoId);
+        Usuario user = userService.findBySso(ssoId);
         System.out.println("User : "+user);
         if(user==null){
             System.out.println("User not found");
@@ -42,7 +47,7 @@ public class CustomUserDetailsService implements UserDetailsService{
     }
  
      
-    private List<GrantedAuthority> getGrantedAuthorities(User user){
+    private List<GrantedAuthority> getGrantedAuthorities(Usuario user){
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
          
         
@@ -52,5 +57,5 @@ public class CustomUserDetailsService implements UserDetailsService{
             
         System.out.print("authorities :"+authorities);
         return authorities;
-    }  
+    }    
 }

@@ -1,37 +1,41 @@
 <beans:beans xmlns="http://www.springframework.org/schema/security"
     xmlns:beans="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
-    http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.0.xsd">
-      
-    <http auto-config="true" >
-        <intercept-url pattern="/login" access="permitAll" />
-        <intercept-url pattern="/" access="isAuthenticated()" />
-        <intercept-url pattern="/conf-umbrales" access="hasRole('Administrador')" />
-        <intercept-url pattern="/conf-alertas" access="hasRole('Administrador')" />
-        <intercept-url pattern="/conf-nodos" access="hasRole('Administrador')" />
-        
-        <intercept-url pattern="/alertas-detalle" access="hasRole('Administrador')" />
-<!--        <intercept-url pattern="/admin**" access="hasRole('Administrador')" />
-        <intercept-url pattern="/dba**" access="hasRole('Administrador') and hasRole('DBA')" />-->
-        <form-login  login-page="/login"
-                     username-parameter="ssoId"
-                     password-parameter="password"
-                     authentication-failure-url="/Access_Denied" />
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+            http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+            http://www.springframework.org/schema/security 
+            http://www.springframework.org/schema/security/spring-security-4.0.xsd">
+    
+    
+    <global-method-security secured-annotations="enabled" pre-post-annotations="enabled" />
+<!--    <http pattern="/api/login" security="none"/>
+    <http pattern="/cambiar-password" security="none"/>-->
+    
+    <http pattern="/**" authentication-manager-ref="authenticationManager" entry-point-ref="restAuthenticationEntryPoint" create-session="stateless">
+        <custom-filter position="FORM_LOGIN_FILTER" ref="jwtAuthenticationFilter"/>
+        <custom-filter position="BASIC_AUTH_FILTER" ref="jwtAuthorizationFilter"/>
         <csrf disabled="true"/>
     </http>
-  
-    <authentication-manager >
+    
+    <authentication-manager alias="authenticationManager">
         <authentication-provider user-service-ref="customUserDetailsService">
             <password-encoder ref="bCryptPasswordEncoder"/>
         </authentication-provider>
-        
     </authentication-manager>
       
     <beans:bean id="customUserDetailsService" class="ar.edu.ucc.trabajoFinal.service.CustomUserDetailsService" />
     
     <beans:bean id="bCryptPasswordEncoder"
-        class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+                class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+    </beans:bean>
+    
+    <beans:bean id="jwtAuthenticationFilter" class="ar.edu.ucc.trabajoFinal.security.JWTAuthenticationFilter">
+        <beans:property name="authenticationManager" ref="authenticationManager" />
+    </beans:bean>
+    
+    <beans:bean id="jwtAuthorizationFilter" class="ar.edu.ucc.trabajoFinal.security.JWTAuthorizationFilter">
+        <beans:constructor-arg ref="authenticationManager"/>
+        <!--<beans:property name="authenticationManager" ref="authenticationManager" />-->
     </beans:bean>
     
 </beans:beans>

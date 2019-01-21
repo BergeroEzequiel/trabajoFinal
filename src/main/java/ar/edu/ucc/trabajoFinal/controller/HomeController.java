@@ -66,11 +66,11 @@ public class HomeController {
 		return historicos;
 	}
         
-        @RequestMapping(value = "/login", method = RequestMethod.GET)
-        public ModelAndView login() {
-            ModelAndView login = new ModelAndView("login");
-            return login;
-        }
+//        @RequestMapping(value = "/login", method = RequestMethod.GET)
+//        public ModelAndView login() {
+//            ModelAndView login = new ModelAndView("login");
+//            return login;
+//        }
         
         @RequestMapping(value="/logout", method = RequestMethod.GET)
         public ModelAndView logoutPage (HttpServletRequest request, HttpServletResponse response) {
@@ -88,5 +88,11 @@ public class HomeController {
 		ModelAndView enMantenimiento = new ModelAndView("en-mantenimiento");
 		return enMantenimiento;
 	}
+        
+        @RequestMapping(value = "/cambiar-password", method = RequestMethod.GET)
+        public ModelAndView cambiarPassword() {
+            ModelAndView cambiarPassword = new ModelAndView("cambiar-password");
+            return cambiarPassword;
+        }
 
 }

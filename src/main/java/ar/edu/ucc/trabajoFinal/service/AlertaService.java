@@ -21,8 +21,6 @@ import ar.edu.ucc.trabajoFinal.model.Alerta;
 import ar.edu.ucc.trabajoFinal.model.Criticidad;
 import java.sql.Time;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Date;
 
 @Service
 @Transactional
@@ -46,7 +44,6 @@ public class AlertaService {
     public void init() {
         alertaDaoParticular = (AlertaDao) alertaDao;
         criticidadDaoParticular = (CriticidadDao) criticidadDao;
-
     }
 
     @Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)

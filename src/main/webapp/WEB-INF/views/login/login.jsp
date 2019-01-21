@@ -13,8 +13,8 @@
       <div class="login_wrapper">
           <div  class="animate form login_form">
           <section class="login_content">
-             <c:url var="loginUrl" value="/login" />
-                <form action="${loginUrl}" method="post" class="form-horizontal">
+             <%--<c:url var="loginUrl" value="/login" />--%>
+                <form action="login" method="post" class="form-horizontal">
               <h1>Login Form</h1>
               <div>
                 <input type="text" class="form-control" placeholder="Usuario" required="true" name="ssoId" />

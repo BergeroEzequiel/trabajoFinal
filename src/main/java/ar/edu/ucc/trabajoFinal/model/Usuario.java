@@ -5,6 +5,8 @@
  */
 package ar.edu.ucc.trabajoFinal.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -13,11 +15,14 @@ import javax.persistence.Table;
  
 @Entity
 @Table(name="usuario")
-public class User  extends ObjetoGenerico{
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class Usuario  extends ObjetoGenerico{
  
+    @JsonProperty("username")
     @Column(name="sso_id", unique=true, nullable=false)
     private String ssoId;
     
+    @JsonProperty("password")
     @Column(name="password", nullable=false)
     private String password;
          
@@ -102,25 +107,6 @@ public class User  extends ObjetoGenerico{
         result = prime * result + ((ssoId == null) ? 0 : ssoId.hashCode());
         return result;
     }
- 
-//    @Override
-//    public boolean equals(Object obj) {
-//        if (this == obj)
-//            return true;
-//        if (obj == null)
-//            return false;
-//        if (!(obj instanceof User))
-//            return false;
-//        User other = (User) obj;
-//        if (getId() != other.getId())
-//            return false;
-//        if (ssoId == null) {
-//            if (other.ssoId != null)
-//                return false;
-//        } else if (!ssoId.equals(other.ssoId))
-//            return false;
-//        return true;
-//    }
  
     @Override
     public String toString() {
