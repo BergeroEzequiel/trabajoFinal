@@ -86,4 +86,16 @@ public class UserController {
         
     }
     
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @RequestMapping(value = "/passwordOlvidado", method = RequestMethod.GET, produces = "application/json")
+    public ResponseEntity<?> blanquearPassword(@RequestParam(value = "username", required = true) String username)
+                    throws Exception {
+        try {
+            usuarioService.blanquearPassword(username);
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(e, HttpStatus.CONFLICT);
+        }
+    }
+    
 }

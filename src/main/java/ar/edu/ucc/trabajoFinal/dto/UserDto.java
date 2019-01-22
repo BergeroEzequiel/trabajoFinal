@@ -2,15 +2,19 @@ package ar.edu.ucc.trabajoFinal.dto;
 
 import ar.edu.ucc.trabajoFinal.model.Estado;
 import ar.edu.ucc.trabajoFinal.model.UserProfile;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  *
  * @author ezequiel
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class UserDto {
     
     private Long id;
     
+    @JsonProperty("username")
     private String ssoId;
     
     private String password;
