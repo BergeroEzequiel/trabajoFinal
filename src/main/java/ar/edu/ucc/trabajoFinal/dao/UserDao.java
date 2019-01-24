@@ -31,5 +31,10 @@ public class UserDao extends DaoGenericoImp<Usuario, Long> implements IUserDao{
     public List<Usuario> getUsuariosByState(String state) {
         return this.getByCriteria(Restrictions.eq("state", state));
     }
+
+    @Override
+    public List<Usuario> getUsuariosByIdRol(Long idRol) {
+        return this.getByCriteria(Restrictions.eq("userProfile.id", idRol));
+    }
     
 }

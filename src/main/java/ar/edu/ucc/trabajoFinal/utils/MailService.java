@@ -5,8 +5,13 @@
  */
 package ar.edu.ucc.trabajoFinal.utils;
 
+import java.nio.charset.StandardCharsets;
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMailMessage;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 /**
@@ -23,21 +28,29 @@ public class MailService {
         this.mailSender = mailSender;
     }
 
-    /**
-     * envío de email
-     *
-     * @param to correo electrónico del destinatario
-     * @param subject asunto del mensaje
-     * @param text cuerpo del mensaje
-     */
-    public void send(String from, String to, String subject, String text) {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(to);
-        message.setFrom(from);
-        message.setSubject(subject);
-        message.setText(text);
+    public void send(String from, String to, String subject, String text) throws MessagingException {
+        MimeMessage message = buildMimeMessage(from, to, subject);
+        message.setContent(text, "text/html; charset=utf-8");
+        
         this.mailSender.send(message);
 
+    }
+    
+    public MimeMessage buildMimeMessage(String from, String to, String subject) {
+        
+        MimeMailMessage builder = mimeBuilder();
+        builder.setFrom(from);
+        builder.setTo(to);
+        builder.setSubject(subject);
+        
+        return builder.getMimeMessage();
+    }
+    
+    private MimeMailMessage mimeBuilder() {
+        MimeMessageHelper helper = new MimeMessageHelper(
+                                        mailSender.createMimeMessage(),
+                                        StandardCharsets.UTF_8.name());
+        return new MimeMailMessage(helper);
     }
 
 }

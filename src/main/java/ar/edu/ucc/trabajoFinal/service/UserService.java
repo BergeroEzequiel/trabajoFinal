@@ -24,6 +24,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.util.HtmlUtils;
 
 /**
  *
@@ -68,10 +69,22 @@ public class UserService {
     @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
     public Usuario grabarNuevoUsuario(Usuario user) {
         if (user.getId() == null) {
-            user.setEstado(estadoDaoParticular.getEstadoById(Estado.PENDIENTE));
-            user.setUserProfile(null);
-            usuarioDaoParticular.saveOrUpdate(user);
-            return user;
+            try {
+                user.setEstado(estadoDaoParticular.getEstadoById(Estado.PENDIENTE));
+                user.setUserProfile(null);
+                usuarioDaoParticular.saveOrUpdate(user);
+                String templateHtml = "<font >Bienvenido <b> " + user.getFirstName() + " " + user.getLastName() + "</b>!.<br>"
+                        + "Su nombre de usuario para ingresar es: <b> " + user.getSsoId() + " </b></font><br><br>"
+                        + "<font color='#c94c4c'><b> Le recordamos que su usuario está a la espera para ser aprobado por el Administrador de la aplicacion. <br>"
+                        + "Hasta no ser aprobado no podrá ingresar. </b></font>";
+
+                mailService.send(mailUsername, user.getEmail(), "Bienvenido.", templateHtml);
+                return user;
+                
+            } catch (Exception e) {
+                throw new RuntimeException("Ups! Algo salió mal, por favor intentelo de nuevo.", e);
+            }
+            
         }
 
         throw new RuntimeException("Este método solo crea usuarios. Envie un User con id nulo por favor.");
@@ -85,6 +98,10 @@ public class UserService {
 
     public List<Usuario> getUsuariosByState(String state) {
         return usuarioDaoParticular.getUsuariosByState(state);
+    }
+    
+    public List<Usuario> getUsuariosByIdRol(Long idRol) {
+        return usuarioDaoParticular.getUsuariosByIdRol(idRol);
     }
 
     @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
@@ -101,9 +118,9 @@ public class UserService {
             throw new RuntimeException("Contraseña incorrecta. Si no recuerda su contraseña seleccione 'Recuperar password'.");
         }
 
-        usuario.setPassword(bCryptPasswordEncoder.encode(userDto.getPasswordNuevo()));
-        usuarioDaoParticular.saveOrUpdate(usuario);
-
+            usuario.setPassword(bCryptPasswordEncoder.encode(userDto.getPasswordNuevo()));
+            usuarioDaoParticular.saveOrUpdate(usuario);
+            
         return usuario;
     }
 
@@ -135,6 +152,7 @@ public class UserService {
     public void blanquearPassword(String username) {
         Usuario usuario = usuarioDaoParticular.findBySSO(username);
         String nuevaPassword = this.generarPassword(8);
+
         if (usuario == null) {
             throw new RuntimeException("Usuario con username " + username + " NO ENCONTRADO.");
         }
@@ -142,7 +160,11 @@ public class UserService {
         try {
             usuario.setPassword(bCryptPasswordEncoder.encode(nuevaPassword));
             usuarioDaoParticular.saveOrUpdate(usuario);
-            mailService.send(mailUsername, usuario.getEmail(), "Cambio de password", "Su nueva password es: " + nuevaPassword);
+            String templateHtml = "<font >Estimado <b> " + username + "</b>"
+                    + ", su nueva password es: <b> " + nuevaPassword + "</b></font><br><br>"
+                    + "<font color='#c94c4c'><b> Se recomienda cambiar esta password por una propia. </b></font>";
+
+            mailService.send(mailUsername, usuario.getEmail(), "Cambio de password.", templateHtml);
 
         } catch (Exception e) {
             throw new RuntimeException("Ups! Algo salió mal, por favor intentelo de nuevo.", e);
