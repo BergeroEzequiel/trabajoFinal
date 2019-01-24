@@ -7,11 +7,6 @@
 		http://www.springframework.org/schema/util 
 		http://www.springframework.org/schema/util/spring-util-3.0.xsd">
     
-     <bean class="org.springframework.web.servlet.view.XmlViewResolver">
-        <property name="location">
-            <value>/WEB-INF/views.xml</value>
-        </property>
-    </bean>
     
     
     

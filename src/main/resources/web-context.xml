@@ -16,20 +16,11 @@
 	http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd">
 
 
-	<mvc:resources mapping="/resources/**" location="/resources/"/>
 	
 	<mvc:annotation-driven />
 	<context:component-scan base-package="ar.edu.ucc.trabajoFinal.controller" />
 	<context:property-placeholder location="classpath:app.properties"/> 
         
-<!-- 	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource"> -->
-<!--     	<property name="basename" value="messages"/> -->
-<!-- 	</bean> -->
-	
-<!-- 	<bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver"> -->
-<!-- 		<property name="order" value="1"/> -->
-<!--         <property name="viewClass" value="org.springframework.web.servlet.view.tiles2.TilesView"/> -->
-<!--     </bean> -->
 	
 	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
 		<property name="messageConverters">
@@ -46,27 +37,6 @@
         </bean>
         
         
-        
-
- 		
-	<!-- Bean name based view resolver, used to return JSON in ModelAndView objects -->
-<!-- 	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver"> -->
-<!--   		<property name="order" value="0"/> -->
-<!-- 	</bean> -->
-	
-<!-- 	< View bean used to return JSON in ModelAndView objects --> 
-<!--     <bean name="JSON" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" /> -->
-	 
-<!-- 	<bean id="localeResolver" -->
-<!-- 	    class="org.springframework.web.servlet.i18n.CookieLocaleResolver"> -->
-<!-- 	    <property name="defaultLocale" value="en"/> -->
-<!-- 	</bean> -->
-	 
-<!-- 	 <mvc:interceptors> -->
-<!-- 		<bean id="localeChangeInterceptor" -->
-<!--     		class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"> -->
-<!-- 		</bean> -->
-<!-- 	</mvc:interceptors> -->
 
  		
 </beans>
