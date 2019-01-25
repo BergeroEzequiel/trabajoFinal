@@ -12,11 +12,15 @@ import ar.edu.ucc.trabajoFinal.dao.IUserDao;
 import ar.edu.ucc.trabajoFinal.dao.UserDao;
 import ar.edu.ucc.trabajoFinal.dto.UserDto;
 import ar.edu.ucc.trabajoFinal.model.Estado;
+import ar.edu.ucc.trabajoFinal.model.UserProfile;
 import ar.edu.ucc.trabajoFinal.model.Usuario;
 import ar.edu.ucc.trabajoFinal.utils.MailService;
 import java.text.ParseException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import javax.mail.MessagingException;
 import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,7 +28,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.util.HtmlUtils;
 
 /**
  *
@@ -33,6 +36,8 @@ import org.springframework.web.util.HtmlUtils;
 @Service
 @Transactional
 public class UserService {
+    
+    private static final String CARACTERES_PASSWORD ="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
     @Autowired
     DaoGenerico<Usuario, Long> usuarioDao;
@@ -79,11 +84,14 @@ public class UserService {
                         + "Hasta no ser aprobado no podrá ingresar. </b></font>";
 
                 mailService.send(mailUsername, user.getEmail(), "Bienvenido.", templateHtml);
+                this.informarNuevoUsuario(user);
                 return user;
                 
             } catch (Exception e) {
                 throw new RuntimeException("Ups! Algo salió mal, por favor intentelo de nuevo.", e);
             }
+            
+            
             
         }
 
@@ -96,10 +104,12 @@ public class UserService {
         return usuarios;
     }
 
+    @Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
     public List<Usuario> getUsuariosByState(String state) {
         return usuarioDaoParticular.getUsuariosByState(state);
     }
     
+    @Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
     public List<Usuario> getUsuariosByIdRol(Long idRol) {
         return usuarioDaoParticular.getUsuariosByIdRol(idRol);
     }
@@ -149,6 +159,7 @@ public class UserService {
         return usuarioOriginal;
     }
 
+    @Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
     public void blanquearPassword(String username) {
         Usuario usuario = usuarioDaoParticular.findBySSO(username);
         String nuevaPassword = this.generarPassword(8);
@@ -173,8 +184,28 @@ public class UserService {
     }
 
     private String generarPassword(int cantidadCaracteres) {
-        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        String password = RandomStringUtils.random(cantidadCaracteres, characters);
+        String password = RandomStringUtils.random(cantidadCaracteres, CARACTERES_PASSWORD);
         return password;
+    }
+    
+    /**
+     * Recibe un usuario y le avisa a TODOS los ADMINISTRADORES via email 
+     * sobre el nuevo usuario para que puedan revisar y aceptarlo o rechazarlo.
+     */
+    private void informarNuevoUsuario(Usuario user){
+        List<Usuario> usuariosAdministradores = this.getUsuariosByIdRol(UserProfile.ID_ADMINISTRADOR);
+        if(usuariosAdministradores != null){
+            String templateHtml = "<font >Un nuevo usuario se ha creado en la aplicación. Su username es <b> " + user.getSsoId() + "</b>"
+                    + " y requiere de la autorización de un ADMINISTRADOR. </font><br><br>"
+                    + "<font color='#c94c4c'><b> Por favor diríjase a la pantalla de administración de usuarios a la brevedad.</b></font>";
+            for (Usuario usuarioAdministrador : usuariosAdministradores) {
+                try {
+                    mailService.send(mailUsername, usuarioAdministrador.getEmail(), "Un nuevo usuario requiere aprobación.", templateHtml);
+                } catch (MessagingException ex) {
+                    Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, "No se pudo enviar el mail a " + usuarioAdministrador.getEmail(), ex);
+                }
+            }
+        }
+        
     }
 }

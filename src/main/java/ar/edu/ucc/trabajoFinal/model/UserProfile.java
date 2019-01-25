@@ -12,6 +12,10 @@ import javax.persistence.Table;
 @Entity
 @Table(name="rol")
 public class UserProfile extends ObjetoGenerico{
+    
+    public static final Long ID_ADMINISTRADOR = 2L;
+    public static final Long ID_BASICO = 1L;
+    public static final Long ID_AVANZADO = 3L;
  
     @Column(name="tipo", length=15, unique=true, nullable=false)
     private String type ;
