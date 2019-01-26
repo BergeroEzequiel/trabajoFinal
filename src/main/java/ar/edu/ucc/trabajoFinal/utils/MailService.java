@@ -8,10 +8,10 @@ package ar.edu.ucc.trabajoFinal.utils;
 import java.nio.charset.StandardCharsets;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMailMessage;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 /**
@@ -28,6 +28,7 @@ public class MailService {
         this.mailSender = mailSender;
     }
 
+    @Async
     public void send(String from, String to, String subject, String text) throws MessagingException {
         MimeMessage message = buildMimeMessage(from, to, subject);
         message.setContent(text, "text/html; charset=utf-8");
