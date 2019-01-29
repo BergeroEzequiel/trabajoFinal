@@ -47,4 +47,13 @@
         <property name="mailSender" ref="mailSender"/>
     </bean>
     
+    <!--Bean correspondiente al subscriber de MQTT.
+        Los defino aca solo para poder pasarle las properties sacadas del archivo de configuracion.-->
+    <bean id="subscriber" class="ar.edu.ucc.trabajoFinal.eclipsePaho.Subscriber">
+        <property name="broker" value="${mqtt.client}" />
+        <property name="topic" value="${mqtt.topic}" />
+        <property name="clientId" value="${mqtt.clientId}" />
+        <property name="baseUrl" value="${config.contextPath}" />
+    </bean>
+    
 </beans>
