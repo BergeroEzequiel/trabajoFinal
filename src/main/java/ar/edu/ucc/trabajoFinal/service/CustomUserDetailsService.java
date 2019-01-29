@@ -8,6 +8,7 @@ package ar.edu.ucc.trabajoFinal.service;
 import ar.edu.ucc.trabajoFinal.model.Estado;
 import ar.edu.ucc.trabajoFinal.model.Usuario;
 import ar.edu.ucc.trabajoFinal.model.UserProfile;
+import ar.edu.ucc.trabajoFinal.model.UserSecurity;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,8 +43,14 @@ public class CustomUserDetailsService implements UserDetailsService{
             System.out.println("User not found");
             throw new UsernameNotFoundException("Username not found");
         }
-            return new org.springframework.security.core.userdetails.User(user.getSsoId(), user.getPassword(), 
-                 user.getEstado().getId().equals(Estado.ACTIVO), true, true, true, getGrantedAuthorities(user));
+        UserSecurity userSecurity =  new UserSecurity(user.getSsoId(), user.getPassword(), 
+                user.getEstado().getId().equals(Estado.ACTIVO), true, true, true, getGrantedAuthorities(user));
+        userSecurity.setLastName(user.getLastName());
+        userSecurity.setFirstName(user.getFirstName());
+        userSecurity.setEmail(user.getEmail());
+        return userSecurity;
+//            return new org.springframework.security.core.userdetails.User(user.getSsoId(), user.getPassword(), 
+//                 user.getEstado().getId().equals(Estado.ACTIVO), true, true, true, getGrantedAuthorities(user));
     }
  
      

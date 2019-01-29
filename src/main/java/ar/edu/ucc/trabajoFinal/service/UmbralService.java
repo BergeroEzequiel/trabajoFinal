@@ -19,6 +19,7 @@ import ar.edu.ucc.trabajoFinal.dao.DaoGenerico;
 import ar.edu.ucc.trabajoFinal.dao.IUmbralDao;
 import ar.edu.ucc.trabajoFinal.dao.UmbralDao;
 import ar.edu.ucc.trabajoFinal.model.Umbral;
+import ar.edu.ucc.trabajoFinal.utils.UmbralesSingleton;
 
 @Service
 @Transactional
@@ -68,6 +69,7 @@ public class UmbralService {
 			umbral.setUltimaModificacion(umbralEsp.getUltimaModificacion());
 		}
 		umbralDaoParticular.saveOrUpdate((isEspecifico) ? umbralEsp : umbral);
+                UmbralesSingleton.actualizarUmbralSingleton();
 		return umbral;
 	}		
 		
@@ -103,6 +105,7 @@ public class UmbralService {
 	    Umbral umbral = this.umbralDaoParticular.load(id);
 	    if (umbral.getTipoUmbral().equalsIgnoreCase("especifico")) {
 	    	this.umbralDaoParticular.remove(umbral);
+                UmbralesSingleton.actualizarUmbralSingleton();
 		}
     }
 }
