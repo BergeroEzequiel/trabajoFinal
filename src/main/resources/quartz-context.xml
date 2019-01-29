@@ -8,6 +8,12 @@
         http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 
     <context:component-scan base-package="ar.edu.ucc.trabajoFinal.jobs" />
+    
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location">
+          <value>app.properties</value>
+        </property>
+    </bean>
 
 
     <!--Definicion de JOBS-->
@@ -103,14 +109,27 @@
         <property name="durability" value="true" />
     </bean>
     
+<!--    Job mockeador, encargado de publicar tramas en el canal de MQTT-->
+    <bean name="jobMqttMock"
+          class="org.springframework.scheduling.quartz.JobDetailFactoryBean"
+          scope="singleton">
+        <property name="jobClass" value="ar.edu.ucc.trabajoFinal.jobs.JobMqttMock" />
+        <property name="durability" value="true" />
+        <property name="jobDataMap">
+            <map>
+                <entry key="topic" value="${mqtt.topic}" />
+                <entry key="broker" value="${mqtt.client}" />
+            </map>
+        </property>
+    </bean>
+    
     <!--Definicion de trigger-->
 
     <!-- Corr el job cada 20 minutos -->
     <bean id="cronTrigger20Minutos"
               class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
         <property name="jobDetail" ref="job20Minutos" />
-        <property name="cronExpression" value="0 0/2 * 1/1 * ? *" />
-        <!--<property name="cronExpression" value="0 0/20 * 1/1 * ? *" />--> 
+        <property name="cronExpression" value="0 0/20 * 1/1 * ? *" /> 
     </bean>
 
     <!-- Corre el job todos los dias a las 22 hs. -->
@@ -155,6 +174,13 @@
         <property name="jobDetail" ref="jobAlertasBajas" />
         <property name="cronExpression" value="0 0/60 * 1/1 * ? *" /> 
     </bean>
+    
+    <!--Corre el job cada 30 segundos-->
+    <bean id="cronTrigger30Segundos"
+              class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="jobMqttMock" />
+        <property name="cronExpression" value="0/30 * * 1/1 * ? *" /> 
+    </bean>
 
 
     <!-- Scheduler factory bean to glue together jobDetails and triggers to 
@@ -168,7 +194,8 @@
                 <ref bean="jobAlertasCriticas" />
                 <ref bean="jobAlertasAltas" />
                 <ref bean="jobAlertasMedias" />
-                <ref bean="jobAlertasBajas" />				
+                <ref bean="jobAlertasBajas" />
+                <ref bean="jobMqttMock" />				
             </list>
         </property>
 
@@ -180,7 +207,7 @@
                 <ref bean="cronTrigger2Minutos" />
                 <ref bean="cronTrigger10Minutos" />
                 <ref bean="cronTrigger30Minutos" />
-                <ref bean="cronTrigger60Minutos" />
+                <ref bean="cronTrigger30Segundos" />
             </list>
         </property>
     </bean>
