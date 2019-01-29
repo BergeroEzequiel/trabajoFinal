@@ -4,9 +4,11 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 import ar.edu.ucc.trabajoFinal.model.Nodo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class TramaDto {
 	
 	SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -329,24 +331,24 @@ public class TramaDto {
 	}
 
 	
-	@Override
-	public String toString() {
-		return "{" + "nodo=" + getModulo() + ", numero='" + getNumero() + '\'' + ", estado='" + getEstado() + '\'' + ", tension_red='"
-				+ getTensionRed() + '\'' + ", corriente_red='" + getCorrienteRed() + '\''
-				+ ", frecuencia_tension='" + getFrecuenciaTension() + '\'' + ", frecuencia_corriente='"
-				+ getFrecuenciaCorriente() + '\'' + ", desfasaje='" + getDesfasaje() + '\''
-				+ ", tension_tierra='" + getTensionInterna() + '\'' + ", tension_interna='"
-				+ getTensionInterna() + '\'' + ", corriente_interna='" + getCorrienteInterna() + '\''
-				+ ", tension_continua='" + getTensionContinua() + '\'' + ", corriente_continua='"
-				+ getCorrienteContinua() + '\'' + ", temperatura1='" + getTemperatura1() + '\''
-				+ ", temperatura2='" + getTemperatura2() + '\'' + ", temperatura3='" + getTemperatura3()
-				+ '\'' + ", temperatura4='" + getTemperatura4() + '\'' + ", temperatura5='"
-				+ getTemperatura5() + '\'' + ", humedad='" + getHumedad() + '\'' + ", pvm='"
-				+ getPvm() + '\'' + ", fecha='" + getFecha() + '\'' + ", hora='"
-				+ getHora() + '\'' + ", potencia_continua='" + getPotenciaContinua()
-				+ '\'' + ", potencia_red='" + getPotenciaRed() + '\'' + ", potencia_interna='"
-				+ getPotenciaInterna() + '\'' + ", estado_control='" + getEstadoControl() + '}';
-	}
+//	@Override
+//	public String toString() {
+//		return "{" + "nodo=" + getModulo() + ", numero='" + getNumero() + '\'' + ", estado='" + getEstado() + '\'' + ", tension_red='"
+//				+ getTensionRed() + '\'' + ", corriente_red='" + getCorrienteRed() + '\''
+//				+ ", frecuencia_tension='" + getFrecuenciaTension() + '\'' + ", frecuencia_corriente='"
+//				+ getFrecuenciaCorriente() + '\'' + ", desfasaje='" + getDesfasaje() + '\''
+//				+ ", tension_tierra='" + getTensionInterna() + '\'' + ", tension_interna='"
+//				+ getTensionInterna() + '\'' + ", corriente_interna='" + getCorrienteInterna() + '\''
+//				+ ", tension_continua='" + getTensionContinua() + '\'' + ", corriente_continua='"
+//				+ getCorrienteContinua() + '\'' + ", temperatura1='" + getTemperatura1() + '\''
+//				+ ", temperatura2='" + getTemperatura2() + '\'' + ", temperatura3='" + getTemperatura3()
+//				+ '\'' + ", temperatura4='" + getTemperatura4() + '\'' + ", temperatura5='"
+//				+ getTemperatura5() + '\'' + ", humedad='" + getHumedad() + '\'' + ", pvm='"
+//				+ getPvm() + '\'' + ", fecha='" + getFecha() + '\'' + ", hora='"
+//				+ getHora() + '\'' + ", potencia_continua='" + getPotenciaContinua()
+//				+ '\'' + ", potencia_red='" + getPotenciaRed() + '\'' + ", potencia_interna='"
+//				+ getPotenciaInterna() + '\'' + ", estado_control='" + getEstadoControl() + '}';
+//	}
 	
 
 }

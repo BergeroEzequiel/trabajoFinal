@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<web-app id="WebApp_ID" version="2.4" 
+<web-app id="WebApp_ID" version="3.0" 
          xmlns="http://java.sun.com/xml/ns/j2ee" 
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
          xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
-		http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+		http://java.sun.com/xml/ns/j2ee/web-app_3_0.xsd">
 
     <display-name>Trabajo Final</display-name>
 	
@@ -53,17 +53,34 @@
     </filter-mapping>
     
     <!--CORS filter para permitir request desde app de front.
-        Solucion encontrada al problema de request con verbo OPTIONS.
-        Para mas informacion https://tomcat.apache.org/tomcat-8.0-doc/config/filter.html-->    
+    Solucion encontrada al problema de request con verbo OPTIONS.
+    Para mas informacion https://tomcat.apache.org/tomcat-8.0-doc/config/filter.html 
+    LEER ESTO https://stackoverflow.com/questions/24386712/tomcat-cors-filter  -->    
     <filter>
         <filter-name>CorsFilter</filter-name>
         <filter-class>org.apache.catalina.filters.CorsFilter</filter-class>
+        <init-param>
+            <param-name>cors.allowed.origins</param-name>
+            <param-value>*</param-value>
+        </init-param>
+        <init-param>
+            <param-name>cors.allowed.methods</param-name>
+            <param-value>GET,POST,HEAD,OPTIONS,PUT</param-value>
+        </init-param>
+        <init-param>
+            <param-name>cors.allowed.headers</param-name>
+            <param-value>Content-Type,X-Requested-With,Accept,Accept-Encoding,Accept-Lenguage,Origin,Access-Control-Request-Method,Access-Control-Request-Headers,Cache-Control,Connection,Host,Pragma,Referer,User-Agent,Authorization</param-value>
+        </init-param>
+        <init-param>
+            <param-name>cors.exposed.headers</param-name>
+            <param-value>Access-Control-Allow-Origin,Access-Control-Allow-Credentials,Authorization,Content-Type</param-value>
+        </init-param>
     </filter>
     <filter-mapping>
         <filter-name>CorsFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-
+    
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>

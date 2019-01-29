@@ -105,5 +105,14 @@ public class UmbralesSingleton {
 	public Map<String, Umbral> getMapper() {
 		return this.mapUmbrales;
 	}
+        
+        /**
+         * Este metodo setea la variable instance del Singleton en null, lo que 
+         * obliga a que en el proximo uso del singleton se carguen todos los umbrales 
+         * y de esa manera queden actualizados.
+         */
+        public static void actualizarUmbralSingleton(){
+            instance = null;
+        }
 
 }
