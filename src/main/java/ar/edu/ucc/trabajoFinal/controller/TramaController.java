@@ -33,7 +33,7 @@ public class TramaController {
 	public ResponseEntity<?> getTramas()
 			throws Exception {
 		
-		List<TramaDto> tramas = tramaService.getTramas();
+		List<Trama> tramas = tramaService.getTramas();
 		return new ResponseEntity(tramas, HttpStatus.OK);
 	}
 	

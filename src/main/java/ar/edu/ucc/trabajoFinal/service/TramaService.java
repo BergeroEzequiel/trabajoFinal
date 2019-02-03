@@ -91,49 +91,13 @@ public class TramaService {
 	}
 
 	@Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
-	public List<TramaDto> getTramas() {
+	public List<Trama> getTramas() {
 
 		log.info("Buscando todos las tramas");
 
 		List<Trama> tramas = tramaDaoParticular.getAll();
 
-		List<TramaDto> tramasDto = new ArrayList<TramaDto>();
-
-		TramaDto tramaDto;
-		for (Trama trama : tramas) {
-			tramaDto = new TramaDto();
-			tramaDto.setId(trama.getId());
-			tramaDto.setCorrienteContinua(trama.getCorrienteContinua());
-			tramaDto.setCorrienteInterna(trama.getCorrienteInterna());
-			tramaDto.setCorrienteRed(trama.getCorrienteRed());
-			tramaDto.setDesfasaje(trama.getDesfasaje());
-			tramaDto.setEstado(trama.getEstado());
-			tramaDto.setFecha(dateFormatter.format((trama.getFecha())));
-			tramaDto.setFrecuenciaCorriente(trama.getFrecuenciaCorriente());
-			tramaDto.setFrecuenciaTension(trama.getFrecuenciaTension());
-			tramaDto.setHora(timeFormatter.format((trama.getHora())));
-			tramaDto.setHumedad(trama.getHumedad());
-//			tramaDto.setModulo(trama.getModulo());
-//			tramaDto.setNodo(trama.getNodo());
-			tramaDto.setNodo(trama.getNodo());
-			tramaDto.setPotenciaContinua(trama.getPotenciaContinua());
-			tramaDto.setPotenciaInterna(trama.getPotenciaInterna());
-			tramaDto.setPotenciaRed(trama.getPotenciaRed());
-			tramaDto.setPvm(trama.getPvm());
-			tramaDto.setTemperatura1(trama.getTemperatura1());
-			tramaDto.setTemperatura2(trama.getTemperatura2());
-			tramaDto.setTemperatura3(trama.getTemperatura3());
-			tramaDto.setTemperatura4(trama.getTemperatura4());
-			tramaDto.setTemperatura5(trama.getTemperatura5());
-			tramaDto.setTensionContinua(trama.getTensionContinua());
-			tramaDto.setTensionInterna(trama.getTensionInterna());
-			tramaDto.setTensionRed(trama.getTensionRed());
-			tramaDto.setTensionTierra(trama.getTensionTierra());
-
-			tramasDto.add(tramaDto);
-		}
-
-		return tramasDto;
+		return tramas;
 	}
 
 	@Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
