@@ -225,6 +225,58 @@ public class TramaDao extends DaoGenericoImp<Trama, Long> implements ITramaDao {
                 
         return list;
     }
+
+    @Override
+    public float getTemperaturaPromedioParque() {
+        float temperaturaPromedio = 0;
+        String query = "select temperatura1 AS  temperatura1, temperatura2 AS  temperatura2, "
+                + "temperatura3 AS  temperatura3, temperatura4 AS  temperatura4, temperatura5 AS  temperatura5 "
+                + "from Trama "
+                + "where fecha = CURRENT_DATE() AND hora in "
+                + "(SELECT MAX(hora) as hora"
+                + " from Trama "
+                + "where fecha = CURRENT_DATE() "
+                + "GROUP BY nodo) "
+                + "ORDER BY nodo";
+        List<Trama> list = this.currentSession().createQuery(query)
+                .setResultTransformer(Transformers.aliasToBean(Trama.class)).list();
+
+        if (list != null && !list.isEmpty()) {
+            for (Trama trama : list) {
+                temperaturaPromedio += trama.getTemperatura2();
+                temperaturaPromedio += trama.getTemperatura3();
+                temperaturaPromedio += trama.getTemperatura4();
+                temperaturaPromedio += trama.getTemperatura5();
+            }
+            temperaturaPromedio = temperaturaPromedio / (list.size() * 4);
+        }
+
+        return temperaturaPromedio;
+    }
+
+    @Override
+    public float getTemperaturaAmbienteParque() {
+        float temperaturaAmbientePromedio = 0;
+        String query = "select temperatura1 AS temperatura1 "
+                + "from Trama "
+                + "where fecha = CURRENT_DATE() AND hora in "
+                + "(SELECT MAX(hora) as hora"
+                + " from Trama "
+                + "where fecha = CURRENT_DATE() "
+                + "GROUP BY nodo) "
+                + "ORDER BY nodo";
+        List<Trama> list = this.currentSession().createQuery(query)
+                .setResultTransformer(Transformers.aliasToBean(Trama.class)).list();
+        
+        if (list != null && !list.isEmpty()) {
+            for (Trama trama : list) {
+                temperaturaAmbientePromedio += trama.getTemperatura1();
+            }
+            temperaturaAmbientePromedio = temperaturaAmbientePromedio / list.size();
+        }
+
+        return temperaturaAmbientePromedio;
+    }
         
 
 }

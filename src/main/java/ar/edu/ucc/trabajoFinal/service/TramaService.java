@@ -232,5 +232,13 @@ public class TramaService {
         public List<Trama> getUltimasNTramasPorNodos(Long idNodo, Integer limit) throws ParseException {
             return tramaDaoParticular.getUltimasNTramasPorNodos(idNodo, limit);
         }
+        
+        public float getTemperaturaPromedioParque() throws ParseException {
+            return tramaDaoParticular.getTemperaturaPromedioParque();
+        }
+        
+        public float getTemperaturaAmbienteParque() throws ParseException {
+            return tramaDaoParticular.getTemperaturaAmbienteParque();
+        }
 
 }

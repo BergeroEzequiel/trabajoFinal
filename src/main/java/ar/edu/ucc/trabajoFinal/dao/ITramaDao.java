@@ -36,5 +36,8 @@ public interface ITramaDao extends DaoGenerico<Trama, Long>{
         public List<TramaUltimasPotencias> getUltimasPotenciasPorNodos(Long idNodo) throws ParseException;
         
         public List<Trama> getUltimasNTramasPorNodos(Long idNodo, Integer limit);
-
+        
+        public float getTemperaturaPromedioParque();
+        
+        public float getTemperaturaAmbienteParque();
 }
