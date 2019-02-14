@@ -44,16 +44,16 @@ public class Subscriber implements MqttCallback {
     private TramaDto tramaDto = null;
     private URI uriPostTrama = null;
     private String baseUrl;
-    private final int qos = 2;
+    private final int qos = 0;
 
     @PostConstruct
     private void start() throws MqttException {
 
         try {
             connectionsOptions = new MqttConnectOptions();
-            connectionsOptions.setKeepAliveInterval(40);
-            connectionsOptions.setConnectionTimeout(600000);
-            connectionsOptions.setCleanSession(false);
+//            connectionsOptions.setKeepAliveInterval(40);
+//            connectionsOptions.setConnectionTimeout(600000);
+            connectionsOptions.setCleanSession(true);
 
             client = new MqttClient(broker, clientId);
             client.setCallback(this);
@@ -76,8 +76,9 @@ public class Subscriber implements MqttCallback {
         while (tryConnecting) {
             try {
                 client.connect(connectionsOptions);
+//                Thread.sleep(1000);
             } catch (Exception e1) {
-                logger.error("Connection attempt failed with '" + e1.getCause() + "'. Retrying.");
+                logger.error("Connection attempt failed with '" + e1 + "'. Retrying.");
             }
             if (client.isConnected()) {
                 logger.info("Connected to " + broker);
