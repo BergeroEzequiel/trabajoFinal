@@ -1,5 +1,6 @@
 package ar.edu.ucc.trabajoFinal.dao;
 
+import ar.edu.ucc.trabajoFinal.model.TramaFiltrada;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,9 +15,9 @@ import ar.edu.ucc.trabajoFinal.model.Trama;
 import ar.edu.ucc.trabajoFinal.model.TramaAuxiliar;
 import ar.edu.ucc.trabajoFinal.model.TramaPotencias;
 import ar.edu.ucc.trabajoFinal.model.TramaUltimasPotencias;
-import ar.edu.ucc.trabajoFinal.utils.Hora;
 import java.sql.Time;
 import java.text.DateFormat;
+import java.util.LinkedList;
 
 @Repository
 public class TramaDao extends DaoGenericoImp<Trama, Long> implements ITramaDao {
@@ -277,6 +278,40 @@ public class TramaDao extends DaoGenericoImp<Trama, Long> implements ITramaDao {
 
         return temperaturaAmbientePromedio;
     }
+
+    @Override
+    public List<TramaFiltrada> getTramasByTiempoAndNodo(
+            String nombreVariable, Date fechaDesde, Date fechaHasta, Time horaDesde, 
+            Time horaHasta, Long idNodo) throws ParseException {
         
+        List<TramaFiltrada> listadoTramas = new LinkedList<>();
+        
+        String query = "SELECT " + nombreVariable + " AS valor, hora AS hora, fecha as fecha "
+                + "FROM monitoreo_detalle "
+                + "WHERE id_nodo = :idNodo "
+                + "and fecha >= :fechaDesde and fecha <= :fechaHasta "
+                + "and hora >= TIME(:horaDesde) and hora <= TIME(:horaHasta) "
+                + "ORDER BY hora";
+        
+        
+        List<Object[]> listadoTramasProcesadas = this.currentSession().createSQLQuery(query)
+                .setParameter("idNodo", idNodo)
+                .setParameter("fechaDesde", dateFormatter.parse(dateFormatter.format(fechaDesde)))
+                .setParameter("fechaHasta", dateFormatter.parse(dateFormatter.format(fechaHasta)))
+                .setParameter("horaDesde", horaDesde)
+                .setParameter("horaHasta", horaHasta).list();
+        
+        for (Object[] t : listadoTramasProcesadas) {
+            TramaFiltrada trama = new TramaFiltrada();
+            trama.setValor((float) t[0]);
+            trama.setFecha(dateFormatter.format(t[2]));
+            trama.setHora(timeFormatter.format(t[1]));
+            listadoTramas.add(trama);
+            
+        }
+        
+        return listadoTramas;
+    }
+    
 
 }

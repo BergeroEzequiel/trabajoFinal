@@ -16,6 +16,8 @@ import ar.edu.ucc.trabajoFinal.dto.TramaDto;
 import ar.edu.ucc.trabajoFinal.model.Trama;
 import ar.edu.ucc.trabajoFinal.model.TramaUltimasPotencias;
 import ar.edu.ucc.trabajoFinal.service.TramaService;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -23,6 +25,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class TramaController {
 
     private Logger log = Logger.getLogger(this.getClass());
+    
+    SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+    DateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
 
     @Autowired
     private TramaService tramaService;
@@ -154,6 +159,36 @@ public class TramaController {
         float temperatura = tramaService.getTemperaturaAmbienteParque();
         return new ResponseEntity(temperatura, HttpStatus.OK);
 
+    }
+
+    /**
+     * Devuelve un listado de un solo valor, fecha y hora, que corresponde a la variable con todos los filtros.
+     * Endpoint creado para el detalle, generalmente de una ventana de 20 minutos.
+     * Ejemplo:
+     *  http://localhost:8080/trabajoFinal/getTramaFiltrada?fechaDesde=2019-02-11&fechaHasta=2019-02-14&horaDesde=18:00:00&horaHasta=18:20:00&nombreVariable=corriente_continua_avg&idNodo=1
+     * 
+     * @param nombreVariable
+     * @param fechaDesde
+     * @param fechaHasta
+     * @param horaDesde
+     * @param horaHasta
+     * @param idNodo
+     * @return
+     * @throws Exception 
+     */
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    @RequestMapping(value = "/getTramaFiltrada", method = RequestMethod.GET, produces = "application/json")
+    public ResponseEntity<?> getTramasByTiempoAndNodo(
+            @RequestParam(value = "nombreVariable") String nombreVariable,
+            @RequestParam(value = "fechaDesde") String fechaDesde,
+            @RequestParam(value = "fechaHasta") String fechaHasta,
+            @RequestParam(value = "horaDesde", required = false) String horaDesde,
+            @RequestParam(value = "horaHasta", required = false) String horaHasta,
+            @RequestParam(value = "idNodo") Long idNodo) throws Exception {
+
+        List trama = tramaService.getTramasByTiempoAndNodo(nombreVariable, dateFormatter.parse(fechaDesde), dateFormatter.parse(fechaHasta), horaDesde, horaHasta, idNodo);
+
+        return new ResponseEntity(trama, HttpStatus.OK);
     }
 
 }

@@ -25,6 +25,7 @@ import ar.edu.ucc.trabajoFinal.model.TramaPotencias;
 import ar.edu.ucc.trabajoFinal.model.TramaUltimasPotencias;
 import ar.edu.ucc.trabajoFinal.utils.NodoMapper;
 import ar.edu.ucc.trabajoFinal.utils.TramaControl;
+import java.util.Date;
 
 @Service
 @Transactional
@@ -240,5 +241,28 @@ public class TramaService {
         public float getTemperaturaAmbienteParque() throws ParseException {
             return tramaDaoParticular.getTemperaturaAmbienteParque();
         }
+        
+    @Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
+    public List getTramasByTiempoAndNodo(
+            String nombreVariable, Date fechaDesde, Date fechaHasta, String horaDesde, 
+            String horaHasta, Long idNodo) throws ParseException {
+        
+        Time horaDesdeCasteada;
+        Time horaHastaCasteada;
+        
+        if(horaDesde != null && !horaDesde.isEmpty() && horaHasta != null && !horaHasta.isEmpty()){
+            horaDesdeCasteada = Time.valueOf(horaDesde);
+            horaHastaCasteada = Time.valueOf(horaHasta);
+        } else{
+            horaDesdeCasteada = Time.valueOf("00:00:00");
+            horaHastaCasteada = Time.valueOf("23:59:59");
+        }
+         
+        
+        List trama = tramaDaoParticular.getTramasByTiempoAndNodo(
+                nombreVariable, fechaDesde, fechaHasta, horaDesdeCasteada, horaHastaCasteada, idNodo);
+        
+        return trama;
+    }
 
 }

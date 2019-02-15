@@ -1,5 +1,6 @@
 package ar.edu.ucc.trabajoFinal.dao;
 
+import ar.edu.ucc.trabajoFinal.model.TramaFiltrada;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.List;
 import ar.edu.ucc.trabajoFinal.model.Trama;
 import ar.edu.ucc.trabajoFinal.model.TramaAuxiliar;
 import ar.edu.ucc.trabajoFinal.model.TramaPotencias;
+import ar.edu.ucc.trabajoFinal.model.TramaProcesada;
 import ar.edu.ucc.trabajoFinal.model.TramaUltimasPotencias;
 import java.sql.Time;
 
@@ -40,4 +42,8 @@ public interface ITramaDao extends DaoGenerico<Trama, Long>{
         public float getTemperaturaPromedioParque();
         
         public float getTemperaturaAmbienteParque();
+        
+        public List<TramaFiltrada> getTramasByTiempoAndNodo(
+            String nombreVariable, Date fechaDesde, Date fechaHasta, Time horaDesde, 
+            Time horaHasta, Long idNodo) throws ParseException;
 }
