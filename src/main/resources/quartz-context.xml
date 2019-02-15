@@ -57,6 +57,19 @@
         <property name="durability" value="true" />
     </bean>
     
+    <bean name="job2Horas"
+              class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+        <property name="jobClass" value="ar.edu.ucc.trabajoFinal.jobs.Job2Horas" />
+        <property name="jobDataMap">
+            <map>
+                <entry key="tramaDao" value-ref="tramaDao" />
+                <entry key="tramaProcesadaDao" value-ref="tramaProcesadaDao" />
+                <entry key="nodoDao" value-ref="nodoDao" />
+            </map>
+        </property>
+        <property name="durability" value="true" />
+    </bean>
+    
     <bean name="jobAlertasCriticas"
               class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
         <property name="jobClass" value="ar.edu.ucc.trabajoFinal.jobs.JobAlertasCriticas" />
@@ -111,8 +124,7 @@
     
 <!--    Job mockeador, encargado de publicar tramas en el canal de MQTT-->
     <bean name="jobMqttMock"
-          class="org.springframework.scheduling.quartz.JobDetailFactoryBean"
-          scope="singleton">
+          class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
         <property name="jobClass" value="ar.edu.ucc.trabajoFinal.jobs.JobMqttMock" />
         <property name="durability" value="true" />
         <property name="jobDataMap">
@@ -130,6 +142,13 @@
               class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
         <property name="jobDetail" ref="job20Minutos" />
         <property name="cronExpression" value="0 0/20 * 1/1 * ? *" /> 
+    </bean>
+    
+    <!-- Corr el job cada 20 minutos -->
+    <bean id="cronTrigger2Horas"
+              class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="job2Horas" />
+        <property name="cronExpression" value="0 0 0/2 1/1 * ? *" /> 
     </bean>
 
     <!-- Corre el job todos los dias a las 22 hs. -->
@@ -195,7 +214,8 @@
                 <ref bean="jobAlertasAltas" />
                 <ref bean="jobAlertasMedias" />
                 <ref bean="jobAlertasBajas" />
-                <ref bean="jobMqttMock" />				
+                <ref bean="jobMqttMock" />
+                <ref bean="job2Horas" />
             </list>
         </property>
 
@@ -208,6 +228,7 @@
                 <ref bean="cronTrigger10Minutos" />
                 <ref bean="cronTrigger30Minutos" />
                 <ref bean="cronTrigger30Segundos" />
+                <ref bean="cronTrigger2Horas" />
             </list>
         </property>
     </bean>

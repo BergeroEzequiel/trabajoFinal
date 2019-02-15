@@ -27,6 +27,7 @@ public class TipoProcesamiento extends ObjetoGenerico{
     public static final long MINUTOS20 = 1;
     public static final long DIARIO = 2;
     public static final long SEMANAL = 3;
+    public static final long HORAS2 = 4;
     
     @Column(name = "descripcion", nullable = false)
     private String descripcion;
