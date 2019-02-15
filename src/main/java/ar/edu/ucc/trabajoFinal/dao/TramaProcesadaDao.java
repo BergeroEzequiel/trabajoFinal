@@ -1,6 +1,5 @@
 package ar.edu.ucc.trabajoFinal.dao;
 
-import ar.edu.ucc.trabajoFinal.model.TipoProcesamiento;
 import org.springframework.stereotype.Repository;
 
 import ar.edu.ucc.trabajoFinal.model.TramaProcesada;
@@ -11,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.transform.Transformers;
 
 @Repository
 public class TramaProcesadaDao extends DaoGenericoImp<TramaProcesada, Long> implements ITramaProcesadaDao{
@@ -38,6 +38,30 @@ public class TramaProcesadaDao extends DaoGenericoImp<TramaProcesada, Long> impl
                                 idTipoProcesamiento != null ? 
                                         Restrictions.eq("tipoProcesamiento.id", idTipoProcesamiento): 
                                         Restrictions.sqlRestriction("1 = 1"));
+    }
+
+    @Override
+    public List<TramaProcesada> getTramasProcesadasByTiempoAndTipoProcesamiento(
+            String nombreVariable, Date fechaDesde, Date fechaHasta, Time horaDesde, 
+            Time horaHasta, Long idTipoProcesamiento, Long idNodo) throws ParseException {
+        
+        String query = "SELECT " + nombreVariable + " "
+                + "FROM monitoreo_procesado "
+                + "WHERE id_nodo = :idNodo "
+                + "and id_tipo_procesamiento = :tipoProcesamiento "
+                + "and fecha >= :fechaDesde and fecha <= :fechaHasta "
+                + "and hora >= :horaDesde and hora <= :horaHasta";
+        
+        
+        List listadoTramasProcesadas = this.currentSession().createSQLQuery(query)
+                .setParameter("tipoProcesamiento", idTipoProcesamiento)
+                .setParameter("idNodo", idNodo)
+                .setParameter("fechaDesde", dateFormatter.parse(dateFormatter.format(fechaDesde)))
+                .setParameter("fechaHasta", dateFormatter.parse(dateFormatter.format(fechaHasta)))
+                .setParameter("horaDesde", horaDesde)
+                .setParameter("horaHasta", horaHasta).list();
+        
+        return listadoTramasProcesadas;
     }
 
 }

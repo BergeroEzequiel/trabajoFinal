@@ -23,10 +23,9 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Controller
 public class TramaProcesadaController {
-    
+
     //Se puede ver que algunos métodos reciben STRING y despues se castean.
     //Se hace de esa manera porque de la forma "correcta" genera problemas y NO HAY GANAS de renegar.
-
     private Logger log = Logger.getLogger(this.getClass());
     SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
     DateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
@@ -35,10 +34,10 @@ public class TramaProcesadaController {
     private TramaProcesadaService tramaProcesadaService;
 
     /**
-     * Recibe un rango horario (horaDesde y horaHasta).
-     * Busca todas las alertas a visualizar de el DIA ACTUAL en ese rango horario. 
-     * Además puede recibir o no, un id de Tipo Procesamiento (1 para cada 20 minutos, 2 para Diario y 3 para semanal)
-     * La hora se debe pasar como HH:MM:SS Ejemplo de uso:
+     * Recibe un rango horario (horaDesde y horaHasta). Busca todas las alertas
+     * a visualizar de el DIA ACTUAL en ese rango horario. Además puede recibir
+     * o no, un id de Tipo Procesamiento (1 para cada 20 minutos, 2 para Diario
+     * y 3 para semanal) La hora se debe pasar como HH:MM:SS Ejemplo de uso:
      * http://localhost:8080/trabajoFinal/getTramasProcesadasByHora?horaDesde=01:01:01&horaHasta=02:02:02&idTipoProcesamiento=1
      *
      * @param horaDesde
@@ -54,16 +53,17 @@ public class TramaProcesadaController {
             @RequestParam(value = "horaHasta") String horaHasta,
             @RequestParam(value = "idTipoProcesamiento", required = false) Long idTipoProcesamiento) throws Exception {
         List<TramaProcesada> tramasProcesadas = tramaProcesadaService.getTramasProcesadasByHora(
-                Time.valueOf(horaDesde), 
+                Time.valueOf(horaDesde),
                 Time.valueOf(horaHasta),
                 idTipoProcesamiento);
         return new ResponseEntity(tramasProcesadas, HttpStatus.OK);
     }
 
     /**
-     * Busca todas las tramas procesadas que se encuentren en un determinado rango de fechas.
-     * Además puede recibir o no, un id de Tipo Procesamiento (1 para cada 20 minutos, 2 para Diario y 3 para semanal)
-     * Pasar las fechas de la forma YYYY-mm-dd. Ejemplo:
+     * Busca todas las tramas procesadas que se encuentren en un determinado
+     * rango de fechas. Además puede recibir o no, un id de Tipo Procesamiento
+     * (1 para cada 20 minutos, 2 para Diario y 3 para semanal) Pasar las fechas
+     * de la forma YYYY-mm-dd. Ejemplo:
      * http://localhost:8080/trabajoFinal/getTramasProcesadasByFecha?fechaDesde=2018-06-01&fechaHasta=2018-06-31&idTipoProcesamiento=1
      *
      * @param fechaDesde
@@ -78,9 +78,44 @@ public class TramaProcesadaController {
             @RequestParam(value = "fechaHasta") String fechaHasta,
             @RequestParam(value = "idTipoProcesamiento", required = false) Long idTipoProcesamiento) throws Exception {
         List<TramaProcesada> tramasProcesadas = tramaProcesadaService.getTramasProcesadasByFecha(
-                dateFormatter.parse(fechaDesde), 
+                dateFormatter.parse(fechaDesde),
                 dateFormatter.parse(fechaHasta),
                 idTipoProcesamiento);
         return new ResponseEntity(tramasProcesadas, HttpStatus.OK);
+    }
+
+    /**
+     * Devuelve un listado de un solo valor, que corresponde a la variable con todos los filtros.
+     * Endpoint creado para graficos históricos.
+     * 
+     * Ejemplo:
+     *  http://localhost:8080/trabajoFinal/getTramaProcesadaFiltrada?fechaDesde=2019-02-11&fechaHasta=2019-02-14&idTipoProcesamiento=1&horaDesde=18:00:00&horaHasta=23:59:00&nombreVariable=corriente_continua_avg&idNodo=1
+     * 
+     * @param nombreVariable
+     * @param fechaDesde
+     * @param fechaHasta
+     * @param horaDesde (No requerido)
+     * @param horaHasta (No requerido)
+     * @param idTipoProcesamiento
+     * @param idNodo
+     * @return List Object
+     * @throws Exception 
+     */
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    @RequestMapping(value = "/getTramaProcesadaFiltrada", method = RequestMethod.GET, produces = "application/json")
+    public ResponseEntity<?> getTramasProcesadasByTiempoAndTipoProcesamiento(
+            @RequestParam(value = "nombreVariable") String nombreVariable,
+            @RequestParam(value = "fechaDesde") String fechaDesde,
+            @RequestParam(value = "fechaHasta") String fechaHasta,
+            @RequestParam(value = "horaDesde", required = false) String horaDesde,
+            @RequestParam(value = "horaHasta", required = false) String horaHasta,
+            @RequestParam(value = "idTipoProcesamiento") Long idTipoProcesamiento,
+            @RequestParam(value = "idNodo") Long idNodo) throws Exception {
+
+        List trama = tramaProcesadaService.getTramasProcesadasByTiempoAndTipoProcesamiento(
+                nombreVariable, dateFormatter.parse(fechaDesde), dateFormatter.parse(fechaHasta),
+                horaDesde, horaHasta, idTipoProcesamiento, idNodo);
+
+        return new ResponseEntity(trama, HttpStatus.OK);
     }
 }

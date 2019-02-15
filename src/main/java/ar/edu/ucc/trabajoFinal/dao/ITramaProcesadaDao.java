@@ -26,5 +26,9 @@ public interface ITramaProcesadaDao extends DaoGenerico<TramaProcesada, Long>{
      * @return Listado de TramaProcesada
      */
     public List<TramaProcesada> getTramasProcesadasByHora(Time horaDesde, Time horaHasta, Long idTipoProcesamiento) throws ParseException;
+    
+    public List<TramaProcesada> getTramasProcesadasByTiempoAndTipoProcesamiento(
+            String nombreVariable, Date fechaDesde, Date fechaHasta, Time horaDesde, 
+            Time horaHasta,  Long idTipoProcesamiento, Long idNodo) throws ParseException;
 
 }
