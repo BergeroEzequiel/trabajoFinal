@@ -1,5 +1,6 @@
 package ar.edu.ucc.trabajoFinal.dao;
 
+import ar.edu.ucc.trabajoFinal.dto.TramaFiltradaDto;
 import ar.edu.ucc.trabajoFinal.model.TramaFiltrada;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -17,6 +18,7 @@ import ar.edu.ucc.trabajoFinal.model.TramaPotencias;
 import ar.edu.ucc.trabajoFinal.model.TramaUltimasPotencias;
 import java.sql.Time;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 @Repository
@@ -109,12 +111,12 @@ public class TramaDao extends DaoGenericoImp<Trama, Long> implements ITramaDao {
         return list;
     }
 
-	public List<Trama> getTramaByNodo(Long idNodo) {
-		return this.getByCriteria(Restrictions.eq("nodo.id", idNodo));
-	}
+    public List<Trama> getTramaByNodo(Long idNodo) {
+        return this.getByCriteria(Restrictions.eq("nodo.id", idNodo));
+    }
 
-	@Override
-	public TramaPotencias getPotenciasAcumuladasParque() {
+    @Override
+    public TramaPotencias getPotenciasAcumuladasParque() {
 //		List list =  ((Query) this.currentSession()
 //				.createQuery("potenciaContinua AS potenciaContinua, "
 //						+ "potenciaRed AS potenciaRed, potenciaInterna AS potenciaInterna, ipNodo AS ipNodo"
@@ -142,11 +144,11 @@ public class TramaDao extends DaoGenericoImp<Trama, Long> implements ITramaDao {
                 .setParameter("horaDesde", horaDesde)
                 .setParameter("horaHasta", horaHasta)
                 .setResultTransformer(Transformers.aliasToBean(TramaAuxiliar.class)).list();
-        
+
         return list;
 
     }
-    
+
     @Override
     public List<TramaAuxiliar> getTramaMinimos(Date fechaDesde, Date fechaHasta, Time horaDesde, Time horaHasta) throws ParseException {
         List list;
@@ -192,38 +194,38 @@ public class TramaDao extends DaoGenericoImp<Trama, Long> implements ITramaDao {
     }
 
     @Override
-    public List<TramaUltimasPotencias> getUltimasPotenciasPorNodos(Long idNodo) throws ParseException{
-        String whereNodo = idNodo != null? "AND id_nodo = " + idNodo + " " : "";
-        
+    public List<TramaUltimasPotencias> getUltimasPotenciasPorNodos(Long idNodo) throws ParseException {
+        String whereNodo = idNodo != null ? "AND id_nodo = " + idNodo + " " : "";
+
         String query = "SELECT id_nodo as nodo, "
-                    + "SUBSTRING_INDEX(GROUP_CONCAT(potencia_continua ORDER BY fecha, hora DESC), ',', 10) as potenciaContinua, "
-                    + "SUBSTRING_INDEX(GROUP_CONCAT(potencia_interna ORDER BY fecha, hora DESC), ',', 10) as potenciaInterna, "
-                    + "SUBSTRING_INDEX(GROUP_CONCAT(potencia_red ORDER BY fecha, hora DESC), ',', 10) as potenciaRed, "
-                    + "SUBSTRING_INDEX(GROUP_CONCAT(hora ORDER BY fecha, hora DESC), ',', 10) as hora "
-                    + "FROM monitoreo_detalle "
-                    + "INNER JOIN nodos N on monitoreo_detalle.id_nodo = N.ID "
-                    + "WHERE N.activo = 1 AND fecha = CURRENT_DATE AND hora >= NOW() - INTERVAL 10 MINUTE "
-                    + whereNodo                
-                    + "GROUP BY id_nodo";
-        
+                + "SUBSTRING_INDEX(GROUP_CONCAT(potencia_continua ORDER BY fecha, hora DESC), ',', 10) as potenciaContinua, "
+                + "SUBSTRING_INDEX(GROUP_CONCAT(potencia_interna ORDER BY fecha, hora DESC), ',', 10) as potenciaInterna, "
+                + "SUBSTRING_INDEX(GROUP_CONCAT(potencia_red ORDER BY fecha, hora DESC), ',', 10) as potenciaRed, "
+                + "SUBSTRING_INDEX(GROUP_CONCAT(hora ORDER BY fecha, hora DESC), ',', 10) as hora "
+                + "FROM monitoreo_detalle "
+                + "INNER JOIN nodos N on monitoreo_detalle.id_nodo = N.ID "
+                + "WHERE N.activo = 1 AND fecha = CURRENT_DATE AND hora >= NOW() - INTERVAL 10 MINUTE "
+                + whereNodo
+                + "GROUP BY id_nodo";
+
         List list = this.currentSession().createSQLQuery(query)
                 .addEntity(TramaUltimasPotencias.class).list();
-                
+
         return list;
     }
 
     @Override
     public List<Trama> getUltimasNTramasPorNodos(Long idNodo, Integer limit) {
         String query = "SELECT * "
-                    + "FROM monitoreo_detalle "
-                    + "INNER JOIN nodos N on monitoreo_detalle.id_nodo = N.ID "
-                    + "WHERE N.activo = 1 AND fecha = CURRENT_DATE AND hora >= NOW() - INTERVAL 10 MINUTE "
-                    + "AND id_nodo = " + idNodo
-                    + " ORDER BY hora DESC "
-                    + "LIMIT " + limit;
+                + "FROM monitoreo_detalle "
+                + "INNER JOIN nodos N on monitoreo_detalle.id_nodo = N.ID "
+                + "WHERE N.activo = 1 AND fecha = CURRENT_DATE AND hora >= NOW() - INTERVAL 10 MINUTE "
+                + "AND id_nodo = " + idNodo
+                + " ORDER BY hora DESC "
+                + "LIMIT " + limit;
         List list = this.currentSession().createSQLQuery(query)
                 .addEntity(Trama.class).list();
-                
+
         return list;
     }
 
@@ -268,7 +270,7 @@ public class TramaDao extends DaoGenericoImp<Trama, Long> implements ITramaDao {
                 + "ORDER BY nodo";
         List<Trama> list = this.currentSession().createQuery(query)
                 .setResultTransformer(Transformers.aliasToBean(Trama.class)).list();
-        
+
         if (list != null && !list.isEmpty()) {
             for (Trama trama : list) {
                 temperaturaAmbientePromedio += trama.getTemperatura1();
@@ -280,38 +282,44 @@ public class TramaDao extends DaoGenericoImp<Trama, Long> implements ITramaDao {
     }
 
     @Override
-    public List<TramaFiltrada> getTramasByTiempoAndNodo(
-            String nombreVariable, Date fechaDesde, Date fechaHasta, Time horaDesde, 
+    public List<TramaFiltradaDto> getTramasByTiempoAndNodo(
+            String[] nombreVariable, Date fechaDesde, Date fechaHasta, Time horaDesde,
             Time horaHasta, Long idNodo) throws ParseException {
-        
-        List<TramaFiltrada> listadoTramas = new LinkedList<>();
-        
-        String query = "SELECT " + nombreVariable + " AS valor, hora AS hora, fecha as fecha "
-                + "FROM monitoreo_detalle "
-                + "WHERE id_nodo = :idNodo "
-                + "and fecha >= :fechaDesde and fecha <= :fechaHasta "
-                + "and hora >= TIME(:horaDesde) and hora <= TIME(:horaHasta) "
-                + "ORDER BY hora";
-        
-        
-        List<Object[]> listadoTramasProcesadas = this.currentSession().createSQLQuery(query)
-                .setParameter("idNodo", idNodo)
-                .setParameter("fechaDesde", dateFormatter.parse(dateFormatter.format(fechaDesde)))
-                .setParameter("fechaHasta", dateFormatter.parse(dateFormatter.format(fechaHasta)))
-                .setParameter("horaDesde", horaDesde)
-                .setParameter("horaHasta", horaHasta).list();
-        
-        for (Object[] t : listadoTramasProcesadas) {
-            TramaFiltrada trama = new TramaFiltrada();
-            trama.setValor((float) t[0]);
-            trama.setFecha(dateFormatter.format(t[2]));
-            trama.setHora(timeFormatter.format(t[1]));
-            listadoTramas.add(trama);
+
+        ArrayList<TramaFiltrada> listadoTramas = new ArrayList<>();
+        List<TramaFiltradaDto> listadoFinal = new LinkedList<>();
+
+        for (String variable : nombreVariable) {
+
+            String query = "SELECT " + variable + " AS valor, hora AS hora, fecha as fecha "
+                    + "FROM monitoreo_detalle "
+                    + "WHERE id_nodo = :idNodo "
+                    + "and fecha >= :fechaDesde and fecha <= :fechaHasta "
+                    + "and hora >= TIME(:horaDesde) and hora <= TIME(:horaHasta) "
+                    + "ORDER BY hora";
+
+            List<Object[]> listadoTramasProcesadas = this.currentSession().createSQLQuery(query)
+                    .setParameter("idNodo", idNodo)
+                    .setParameter("fechaDesde", dateFormatter.parse(dateFormatter.format(fechaDesde)))
+                    .setParameter("fechaHasta", dateFormatter.parse(dateFormatter.format(fechaHasta)))
+                    .setParameter("horaDesde", horaDesde)
+                    .setParameter("horaHasta", horaHasta).list();
+
+            for (Object[] t : listadoTramasProcesadas) {
+                TramaFiltrada trama = new TramaFiltrada();
+                trama.setValor((float) t[0]);
+                trama.setFecha(dateFormatter.format(t[2]));
+                trama.setHora(timeFormatter.format(t[1]));
+                listadoTramas.add(trama);
+
+            }
             
+            listadoFinal.add(new TramaFiltradaDto(variable, (List<TramaFiltrada>) listadoTramas.clone()));
+            listadoTramas.clear();
+
         }
-        
-        return listadoTramas;
+
+        return listadoFinal;
     }
-    
 
 }

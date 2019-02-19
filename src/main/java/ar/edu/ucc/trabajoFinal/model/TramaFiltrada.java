@@ -1,5 +1,6 @@
 package ar.edu.ucc.trabajoFinal.model;
 
+import java.io.Serializable;
 import java.sql.Time;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -9,7 +10,7 @@ import javax.persistence.Id;
  * @author ezequiel
  */
 @Entity
-public class TramaFiltrada {
+public class TramaFiltrada implements Serializable{
 
     public TramaFiltrada() {
     }

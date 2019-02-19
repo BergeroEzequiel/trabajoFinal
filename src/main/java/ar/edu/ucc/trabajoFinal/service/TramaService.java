@@ -244,7 +244,7 @@ public class TramaService {
         
     @Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
     public List getTramasByTiempoAndNodo(
-            String nombreVariable, Date fechaDesde, Date fechaHasta, String horaDesde, 
+            String[] nombreVariable, Date fechaDesde, Date fechaHasta, String horaDesde, 
             String horaHasta, Long idNodo) throws ParseException {
         
         Time horaDesdeCasteada;

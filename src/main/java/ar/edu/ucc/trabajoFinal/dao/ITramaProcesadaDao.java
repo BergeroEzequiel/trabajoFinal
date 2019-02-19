@@ -1,5 +1,6 @@
 package ar.edu.ucc.trabajoFinal.dao;
 
+import ar.edu.ucc.trabajoFinal.dto.TramaFiltradaDto;
 import ar.edu.ucc.trabajoFinal.model.TramaFiltrada;
 import ar.edu.ucc.trabajoFinal.model.Trama;
 import ar.edu.ucc.trabajoFinal.model.TramaProcesada;
@@ -29,8 +30,8 @@ public interface ITramaProcesadaDao extends DaoGenerico<TramaProcesada, Long>{
      */
     public List<TramaProcesada> getTramasProcesadasByHora(Time horaDesde, Time horaHasta, Long idTipoProcesamiento) throws ParseException;
     
-    public List<TramaFiltrada> getTramasProcesadasByTiempoAndTipoProcesamiento(
-            String nombreVariable, Date fechaDesde, Date fechaHasta, Time horaDesde, 
+    public List<TramaFiltradaDto> getTramasProcesadasByTiempoAndTipoProcesamiento(
+            String[] nombreVariable, Date fechaDesde, Date fechaHasta, Time horaDesde, 
             Time horaHasta,  Long idTipoProcesamiento, Long idNodo) throws ParseException;
 
 }

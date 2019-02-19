@@ -89,9 +89,11 @@ public class TramaProcesadaController {
      * Endpoint creado para graficos históricos.
      * 
      * Ejemplo:
-     *  http://localhost:8080/trabajoFinal/getTramaProcesadaFiltrada?fechaDesde=2019-02-11&fechaHasta=2019-02-14&idTipoProcesamiento=1&horaDesde=18:00:00&horaHasta=23:59:00&nombreVariable=corriente_continua_avg&idNodo=1
+     *  http://localhost:8080/trabajoFinal/getTramaProcesadaFiltrada?fechaDesde=2019-02-11
+     *                                    &fechaHasta=2019-02-14&idTipoProcesamiento=1&horaDesde=18:00:00&horaHasta=23:59:00
+     *                                    &nombreVariable=corriente_continua_avg,corriente_continua_min&idNodo=1
      * 
-     * @param nombreVariable
+     * @param nombreVariable : String[]
      * @param fechaDesde
      * @param fechaHasta
      * @param horaDesde (No requerido)
@@ -104,7 +106,7 @@ public class TramaProcesadaController {
     @SuppressWarnings({"unchecked", "rawtypes"})
     @RequestMapping(value = "/getTramaProcesadaFiltrada", method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<?> getTramasProcesadasByTiempoAndTipoProcesamiento(
-            @RequestParam(value = "nombreVariable") String nombreVariable,
+            @RequestParam(value = "nombreVariable") String[] nombreVariable,
             @RequestParam(value = "fechaDesde") String fechaDesde,
             @RequestParam(value = "fechaHasta") String fechaHasta,
             @RequestParam(value = "horaDesde", required = false) String horaDesde,

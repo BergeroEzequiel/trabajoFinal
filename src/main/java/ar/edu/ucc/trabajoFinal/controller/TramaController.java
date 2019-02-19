@@ -165,9 +165,9 @@ public class TramaController {
      * Devuelve un listado de un solo valor, fecha y hora, que corresponde a la variable con todos los filtros.
      * Endpoint creado para el detalle, generalmente de una ventana de 20 minutos.
      * Ejemplo:
-     *  http://localhost:8080/trabajoFinal/getTramaFiltrada?fechaDesde=2019-02-11&fechaHasta=2019-02-14&horaDesde=18:00:00&horaHasta=18:20:00&nombreVariable=corriente_continua_avg&idNodo=1
+     *  http://localhost:8080/trabajoFinal/getTramaFiltrada?fechaDesde=2019-02-11&fechaHasta=2019-02-14&horaDesde=18:00:00&horaHasta=18:20:00&nombreVariable=corriente_continua_avg,corriente_continua_min&idNodo=1
      * 
-     * @param nombreVariable
+     * @param nombreVariable :String[]
      * @param fechaDesde
      * @param fechaHasta
      * @param horaDesde
@@ -179,7 +179,7 @@ public class TramaController {
     @SuppressWarnings({"unchecked", "rawtypes"})
     @RequestMapping(value = "/getTramaFiltrada", method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<?> getTramasByTiempoAndNodo(
-            @RequestParam(value = "nombreVariable") String nombreVariable,
+            @RequestParam(value = "nombreVariable") String[] nombreVariable,
             @RequestParam(value = "fechaDesde") String fechaDesde,
             @RequestParam(value = "fechaHasta") String fechaHasta,
             @RequestParam(value = "horaDesde", required = false) String horaDesde,
