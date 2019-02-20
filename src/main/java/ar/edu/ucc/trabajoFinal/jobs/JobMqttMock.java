@@ -34,8 +34,9 @@ public class JobMqttMock extends QuartzJobBean {
     String topic;
     String trama = null;
     String broker;
-    String clientId = "mockTrabajoFinal";
-    int qos = 2;
+    String clientId = "mockTrabajoFinal2";
+    int qos = 0;
+    int cantidadNodos = 3;
     SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
     DateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
     MqttConnectOptions connOptions;
@@ -49,15 +50,19 @@ public class JobMqttMock extends QuartzJobBean {
             if (client == null || !client.isConnected()) {
                 client = new MqttClient(broker, clientId);
                 connOptions = new MqttConnectOptions();
+                connOptions.setCleanSession(true);
                 connOptions.setAutomaticReconnect(true);
                 connOptions.setConnectionTimeout(6000000);
                 connOptions.setKeepAliveInterval(45);
                 connect();
             }
-            trama = generarNuevaTrama();
-            message = new MqttMessage(trama.getBytes());
-            message.setQos(qos);
-            this.publishMessage(topic, message);
+            for (int i = 1; i <= cantidadNodos; i++) {
+                trama = generarNuevaTrama(cantidadNodos);
+                message = new MqttMessage(trama.getBytes());
+                message.setQos(qos);
+                this.publishMessage(topic, message);
+            }
+            
             client.disconnect();
         } catch (MqttException e) {
             e.printStackTrace();
@@ -66,33 +71,34 @@ public class JobMqttMock extends QuartzJobBean {
         }
     }
 
-    private String generarNuevaTrama() throws JsonProcessingException {
+    private String generarNuevaTrama(int idNodo) throws JsonProcessingException {
 
 //        int[] array = {1, 2, 3};
         Random r = new Random();
 
         TramaDto tramaAuxiliar = new TramaDto();
-        tramaAuxiliar.setCorrienteContinua(r.nextInt(11));
-        tramaAuxiliar.setCorrienteInterna(r.nextInt(11));
-        tramaAuxiliar.setCorrienteRed(r.nextInt(11));
-        tramaAuxiliar.setDesfasaje(r.nextInt(11));
+        //r.nextInt(high-low) + low;
+        tramaAuxiliar.setCorrienteContinua(r.nextInt(50 - 00) + 0); //umbral 30-00
+        tramaAuxiliar.setCorrienteInterna((float) 50.1); //umbral 50.1 - 49.9
+        tramaAuxiliar.setCorrienteRed(r.nextInt(8 - 0) + 0); //umbral 4 - 0
+        tramaAuxiliar.setDesfasaje(r.nextInt(1 - 0) + 0);
         tramaAuxiliar.setEstado("OK");
         tramaAuxiliar.setFecha(dateFormatter.format(new Date()));
-        tramaAuxiliar.setFrecuenciaCorriente(r.nextInt(11));
-        tramaAuxiliar.setFrecuenciaTension(r.nextInt(11));
+        tramaAuxiliar.setFrecuenciaCorriente(50); //umbral 50.1 - 49.9
+        tramaAuxiliar.setFrecuenciaTension((float) 49.9); //umbral 50.1 - 49.9
         tramaAuxiliar.setHora(timeFormatter.format((new Date())));
-        tramaAuxiliar.setHumedad(r.nextInt(11));
-        tramaAuxiliar.setNumero(1);
-        tramaAuxiliar.setPvm(r.nextInt(11));
-        tramaAuxiliar.setTemperatura1(r.nextInt(11));
-        tramaAuxiliar.setTemperatura2(r.nextInt(11));
-        tramaAuxiliar.setTemperatura3(r.nextInt(11));
-        tramaAuxiliar.setTemperatura4(r.nextInt(11));
-        tramaAuxiliar.setTemperatura5(r.nextInt(11));
-        tramaAuxiliar.setTensionContinua(r.nextInt(11));
-        tramaAuxiliar.setTensionInterna(r.nextInt(11));
-        tramaAuxiliar.setTensionRed(r.nextInt(11));
-        tramaAuxiliar.setTensionTierra(r.nextInt(11));
+        tramaAuxiliar.setHumedad(r.nextInt(90 - 85) + 85); //umbral NO TIENE
+        tramaAuxiliar.setNumero(idNodo);
+        tramaAuxiliar.setPvm(r.nextInt(10 - 5) + 5); //umbral NO TIENE
+        tramaAuxiliar.setTemperatura1(r.nextInt(120 - 40) + 40);//umbral 100 - xx
+        tramaAuxiliar.setTemperatura2(r.nextInt(70 - 50) + 50); //umbral 70 - xx 
+        tramaAuxiliar.setTemperatura3(r.nextInt(110 - 90) + 90); //umbral 100 - xx
+        tramaAuxiliar.setTemperatura4(r.nextInt(60 - 0) + (-5)); //umbral 60 - (-10)
+        tramaAuxiliar.setTemperatura5(r.nextInt(40 - 25) + 25); //umbral 70 - xx
+        tramaAuxiliar.setTensionContinua(r.nextInt(100 - 10) + 10); //umbral 100 - 40
+        tramaAuxiliar.setTensionInterna(r.nextInt(60 - 50 ) +50); //umbral NO TIENE
+        tramaAuxiliar.setTensionRed(r.nextInt(260-160) + 160); //umbral 240-180
+        tramaAuxiliar.setTensionTierra(r.nextInt(5 - 1) + 5); //umbral 4 - xx
         tramaAuxiliar.setModulo("Solar");
         return new ObjectMapper().writeValueAsString(tramaAuxiliar);
 
