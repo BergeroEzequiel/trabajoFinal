@@ -57,7 +57,7 @@ public class JobMqttMock extends QuartzJobBean {
                 connect();
             }
             for (int i = 1; i <= cantidadNodos; i++) {
-                trama = generarNuevaTrama(cantidadNodos);
+                trama = generarNuevaTrama(i);
                 message = new MqttMessage(trama.getBytes());
                 message.setQos(qos);
                 this.publishMessage(topic, message);

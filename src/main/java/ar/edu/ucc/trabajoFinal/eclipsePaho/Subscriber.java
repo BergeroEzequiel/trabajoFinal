@@ -51,11 +51,11 @@ public class Subscriber implements MqttCallback {
 
         try {
             connectionsOptions = new MqttConnectOptions();
-//            connectionsOptions.setKeepAliveInterval(40);
-//            connectionsOptions.setConnectionTimeout(600000);
-            connectionsOptions.setCleanSession(true);
+            connectionsOptions.setKeepAliveInterval(40);
+            connectionsOptions.setConnectionTimeout(600000);
+            connectionsOptions.setCleanSession(false);
 
-            client = new MqttClient(broker, clientId);
+            client = new MqttClient(broker, "juanSarlan420");
             client.setCallback(this);
             connect();
 
@@ -76,7 +76,6 @@ public class Subscriber implements MqttCallback {
         while (tryConnecting) {
             try {
                 client.connect(connectionsOptions);
-//                Thread.sleep(1000);
             } catch (Exception e1) {
                 logger.error("Connection attempt failed with '" + e1 + "'. Retrying.");
             }

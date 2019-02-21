@@ -14,6 +14,12 @@ public class NodoDao  extends DaoGenericoImp<Nodo, Long> implements INodoDao{
 	public List<Nodo> getNodosActivos() {
 		return this.getByCriteria(Restrictions.eq("activo", true));
 	}
+        
+        @Override
+	public List<Nodo> getNodosActivosFuncionando() {
+		return this.getByCriteria(Restrictions.eq("activo", true), 
+                        Restrictions.eq("funcionando", true));
+	}
 
 	@Override
 	public Nodo getNodoByNumeroYModulo(String modulo, int numero) {

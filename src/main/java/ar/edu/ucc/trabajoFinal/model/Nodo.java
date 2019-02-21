@@ -1,66 +1,66 @@
 package ar.edu.ucc.trabajoFinal.model;
 
-import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "nodos")
-public class Nodo extends ObjetoGenerico{
-	
-	@Column(name="moludo", length=50, nullable=false)
-	private String modulo;
-	
-	@Column(name="numero", nullable=false)
-	private int numero;
-	
-	@Column(name="activo", nullable = false, columnDefinition = "BOOLEAN DEFAULT true")
-	private boolean activo;
-	
-	@Column(name="descripcion", length=250, nullable=false)
-	private String descripcion;
+public class Nodo extends ObjetoGenerico {
 
-	public String getModulo() {
-		return modulo;
-	}
+    @Column(name = "moludo", length = 50, nullable = false)
+    private String modulo;
 
-	public void setModulo(String modulo) {
-		this.modulo = modulo;
-	}
+    @Column(name = "numero", nullable = false)
+    private int numero;
 
-	public int getNumero() {
-		return numero;
-	}
+    @Column(name = "activo", nullable = false, columnDefinition = "BOOLEAN DEFAULT true")
+    private boolean activo;
 
-	public void setNumero(int numero) {
-		this.numero = numero;
-	}
+    @Column(name = "descripcion", length = 250, nullable = false)
+    private String descripcion;
 
-	public boolean isActivo() {
-		return activo;
-	}
+    @Column(name = "funcionando", nullable = false, columnDefinition = "BOOLEAN DEFAULT true")
+    private boolean funcionando;
 
-	public void setActivo(boolean activo) {
-		this.activo = activo;
-	}
+    public String getModulo() {
+        return modulo;
+    }
 
-	public String getDescripcion() {
-		return descripcion;
-	}
+    public void setModulo(String modulo) {
+        this.modulo = modulo;
+    }
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
+    public int getNumero() {
+        return numero;
+    }
 
-//    @Override
-//    public boolean equals(Object obj) {
-//        if(this == obj) return true;
-//        if(!(obj instanceof Nodo)) return false;
-//        Nodo nodo = (Nodo) obj;
-//        return  Objects.equals(this.getId(), nodo.getId());
-//    }
-        
-        
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
+
+    public boolean isActivo() {
+        return activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public boolean isFuncionando() {
+        return funcionando;
+    }
+
+    public void setFuncionando(boolean funcionando) {
+        this.funcionando = funcionando;
+    }
 
 }

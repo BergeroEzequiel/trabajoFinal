@@ -196,6 +196,7 @@
         ID bigint not null auto_increment,
         activo BOOLEAN DEFAULT true not null,
         descripcion varchar(250) not null,
+        funcionando BOOLEAN DEFAULT true not null,
         moludo varchar(50) not null,
         numero integer not null,
         primary key (ID)

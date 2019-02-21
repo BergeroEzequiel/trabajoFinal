@@ -89,7 +89,6 @@ public class TramaController {
     }
 
     @SuppressWarnings({"unchecked", "rawtypes"})
-    @Secured("ROLE_BASICO")
     @RequestMapping(value = "/potenciasNodos", method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<?> getPotenciasNodos() throws Exception {
 

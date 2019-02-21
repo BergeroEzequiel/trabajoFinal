@@ -47,4 +47,6 @@ public interface ITramaDao extends DaoGenerico<Trama, Long>{
         public List<TramaFiltradaDto> getTramasByTiempoAndNodo(
             String[] nombreVariable, Date fechaDesde, Date fechaHasta, Time horaDesde, 
             Time horaHasta, Long idNodo) throws ParseException;
+        
+        public List<TramaAuxiliar> getUltimaTramaPorNodo();
 }

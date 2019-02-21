@@ -313,13 +313,29 @@ public class TramaDao extends DaoGenericoImp<Trama, Long> implements ITramaDao {
                 listadoTramas.add(trama);
 
             }
-            
+
             listadoFinal.add(new TramaFiltradaDto(variable, (List<TramaFiltrada>) listadoTramas.clone()));
             listadoTramas.clear();
 
         }
 
         return listadoFinal;
+    }
+
+    @Override
+    public List<TramaAuxiliar> getUltimaTramaPorNodo() {
+
+        List list;
+        list = ((Query) this.currentSession()
+                .createQuery("select MAX(hora) as hora, nodo.id as nodo"
+                        + "from Trama "
+                        + "where fecha >= :fechaActual "
+                        + "group by nodo"))
+                .setResultTransformer(Transformers.aliasToBean(TramaAuxiliar.class))
+                .setParameter("fechaActual", dateFormatter.format(new Date())).list();
+
+        return null;
+
     }
 
 }
