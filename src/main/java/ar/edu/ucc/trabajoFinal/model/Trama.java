@@ -125,11 +125,13 @@ public class Trama extends ObjetoGenerico {
 	}
 	
 	public float calcularPotenciaInterna() {
-		return (float) (Math.cos((double) Math.toRadians(this.desfasaje)) * this.corrienteInterna * this.tensionInterna);
+//		return (float) (Math.cos((double) Math.toRadians(this.desfasaje)) * this.corrienteInterna * this.tensionInterna);
+            return this.corrienteInterna * this.tensionInterna;
 	}
 	
 	public float calcularPotenciaRed() {
-		return (float) (Math.cos((double) Math.toRadians(this.desfasaje)) * this.corrienteRed * this.tensionRed);
+//		return (float) (Math.cos((double) Math.toRadians(this.desfasaje)) * this.corrienteRed * this.tensionRed);
+            return this.corrienteInterna * this.tensionInterna;
 	}
 
 	public Nodo getNodo() {
