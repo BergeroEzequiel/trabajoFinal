@@ -37,4 +37,14 @@ public class NodoMapper {
     public List<Nodo> getNodosActivos() {
         return this.nodosActivos;
     }
+
+    /**
+     * Este metodo setea la variable instance del Singleton en null, lo que
+     * obliga a que en el proximo uso del singleton se carguen todos los
+     * nodos y de esa manera queden actualizados.
+     */
+    public static void actualizarNodoMapper() {
+        System.out.println("ACTUALIZANDO SINGLETON DE NODO MAPPER.");
+        instance = null;
+    }
 }

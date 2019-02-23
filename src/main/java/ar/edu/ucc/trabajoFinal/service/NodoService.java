@@ -17,6 +17,7 @@ import ar.edu.ucc.trabajoFinal.dao.INodoDao;
 import ar.edu.ucc.trabajoFinal.dao.NodoDao;
 import ar.edu.ucc.trabajoFinal.dto.NodoDto;
 import ar.edu.ucc.trabajoFinal.model.Nodo;
+import ar.edu.ucc.trabajoFinal.utils.NodoMapper;
 
 @Service
 @Transactional
@@ -56,6 +57,7 @@ public class NodoService {
 	public Nodo grabarNodo(Nodo nodo) throws ParseException {
 		log.info("Guardando: " + nodo.toString());		
 		nodoDaoParticular.saveOrUpdate(nodo);
+                NodoMapper.actualizarNodoMapper();
 		return nodo;
 	}
 	

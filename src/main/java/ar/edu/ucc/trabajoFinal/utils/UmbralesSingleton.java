@@ -112,6 +112,7 @@ public class UmbralesSingleton {
          * y de esa manera queden actualizados.
          */
         public static void actualizarUmbralSingleton(){
+            System.out.println("ACTUALIZANDO SINGLETON DE UMBRALES.");
             instance = null;
         }
 
