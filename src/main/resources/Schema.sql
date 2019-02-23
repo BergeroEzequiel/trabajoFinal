@@ -11,6 +11,10 @@
         drop 
         foreign key FK_f2vvcg8y37s832viqnvv1c5oi;
 
+    alter table historial_nodos 
+        drop 
+        foreign key FK_qfpcrclb4nclbi2d9d8xu23md;
+
     alter table monitoreo_detalle 
         drop 
         foreign key FK_58u00fqpnvf9s4mgwcknkft1h;
@@ -48,6 +52,8 @@
     drop table if exists criticidades;
 
     drop table if exists estado;
+
+    drop table if exists historial_nodos;
 
     drop table if exists monitoreo_detalle;
 
@@ -90,6 +96,15 @@
     create table estado (
         ID bigint not null auto_increment,
         descripcion varchar(255),
+        primary key (ID)
+    ) ENGINE=InnoDB;
+
+    create table historial_nodos (
+        ID bigint not null auto_increment,
+        control datetime not null,
+        descripcion varchar(255) not null,
+        ultimaTrama datetime not null,
+        id_nodo bigint,
         primary key (ID)
     ) ENGINE=InnoDB;
 
@@ -267,6 +282,11 @@
         add constraint FK_f2vvcg8y37s832viqnvv1c5oi 
         foreign key (id_umbral) 
         references umbrales (ID);
+
+    alter table historial_nodos 
+        add constraint FK_qfpcrclb4nclbi2d9d8xu23md 
+        foreign key (id_nodo) 
+        references nodos (ID);
 
     alter table monitoreo_detalle 
         add constraint FK_58u00fqpnvf9s4mgwcknkft1h 

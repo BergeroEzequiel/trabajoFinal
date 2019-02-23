@@ -1,5 +1,7 @@
 package ar.edu.ucc.trabajoFinal.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -14,14 +16,18 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "criticidades")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Criticidad extends ObjetoGenerico{
     
+    @JsonProperty("priority")
     @Column(name="prioridad", nullable=false)
     private String prioridad;
     
+    @JsonProperty("reps")
     @Column(name = "cantidad_repeticiones")
     private int cantidadRepeticiones;
     
+    @JsonProperty("period")
     @Column(name = "periodo_tiempo")
     private String periodoTiempo;
 

@@ -44,7 +44,7 @@ public class Subscriber implements MqttCallback {
     private TramaDto tramaDto = null;
     private URI uriPostTrama = null;
     private String baseUrl;
-    private final int qos = 0;
+    private final int qos = 2;
 
     @PostConstruct
     private void start() throws MqttException {
@@ -53,9 +53,9 @@ public class Subscriber implements MqttCallback {
             connectionsOptions = new MqttConnectOptions();
             connectionsOptions.setKeepAliveInterval(40);
             connectionsOptions.setConnectionTimeout(600000);
-            connectionsOptions.setCleanSession(false);
+            connectionsOptions.setCleanSession(true);
 
-            client = new MqttClient(broker, "juanSarlan420");
+            client = new MqttClient(broker, "juanSarlan");
             client.setCallback(this);
             connect();
 

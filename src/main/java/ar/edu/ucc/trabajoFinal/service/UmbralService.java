@@ -17,8 +17,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.ucc.trabajoFinal.dao.DaoGenerico;
 import ar.edu.ucc.trabajoFinal.dao.IUmbralDao;
+import ar.edu.ucc.trabajoFinal.dao.IUnidadMedidaDao;
 import ar.edu.ucc.trabajoFinal.dao.UmbralDao;
+import ar.edu.ucc.trabajoFinal.dao.UnidadMedidaDao;
 import ar.edu.ucc.trabajoFinal.model.Umbral;
+import ar.edu.ucc.trabajoFinal.model.UnidadMedida;
 import ar.edu.ucc.trabajoFinal.utils.UmbralesSingleton;
 
 @Service
@@ -29,8 +32,13 @@ public class UmbralService {
 
 	@Autowired
 	DaoGenerico<Umbral, Long> umbralDao;
+        
+        @Autowired
+	DaoGenerico<UnidadMedida, Long> unidadMedidaDao;
 
 	IUmbralDao umbralDaoParticular;
+        
+        IUnidadMedidaDao unidadMedidaDaoParticular;
 
 	SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 	DateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
@@ -38,6 +46,7 @@ public class UmbralService {
 	@PostConstruct
 	public void init() {
 		umbralDaoParticular = (UmbralDao) umbralDao;
+                unidadMedidaDaoParticular = (UnidadMedidaDao) unidadMedidaDao;
 	}
 	
 	@Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
@@ -63,7 +72,7 @@ public class UmbralService {
 			umbral.setActivo(umbralEsp.isActivo());
 			umbral.setCriticidad(umbralEsp.getCriticidad());
 			umbral.setNombreVariable(umbralEsp.getNombreVariable());
-			umbral.setUnidadMedida(umbralEsp.getUnidadMedida());
+			umbral.setUnidadMedida(unidadMedidaDaoParticular.getUMById(umbralEsp.getUnidadMedida().getId()));
 			umbral.setValorMax(umbralEsp.getValorMax());
 			umbral.setValorMin(umbralEsp.getValorMin());
 			umbral.setUltimaModificacion(umbralEsp.getUltimaModificacion());

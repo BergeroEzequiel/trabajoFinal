@@ -34,8 +34,8 @@ public class JobMqttMock extends QuartzJobBean {
     String topic;
     String trama = null;
     String broker;
-    String clientId = "mockTrabajoFinal2";
-    int qos = 0;
+    String clientId = "mockPanSoft";
+    int qos = 2;
     int cantidadNodos = 3;
     SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
     DateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
@@ -51,8 +51,8 @@ public class JobMqttMock extends QuartzJobBean {
                 client = new MqttClient(broker, clientId);
                 connOptions = new MqttConnectOptions();
                 connOptions.setCleanSession(true);
-                connOptions.setAutomaticReconnect(true);
-                connOptions.setConnectionTimeout(6000000);
+//                connOptions.setAutomaticReconnect(true);
+                connOptions.setConnectionTimeout(600000);
                 connOptions.setKeepAliveInterval(45);
                 connect();
             }

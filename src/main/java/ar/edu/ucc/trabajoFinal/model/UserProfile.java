@@ -5,12 +5,15 @@
  */
 package ar.edu.ucc.trabajoFinal.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
  
 @Entity
 @Table(name="rol")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class UserProfile extends ObjetoGenerico{
     
     public static final Long ID_ADMINISTRADOR = 2L;
@@ -18,6 +21,7 @@ public class UserProfile extends ObjetoGenerico{
     public static final Long ID_AVANZADO = 3L;
  
     @Column(name="tipo", length=15, unique=true, nullable=false)
+    @JsonProperty("type")
     private String type ;
      
     public String getType() {

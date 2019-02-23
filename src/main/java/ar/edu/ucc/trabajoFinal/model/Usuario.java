@@ -25,22 +25,27 @@ public class Usuario  extends ObjetoGenerico{
     @JsonProperty("password")
     @Column(name="password", nullable=false)
     private String password;
-         
+    
+    @JsonProperty("firstName")
     @Column(name="nombre", nullable=false)
     private String firstName;
  
+    @JsonProperty("lastName")
     @Column(name="apellido", nullable=false)
     private String lastName;
  
+    @JsonProperty("email")
     @Column(name="email", nullable=false)
     private String email;
     
     @ManyToOne
     @JoinColumn(name="id_rol")
+    @JsonProperty("role")
     private UserProfile userProfile;
     
     @ManyToOne
     @JoinColumn(name="id_estado")
+    @JsonProperty("accountState")
     private Estado estado;
  
     public String getSsoId() {

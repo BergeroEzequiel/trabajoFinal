@@ -1,5 +1,6 @@
 package ar.edu.ucc.trabajoFinal.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import java.sql.Time;
 import javax.persistence.Entity;
@@ -23,8 +24,11 @@ public class TramaFiltrada implements Serializable{
  
     
     @Id
+    @JsonProperty("value")
     private float valor;
+    @JsonProperty("hour")
     private String hora;
+    @JsonProperty("date")
     private String fecha;
 
     public float getValor() {

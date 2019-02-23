@@ -5,6 +5,8 @@
  */
 package ar.edu.ucc.trabajoFinal.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.sql.Time;
 import java.util.Date;
 import java.util.Set;
@@ -24,27 +26,34 @@ import javax.persistence.Temporal;
  */
 @Entity
 @Table(name="notificaciones")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Notificacion extends ObjetoGenerico{
 
+    @JsonProperty("affectedVariable")
     @Column(name = "variable_afectada", length = 50, nullable = false)
     private String variableAfectada;
 
     @ManyToOne
     @JoinColumn(name = "id_umbral", nullable = true)
+    @JsonProperty("thresholdExceeded")
     private Umbral umbralSuperado;
 
     @ManyToOne
     @JoinColumn(name = "id_nodo")
+    @JsonProperty("node")
     private Nodo nodo;
 
     @ManyToOne
     @JoinColumn(name = "id_criticidad")
+    @JsonProperty("severity")
     private Criticidad criticidad;
 
+    @JsonProperty("date")
     @Column(name = "fecha", nullable = false)
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date fecha;
 
+    @JsonProperty("hour")
     @Column(name = "hora", nullable = false)
     private Time hora;
     

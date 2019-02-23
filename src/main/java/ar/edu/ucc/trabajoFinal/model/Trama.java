@@ -1,5 +1,7 @@
 package ar.edu.ucc.trabajoFinal.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.sql.Time;
 import java.util.Date;
 
@@ -12,82 +14,108 @@ import javax.persistence.Temporal;
 
 @Entity
 @Table(name = "monitoreo_detalle")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Trama extends ObjetoGenerico {
 	
 	@ManyToOne
 	@JoinColumn(name="id_nodo")
+        @JsonProperty("node")
 	private Nodo nodo;
 
+        @JsonProperty("state")
 	@Column(name = "estado", nullable = false)
 	private String estado;
 	
+        @JsonProperty("networkVoltage")
 	@Column(name = "tension_red", nullable = false)
 	private float tensionRed;
 
+        @JsonProperty("networkCurrent")
 	@Column(name = "corriente_red", nullable = false)
 	private float corrienteRed;
 
+        @JsonProperty("voltageFrequency")
 	@Column(name = "frecuencia_tension", nullable = false)
 	private float frecuenciaTension;
 
+        @JsonProperty("currentFrequency")
 	@Column(name = "frecuencia_corriente", nullable = false)
 	private float frecuenciaCorriente;
 
+        @JsonProperty("phaseShift")
 	@Column(name = "desfasaje", nullable = false)
 	private float desfasaje;
 
+        @JsonProperty("groundVoltage")
 	@Column(name = "tension_tierra", nullable = false)
 	private float tensionTierra;
 
+        @JsonProperty("internalVoltage")
 	@Column(name = "tension_interna", nullable = false)
 	private float tensionInterna;
 
+        @JsonProperty("internalCurrent")
 	@Column(name = "corriente_interna", nullable = false)
 	private float corrienteInterna;
 
+        @JsonProperty("continuousVoltage")
 	@Column(name = "tension_continua", nullable = false)
 	private float tensionContinua;
 
+        @JsonProperty("continuousCurrent")
 	@Column(name = "corriente_continua", nullable = false)
 	private float corrienteContinua;
 
+        @JsonProperty("temperature1")
 	@Column(name = "temperatura1", nullable = false)
 	private float temperatura1;
 
+        @JsonProperty("temperature2")
 	@Column(name = "temperatura2", nullable = false)
 	private float temperatura2;
 
+        @JsonProperty("temperature3")
 	@Column(name = "temperatura3", nullable = false)
 	private float temperatura3;
 
+        @JsonProperty("temperature4")
 	@Column(name = "temperatura4", nullable = false)
 	private float temperatura4;
 
+        @JsonProperty("temperature5")
 	@Column(name = "temperatura5", nullable = false)
 	private float temperatura5;
 
+        @JsonProperty("humidity")
 	@Column(name = "humedad", nullable = false)
 	private float humedad;
 
+        @JsonProperty("pwm")
 	@Column(name = "pvm", nullable = false)
 	private float pvm;
 
+        @JsonProperty("date")
 	@Column(name = "fecha", nullable = true)
         @Temporal(javax.persistence.TemporalType.DATE)
 	private Date fecha;
 
+        @JsonProperty("hour")
 	@Column(name = "hora", nullable = true)
 	private Time hora;
 
+        @JsonProperty("continuousPower")
 	@Column(name = "potencia_continua", nullable = false, scale = 2)
 	private float potenciaContinua;
 
+        @JsonProperty("networkPower")
 	@Column(name = "potencia_red", nullable = false, scale = 2)
 	private float potenciaRed;
 
+        @JsonProperty("internalPower")
 	@Column(name = "potencia_interna", nullable = false, scale = 2)
 	private float potenciaInterna;
 	
+        @JsonProperty("controlState")
 	@Column(name = "estado_control", nullable = false)
 	private boolean estadoControl = false;
 

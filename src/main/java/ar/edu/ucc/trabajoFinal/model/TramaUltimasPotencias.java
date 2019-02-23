@@ -1,5 +1,7 @@
 package ar.edu.ucc.trabajoFinal.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -8,13 +10,19 @@ import javax.persistence.Id;
  * @author ezequiel
  */
 @Entity
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class TramaUltimasPotencias {
     
     @Id
+    @JsonProperty("node")
     private Long nodo;
+    @JsonProperty("continuousPower")
     private String potenciaContinua;
+    @JsonProperty("networkPower")
     private String potenciaRed;
+    @JsonProperty("internalPower")
     private String potenciaInterna;
+    @JsonProperty("hour")
     private String hora;
 
     public TramaUltimasPotencias() {

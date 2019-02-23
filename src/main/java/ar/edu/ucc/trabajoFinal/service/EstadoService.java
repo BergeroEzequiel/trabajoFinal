@@ -1,6 +1,7 @@
 package ar.edu.ucc.trabajoFinal.service;
 
 import ar.edu.ucc.trabajoFinal.dao.DaoGenerico;
+import ar.edu.ucc.trabajoFinal.dao.EstadoDao;
 import ar.edu.ucc.trabajoFinal.dao.IEstadoDao;
 import ar.edu.ucc.trabajoFinal.model.Estado;
 import java.text.ParseException;
@@ -27,7 +28,7 @@ public class EstadoService {
 
     @PostConstruct
     public void init() {
-            estadoDaoParticular = (IEstadoDao) estadoDao;
+            estadoDaoParticular = (EstadoDao) estadoDao;
     }
     
     @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)

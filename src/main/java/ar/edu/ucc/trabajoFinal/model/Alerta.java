@@ -1,6 +1,5 @@
 package ar.edu.ucc.trabajoFinal.model;
 
-
 import java.sql.Time;
 import java.util.Date;
 
@@ -10,132 +9,141 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-
 import ar.edu.ucc.trabajoFinal.trama.Variable;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.Temporal;
 
-
 @Entity
-@Table(name="alertas")
-public class Alerta extends ObjetoGenerico{
-		
-	@Column(name="descripcion", length=50, nullable=false)
-	private String descripcion;
-	
-	@Column(name="variable_afectada", length=50, nullable=false)
-	private String variableAfectada;
-	
-	@Column(name="valor", length=50)
-	private Float valor;
+@Table(name = "alertas")
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class Alerta extends ObjetoGenerico {
 
-	@ManyToOne
-	@JoinColumn(name="id_umbral", nullable = true)
-	private Umbral umbralSuperado;
-	
-	@ManyToOne
-	@JoinColumn(name="id_nodo")
-	private Nodo nodo;
-	
-	@ManyToOne
-	@JoinColumn(name="id_criticidad")
-	private Criticidad criticidad;
-	
-	@Column(name="visualizar", nullable = false, columnDefinition = "BOOLEAN DEFAULT false")
-	private boolean visualizar;
-	
-	@Column(name="fecha", nullable=false)
-        @Temporal(javax.persistence.TemporalType.DATE)
-	private Date fecha;
-	
-	@Column(name="hora", nullable=false)
-	private Time hora;
-	
-	public Alerta() {
-		super();
-	}
-	
-	public Alerta(Variable v, Nodo nodo) {
-		this.descripcion="variable fuera de umbral";
-		this.variableAfectada = v.getNombre();
-		this.valor = v.getValorActual();
-		this.umbralSuperado = v.getUmbral();
-		this.nodo = nodo;
-		this.criticidad = v.getUmbral().getCriticidad();
-		this.fecha = new Date();
-		this.hora = new Time(System.currentTimeMillis());
-	}
-	
-	public String getDescripcion() {
-		return descripcion;
-	}
+    @JsonProperty("description")
+    @Column(name = "descripcion", length = 50, nullable = false)
+    private String descripcion;
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
+    @JsonProperty("affectedVariable")
+    @Column(name = "variable_afectada", length = 50, nullable = false)
+    private String variableAfectada;
 
-	public String getVariableAfectada() {
-		return variableAfectada;
-	}
+    @JsonProperty("value")
+    @Column(name = "valor", length = 50)
+    private Float valor;
 
-	public void setVariableAfectada(String variableAfectada) {
-		this.variableAfectada = variableAfectada;
-	}
-	
-	public Float getValor() {
-		return valor;
-	}
+    @ManyToOne
+    @JoinColumn(name = "id_umbral", nullable = true)
+    @JsonProperty("thresholdExceeded")
+    private Umbral umbralSuperado;
 
-	public void setValor(Float valor) {
-		this.valor = valor;
-	}
+    @ManyToOne
+    @JoinColumn(name = "id_nodo")
+    @JsonProperty("node")
+    private Nodo nodo;
 
-	public Umbral getUmbralSuperado() {
-		return umbralSuperado;
-	}
+    @ManyToOne
+    @JoinColumn(name = "id_criticidad")
+    @JsonProperty("severity")
+    private Criticidad criticidad;
 
-	public void setUmbralSuperado(Umbral umbralSuperado) {
-		this.umbralSuperado = umbralSuperado;
-	}
+    @JsonProperty("visualize")
+    @Column(name = "visualizar", nullable = false, columnDefinition = "BOOLEAN DEFAULT false")
+    private boolean visualizar;
 
-        public Nodo getNodo() {
-            return nodo;
-        }
+    @JsonProperty("date")
+    @Column(name = "fecha", nullable = false)
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date fecha;
 
-        public void setNodo(Nodo nodo) {
-            this.nodo = nodo;
-        }
+    @JsonProperty("hour")
+    @Column(name = "hora", nullable = false)
+    private Time hora;
 
+    public Alerta() {
+        super();
+    }
 
-	public Criticidad getCriticidad() {
-		return criticidad;
-	}
+    public Alerta(Variable v, Nodo nodo) {
+        this.descripcion = "variable fuera de umbral";
+        this.variableAfectada = v.getNombre();
+        this.valor = v.getValorActual();
+        this.umbralSuperado = v.getUmbral();
+        this.nodo = nodo;
+        this.criticidad = v.getUmbral().getCriticidad();
+        this.fecha = new Date();
+        this.hora = new Time(System.currentTimeMillis());
+    }
 
-	public void setCriticidad(Criticidad criticidad) {
-		this.criticidad = criticidad;
-	}
+    public String getDescripcion() {
+        return descripcion;
+    }
 
-	public boolean isVisualizar() {
-		return visualizar;
-	}
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
 
-	public void setVisualizar(boolean visualizar) {
-		this.visualizar = visualizar;
-	}
+    public String getVariableAfectada() {
+        return variableAfectada;
+    }
 
-	public Date getFecha() {
-		return fecha;
-	}
+    public void setVariableAfectada(String variableAfectada) {
+        this.variableAfectada = variableAfectada;
+    }
 
-	public void setFecha(Date fecha) {
-		this.fecha = fecha;
-	}
+    public Float getValor() {
+        return valor;
+    }
 
-	public Time getHora() {
-		return hora;
-	}
+    public void setValor(Float valor) {
+        this.valor = valor;
+    }
 
-	public void setHora(Time hora) {
-		this.hora = hora;
-	}	
+    public Umbral getUmbralSuperado() {
+        return umbralSuperado;
+    }
+
+    public void setUmbralSuperado(Umbral umbralSuperado) {
+        this.umbralSuperado = umbralSuperado;
+    }
+
+    public Nodo getNodo() {
+        return nodo;
+    }
+
+    public void setNodo(Nodo nodo) {
+        this.nodo = nodo;
+    }
+
+    public Criticidad getCriticidad() {
+        return criticidad;
+    }
+
+    public void setCriticidad(Criticidad criticidad) {
+        this.criticidad = criticidad;
+    }
+
+    public boolean isVisualizar() {
+        return visualizar;
+    }
+
+    public void setVisualizar(boolean visualizar) {
+        this.visualizar = visualizar;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+
+    public Time getHora() {
+        return hora;
+    }
+
+    public void setHora(Time hora) {
+        this.hora = hora;
+    }
 
 }

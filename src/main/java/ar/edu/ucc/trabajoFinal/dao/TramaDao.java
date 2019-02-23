@@ -327,14 +327,14 @@ public class TramaDao extends DaoGenericoImp<Trama, Long> implements ITramaDao {
 
         List list;
         list = ((Query) this.currentSession()
-                .createQuery("select MAX(hora) as hora, nodo.id as nodo"
+                .createQuery("select MAX(hora) as hora, nodo.id as nodo "
                         + "from Trama "
                         + "where fecha >= :fechaActual "
                         + "group by nodo"))
                 .setResultTransformer(Transformers.aliasToBean(TramaAuxiliar.class))
-                .setParameter("fechaActual", dateFormatter.format(new Date())).list();
+                .setParameter("fechaActual", new Date()).list();
 
-        return null;
+        return list;
 
     }
 

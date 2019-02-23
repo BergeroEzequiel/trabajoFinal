@@ -2,6 +2,7 @@ package ar.edu.ucc.trabajoFinal.service;
 
 import ar.edu.ucc.trabajoFinal.dao.DaoGenerico;
 import ar.edu.ucc.trabajoFinal.dao.IUserProfileDao;
+import ar.edu.ucc.trabajoFinal.dao.UserProfileDao;
 import ar.edu.ucc.trabajoFinal.model.UserProfile;
 import java.text.ParseException;
 import java.util.List;
@@ -26,7 +27,7 @@ public class UserProfileService {
 
     @PostConstruct
     public void init() {
-            userProfileDaoParticular = (IUserProfileDao) userProfileDao;
+            userProfileDaoParticular = (UserProfileDao) userProfileDao;
     }
     
     @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)

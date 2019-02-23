@@ -1,25 +1,33 @@
 package ar.edu.ucc.trabajoFinal.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "nodos")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Nodo extends ObjetoGenerico {
 
+    @JsonProperty("module")
     @Column(name = "moludo", length = 50, nullable = false)
     private String modulo;
 
+    @JsonProperty("number")
     @Column(name = "numero", nullable = false)
     private int numero;
 
+    @JsonProperty("isActive")
     @Column(name = "activo", nullable = false, columnDefinition = "BOOLEAN DEFAULT true")
     private boolean activo;
 
+    @JsonProperty("description")
     @Column(name = "descripcion", length = 250, nullable = false)
     private String descripcion;
 
+    @JsonProperty("working")
     @Column(name = "funcionando", nullable = false, columnDefinition = "BOOLEAN DEFAULT true")
     private boolean funcionando;
 

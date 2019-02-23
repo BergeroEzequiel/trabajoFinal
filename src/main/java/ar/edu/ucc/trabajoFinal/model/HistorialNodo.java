@@ -1,5 +1,8 @@
 package ar.edu.ucc.trabajoFinal.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Calendar;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,10 +17,23 @@ import javax.persistence.Temporal;
  */
 @Entity
 @Table(name = "historial_nodos")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class HistorialNodo extends ObjetoGenerico{
+
+    public HistorialNodo() {
+    }
+
+    public HistorialNodo(Nodo nodo, Date control, Calendar ultimaTrama, String descripcion) {
+        this.nodo = nodo;
+        this.control = control;
+        this.ultimaTrama = ultimaTrama;
+        this.descripcion = descripcion;
+    }
+    
     
     @ManyToOne
     @JoinColumn(name="id_nodo")
+    @JsonProperty("node")
     private Nodo nodo;
     
     @Column(name="control", nullable=false)
@@ -26,7 +42,12 @@ public class HistorialNodo extends ObjetoGenerico{
     
     @Column(name="ultimaTrama", nullable=false)
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
-    private Date ultimaTrama;
+    @JsonProperty("lastFrame")
+    private Calendar ultimaTrama;
+    
+    @Column(name="descripcion", nullable=false)
+    @JsonProperty("description")
+    private String descripcion;
 
     public Nodo getNodo() {
         return nodo;
@@ -44,11 +65,11 @@ public class HistorialNodo extends ObjetoGenerico{
         this.control = control;
     }
 
-    public Date getUltimaTrama() {
+    public Calendar getUltimaTrama() {
         return ultimaTrama;
     }
 
-    public void setUltimaTrama(Date ultimaTrama) {
+    public void setUltimaTrama(Calendar ultimaTrama) {
         this.ultimaTrama = ultimaTrama;
     }
     

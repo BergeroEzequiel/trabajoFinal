@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 
 import ar.edu.ucc.trabajoFinal.model.Nodo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
 
@@ -51,58 +52,85 @@ public class TramaDto {
 	
 	private Long id;
 	
+        @JsonProperty("module")
 	private String modulo;
 
+        @JsonProperty("number")
 	private int numero;
 	
+        @JsonProperty("node")
 	private Nodo nodo;
 
+        @JsonProperty("state")
 	private String estado;
 
+        @JsonProperty("networkVoltage")
 	private float tensionRed;
 
+        @JsonProperty("networkCurrent")
 	private float corrienteRed;	
 
+        @JsonProperty("voltageFrequency")
 	private float frecuenciaTension;
 
+        @JsonProperty("currentFrequency")
 	private float frecuenciaCorriente;
 
+        @JsonProperty("phaseShift")
 	private float desfasaje;
 
+        @JsonProperty("groundVoltage")
 	private float tensionTierra;
 
+        @JsonProperty("internalVoltage")
 	private float tensionInterna;
 
+        @JsonProperty("internalCurrent")
 	private float corrienteInterna;
 
+        @JsonProperty("continuousVoltage")
 	private float tensionContinua;
 
+        @JsonProperty("continuousCurrent")
 	private float corrienteContinua;
 
+        @JsonProperty("temperature1")
 	private float temperatura1;
 
+        @JsonProperty("temperature2")
 	private float temperatura2;
 
+        @JsonProperty("temperature3")
 	private float temperatura3;
 
+        @JsonProperty("temperature4")
 	private float temperatura4;
 
+        @JsonProperty("temperature5")
 	private float temperatura5;
 
+        @JsonProperty("humidity")
 	private float humedad;
 
+        @JsonProperty("pwm")
 	private float pvm;
 
+        @JsonProperty("date")
 	private String fecha;
 
+        @JsonProperty("hour")
 	private String hora;
 
+        @JsonProperty("continuousPower")
 	private float potenciaContinua;
 
+        @JsonProperty("networkPower")
 	private float potenciaRed;
 
+        @JsonProperty("internalPower")
 	private float potenciaInterna;
 	
+        @JsonProperty("controlState")
 	private boolean estadoControl = false;
 	
 	

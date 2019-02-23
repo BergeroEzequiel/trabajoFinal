@@ -1,6 +1,7 @@
 package ar.edu.ucc.trabajoFinal.dto;
 
 import ar.edu.ucc.trabajoFinal.model.TramaFiltrada;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import java.util.List;
 
@@ -18,7 +19,9 @@ public class TramaFiltradaDto implements Serializable{
         this.valores = valores;
     }
 
+    @JsonProperty("variableName")
     private String variable;
+    @JsonProperty("date")
     private List<TramaFiltrada> valores;
 
     public String getVariable() {
