@@ -51,6 +51,10 @@ public class Umbral extends ObjetoGenerico {
     @Column(name = "tipo_umbral", insertable = false, updatable = false)
     @JsonProperty("type")
     private String tipoUmbral;
+    
+    @Column(name = "enUso", nullable = false, columnDefinition = "BOOLEAN DEFAULT true")
+    @JsonProperty("enUse")
+    private boolean enUso;
 
     public Criticidad getCriticidad() {
         return criticidad;
@@ -114,6 +118,14 @@ public class Umbral extends ObjetoGenerico {
 
     public void setTipoUmbral(String tipoUmbral) {
         this.tipoUmbral = tipoUmbral;
+    }
+    
+    public boolean isEnUso() {
+        return enUso;
+    }
+
+    public void setEnUso(boolean enUso) {
+        this.enUso = enUso;
     }
 
 }

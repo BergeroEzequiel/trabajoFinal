@@ -13,7 +13,8 @@ public class UmbralEspecificoDao extends DaoGenericoImp<UmbralEspecifico, Long> 
 
 	@Override
 	public List<UmbralEspecifico> getUmbralesEspByNodo(Long idNodo) {
-		List<UmbralEspecifico> umbralesEsp = this.getByCriteria(Restrictions.like("idNodo", idNodo));
+		List<UmbralEspecifico> umbralesEsp = this.getByCriteria(Restrictions.like("nodo.id", idNodo), 
+                        Restrictions.eq("enUso", true));
 		System.out.println(umbralesEsp.size());
 		return umbralesEsp;
 	}

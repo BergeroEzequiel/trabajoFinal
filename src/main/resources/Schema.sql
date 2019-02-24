@@ -233,6 +233,7 @@
         tipo_umbral varchar(31) not null,
         ID bigint not null auto_increment,
         activo BOOLEAN DEFAULT true not null,
+        enUso BOOLEAN DEFAULT true not null,
         nombre_variable varchar(50) not null,
         ultima_modificacion date not null,
         valor_max float not null,

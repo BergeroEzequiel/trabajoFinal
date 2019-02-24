@@ -199,8 +199,8 @@
     <bean id="cronTrigger10MinutosNodos"
               class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
         <property name="jobDetail" ref="jobNodosFuncionando" />
-        <!--<property name="cronExpression" value="0 0/10 * 1/1 * ? *" />--> 
-        <property name="cronExpression" value="0 0/2 * 1/1 * ? *" /> 
+        <property name="cronExpression" value="0 0/10 * 1/1 * ? *" /> 
+        <!--<property name="cronExpression" value="0 0/2 * 1/1 * ? *" />--> 
     </bean>
     
     <bean id="cronTrigger30Minutos"
@@ -220,6 +220,7 @@
               class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
         <property name="jobDetail" ref="jobMqttMock" />
         <property name="cronExpression" value="0/30 * * 1/1 * ? *" /> 
+        <!--<property name="cronExpression" value="0 0/60 * 1/1 * ? *" />--> 
     </bean>
 
 

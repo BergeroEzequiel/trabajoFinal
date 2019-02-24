@@ -14,7 +14,9 @@ import ar.edu.ucc.trabajoFinal.dao.DaoGenerico;
 import ar.edu.ucc.trabajoFinal.dao.ITramaProcesadaDao;
 import ar.edu.ucc.trabajoFinal.dao.TramaProcesadaDao;
 import ar.edu.ucc.trabajoFinal.dto.TramaProcesadaDto;
+import ar.edu.ucc.trabajoFinal.model.TipoProcesamiento;
 import ar.edu.ucc.trabajoFinal.model.TramaProcesada;
+import ar.edu.ucc.trabajoFinal.utils.Hora;
 import java.sql.Time;
 import java.util.Date;
 import java.util.List;
@@ -126,12 +128,19 @@ public class TramaProcesadaService {
             String[] nombreVariable, Date fechaDesde, Date fechaHasta, String horaDesde,
             String horaHasta, Long idTipoProcesamiento, Long idNodo) throws ParseException {
         
-        Time horaDesdeCasteada;
+        Time horaDesdeCasteada = null;
         Time horaHastaCasteada;
         
         if(horaDesde != null && !horaDesde.isEmpty() && horaHasta != null && !horaHasta.isEmpty()){
             horaDesdeCasteada = Time.valueOf(horaDesde);
             horaHastaCasteada = Time.valueOf(horaHasta);
+        } else if(horaHasta != null && !horaHasta.isEmpty() && (horaDesde == null || horaDesde.isEmpty())){
+            horaHastaCasteada = Time.valueOf(horaHasta);
+            if(idTipoProcesamiento == TipoProcesamiento.HORAS2)
+                horaDesdeCasteada = Hora.restarMinutos(horaHastaCasteada, 120);
+//            if(idTipoProcesamiento == TipoProcesamiento.MINUTOS20)
+//                horaDesdeCasteada = Hora.restarMinutos(horaHastaCasteada, 20); 
+//                COMENTO Porque Esto no sirve, acá ya deberia pegarle al endpoint de tramas
         } else{
             horaDesdeCasteada = Time.valueOf("00:00:00");
             horaHastaCasteada = Time.valueOf("23:59:59");

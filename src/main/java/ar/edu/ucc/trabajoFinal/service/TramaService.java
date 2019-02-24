@@ -23,6 +23,7 @@ import ar.edu.ucc.trabajoFinal.model.Nodo;
 import ar.edu.ucc.trabajoFinal.model.Trama;
 import ar.edu.ucc.trabajoFinal.model.TramaPotencias;
 import ar.edu.ucc.trabajoFinal.model.TramaUltimasPotencias;
+import ar.edu.ucc.trabajoFinal.utils.Hora;
 import ar.edu.ucc.trabajoFinal.utils.NodoMapper;
 import ar.edu.ucc.trabajoFinal.utils.TramaControl;
 import java.util.Date;
@@ -253,11 +254,14 @@ public class TramaService {
         if(horaDesde != null && !horaDesde.isEmpty() && horaHasta != null && !horaHasta.isEmpty()){
             horaDesdeCasteada = Time.valueOf(horaDesde);
             horaHastaCasteada = Time.valueOf(horaHasta);
+        } else if(horaHasta != null && !horaHasta.isEmpty() && (horaDesde == null || horaDesde.isEmpty())){
+            horaHastaCasteada = Time.valueOf(horaHasta);
+                horaDesdeCasteada = Hora.restarMinutos(horaHastaCasteada, 20);
         } else{
             horaDesdeCasteada = Time.valueOf("00:00:00");
             horaHastaCasteada = Time.valueOf("23:59:59");
         }
-         
+                 
         
         List trama = tramaDaoParticular.getTramasByTiempoAndNodo(
                 nombreVariable, fechaDesde, fechaHasta, horaDesdeCasteada, horaHastaCasteada, idNodo);

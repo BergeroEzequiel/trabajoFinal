@@ -52,7 +52,7 @@ public class JobNodosFuncionando extends QuartzJobBean {
         List<TramaAuxiliar> ultimasTramas = tramaDao.getUltimaTramaPorNodo();
         List<Nodo> nodos = NodoMapper.getInstance().getNodosActivos();
         horaActual = new Time(System.currentTimeMillis());
-            horaMenos10Minutos = Hora.restarMinutos(horaActual, 2);
+            horaMenos10Minutos = Hora.restarMinutos(horaActual, 10);
 
         HistorialNodo historialNodo = null;
         Calendar cal = Calendar.getInstance();
